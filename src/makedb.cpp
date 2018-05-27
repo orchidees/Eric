@@ -12,35 +12,33 @@ using namespace std;
 
 // (0. read all files of a folder, compute MFCC and save a text file)
 
-bool readDirectory (const string &directoryLocation, vector<string>& result) {
+void listdir(const char *name, int indent) {
     DIR *dir;
-    struct dirent *ent;
+    struct dirent *entry;
 
-    if ((dir = opendir(directoryLocation.c_str())) == NULL)   {
-        return false;
+    if (!(dir = opendir(name))) return;
+
+    while ((entry = readdir(dir)) != NULL) {
+        if (entry->d_type == DT_DIR) {
+            char path[1024];
+            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) {
+                continue;
+            }
+            snprintf(path, sizeof(path), "%s/%s", name, entry->d_name);
+            printf("%*s[%s]\n", indent, "", entry->d_name);
+            listdir(path, indent + 2);
+        } else {
+            printf("%*s- %s\n", indent, "", entry->d_name);
+        }
     }
-
-    while ((ent = readdir(dir)) != NULL)   {
-        string entry( ent->d_name );
-        result.push_back( entry );
-    }
-
-    if (closedir(dir) != 0)   {
-    	return false;
-    }
-
-    return true;
+    closedir(dir);
 }
-
 
 int main (int argc, char* argv[]) {
 	try {
-
     	std::vector<string> v;
-    	readDirectory(argv[1], v);
-    	for (unsigned i = 0; i < v.size (); ++i) {
-    		cout << v[i] << endl;
-    	}
+    	listdir (argv[1], 0);
+
 	}
 	catch (exception& e) {
 		cout << "Error: " << e.what () << endl;
