@@ -12,9 +12,8 @@ using namespace std;
 
 // (0. read all files of a folder, compute MFCC and save a text file)
 
-const int BSIZE = 1024;
+const int BSIZE = 2048;
 const int HOPSIZE = 512;
-const int NUM_FEATURES = BSIZE / 4;
 
 int main (int argc, char* argv[]) {
 	cout << "[makedb, ver. 0.1]" << endl << endl;
@@ -22,14 +21,22 @@ int main (int argc, char* argv[]) {
 	cout << "(c) 2018, www.carminecella.com" << endl << endl;
 
 	try {
-        if (argc != 3) {
-            throw runtime_error("syntax is 'makedb path dbfile.txt'");
+        if (argc != 5) {
+            throw runtime_error("syntax is 'makedb path dbfile.txt feature_type ncoeff'" \
+                "\n\nwhere feature_type = [spectrum | specenv | mfcc]\n");
         }
 
         ofstream out (argv[2]);
         if (!out.good ()) {
         	throw runtime_error ("cannot create output file");
         }
+        
+        int ncoeff = atol (argv[4]);
+        if (ncoeff <= 0 || ncoeff >= BSIZE) {
+            throw runtime_error("invalid number of coefficients requested");
+        }
+        
+        out << argv[3] << " " << BSIZE << " " << HOPSIZE << " " << ncoeff << endl;
 
         cout << "parsing source folder...";
     	std::vector<string> files;
@@ -47,10 +54,10 @@ int main (int argc, char* argv[]) {
     				stringstream fullname;
     				fullname << argv[1] << files[i];
     				compute_features (fullname.str ().c_str (), features, 
-    					BSIZE, HOPSIZE, NUM_FEATURES);	
+    					BSIZE, HOPSIZE, ncoeff, (string) (argv[3]));	
 
     				out << files[i] << " ";
-					for (int i = 0; i < NUM_FEATURES; ++i) {
+					for (int i = 0; i < features.size (); ++i) {
 						out << features[i] << " ";
 					}
     				out << endl;

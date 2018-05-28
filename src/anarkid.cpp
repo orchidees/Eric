@@ -1,6 +1,11 @@
 // anarkid.cpp
 //
 
+#include "analysis.h"
+#include "utilities.h"
+#include "constants.h"
+#include "ga.h"
+
 #include <stdexcept>
 #include <iostream>
 #include <vector>
@@ -8,21 +13,9 @@
 #include <cstdlib>
 #include <map>
 #include <iomanip>
-
-#include "analysis.h"
-#include "utilities.h"
-#include "ga.h"
-#include "BMP24.h"
+#include <ctime>
 
 using namespace std;
-
-const int BSIZE = 1024;
-const int HOPSIZE = 512;
-const int NUM_FEATURES = BSIZE / 4;
-
-const int POP_SIZE = 100;
-const int NUM_INSTR = 20;
-const int MAX_EPOCHS = 1000;
 
 // 1. compute MFCC of target
 // 2. read text file for data in memory filename + coefficients
@@ -33,83 +26,63 @@ const int MAX_EPOCHS = 1000;
 
 int main (int argc, char* argv[]) {
     try {
+    	srand (time (NULL));
+
 		cout << "[anarkid, ver. 0.1]" << endl << endl;
 		cout << "anarchist assisted orchestration" << endl;
 		cout << "(c) 2018, www.carminecella.com" << endl << endl;
 
-		if (argc != 7) {
-			throw runtime_error("syntax is 'anarkid target.wav dbfile.txt xover_rate mutation_rate mutation_amplitude sound_path");
+		if (argc != 3) {
+			throw runtime_error("syntax is 'anarkid target.wav config.txt");
 		}
 
-		cout << "analysing target...";
-		vector<float> target;
-		compute_features(argv[1], target, BSIZE, HOPSIZE, NUM_FEATURES);
+		cout << "loading configuration...";
+		Config<float> c;
+		read_config(argv[2], &c);
 		cout << "done" << endl;
 
 		cout << "loading database...";
 		vector<db_entry> database;
-		load_db (argv[2], database, NUM_FEATURES);
+		int bsize = 1024;
+		int hopsize = 512;
+		int ncoeff = 14;
+		std::string type = "spectrum";
+
+		load_db (c.db_file.c_str (), database, bsize, hopsize, ncoeff, type);
 		cout << "done" << endl;
 
-		float xover_rate = atof (argv[3]);
-		float mutation_rate = atof (argv[4]);
-		float mutation_amplitude = atof (argv[5]);
+		cout << "analysing target...";
+		vector<float> target;
+		compute_features(argv[1], target, bsize, hopsize, ncoeff, type);
+		cout << "done" << endl << endl;
+		plot_vector("target.bmp", target, type == "mfcc" ? true : false, false, ncoeff);
 
-		int maxPos = 0;
-		float max = maximum(&target[0], target.size (), maxPos);
-		BMP24 t (NUM_FEATURES, 256);
-		for (unsigned z = 0; z < target.size (); ++z) {
-			t.set (z, (int) 128 + (128. * target[z] / max), 0, 127, 0);
-		}
-		t.save ("target.bmp");
+		cout << "features  : " << type << ", " << bsize << ", " << hopsize << ", "
+			<< ncoeff << endl;
+		cout << "parameters: " << c.xover_rate << ", " << c.mutation_rate << ", "
+			<< c.mutation_amp << endl << endl;
 
-		vector<Individual> population (POP_SIZE);
-		gen_random_population (population, NUM_INSTR, database.size ());
+		vector<Individual> population (c.pop_size);
+		gen_random_population (population, c.n_instruments, database.size ());
 
 		float total_fitness = 0;
 		vector<float> fitness;
 
-		ofstream solutions ("solutions.txt");
-		solutions << "target: " << argv[1] << endl << endl;
-
+		vector<Individual> bests;
 		int fit_count = 0;
 		float old_fit = 0;
-		for (unsigned i = 0; i < MAX_EPOCHS; ++i) {
-			total_fitness = evaluate_population(population, target, database, NUM_FEATURES);	
+		for (unsigned i = 0; i < c.max_epochs; ++i) {
+			total_fitness = evaluate_population(population, target, database, ncoeff);	
 
 			fitness.push_back(total_fitness);
 
-			cout <<  "epoch: " << setw (4) << i << " - total fitness = " << total_fitness << endl;
-			vector<Individual> new_pop (POP_SIZE);
-			genereate_population(population, new_pop, POP_SIZE, total_fitness,
-				xover_rate, mutation_rate, mutation_amplitude, database.size ());
-
-			Individual best = get_best_individual(new_pop);				
-			std::vector<float> values (target.size (), 0);
+			cout <<  "epoch = " << setw (5) << i << " - fitness = " << total_fitness << endl;
+			vector<Individual> new_pop (c.pop_size);
+			genereate_population(population, new_pop, c.pop_size, total_fitness,
+				c.xover_rate, c.mutation_rate, c.mutation_amp, database.size ());
 			
-			forecast_individual(best, database, values, NUM_FEATURES);
-			maxPos = 0;
-			max = maximum(&values[0], values.size (), maxPos);
-
-			BMP24 b (NUM_FEATURES, 256);
-			for (unsigned z = 0; z < values.size (); ++z) {
-				b.set (z, (int) (128. * (values[z]) / max) + 128, 0, 127, 0);
-			}
-			std::stringstream name_bmp;
-			name_bmp << "best_at_epoch_" << i << ".bmp";
-			b.save (name_bmp.str ().c_str ());
-
-			std::stringstream name_wav;
-			name_wav << "best_at_epoch_" << i << ".wav";			
-			vector<string> files;
-			vector<float> ratios (NUM_INSTR, 1);
-			decode_chromosome(best.chromosome, database, files);
-
-			create_sound_mix(files, argv[6], ratios, name_wav.str ().c_str ());
-			for (unsigned z = 0; z < files.size (); ++z) {
-				solutions << files[z] << " ";
-			}
-			solutions << endl;
+			Individual best = get_best_individual(new_pop);				
+			bests.push_back (best);
 
 			copy_population (new_pop, population);
 
@@ -118,26 +91,20 @@ int main (int argc, char* argv[]) {
 			if (fit_count > 10) break;
 			old_fit = total_fitness;
 		}
-	
 		cout << endl;
 		Individual best = get_best_individual(population);
-		
 		cout << "final fitness = " << total_fitness << endl << endl;
-
 		cout << "best solution: " << endl;
-		for (unsigned i = 0; i < NUM_INSTR; ++i) {
+		for (unsigned i = 0; i < c.n_instruments; ++i) {
 			cout << "\t" << database[best.chromosome[i]].file << endl;
 		}
 		cout << endl;
 
-		BMP24 ft (fitness.size (), 256);
-		maxPos = 0;
-		max = maximum(&fitness[0], fitness.size (), maxPos);
+		plot_vector("fitness.bmp", fitness, false, true, fitness.size ());
 
-		for (unsigned z = 0; z < fitness.size (); ++z) {
-			ft.set (z, (int) (128. * (fitness[z]) / max) + 128, 0, 127, 0);
-		}
-		ft.save ("fitness.bmp");
+		cout << "saving best solutions..."; cout.flush ();
+		export_population(population, database, c.sound_path.c_str (), type, ncoeff);
+		cout << "done" << endl;
 
     } catch (exception& e) {
         cout << "Error: " << e.what () << endl;

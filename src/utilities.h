@@ -16,6 +16,7 @@
 #include <dirent.h>
 
 #include "WavFile.h"
+#include "BMP24.h"
 #include "algorithms.h"
 
 // -----------------------------------------------------------------------------
@@ -95,17 +96,100 @@ void erase_substring (std::string & mainStr, const std::string & toErase) {
 
 // -----------------------------------------------------------------------------
 
+template <typename T>
+struct Config {
+	std::string db_file;
+	std::string sound_path;
+	int n_instruments;
+	int pop_size;
+	int max_epochs;
+	T xover_rate;
+	T mutation_rate;
+	int mutation_amp;
+};
+
+template <typename T>
+void read_config (const char* config_file, Config<T>* p) {
+
+	std::ifstream config (config_file);
+	if (!config.good ()) {
+		throw std::runtime_error ("cannot open configuration file");
+	}
+
+    int line = 0;
+    while (!config.eof ()) {
+        std::string inp;
+        std::string opcode;
+
+        ++line;
+        std::getline (config, inp, '\n');
+
+        if (inp.size () == 0) continue;
+
+        std::istringstream istr (inp, std::ios_base::out);
+
+        std::vector <std::string> tokens;
+        while (!istr.eof ()) {
+            istr >> opcode;
+            tokens.push_back (opcode);
+        }
+
+        if (tokens[0][0] == ';') continue;
+        if (tokens.size () < 2) {
+            std::stringstream err;
+            err << "invalid syntax at line " << line;
+            throw std::runtime_error (err.str ());
+        }
+
+        if (tokens[0] == "db_file") {
+        	p->db_file = tokens[1];
+        } else if (tokens[0] == "sound_path") {
+        	p->sound_path = tokens[1];
+        } else if (tokens[0] == "n_instruments") {
+        	p->n_instruments = atol (tokens[1].c_str ());
+
+        } else if (tokens[0] == "pop_size") {
+        	p->pop_size = atol (tokens[1].c_str ());
+        } else if (tokens[0] == "max_epochs") {
+        	p->max_epochs = atol (tokens[1].c_str ());
+        } else if (tokens[0] == "xover_rate") {
+        	p->xover_rate = atof (tokens[1].c_str ());
+        } else if (tokens[0] == "mutation_rate") {
+        	p->mutation_rate = atof (tokens[1].c_str ());
+        } else if (tokens[0] == "mutation_amp") {
+        	p->mutation_amp = atol (tokens[1].c_str ());
+        } else {
+            std::stringstream err;
+            err << "invalid token in configuration file at line " << line;
+            throw std::runtime_error (err.str ());
+        }
+    }
+
+	if (p->n_instruments <= 0) {
+        throw std::runtime_error ("invalid number of instruments");
+	}
+	if (p->pop_size <= 0) {
+        throw std::runtime_error ("invalid size for population");
+	}	
+	if (p->mutation_rate <= 0 || p->mutation_rate > 1 || p->xover_rate <= 0 ||
+		p->xover_rate > 1) {
+        throw std::runtime_error ("invalid xover or mutation rate");
+	}	
+}
+
 struct db_entry {
 	std::string file;
 	std::vector<float> features;
 };
 
-void load_db (const char* dbfile, std::vector<db_entry>& database, int ncoeff) {
+void load_db (const char* dbfile, std::vector<db_entry>& database, 
+	int& bsize, int& hopsize, int& ncoeff, std::string& type) {
 	std::ifstream db (dbfile);
 	if (!db.good ()) {
 		throw std::runtime_error("cannot open db file");
 	}
 
+	db >> type >> bsize >> hopsize >> ncoeff;
 	while (!db.eof ()) {
 		std::string line;
 		std::getline(db, line);
@@ -139,7 +223,7 @@ void load_db (const char* dbfile, std::vector<db_entry>& database, int ncoeff) {
 }
 
 // -------------------------------------------------------------------------- //
-void listdir(const char *name, const char* trailing_path, std::vector<std::string>& list) {
+void listdir (const char *name, const char* trailing_path, std::vector<std::string>& list) {
     DIR *dir;
     struct dirent *entry;
 
@@ -181,21 +265,6 @@ inline void convert32to16 (const T* in, short* out, int size) {
 }
 
 template <typename T>
-inline void interleave16to32 (const short* in, T* L, T* R, int size) {
-	for (int i = 0; i < size; ++i) {
-		L[i] = (T) in[i * 2] / 32767;
-		R[i] = (T) in[i * 2 + 1] / 32767;
-	}
-}
-
-inline void deinterleave32to16 (const float* L, const float* R, short* out, int size) {
-	for (int i = 0; i < size; ++i) {
-		out[2 * i] = (short) (L[i] * 32767);
-		out[2 * i + 1] = (short) (R[i] * 32767);
-	}
-}
-
-template <typename T>
 void interleave (T* stereo, const T* l, const T* r, int n) {
 	for (int i = 0; i < n; ++i) {
 		stereo[2 * i] = l[i];
@@ -210,6 +279,35 @@ void deinterleave (const T* stereo, T* l, T* r, int n) {
 		r[i] = stereo[2 * i + 1];
 	}
 }	
+
+// -----------------------------------------------------------------------------
+void plot_vector (const char* name, const std::vector<float>& target, bool bipolar, 
+	bool dots = false, unsigned height = 256) {
+	int maxPos = 0;
+	float max = maximum(&target[0], target.size (), maxPos);
+	
+	BMP24 t (target.size (), height);
+	t.background(127, 127, 127);
+	for (unsigned z = 0; z < target.size (); ++z) {
+		if (bipolar) {
+			if (dots) {
+			t.set (z, (int) ((float) height / 2. + ((float) height * target[z] / max)), 
+				0, 0, 0);	
+			} else {	
+				t.line(z, 0, z, (int) ((float) height / 2. + ((float) height * target[z] / max)), 
+				0, 0, 127, true);			
+			}
+		} else {
+			if (dots) {
+				t.set (z, (int) ((float) height * target[z] / max), 0, 0, 0);
+			} else {
+				t.line(z, 0, z,(int) ((float) height * target[z] / max), 0, 0, 127, true);
+			}	
+		}
+	}
+	t.grid (10, 10, 0, 0, 0);
+	t.save (name);
+}
 
 // -----------------------------------------------------------------------------
 void create_sound_mix (const std::vector<std::string>& files, 
@@ -269,11 +367,11 @@ void create_sound_mix (const std::vector<std::string>& files,
 			for (unsigned j = 0; j < lengths[i]; ++j) {
 			int index = (int) phase;
 			double frac = phase - index;
-			// if (index >= lengths[i] - 1) break;
+			if (index >= lengths[i] - 1) break;
 			float sample = pointers[i][index] * (1. - frac) + pointers[i][index + 1] * frac;
 			mix[j] += (sample / pointers.size ());
 			phase += incr;
-			// if (phase >= lengths[i]) break;
+			if (phase >= lengths[i]) break;
 		}
 	}
 
@@ -285,7 +383,6 @@ void create_sound_mix (const std::vector<std::string>& files,
 		delete [] pointers[i];
 	}
 }	
-
 
 #endif	// UTILITIES_H 
 

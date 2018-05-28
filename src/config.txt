@@ -1,0 +1,11 @@
+; anarkid - configuration file
+;
+
+db_file 		SOL_toy_specenv.txt
+sound_path 		/Users/Carmine/Elementi/Datasets/SOL_toy
+n_instruments	6
+pop_size		100
+max_epochs		10000
+xover_rate		.7
+mutation_rate	.2
+mutation_amp	10

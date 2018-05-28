@@ -595,6 +595,34 @@ void sortSpectrum (Peak<T>* peaks, int k) {
 	}	
 }
 
+template <typename T>
+void cepstralEnvelope (int C, const T* magn, T* specenv,
+	AbstractFFT<T>* fft, int N) {
+	int NN = 2 * N;
+    memset (specenv, 0, sizeof (T) * NN);
+
+    for (int i = 0; i < N; ++i) {
+        specenv[2 * i] = log (magn[i] / NN + EPS);
+        specenv[2 * i + 1] = 0;
+    }
+    // inverse transform
+    fft->inverse (specenv);
+
+    for (int i = 0; i < N; ++i) {
+        specenv[2 * i] /= N;
+        specenv[2 * i + 1] = 0;
+    }
+    
+    // liftering
+    specenv[0] *= .5;
+    for (int i = C + 1; i < N; ++i) {
+        specenv[2 * i] = 0;
+    }
+    
+    // spectral envelope
+    fft->forward (specenv);
+}
+
 #endif	// FFT_H 
 
 // EOF

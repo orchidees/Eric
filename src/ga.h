@@ -1,7 +1,6 @@
 // ga.h
 // 
 
-
 #ifndef GA_H
 #define GA_H 
 
@@ -11,8 +10,6 @@
 
 #include "utilities.h"
 #include "algorithms.h"
-
-#define LARGE_VALUE 100000000
 
 struct Individual {
 	std::vector<int> chromosome;
@@ -90,7 +87,8 @@ void print_population (std::ostream& out,
 }
 
 Individual select_parent (const std::vector<Individual>& population, float total_fitness) {
-	float wheel = frand(0, 1) * total_fitness;
+	float wheel = frand<float>(0., 1.) * total_fitness;
+
 	float psum = 0;
 	unsigned select = 0;
 	for (unsigned i = 0; i < population.size (); ++i) {
@@ -101,6 +99,7 @@ Individual select_parent (const std::vector<Individual>& population, float total
 		}
 	}
 
+	// std::cout << "wheel " << wheel << ", parent " << select << std::endl;
 	return population[select];
 }
 
@@ -108,9 +107,9 @@ void crossover_parents (Individual& child, const Individual& parent_a,
 	const Individual& parent_b, float crossover_rate) {
 	child.chromosome = parent_a.chromosome;
 
-	float choice = frand (0, 1);
+	float choice = frand<float>(0., 1.);
 	if (choice < crossover_rate) {
-		float r = frand (0, 1);
+		float r = frand<float>(0., 1.);
 		unsigned  cpoint = (unsigned) (r * child.chromosome.size ());
 		for (unsigned i = cpoint; i < child.chromosome.size(); ++i) {
 			child.chromosome[i] = parent_b.chromosome[i];
@@ -122,13 +121,14 @@ void mutate_individual (Individual& id, float mutation_rate,
 	unsigned mutation_amp, unsigned range) {
 	std::stringstream mutation;
 	for (unsigned i = 0; i < id.chromosome.size (); ++i) {
-		float choice = frand (0, 1);
+		float choice = frand<float>(0., 1.);
 		if (choice < mutation_rate) {
 			int r = (rand () % (2 * mutation_amp)) - mutation_amp;
 			id.chromosome[i] += r;
 			if (id.chromosome[i] >= range || id.chromosome[i] < 0) {
-				id.chromosome[i] = rand () % range;
+				id.chromosome[i] -= r;
 			} 
+			break;
 		} 
 	}
 }
@@ -141,12 +141,16 @@ void genereate_population (const std::vector<Individual>& old_pop,
 		Individual parent_a = select_parent(old_pop, total_fitness);
 		Individual parent_b = select_parent(old_pop, total_fitness);
 
+		// print_individual(std::cout, parent_a); std::cout << std::endl;
+		// print_individual(std::cout, parent_b);  std::cout << std::endl;
 		Individual child;
 		crossover_parents (child, parent_a, parent_b, crossover_rate);
+		// print_individual(std::cout, child);  std::cout << std::endl;
 		mutate_individual (child, mutation_rate, mutation_amp, range);
-
+		// print_individual(std::cout, child);  std::cout << std::endl << std::endl;
 		new_pop[i] = (child);
 	}
+	// getchar ();
 }
 
 void copy_population (const std::vector<Individual>& source, std::vector<Individual>& target) {
@@ -177,6 +181,34 @@ void decode_chromosome (const std::vector<int>& chromosome, const std::vector<db
 	}
 }
 
+void export_population (const std::vector<Individual>& pop,
+	const std::vector<db_entry>& database, const char* root_path,
+	const std::string& type, unsigned ncoeff) {
+	std::ofstream solutions ("solutions.txt");
+	solutions << "features  : " << type << " " << ncoeff << std::endl << std::endl;
+	
+	for (unsigned i = 0; i < pop.size (); ++i) {
+		std::vector<float> values (ncoeff, 0);		
+		forecast_individual(pop[i], database, values, ncoeff);
+		std::stringstream name_bmp;
+		name_bmp << "solution_" << i << ".bmp";
+		plot_vector(name_bmp.str ().c_str (), values, type == "mfcc" ? true : false, 
+			false, ncoeff);
+
+		std::stringstream name_wav;
+		name_wav << "solution_" << i << ".wav";			
+		std::vector<std::string> files;
+		decode_chromosome(pop[i].chromosome, database, files);
+		std::vector<float> ratios (files.size (), 1);
+
+		create_sound_mix(files, root_path, ratios, name_wav.str ().c_str ());
+		for (unsigned z = 0; z < files.size (); ++z) {
+			solutions << files[z] << " ";
+		}
+		solutions << std::endl;
+		solutions.close ();
+	}
+}
 #endif	// GA_H 
 
 // EOF

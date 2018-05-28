@@ -14,14 +14,7 @@
 #include <cassert>
 
 
-#define PCASIGN(a, b) ( (b) < 0 ? -fabs(a) : fabs(a) )
-
 // -----------------------------------------------------------------//
-
-template<class T>
-inline T squared(const T a) {
-	return a * a;
-}
 
 template <typename T>
 inline T logTwo(const T& x) {
@@ -42,8 +35,7 @@ inline void scale(
 }
 
 template <typename T>
-inline T minimum(
-		const T* values,
+inline T minimum(const T* values,
 		int N, int& minPos) {
 	if (1 > N) return 0;
 
@@ -59,8 +51,7 @@ inline T minimum(
 }
 
 template <typename T>
-inline T maximum(
-		const T* values,
+inline T maximum(const T* values,
 		int N, int& maxPos) {
 	if (1 > N) return 0;
 
@@ -76,8 +67,7 @@ inline T maximum(
 }
 
 template <typename T>
-T sum(
-		const T* values,
+T sum(const T* values,
 		int N) {
 	if (1 > N) return 0;
 
@@ -90,8 +80,7 @@ T sum(
 }
 
 template <typename T>
-T mean(
-		const T* values,
+T mean(const T* values,
 		int N) {
 	if (1 > N) return 0;
 
@@ -439,8 +428,6 @@ T kullbackLeibler (const T* a, const T* b, int size){
 	else return d;
 }
 
-
-
 // ------------------------------------------------------------------//
 
 template <typename T>
@@ -472,147 +459,6 @@ void covmat(T** data, int n, int m, T** symmat) {
 	}
 
 	delete [] mean;
-}
-
-template <typename T>
-void tred2(T** a, int n, T* d, T* e) {
-	int l, k, j, i;
-	T scale, hh, h, g, f;
-
-	for (i = 0; i < n; ++i) (a[i])--;
-	a--;
-	d--;
-	e--;
-
-	for (i = n; i >= 2; i--) {
-		l = i - 1;
-		h = scale = 0.0;
-		if (l > 1) {
-			for (k = 1; k <= l; k++)
-				scale += fabs(a[i][k]);
-			if (scale == 0.0)
-				e[i] = a[i][l];
-			else {
-				for (k = 1; k <= l; k++) {
-					a[i][k] /= scale;
-					h += a[i][k] * a[i][k];
-				}
-				f = a[i][l];
-				g = f > 0 ? -sqrt(h) : sqrt(h);
-				e[i] = scale * g;
-				h -= f * g;
-				a[i][l] = f - g;
-				f = 0.0;
-				for (j = 1; j <= l; j++) {
-					a[j][i] = a[i][j] / h;
-					g = 0.0;
-					for (k = 1; k <= j; k++)
-						g += a[j][k] * a[i][k];
-					for (k = j + 1; k <= l; k++)
-						g += a[k][j] * a[i][k];
-					e[j] = g / h;
-					f += e[j] * a[i][j];
-				}
-				hh = f / (h + h);
-				for (j = 1; j <= l; j++) {
-					f = a[i][j];
-					e[j] = g = e[j] - hh * f;
-					for (k = 1; k <= j; k++)
-						a[j][k] -= (f * e[k] + g * a[i][k]);
-				}
-			}
-		} else
-			e[i] = a[i][l];
-		d[i] = h;
-	}
-	d[1] = 0.0;
-	e[1] = 0.0;
-	for (i = 1; i <= n; i++) {
-		l = i - 1;
-		if (d[i]) {
-			for (j = 1; j <= l; j++) {
-				g = 0.0;
-				for (k = 1; k <= l; k++)
-					g += a[i][k] * a[k][j];
-				for (k = 1; k <= l; k++)
-					a[k][j] -= g * a[k][i];
-			}
-		}
-		d[i] = a[i][i];
-		a[i][i] = 1.0;
-		for (j = 1; j <= l; j++)
-			a[j][i] = a[i][j] = 0.0;
-	}
-
-	a++;
-	d++;
-	e++;
-	for (i = 0; i < n; ++i) (a[i])++;
-}
-
-template <typename T>
-void tqli(T d[], T e[], int n, T** z) {
-	int m, l, iter, i, k;
-	float s, r, p, g, f, dd, c, b;
-
-	for (i = 0; i < n; ++i) (z[i])--;
-	z--;
-	d--;
-	e--;
-
-	for (i = 2; i <= n; i++)
-		e[i - 1] = e[i];
-	e[n] = 0.0;
-	for (l = 1; l <= n; l++) {
-		iter = 0;
-		do {
-			for (m = l; m <= n - 1; m++) {
-				dd = fabs(d[m]) + fabs(d[m + 1]);
-				if (fabs(e[m]) + dd == dd) break;
-			}
-			if (m != l) {
-				if (iter++ == 30) throw std::runtime_error("no convergence in TLQI");
-				g = (d[l + 1] - d[l]) / (2.0 * e[l]);
-				r = sqrt((g * g) + 1.0);
-				g = d[m] - d[l] + e[l] / (g + PCASIGN(r, g));
-				s = c = 1.0;
-				p = 0.0;
-				for (i = m - 1; i >= l; i--) {
-					f = s * e[i];
-					b = c * e[i];
-					if (fabs(f) >= fabs(g)) {
-						c = g / f;
-						r = sqrt((c * c) + 1.0);
-						e[i + 1] = f * r;
-						c *= (s = 1.0 / r);
-					} else {
-						s = f / g;
-						r = sqrt((s * s) + 1.0);
-						e[i + 1] = g * r;
-						s *= (c = 1.0 / r);
-					}
-					g = d[i + 1] - p;
-					r = (d[i] - g) * s + 2.0 * c * b;
-					p = s * r;
-					d[i + 1] = g + p;
-					g = c * r - b;
-					for (k = 1; k <= n; k++) {
-						f = z[k][i + 1];
-						z[k][i + 1] = s * z[k][i] + c * f;
-						z[k][i] = c * z[k][i] - s * f;
-					}
-				}
-				d[l] = d[l] - p;
-				e[l] = g;
-				e[m] = 0.0;
-			}
-		} while (m != l);
-	}
-
-	z++;
-	d++;
-	e++;
-	for (i = 0; i < n; ++i) (z[i])++;
 }
 
 // ------------------------------------------------------------------//
@@ -673,50 +519,6 @@ void kmeans(T** data, int n, int m, int k, T t, int* labels, T** centroids) {
 
 	delete [] c1;
 	delete [] counts;
-}
-
-template <typename T>
-void boxcox(T* in, T* out, int N, T lambda) {
-	for (int i = 0; i < N; ++i) {
-		out[i] = lambda == 0 ? log(in[i]) : (pow(in[i], lambda) - 1) / lambda;
-	}
-}
-
-
-// ------------------------------------------------------------------------
-
-template <typename T>
-T cubicInterpolate(T y0, T y1, T y2, T y3, T mu) {
-	T mu2 = mu * mu;
-	T a0 = y3 - y2 - y0 + y1; //p
-	T a1 = y0 - y1 - a0;
-	T a2 = y2 - y0;
-	T a3 = y1;
-
-	return a0 * mu * mu2 + a1 * mu2 + a2 * mu + a3;
-}
-
-template <typename T>
-T parabolicInterpolate(T x1, T x2, T x3, T y1, T y2, T y3, T *min) {
-	T a, b, c;
-	T pos;
-	a = ((y1 - y2) / (x1 - x2) - (y2 - y3) / (x2 - x3)) / (x1 - x3);
-	b = (y1 - y2) / (x1 - x2) - a * (x1 + x2);
-	c = y1 - a * x1 * x1 - b * x1;
-
-	*min = c;
-
-	// dy/dx = 2a * x + b = 0
-	pos = -b / 2. / a;
-	return pos;
-
-}
-
-template <typename T>
-T cosineInterpolate(T y1, T y2, T mu) {
-	T mu2;
-	mu2 = (1 - cos(mu * PI)) / 2;
-	return y1 * (1 - mu2) + y2 * mu2;
 }
 
 #endif	// ALGORITHMS_H

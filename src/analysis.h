@@ -14,10 +14,10 @@
 #include "utilities.h"
 
 #define NUM_FILTERS 40
-#define USE_MFCC 1
+#define NUM_SMOOTH 80
 
 void compute_features (const char* name, std::vector<float>& features, 
-	int bsize, int hop, int ncoeff) {
+	int bsize, int hop, int ncoeff, const std::string& type) {
 	WavInFile in (name); // raises exception on failure
 	
 	int sr = in.getSampleRate();
@@ -52,6 +52,7 @@ void compute_features (const char* name, std::vector<float>& features,
 
 	float* cdata = new float[bsize * 2];
 	float* spectrum = new float[bsize];
+	float* env = new float[bsize * 2];
 
 	float* avg_coeffs = new float[ncoeff];
 	memset(avg_coeffs, 0, sizeof(float) * ncoeff);
@@ -71,25 +72,34 @@ void compute_features (const char* name, std::vector<float>& features,
 					cdata[j * 2 + 1] * cdata[j * 2 + 1]);
 		}
 
-		#ifdef USE_MFCC
-		for (unsigned j = 0; j < ncoeff; ++j) {
-			avg_coeffs[j] += (mfcc.getCoeff (spectrum, j) * norm);
+		if (type == "mfcc") {
+			for (unsigned j = 0; j < ncoeff; ++j) {
+				avg_coeffs[j] += (mfcc.getCoeff (spectrum, j) * norm);
+			}
+		} else if (type == "spectrum") {
+			for (unsigned j = 0; j < ncoeff; ++j) {
+				avg_coeffs[j] += (spectrum[j] * norm);
+			}			
+		} else if (type == "specenv") {
+			cepstralEnvelope(NUM_SMOOTH, spectrum, env, fft, bsize);
+			for (unsigned j = 0; j < ncoeff; ++j) {
+				avg_coeffs[j] += (env[2 * j] * norm);
+			}			
+		} else {
+			throw std::runtime_error ("invalid feature type requested");
 		}
-		#else
-		for (unsigned j = 0; j < ncoeff; ++j) {
-			avg_coeffs[j] += (spectrum[j] * norm);
-		}
-		#endif
+
 	}
 
 	features.resize(ncoeff);
 	for (unsigned i = 0; i < ncoeff; ++i) {
-		features[i] =  avg_coeffs[i];
+		features[i] = avg_coeffs[i];
 	}
 
 	delete [] buffer;
 	delete [] cdata;
 	delete [] avg_coeffs;
+	delete [] env;
 	delete fft;
 }
 
