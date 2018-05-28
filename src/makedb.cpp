@@ -1,44 +1,73 @@
 // makedb.cpp
 // 
 
+#include "utilities.h"
+#include "analysis.h"
+
 #include <stdexcept>
 #include <iostream>
-#include <vector>
-#include <string>
-
-#include <dirent.h>
+#include <ctime>
 
 using namespace std;
 
 // (0. read all files of a folder, compute MFCC and save a text file)
 
-void listdir(const char *name, int indent) {
-    DIR *dir;
-    struct dirent *entry;
-
-    if (!(dir = opendir(name))) return;
-
-    while ((entry = readdir(dir)) != NULL) {
-        if (entry->d_type == DT_DIR) {
-            char path[1024];
-            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) {
-                continue;
-            }
-            snprintf(path, sizeof(path), "%s/%s", name, entry->d_name);
-            printf("%*s[%s]\n", indent, "", entry->d_name);
-            listdir(path, indent + 2);
-        } else {
-            printf("%*s- %s\n", indent, "", entry->d_name);
-        }
-    }
-    closedir(dir);
-}
+const int BSIZE = 1024;
+const int HOPSIZE = 512;
+const int NUM_MFCC = 14;
 
 int main (int argc, char* argv[]) {
-	try {
-    	std::vector<string> v;
-    	listdir (argv[1], 0);
+	cout << "[makedb, ver. 0.1]" << endl << endl;
+	cout << "feature analysis for anarkid" << endl;
+	cout << "(c) 2018, www.carminecella.com" << endl << endl;
 
+	try {
+        if (argc != 3) {
+            throw runtime_error("syntax is 'makedb path dbfile.txt'");
+        }
+
+        ofstream out (argv[2]);
+        if (!out.good ()) {
+        	throw runtime_error ("cannot create output file");
+        }
+
+        cout << "parsing source folder...";
+    	std::vector<string> files;
+    	listdir (argv[1], argv[1], files);
+    	cout << "done" << endl << endl;
+
+    	ofstream errs ("errors.txt");
+    	clock_t tic = clock ();
+    	for (unsigned i = 0; i < files.size (); ++i) {    		
+    		if (files[i].find (".wav") != string::npos) {
+    			cout << "(" << i << "/" << files.size () << ") analysing " << files[i] << "...";
+    			cout.flush();
+    			try {
+    				vector<float> features;
+    				stringstream fullname;
+    				fullname << argv[1] << files[i];
+    				compute_mfcc (fullname.str ().c_str (), features, 
+    					BSIZE, HOPSIZE, NUM_MFCC);	
+
+    				out << files[i] << " ";
+					for (int i = 0; i < NUM_MFCC; ++i) {
+						out << features[i] << " ";
+					}
+    				out << endl;
+    				out.flush ();
+    			} catch (exception& e) {
+    				errs << files[i] << endl;
+    				cout << e.what () << endl;
+    			}
+    			cout << "done" << endl;
+    		}
+    	}
+    	clock_t toc = clock ();
+
+    	cout << endl << "analysis performed in " << ((float) toc - tic) / CLOCKS_PER_SEC << " sec." << endl;
+
+    	out.close ();
+    	errs.close ();
 	}
 	catch (exception& e) {
 		cout << "Error: " << e.what () << endl;
