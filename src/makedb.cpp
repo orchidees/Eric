@@ -14,7 +14,7 @@ using namespace std;
 
 const int BSIZE = 1024;
 const int HOPSIZE = 512;
-const int NUM_MFCC = 14;
+const int NUM_FEATURES = BSIZE / 4;
 
 int main (int argc, char* argv[]) {
 	cout << "[makedb, ver. 0.1]" << endl << endl;
@@ -46,11 +46,11 @@ int main (int argc, char* argv[]) {
     				vector<float> features;
     				stringstream fullname;
     				fullname << argv[1] << files[i];
-    				compute_mfcc (fullname.str ().c_str (), features, 
-    					BSIZE, HOPSIZE, NUM_MFCC);	
+    				compute_features (fullname.str ().c_str (), features, 
+    					BSIZE, HOPSIZE, NUM_FEATURES);	
 
     				out << files[i] << " ";
-					for (int i = 0; i < NUM_MFCC; ++i) {
+					for (int i = 0; i < NUM_FEATURES; ++i) {
 						out << features[i] << " ";
 					}
     				out << endl;

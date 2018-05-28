@@ -15,6 +15,9 @@
 
 #include <dirent.h>
 
+#include "WavFile.h"
+#include "algorithms.h"
+
 // -----------------------------------------------------------------------------
 template <typename T>
 void serialize (std::ostream& out , const T* data, int size) {
@@ -118,17 +121,14 @@ void load_db (const char* dbfile, std::vector<db_entry>& database, int ncoeff) {
 		if (e.file.size () == 0) {
 			throw std::runtime_error ("invalid file name in db");
 		}
-		
-		std::cout << e.file << " ";
+	
 		while (!linestream.eof ()) {
 			std::string token;
 			linestream >> token;
 			float f = atof (token.c_str ());
 			e.features.push_back(f);
-			std::cout << f << " ";
 		}
 
-		std::cout << std::endl;
 		if (e.features.size () != ncoeff) {
 			std::cout << e.features.size () << " " << ncoeff << std::endl;
 			throw std::runtime_error ("invalid number of features in db");
@@ -210,6 +210,82 @@ void deinterleave (const T* stereo, T* l, T* r, int n) {
 		r[i] = stereo[2 * i + 1];
 	}
 }	
+
+// -----------------------------------------------------------------------------
+void create_sound_mix (const std::vector<std::string>& files, 
+	const char* sound_path, 
+	const std::vector<float>& ratios, const char* outfile) {
+	std::vector <float*> pointers;
+	std::vector <int> lengths;
+
+	for (int i = 0; i < files.size (); ++i) {
+		std::stringstream snd;
+		snd << sound_path << files[i];
+		WavInFile in (snd.str ().c_str ()); // raises exception on error
+		int sr = in.getSampleRate();
+		int samples  = in.getNumSamples();
+		int channels = in.getNumChannels ();
+		int bits = in.getNumBits();
+
+		if (sr != 44100) {
+			throw std::runtime_error ("invalid sampling rate (must be 44100)");
+		}
+		if (channels > 2) {
+			throw std::runtime_error ("unsupported number of channels");
+		}
+		if (bits != 16) {
+			throw std::runtime_error ("unsupported number of bits");	
+		}
+		
+		float* data = new float[samples * channels];
+		float* right = new float[samples];
+		float* left = new float[samples];
+
+		in.read (data, samples * channels);
+
+		if (channels == 2) {
+			float* left = new float[samples];
+		 	float* right = new float[samples];
+			deinterleave (data, left, right, samples);
+			for (unsigned i = 0; i < samples; ++i) {
+				data[i] = (left[i] + right[i]) * .5;
+			}		
+		}
+
+		delete [] right;
+		delete [] left;
+		pointers.push_back(data);
+		lengths.push_back(samples * (1. / ratios[i]));
+	}
+
+	int maxPos = 0;
+	int maxLen = maximum (&lengths[0], lengths.size (), maxPos);
+	float* mix = new float[maxLen];
+	memset (mix, 0, sizeof(float) * maxLen);
+
+	for (unsigned i = 0; i < pointers.size (); ++i) {
+		double phase = 0;
+		double incr = ratios[i];
+			for (unsigned j = 0; j < lengths[i]; ++j) {
+			int index = (int) phase;
+			double frac = phase - index;
+			// if (index >= lengths[i] - 1) break;
+			float sample = pointers[i][index] * (1. - frac) + pointers[i][index + 1] * frac;
+			mix[j] += (sample / pointers.size ());
+			phase += incr;
+			// if (phase >= lengths[i]) break;
+		}
+	}
+
+	WavOutFile out(outfile, 44100, 16, 1);
+	out.write(mix, maxLen); 
+
+	delete [] mix;
+	for (unsigned i = 0; i < pointers.size (); ++i) {
+		delete [] pointers[i];
+	}
+}	
+
 
 #endif	// UTILITIES_H 
 

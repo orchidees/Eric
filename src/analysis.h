@@ -14,8 +14,9 @@
 #include "utilities.h"
 
 #define NUM_FILTERS 40
+#define USE_MFCC 1
 
-void compute_mfcc (const char* name, std::vector<float>& features, 
+void compute_features (const char* name, std::vector<float>& features, 
 	int bsize, int hop, int ncoeff) {
 	WavInFile in (name); // raises exception on failure
 	
@@ -70,9 +71,15 @@ void compute_mfcc (const char* name, std::vector<float>& features,
 					cdata[j * 2 + 1] * cdata[j * 2 + 1]);
 		}
 
+		#ifdef USE_MFCC
 		for (unsigned j = 0; j < ncoeff; ++j) {
 			avg_coeffs[j] += (mfcc.getCoeff (spectrum, j) * norm);
 		}
+		#else
+		for (unsigned j = 0; j < ncoeff; ++j) {
+			avg_coeffs[j] += (spectrum[j] * norm);
+		}
+		#endif
 	}
 
 	features.resize(ncoeff);
