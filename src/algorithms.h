@@ -350,6 +350,19 @@ static inline T linreg(
 // -------------------------------------------------------------- //
 
 template <typename T>
+T inner_prod (const T* a, const T* b, int size) {
+	// NB: it assumes vector have the same size
+	T sum = 0;
+
+	for (int i = 0; i < size; ++i) {
+		T s = a[i] * b[i];
+		sum += s;
+	}
+	if (std::isnan(sum) || std::isinf(sum)) return 0;
+	else return sum;
+}
+
+template <typename T>
 T edistance (const T* a, const T* b, int size) {
 	// NB: it assumes vector have the same size
 	T sum = 0;

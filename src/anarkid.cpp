@@ -24,6 +24,9 @@ using namespace std;
 // 5. evaluation is = some of corresponding envelopes and distance with target
 // -- N instruments in solution if given, no choice for other params
 
+
+// TODO: avg con peso energie, finestrature su FFT, harmonic filter, strumenti, filtri
+//
 int main (int argc, char* argv[]) {
     try {
     	srand (time (NULL));
@@ -52,8 +55,9 @@ int main (int argc, char* argv[]) {
 		cout << "done" << endl;
 
 		cout << "analysing target...";
-		vector<float> target;
+		vector<float> target (ncoeff);
 		compute_features(argv[1], target, bsize, hopsize, ncoeff, type);
+		normalize(&target[0], &target[0], ncoeff);
 		cout << "done" << endl << endl;
 		plot_vector("target.bmp", target, type == "mfcc" ? true : false, false, ncoeff);
 
@@ -77,10 +81,10 @@ int main (int argc, char* argv[]) {
 			fitness.push_back(total_fitness);
 
 			cout <<  "epoch = " << setw (5) << i << " - fitness = " << total_fitness << endl;
-			vector<Individual> new_pop (c.pop_size);
+			vector<Individual> new_pop;
 			genereate_population(population, new_pop, c.pop_size, total_fitness,
 				c.xover_rate, c.mutation_rate, c.mutation_amp, database.size ());
-			
+	
 			Individual best = get_best_individual(new_pop);				
 			bests.push_back (best);
 
@@ -92,20 +96,28 @@ int main (int argc, char* argv[]) {
 			old_fit = total_fitness;
 		}
 		cout << endl;
+
+		ofstream fit ("fitness.txt");
+		fit << "[";
+		for (unsigned i = 0; i < fitness.size (); ++i) {
+			fit << fitness[i] << " ";
+		}
+		fit << "]" << endl;
+		fit.close ();
+
 		Individual best = get_best_individual(population);
 		cout << "final fitness = " << total_fitness << endl << endl;
 		cout << "best solution: " << endl;
 		for (unsigned i = 0; i < c.n_instruments; ++i) {
 			cout << "\t" << database[best.chromosome[i]].file << endl;
 		}
-		cout << endl;
+		cout << endl;	
 
-		plot_vector("fitness.bmp", fitness, false, true, fitness.size ());
-
-		cout << "saving best solutions..."; cout.flush ();
-		export_population(population, database, c.sound_path.c_str (), type, ncoeff);
-		cout << "done" << endl;
-
+		if (c.export_sol) {		
+			cout << "saving best solutions..."; cout.flush ();
+			export_population(population, database, c.sound_path.c_str (), type, ncoeff);
+			cout << "done" << endl;
+		}
     } catch (exception& e) {
         cout << "Error: " << e.what () << endl;
     } catch (...) {

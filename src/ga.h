@@ -30,7 +30,6 @@ void gen_random_population (std::vector<Individual>& population, unsigned instru
 	}
 }
 
-
 void forecast_individual (const Individual& id, const std::vector<db_entry>& database, 
 	std::vector<float>& forecast, unsigned ncoeff) {
 	
@@ -40,22 +39,20 @@ void forecast_individual (const Individual& id, const std::vector<db_entry>& dat
 		db_entry e = database[id.chromosome[i]];
 
 		for (unsigned j = 0; j < ncoeff; ++j) {
-			forecast[j] += (e.features[j] / id.chromosome.size ());			
+			forecast[j] += (e.features[j]);			
 		}
 	}
+
+	normalize(&forecast[0], &forecast[0], ncoeff);
 }
 
 float evaluate_individual (const Individual& id, const std::vector<float>& target,
 	const std::vector<db_entry>& database, unsigned ncoeff) {
 	std::vector<float> values (target.size (), 0);
+
 	forecast_individual(id, database, values, ncoeff);
+	return edistance<float>(&values[0], &target[0], target.size ());
 
-	float sum = 0;
-	for (unsigned i = 0; i < target.size (); ++i) {
-		sum += fabs (values[i] - target[i]);
-	}
-
-	return sum;
 }
 
 float evaluate_population (std::vector<Individual>& population, 
@@ -99,20 +96,22 @@ Individual select_parent (const std::vector<Individual>& population, float total
 		}
 	}
 
-	// std::cout << "wheel " << wheel << ", parent " << select << std::endl;
 	return population[select];
 }
 
-void crossover_parents (Individual& child, const Individual& parent_a, 
-	const Individual& parent_b, float crossover_rate) {
-	child.chromosome = parent_a.chromosome;
+void crossover_parents (Individual& offspring1, Individual& offspring2, 
+	const Individual& parent_a, const Individual& parent_b, float crossover_rate) {
+	offspring1.chromosome = parent_a.chromosome;
+	offspring2.chromosome = parent_b.chromosome;
 
 	float choice = frand<float>(0., 1.);
 	if (choice < crossover_rate) {
 		float r = frand<float>(0., 1.);
-		unsigned  cpoint = (unsigned) (r * child.chromosome.size ());
-		for (unsigned i = cpoint; i < child.chromosome.size(); ++i) {
-			child.chromosome[i] = parent_b.chromosome[i];
+		unsigned  cpoint = (unsigned) (r * offspring1.chromosome.size ());
+
+		for (unsigned i = cpoint; i < offspring1.chromosome.size(); ++i) {
+			offspring1.chromosome[i] = parent_b.chromosome[i];
+			offspring2.chromosome[i] = parent_a.chromosome[i];
 		}
 	}
 }
@@ -126,9 +125,8 @@ void mutate_individual (Individual& id, float mutation_rate,
 			int r = (rand () % (2 * mutation_amp)) - mutation_amp;
 			id.chromosome[i] += r;
 			if (id.chromosome[i] >= range || id.chromosome[i] < 0) {
-				id.chromosome[i] -= r;
+				id.chromosome[i] = rand () % range;
 			} 
-			break;
 		} 
 	}
 }
@@ -137,20 +135,28 @@ void genereate_population (const std::vector<Individual>& old_pop,
 	std::vector<Individual>& new_pop, unsigned n_individuals, float total_fitness,
 	float crossover_rate, float mutation_rate, unsigned  mutation_amp, unsigned range) {
 
-	for (unsigned i = 0; i < n_individuals; ++i) {
+	while (new_pop.size () < n_individuals) {
 		Individual parent_a = select_parent(old_pop, total_fitness);
 		Individual parent_b = select_parent(old_pop, total_fitness);
 
 		// print_individual(std::cout, parent_a); std::cout << std::endl;
 		// print_individual(std::cout, parent_b);  std::cout << std::endl;
-		Individual child;
-		crossover_parents (child, parent_a, parent_b, crossover_rate);
-		// print_individual(std::cout, child);  std::cout << std::endl;
-		mutate_individual (child, mutation_rate, mutation_amp, range);
-		// print_individual(std::cout, child);  std::cout << std::endl << std::endl;
-		new_pop[i] = (child);
+
+		Individual offspring1, offspring2;
+		crossover_parents (offspring1, offspring2, parent_a, parent_b, crossover_rate);
+		
+		// print_individual(std::cout, offspring1);  std::cout << std::endl;
+		// print_individual(std::cout, offspring2);  std::cout << std::endl << std::endl;
+		
+
+		mutate_individual (offspring1, mutation_rate, mutation_amp, range);
+		mutate_individual (offspring2, mutation_rate, mutation_amp, range);
+		// print_individual(std::cout, offspring1);  std::cout << std::endl;
+		// print_individual(std::cout, offspring2);  std::cout << std::endl << std::endl;
+		
+		new_pop.push_back(offspring1);
+		new_pop.push_back(offspring2);
 	}
-	// getchar ();
 }
 
 void copy_population (const std::vector<Individual>& source, std::vector<Individual>& target) {
@@ -185,7 +191,7 @@ void export_population (const std::vector<Individual>& pop,
 	const std::vector<db_entry>& database, const char* root_path,
 	const std::string& type, unsigned ncoeff) {
 	std::ofstream solutions ("solutions.txt");
-	solutions << "features  : " << type << " " << ncoeff << std::endl << std::endl;
+	solutions << "features: " << type << " " << ncoeff << std::endl << std::endl;
 	
 	for (unsigned i = 0; i < pop.size (); ++i) {
 		std::vector<float> values (ncoeff, 0);		
@@ -206,8 +212,9 @@ void export_population (const std::vector<Individual>& pop,
 			solutions << files[z] << " ";
 		}
 		solutions << std::endl;
-		solutions.close ();
 	}
+
+	solutions.close ();
 }
 #endif	// GA_H 
 

@@ -106,6 +106,7 @@ struct Config {
 	T xover_rate;
 	T mutation_rate;
 	int mutation_amp;
+	bool export_sol;
 };
 
 template <typename T>
@@ -158,6 +159,8 @@ void read_config (const char* config_file, Config<T>* p) {
         	p->mutation_rate = atof (tokens[1].c_str ());
         } else if (tokens[0] == "mutation_amp") {
         	p->mutation_amp = atol (tokens[1].c_str ());
+        } else if (tokens[0] == "export_sol") {
+        	p->export_sol = (bool) atol (tokens[1].c_str ());
         } else {
             std::stringstream err;
             err << "invalid token in configuration file at line " << line;
