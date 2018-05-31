@@ -196,6 +196,8 @@ void load_db (const char* dbfile, std::vector<db_entry>& database,
 	}
 
 	db >> type >> bsize >> hopsize >> ncoeff;
+
+	int lineno = 1;
 	while (!db.eof ()) {
 		std::string line;
 		std::getline(db, line);
@@ -209,7 +211,9 @@ void load_db (const char* dbfile, std::vector<db_entry>& database,
 		db_entry e;
 		linestream >> e.file;
 		if (e.file.size () == 0) {
-			throw std::runtime_error ("invalid file name in db");
+			std::stringstream err;
+			err << "invalid filename in db at line " << lineno;
+			throw std::runtime_error (err.str ());
 		}
 	
 		while (!linestream.eof ()) {
@@ -220,11 +224,13 @@ void load_db (const char* dbfile, std::vector<db_entry>& database,
 		}
 
 		if (e.features.size () != ncoeff) {
-			std::cout << e.features.size () << " " << ncoeff << std::endl;
-			throw std::runtime_error ("invalid number of features in db");
+			std::stringstream err;
+			err << "invalid number of features in db at line " << lineno;
+			throw std::runtime_error (err.str ());
 		}
 
 		database.push_back(e);
+		++lineno;
 	}
 }
 

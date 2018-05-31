@@ -69,9 +69,9 @@ int main (int argc, char* argv[]) {
 
 		cout << "loading database...";
 		vector<db_entry> idb;
-		int bsize = 1024;
+		int bsize = 1024;			// defaults
 		int hopsize = 512;
-		int ncoeff = bsize / 4;
+		int ncoeff = bsize / 2;
 		std::string type = "spectrum";
 
 		load_db (c.db_file.c_str (), idb, bsize, hopsize, ncoeff, type);
