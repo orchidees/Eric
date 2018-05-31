@@ -3,11 +3,11 @@
 
 db_file 			SOL_mfcc.txt
 sound_path 			/Users/Carmine/Elementi/Datasets/SOL_0.9c_HQ
-n_instruments		25
+n_instruments		5
 pop_size			300
-max_epochs			300
+max_epochs			100
 xover_rate			.8
 mutation_rate		0.01
 mutation_amp 		10
-harmonic_filter		0.2
+harmonic_filter		0.1
 export_solutions	1
