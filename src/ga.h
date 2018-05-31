@@ -215,6 +215,19 @@ void export_population (const std::vector<Individual>& pop,
 
 	solutions.close ();
 }
+
+void make_uniques (const std::vector<Individual>& population, 
+	std::vector<Individual>& uniques) {
+	std::map<std::vector<int>, Individual> uniques_map;
+	for (unsigned i = 0; i < population.size (); ++i) {
+		uniques_map[population[i].chromosome] = population[i];
+	}
+
+	for (std::map<std::vector<int>, Individual>::iterator it = uniques_map.begin();
+		it != uniques_map.end (); ++it) {
+		uniques.push_back(it->second);
+	}
+}
 #endif	// GA_H 
 
 // EOF

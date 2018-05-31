@@ -1,10 +1,10 @@
 ; anarkid - configuration file
 ;
 
-db_file 			SOL_toy_spectrum.txt
+db_file 			SOL_toy_mfcc.txt
 sound_path 			/Users/Carmine/Elementi/Datasets/SOL_toy
 n_instruments		6
-pop_size			100
+pop_size			300
 max_epochs			100
 xover_rate			.8
 mutation_rate		0.01

@@ -21,14 +21,14 @@ using namespace std;
 // 2. read text file for data in memory filename + coefficients
 // 3. chromosome is sequence of random numbers from 1 to n files
 // 4. mutation is +-r integer
-// 5. evaluation is = some of corresponding envelopes and distance with target
-// -- N instruments in solution if given, no choice for other params
+// 5. evaluation is = sum of corresponding envelopes and distance with target
 
-
-// TODO: harmonic filter, strumenti, filtri, matching pursuit per startup e mutation,
+// TODO: strumenti, filtri, matching pursuit per startup e mutation,
 //	     incremento database, gestione dati simbolici, miglioramento interfaccia codice
 //		 cambiare plot in 512x512..., gestire diversity, correzione pitch
-//		 tentare: con e senza normalizzazione, n. parziale vs dinamica, salvare migliore per epoca
+
+const int MAX_EQUAL_FITNESS = 15;
+
 int main (int argc, char* argv[]) {
     try {
     	srand (time (NULL));
@@ -114,31 +114,32 @@ int main (int argc, char* argv[]) {
 		float total_fitness = 0;
 		vector<float> fitness;
 
-		vector<Individual> bests;
+		vector<Individual> best_pop;
 		int fit_count = 0;
+		float max_fit = 0;
 		float old_fit = 0;
-		int epochs = 0;
+		int best_epoch = 0;
 		cout << "searching..."; cout.flush ();
 		for (unsigned i = 0; i < c.max_epochs; ++i) {
 			total_fitness = evaluate_population(population, target, database, ncoeff);	
 
 			fitness.push_back(total_fitness);
 
-			// cout <<  "epoch = " << setw (5) << i << " - fitness = " << total_fitness << endl;
 			vector<Individual> new_pop;
 			genereate_population(population, new_pop, c.pop_size, total_fitness,
 				c.xover_rate, c.mutation_rate, c.mutation_amp, database.size ());
 	
-			Individual best = get_best_individual(new_pop);				
-			bests.push_back (best);
-
 			copy_population (new_pop, population);
 
+			if (max_fit < total_fitness) {
+				max_fit = total_fitness;
+				best_pop = new_pop;
+				best_epoch = i;
+			}
 			if (total_fitness >= LARGE_VALUE) break;
 			if (old_fit == total_fitness) ++fit_count;
-			if (fit_count > 10) break;
+			if (fit_count > MAX_EQUAL_FITNESS) break;
 			old_fit = total_fitness;
-			++epochs;
 		}
 		cout << "done" << endl << endl;
 
@@ -149,10 +150,14 @@ int main (int argc, char* argv[]) {
 		}
 		fit << "]" << endl;
 		fit.close ();
+				
+		vector<Individual> uniques;
+		make_uniques(best_pop, uniques);
 
-		Individual best = get_best_individual(bests);
-		cout << "final fitness = " << total_fitness << " (" << epochs << " epochs)" 
-			<< endl << endl;
+		cout << "best fitness = " << max_fit << " (epoch " << best_epoch << ", "
+			<< uniques.size () << " individuals)" << endl << endl;
+
+		Individual best = get_best_individual(uniques);
 		cout << "best solution: " << endl;
 		for (unsigned i = 0; i < c.n_instruments; ++i) {
 			cout << "\t" << database[best.chromosome[i]].file << endl;
@@ -161,7 +166,8 @@ int main (int argc, char* argv[]) {
 
 		if (c.export_solutions) {		
 			cout << "saving best solutions..."; cout.flush ();
-			export_population(bests, database, c.sound_path.c_str (), type, ncoeff);
+			export_population(uniques, database, c.sound_path.c_str (), 
+				type, ncoeff);
 			cout << "done" << endl;
 		}
     } catch (exception& e) {

@@ -14,8 +14,10 @@
 #include "FFT.h"
 #include "utilities.h"
 #include "Hz2Note.h"
+#include "MFCC.h"
 
 #define NUM_SMOOTH 160
+#define NUM_FILTERS 40
 
 void compute_features (const char* name, std::vector<float>& features, 
 	int bsize, int hop, int ncoeff, const std::string& type) {
@@ -48,6 +50,7 @@ void compute_features (const char* name, std::vector<float>& features,
 		}		
 	}
 	
+	MFCC<float> mfcc (sr, NUM_FILTERS, bsize);
 	AbstractFFT<float>* fft = createFFT<float>(bsize);
 
 	float* cdata = new float[bsize * 2];
@@ -96,7 +99,11 @@ void compute_features (const char* name, std::vector<float>& features,
 		for (unsigned j = 0; j < ncoeff; ++j) {
 			features[j] = env[2 * j];
 		}			
-	} else {
+	} else if (type == "mfcc") {
+			for (unsigned j = 0; j < ncoeff; ++j) {
+				features[j] = (mfcc.getCoeff (avg_coeffs, j));
+			}
+		} else {
 		throw std::runtime_error ("invalid feature type requested");
 	}
 
@@ -117,8 +124,6 @@ void get_notes (const char* name, std::map<std::string, int>& notes,
 	compute_features(name, spectrum, bsize, hopsize, bsize / 2, "spectrum");
 	normalize(&spectrum[0], &spectrum[0], bsize / 2);
 
-	plot_vector("fff.bmp", spectrum);
-
 	std::vector<int> peaks;
 	locmax(&spectrum[0], bsize, peaks);
 	float bin_size = 44100. / bsize;
@@ -134,7 +139,7 @@ void get_notes (const char* name, std::map<std::string, int>& notes,
 			hz2n.convert(freq, nfreq, oct, note, cents);
 			std::stringstream n;
 			n << note_names[note] << oct;
-			std::cout << freq << " " << peaks[i] << " " << spectrum[peaks[i]] << n.str () << std::endl;
+			// std::cout << freq << " " << peaks[i] << " " << spectrum[peaks[i]] << n.str () << std::endl;
 			notes[n.str ()] = cents;
 		}
 	}

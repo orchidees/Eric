@@ -12,17 +12,14 @@ using namespace std;
 
 // (0. read all files of a folder, compute MFCC and save a text file)
 
-const int BSIZE = 2048;
-const int HOPSIZE = 512;
-
 int main (int argc, char* argv[]) {
 	cout << "[makedb, ver. 0.1]" << endl << endl;
 	cout << "feature analysis for anarkid" << endl;
 	cout << "(c) 2018, www.carminecella.com" << endl << endl;
 
 	try {
-        if (argc != 5) {
-            throw runtime_error("syntax is 'makedb path dbfile.txt feature_type ncoeff'" \
+        if (argc != 7) {
+            throw runtime_error("syntax is 'makedb path dbfile.txt feature_type bsize hopsize ncoeff'" \
                 "\n\nwhere feature_type = [spectrum | specenv | mfcc]\n");
         }
 
@@ -31,12 +28,23 @@ int main (int argc, char* argv[]) {
         	throw runtime_error ("cannot create output file");
         }
         
-        int ncoeff = atol (argv[4]);
-        if (ncoeff <= 0 || ncoeff >= BSIZE / 2) {
+
+        int bsize = atol (argv[4]);
+        if (bsize <= 0) {
+            throw runtime_error("invalid value for bsize");
+        }
+
+        int hopsize = atol (argv[5]);
+        if (hopsize <= 0 || hopsize > bsize) {
+            throw runtime_error("invalid value for hopsize");
+        }
+
+        int ncoeff = atol (argv[6]);
+        if (ncoeff <= 0 || ncoeff >= bsize / 2) {
             throw runtime_error("invalid number of coefficients requested");
         }
         
-        out << argv[3] << " " << BSIZE << " " << HOPSIZE << " " << ncoeff << endl;
+        out << argv[3] << " " << bsize << " " << hopsize << " " << ncoeff << endl;
 
         cout << "parsing source folder...";
     	std::vector<string> files;
@@ -54,7 +62,7 @@ int main (int argc, char* argv[]) {
     				stringstream fullname;
     				fullname << argv[1] << files[i];
     				compute_features (fullname.str ().c_str (), features, 
-    					BSIZE, HOPSIZE, ncoeff, (string) (argv[3]));	
+    					bsize, hopsize, ncoeff, (string) (argv[3]));	
 
     				out << files[i] << " ";
 					for (int i = 0; i < features.size (); ++i) {
