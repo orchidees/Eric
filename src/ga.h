@@ -16,27 +16,32 @@ struct Individual {
 	float fitness;
 };
 
-void gen_random_chromosome (std::vector<int>& f, unsigned instruments, unsigned range) {
-	f.resize(instruments);
+void gen_random_chromosome (std::vector<int>& f, 
+	const std::vector<std::string>& orchestra, 
+	std::map<std::string, std::vector<int> >& instruments) {
+	f.resize(orchestra.size ());
 	for (unsigned i = 0; i < f.size (); ++i) {
-		f[i] = rand () % range;
+		int p = rand () % instruments[orchestra[i]].size ();
+		f[i] = instruments[orchestra[i]][p];
 	}
 }
 
-void gen_random_population (std::vector<Individual>& population, unsigned instruments, unsigned range) {
+void gen_random_population (std::vector<Individual>& population, 
+	const std::vector<std::string>& orchestra, 
+	std::map<std::string, std::vector<int> >& instruments) {
 	for (unsigned i = 0; i < population.size (); ++i) {
-		gen_random_chromosome(population[i].chromosome, instruments, range);
+		gen_random_chromosome(population[i].chromosome, orchestra, instruments);
 		population[i].fitness = 0.;
 	}
 }
 
-void forecast_individual (const Individual& id, const std::vector<db_entry>& database, 
+void forecast_individual (const Individual& id, const std::vector<DB_entry>& database, 
 	std::vector<float>& forecast, unsigned ncoeff) {
 	
 	forecast.clear ();
 	forecast.resize (ncoeff);
 	for (unsigned i = 0; i < id.chromosome.size (); ++i) {
-		db_entry e = database[id.chromosome[i]];
+		DB_entry e = database[id.chromosome[i]];
 
 		for (unsigned j = 0; j < ncoeff; ++j) {
 			forecast[j] += (e.features[j]); // / id.chromosome.size());			
@@ -47,7 +52,7 @@ void forecast_individual (const Individual& id, const std::vector<db_entry>& dat
 }
 
 float evaluate_individual (const Individual& id, const std::vector<float>& target,
-	const std::vector<db_entry>& database, unsigned ncoeff) {
+	const std::vector<DB_entry>& database, unsigned ncoeff) {
 	std::vector<float> values (target.size (), 0);
 
 	forecast_individual(id, database, values, ncoeff);
@@ -56,7 +61,8 @@ float evaluate_individual (const Individual& id, const std::vector<float>& targe
 }
 
 float evaluate_population (std::vector<Individual>& population, 
-	const std::vector<float>& target, const std::vector<db_entry>& database, unsigned ncoeff) {
+	const std::vector<float>& target, const std::vector<DB_entry>& database, 
+	unsigned ncoeff) {
 	float total_fitness = 0;
 
 	for (unsigned i = 0; i < population.size (); ++i) {
@@ -83,7 +89,8 @@ void print_population (std::ostream& out,
 	}
 }
 
-Individual select_parent (const std::vector<Individual>& population, float total_fitness) {
+Individual select_parent (const std::vector<Individual>& population, 
+	float total_fitness) {
 	float wheel = frand<float>(0., 1.) * total_fitness;
 
 	float psum = 0;
@@ -117,49 +124,46 @@ void crossover_parents (Individual& offspring1, Individual& offspring2,
 }
 
 void mutate_individual (Individual& id, float mutation_rate, 
-	unsigned mutation_amp, unsigned range) {
+	unsigned mutation_amp, const std::vector<std::string>& orchestra, 
+	std::map<std::string, std::vector<int> >& instruments) {
 	std::stringstream mutation;
 	for (unsigned i = 0; i < id.chromosome.size (); ++i) {
 		float choice = frand<float>(0., 1.);
 		if (choice < mutation_rate) {
-			int r = (rand () % (2 * mutation_amp)) - mutation_amp;
-			id.chromosome[i] += r;
+			unsigned range = instruments[orchestra[i]].size();
+
+			int r = (rand () % mutation_amp);
+			id.chromosome[i] += instruments[orchestra[i]][r];
 			if (id.chromosome[i] >= range || id.chromosome[i] < 0) {
-				id.chromosome[i] = rand () % range;
+				id.chromosome[i] = instruments[orchestra[i]][rand () % range];
 			} 
 		} 
 	}
 }
 
-void genereate_population (const std::vector<Individual>& old_pop,
+void gen_offspring_population (const std::vector<Individual>& old_pop,
 	std::vector<Individual>& new_pop, unsigned n_individuals, float total_fitness,
-	float crossover_rate, float mutation_rate, unsigned  mutation_amp, unsigned range) {
+	float crossover_rate, float mutation_rate, unsigned  mutation_amp, 
+	const std::vector<std::string>& orchestra, 
+	std::map<std::string, std::vector<int> >& instruments) {
 
 	while (new_pop.size () < n_individuals) {
 		Individual parent_a = select_parent(old_pop, total_fitness);
 		Individual parent_b = select_parent(old_pop, total_fitness);
 
-		// print_individual(std::cout, parent_a); std::cout << std::endl;
-		// print_individual(std::cout, parent_b);  std::cout << std::endl;
-
 		Individual offspring1, offspring2;
 		crossover_parents (offspring1, offspring2, parent_a, parent_b, crossover_rate);
 		
-		// print_individual(std::cout, offspring1);  std::cout << std::endl;
-		// print_individual(std::cout, offspring2);  std::cout << std::endl << std::endl;
-		
-
-		mutate_individual (offspring1, mutation_rate, mutation_amp, range);
-		mutate_individual (offspring2, mutation_rate, mutation_amp, range);
-		// print_individual(std::cout, offspring1);  std::cout << std::endl;
-		// print_individual(std::cout, offspring2);  std::cout << std::endl << std::endl;
+		mutate_individual (offspring1, mutation_rate, mutation_amp, orchestra, instruments);
+		mutate_individual (offspring2, mutation_rate, mutation_amp, orchestra, instruments);
 		
 		new_pop.push_back(offspring1);
 		new_pop.push_back(offspring2);
 	}
 }
 
-void copy_population (const std::vector<Individual>& source, std::vector<Individual>& target) {
+void copy_population (const std::vector<Individual>& source, 
+	std::vector<Individual>& target) {
 	for (unsigned i = 0; i < source.size (); ++i) {
 		target[i].chromosome = source[i].chromosome;
 		target[i].fitness = source[i].fitness;
@@ -179,7 +183,8 @@ Individual get_best_individual (const std::vector<Individual>& population) {
 	return population[max_index];
 }
 
-void decode_chromosome (const std::vector<int>& chromosome, const std::vector<db_entry>& database,
+void decode_chromosome (const std::vector<int>& chromosome, 
+	const std::vector<DB_entry>& database,
 	std::vector<std::string>& files) {
 
 	for (unsigned i = 0; i < chromosome.size (); ++i) {
@@ -188,7 +193,7 @@ void decode_chromosome (const std::vector<int>& chromosome, const std::vector<db
 }
 
 void export_population (const std::vector<Individual>& pop,
-	const std::vector<db_entry>& database, const char* root_path,
+	const std::vector<DB_entry>& database, const char* root_path,
 	const std::string& type, unsigned ncoeff) {
 	std::ofstream solutions ("solutions.txt");
 	solutions << "features: " << type << " " << ncoeff << std::endl << std::endl;
@@ -196,9 +201,6 @@ void export_population (const std::vector<Individual>& pop,
 	for (unsigned i = 0; i < pop.size (); ++i) {
 		std::vector<float> values (ncoeff, 0);		
 		forecast_individual(pop[i], database, values, ncoeff);
-		std::stringstream name_bmp;
-		name_bmp << "solution_" << i << ".bmp";
-		plot_vector(name_bmp.str ().c_str (), values, false, ncoeff);
 
 		std::stringstream name_wav;
 		name_wav << "solution_" << i << ".wav";			

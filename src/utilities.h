@@ -19,6 +19,25 @@
 #include "BMP24.h"
 #include "algorithms.h"
 
+struct DB_entry {
+	std::string file;
+	std::vector<float> features;
+};
+
+template <typename T>
+struct Config {
+	std::string db_file;
+	std::string sound_path;
+	std::vector<std::string> orchestra;
+	int pop_size;
+	int max_epochs;
+	T xover_rate;
+	T mutation_rate;
+	int mutation_amp;
+	T partials_filtering;
+	bool export_solutions;
+};
+
 // -----------------------------------------------------------------------------
 template <typename T>
 void serialize (std::ostream& out , const T* data, int size) {
@@ -97,20 +116,6 @@ void erase_substring (std::string & mainStr, const std::string & toErase) {
 // -----------------------------------------------------------------------------
 
 template <typename T>
-struct Config {
-	std::string db_file;
-	std::string sound_path;
-	int n_instruments;
-	int pop_size;
-	int max_epochs;
-	T xover_rate;
-	T mutation_rate;
-	int mutation_amp;
-	T harmonic_filter;
-	bool export_solutions;
-};
-
-template <typename T>
 void read_config (const char* config_file, Config<T>* p) {
 
 	std::ifstream config (config_file);
@@ -147,9 +152,10 @@ void read_config (const char* config_file, Config<T>* p) {
         	p->db_file = tokens[1];
         } else if (tokens[0] == "sound_path") {
         	p->sound_path = tokens[1];
-        } else if (tokens[0] == "n_instruments") {
-        	p->n_instruments = atol (tokens[1].c_str ());
-
+        } else if (tokens[0] == "orchestra") {
+        	for (unsigned i = 1; i < tokens.size (); ++i) {
+        		p->orchestra.push_back (tokens[i]);
+        	}
         } else if (tokens[0] == "pop_size") {
         	p->pop_size = atol (tokens[1].c_str ());
         } else if (tokens[0] == "max_epochs") {
@@ -160,8 +166,8 @@ void read_config (const char* config_file, Config<T>* p) {
         	p->mutation_rate = atof (tokens[1].c_str ());
         } else if (tokens[0] == "mutation_amp") {
         	p->mutation_amp = atol (tokens[1].c_str ());
-        } else if (tokens[0] == "harmonic_filter") {
-        	p->harmonic_filter = atof (tokens[1].c_str ());
+        } else if (tokens[0] == "partials_filtering") {
+        	p->partials_filtering = atof (tokens[1].c_str ());
         } else if (tokens[0] == "export_solutions") {
         	p->export_solutions = (bool) atol (tokens[1].c_str ());
         } else {
@@ -171,7 +177,7 @@ void read_config (const char* config_file, Config<T>* p) {
         }
     }
 
-	if (p->n_instruments <= 0) {
+	if (p->orchestra.size() <= 0) {
         throw std::runtime_error ("invalid number of instruments");
 	}
 	if (p->pop_size <= 0) {
@@ -183,12 +189,7 @@ void read_config (const char* config_file, Config<T>* p) {
 	}	
 }
 
-struct db_entry {
-	std::string file;
-	std::vector<float> features;
-};
-
-void load_db (const char* dbfile, std::vector<db_entry>& database, 
+void load_db (const char* dbfile, std::vector<DB_entry>& database, 
 	int& bsize, int& hopsize, int& ncoeff, std::string& type) {
 	std::ifstream db (dbfile);
 	if (!db.good ()) {
@@ -208,7 +209,7 @@ void load_db (const char* dbfile, std::vector<db_entry>& database,
 		std::stringstream linestream;
 		linestream << line;
 		
-		db_entry e;
+		DB_entry e;
 		linestream >> e.file;
 		if (e.file.size () == 0) {
 			std::stringstream err;
@@ -234,8 +235,8 @@ void load_db (const char* dbfile, std::vector<db_entry>& database,
 	}
 }
 
-void harmonic_filter (const std::vector<db_entry>& database, std::map<std::string, int>& notes,
-	std::vector<db_entry>& outdb) {
+void harmonic_filter (const std::vector<DB_entry>& database, std::map<std::string, int>& notes,
+	std::vector<DB_entry>& outdb) {
 
 	for (unsigned j = 0; j < database.size (); ++j) {
 		for (std::map<std::string, int>::iterator i = notes.begin(); i != notes.end (); ++i) {
@@ -246,6 +247,19 @@ void harmonic_filter (const std::vector<db_entry>& database, std::map<std::strin
 		}
 	}
 }
+
+std::string get_instrument (const DB_entry& e) {
+	std::string file = removePath(e.file);
+	int first_dash = file.find_first_of("-");
+	if (first_dash == std::string::npos) {
+		std::stringstream err;
+		err << "malformed entry " << e.file;
+		throw std::runtime_error (err.str ());
+	}
+
+	return file.substr (0, first_dash);
+}
+
 // -------------------------------------------------------------------------- //
 void listdir (const char *name, const char* trailing_path, std::vector<std::string>& list) {
     DIR *dir;

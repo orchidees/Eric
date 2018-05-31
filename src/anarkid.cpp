@@ -23,9 +23,9 @@ using namespace std;
 // 4. mutation is +-r integer
 // 5. evaluation is = sum of corresponding envelopes and distance with target
 
-// TODO: strumenti, filtri, matching pursuit per startup e mutation,
-//	     incremento database, gestione dati simbolici, miglioramento interfaccia codice
-//		 cambiare plot in 512x512..., gestire diversity, correzione pitch
+// TODO: filtri, matching pursuit per startup e mutation,
+//	     incremento database, gestione dati simbolici (?), miglioramento interfaccia codice
+//		 correzione pitch, spazializzazione
 
 const int MAX_EQUAL_FITNESS = 15;
 
@@ -41,59 +41,45 @@ int main (int argc, char* argv[]) {
 			throw runtime_error("syntax is 'anarkid target.wav config.txt");
 		}
 
-		//#define TEST_FEATURES
-		#ifdef TEST_FEATURES
-			vector<float> mag, env;
-			compute_features(argv[1], mag, 2048, 512, 1024, "spectrum");
-			compute_features(argv[1], env, 2048, 512, 1024, "specenv");
-			ofstream out ("test_features.txt");
-			out << "[";
-			for (unsigned i = 0; i < mag.size (); ++i) {
-				out << mag[i] << " ";
-			}
-			out << "]" << endl << endl;
-			out << "[";
-			for (unsigned i = 0; i < mag.size (); ++i) {
-				out << env[i] << " ";
-			}
-			out << "]" << endl;
-
-			return 0;
-		#endif
-
-
+		// config --------------------------------------------------------------
 		cout << "loading configuration...";
 		Config<float> c;
 		read_config(argv[2], &c);
 		cout << "done" << endl;
 
+
+		// db ------------------------------------------------------------------
 		cout << "loading database...";
-		vector<db_entry> idb;
+		vector<DB_entry> idb;
 		int bsize = 1024;			// defaults
 		int hopsize = 512;
 		int ncoeff = bsize / 2;
 		std::string type = "spectrum";
-
 		load_db (c.db_file.c_str (), idb, bsize, hopsize, ncoeff, type);
 		cout << "done" << endl;
 
+		// target --------------------------------------------------------------
 		cout << "analysing target...";
 		vector<float> target (ncoeff);
 		compute_features(argv[1], target, bsize, hopsize, ncoeff, type);
 		normalize(&target[0], &target[0], ncoeff);
 		cout << "done" << endl;
-		plot_vector("target.bmp", target, false, ncoeff);
 
-		vector<db_entry> database;
-		if (c.harmonic_filter > 0) {
-			cout << "harmonic filtering...";
+		// pfilt  --------------------------------------------------------------
+		vector<DB_entry> database;
+		if (c.partials_filtering > 0) {
+			cout << "partials filtering...";
 			map<string, int> notes;
-			get_notes (argv[1], notes, bsize, hopsize, c.harmonic_filter);
+			get_notes (argv[1], notes, bsize, hopsize, c.partials_filtering);
 			
 			harmonic_filter(idb, notes, database);
+			if (database.size () < 1) {
+				throw runtime_error("empty search space; please check filters");
+			}
 			cout << "done" << endl << endl;
 
-			cout << "notes     : ";
+
+			cout << "notes      : ";
 			for (map<string, int>::iterator i = notes.begin(); i != notes.end (); ++i) {
 				cout << i->first << " ";
 			}
@@ -103,13 +89,50 @@ int main (int argc, char* argv[]) {
 			cout << endl;
 		}
 
-		cout << "features  : " << type << ", " << bsize << ", " << hopsize << ", "
+		cout << "features   : " << type << ", " << bsize << ", " << hopsize << ", "
 			<< ncoeff << endl;
-		cout << "parameters: " << c.xover_rate << ", " << c.mutation_rate << ", "
-			<< c.mutation_amp << endl << endl;
+		cout << "parameters : " << c.xover_rate << ", " << c.mutation_rate << ", "
+			<< c.mutation_amp << endl;
 
+		// instr ---------------------------------------------------------------
+		map<string, vector<int> > instruments;
+		for (unsigned i = 0; i < database.size (); ++i) {
+			string instr = get_instrument(database[i]);
+			map<string, vector<int> >::iterator it = instruments.find (instr);
+			if (it == instruments.end ()) {
+				vector<int> d;
+				d.push_back(i);
+				instruments[instr] = d;
+			} else {
+				instruments[instr].push_back (i);
+			}
+		}			
+
+		int nl = 0;
+		cout << "instruments: ";
+		for (map<string, vector<int> >::iterator it = instruments.begin ();
+			it != instruments.end (); ++it) {
+			cout << it->first << " ";
+			++nl;
+			if (nl == 6) {
+				cout << endl << "             ";
+				nl = 0;
+			}
+		}
+		cout << endl << endl;
+
+		for (unsigned i = 0; i < c.orchestra.size (); ++i) {
+			map<string, vector<int> >::iterator it = instruments.find (c.orchestra[i]);
+			if (it == instruments.end ()) {
+				std::stringstream err;
+				err << "invalid isntrument " << c.orchestra[i] << " specified";
+				throw runtime_error(err.str ());
+			}
+		}
+		
+		// ga ------------------------------------------------------------------
 		vector<Individual> population (c.pop_size);
-		gen_random_population (population, c.n_instruments, database.size ());
+		gen_random_population (population, c.orchestra, instruments);
 
 		float total_fitness = 0;
 		vector<float> fitness;
@@ -126,8 +149,9 @@ int main (int argc, char* argv[]) {
 			fitness.push_back(total_fitness);
 
 			vector<Individual> new_pop;
-			genereate_population(population, new_pop, c.pop_size, total_fitness,
-				c.xover_rate, c.mutation_rate, c.mutation_amp, database.size ());
+			gen_offspring_population(population, new_pop, c.pop_size, total_fitness,
+				c.xover_rate, c.mutation_rate, c.mutation_amp,
+				c.orchestra, instruments);
 	
 			copy_population (new_pop, population);
 
@@ -150,7 +174,9 @@ int main (int argc, char* argv[]) {
 		}
 		fit << "]" << endl;
 		fit.close ();
-				
+
+
+		// export --------------------------------------------------------------				
 		vector<Individual> uniques;
 		make_uniques(best_pop, uniques);
 
@@ -159,7 +185,8 @@ int main (int argc, char* argv[]) {
 
 		Individual best = get_best_individual(uniques);
 		cout << "best solution: " << endl;
-		for (unsigned i = 0; i < c.n_instruments; ++i) {
+		unsigned n_instruments = c.orchestra.size ();
+		for (unsigned i = 0; i < n_instruments; ++i) {
 			cout << "\t" << database[best.chromosome[i]].file << endl;
 		}
 		cout << endl;	
