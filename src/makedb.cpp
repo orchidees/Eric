@@ -32,7 +32,7 @@ int main (int argc, char* argv[]) {
         }
         
         int ncoeff = atol (argv[4]);
-        if (ncoeff <= 0 || ncoeff >= BSIZE) {
+        if (ncoeff <= 0 || ncoeff >= BSIZE / 2) {
             throw runtime_error("invalid number of coefficients requested");
         }
         

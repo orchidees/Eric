@@ -1,12 +1,13 @@
 ; anarkid - configuration file
 ;
 
-db_file 		SOL_toy_specenv.txt
-sound_path 		/Users/cella/Desktop/SOL_toy
-n_instruments	6
-pop_size		100
-max_epochs		1000
-xover_rate		.8
-mutation_rate	0.001
-mutation_amp 	10
-export_sol		1
+db_file 			SOL_toy_spectrum.txt
+sound_path 			/Users/Carmine/Elementi/Datasets/SOL_toy
+n_instruments		6
+pop_size			100
+max_epochs			100
+xover_rate			.8
+mutation_rate		0.01
+mutation_amp 		10
+harmonic_filter		0
+export_solutions	1

@@ -39,7 +39,7 @@ void forecast_individual (const Individual& id, const std::vector<db_entry>& dat
 		db_entry e = database[id.chromosome[i]];
 
 		for (unsigned j = 0; j < ncoeff; ++j) {
-			forecast[j] += (e.features[j]);			
+			forecast[j] += (e.features[j]); // / id.chromosome.size());			
 		}
 	}
 
@@ -62,7 +62,7 @@ float evaluate_population (std::vector<Individual>& population,
 	for (unsigned i = 0; i < population.size (); ++i) {
 		float v =  evaluate_individual(population[i], target, database, ncoeff);
 		if (v == 0) population[i].fitness = LARGE_VALUE;
-		else population[i].fitness = 1. / v;
+		else population[i].fitness = pow (1. / v, 2.);
 		
 		total_fitness += population[i].fitness;
 	}
@@ -198,8 +198,7 @@ void export_population (const std::vector<Individual>& pop,
 		forecast_individual(pop[i], database, values, ncoeff);
 		std::stringstream name_bmp;
 		name_bmp << "solution_" << i << ".bmp";
-		plot_vector(name_bmp.str ().c_str (), values, type == "mfcc" ? true : false, 
-			false, ncoeff);
+		plot_vector(name_bmp.str ().c_str (), values, false, ncoeff);
 
 		std::stringstream name_wav;
 		name_wav << "solution_" << i << ".wav";			

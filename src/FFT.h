@@ -17,6 +17,7 @@
 #include <algorithm>
 #include <vector>
 #include <cmath>
+#include <iostream>
 
 //! Peak representation
 template <typename T>
@@ -473,100 +474,19 @@ void rect2pol (T* cbuf, int N) {
 }
 
 template <typename T>
-int locmax (const T* amp, int N, int* max) {
+int locmax (const T* amp, int N, std::vector<int>& max) {
 	T maxPeak = amp[1];
-	int count = 0;
 	for (int i = 1; i < N - 1; ++i) {
 		T magCurr = amp[i];
 		T magPrev = amp[(i - 1)];
 		T magNext = amp[(i + 1)];
 
 		if (magCurr > magPrev && magCurr > magNext) {
-			max[count] = i;
-			++count;
+			max.push_back(i);
 			if (magCurr > maxPeak) maxPeak = magCurr;
 		}
 	}
-	return count;
-}
-
-template <typename T>
-	int locmax2 (const T* cplx, int N, int* max) {
-	T maxPeak = cplx[2];
-	int count = 0;
-	for (int i = 2; i < N - 2; ++i) {
-		T magCurr = cplx[2 * i];
-		T magPrev = cplx[2 * (i - 1)];
-		T magPrevPrev = cplx[2 * (i - 2)];
-		T magNext = cplx[2 * (i + 1)];
-		T magNextNext = cplx[2 * (i + 2)];
-
-		if (magCurr > magPrev && magCurr > magNext &&
-			magCurr > magPrevPrev && magCurr > magNextNext) {
-			max[count] = i;
-			++count;
-			if (magCurr > maxPeak) maxPeak = magCurr;
-		}
-	}
-	return count;
-}
-template <typename T>
-T locmax2AmpFreq (const T* amp, const T* freq, int size, std::vector<int>& max, T FUNDAMENTAL) {
-	T maxPeak = amp[2];
-	for (int i = 2; i < size - 2; ++i) {
-		T magCurr = amp[i]; //20 * log10 (amp[i] + .00000001);
-		T magPrev = amp[i - 1]; //20 * log10 (amp[i - 1] + .00000001);
-		T magPrevPrev = amp[i - 2]; //20 * log10 (amp[i - 1] + .00000001);
-		T magNext = amp[i + 1]; // 20 * log10 (amp[i + 1] + .00000001);
-		T magNextNext = amp[i + 2]; // 20 * log10 (amp[i + 1] + .00000001);
-		
-		if (magCurr > magPrev && magCurr > magNext &&
-			magCurr > magPrevPrev && magCurr > magNextNext) {
-			max.push_back (i);
-			if (magCurr > maxPeak) maxPeak = magCurr;
-		}        
-	}
-
-	return maxPeak;
-}
-
-// rect to amp-freq
-template <typename T>
-inline void ampFreqPhaseDiff (const T* cbuffer, T* amp, T* freq, T* oldPhi,
-	int N, int hop, T R) {
-	T osamp = N / hop;
-	T freqPerBin = R / (T) N;
-	T expct = TWOPI * (T) hop / (T) N;
-	rect2pol<T> (cbuffer, N);
-	for (int i = 0; i < N; ++i) {
-		amp[i] = cbuffer[2 * i];
-		T phase = cbuffer[2 * i + 1];
-		T tmp = phase - oldPhi[i];
-		oldPhi[i] = phase;
-		tmp -= (T) i * expct;
-		int qpd = (int) (tmp / PI);
-		if (qpd >= 0) qpd += qpd & 1;
-		else qpd -= qpd & 1;
-		tmp -= PI * (T) qpd;
-		tmp = osamp * tmp / (2. * PI);
-		tmp = (T) i * freqPerBin + tmp * freqPerBin;
-		freq[i] = tmp;
-	}
-}
-
-template <typename T>
-void ampFreqParabolic (const T* cbuffer, T* amp, T* freq, int N,  double R) {
-	T freqPerBin = (R ) / (T) N;
-	T min = 0;
-	for (int i = 0; i < N; ++i) {
-		amp[i] = sqrtf (cbuffer[2 * i] * cbuffer[2 * i] + cbuffer[2 * i + 1] * cbuffer[2 * i + 1]);
-	}
-	
-	freq[0] = freqPerBin;
-	for (int i = 1; i < N - 1; ++i) {
-		freq[i] = parabolicInterpolate (freqPerBin * (i - 1), freqPerBin * (i), freqPerBin * (i + 1),
-			amp[i - 1], amp[i], amp[i + 1], &min);
-	}
+	return max.size ();
 }
 
 template <typename T>
@@ -602,25 +522,31 @@ void cepstralEnvelope (int C, const T* magn, T* specenv,
     memset (specenv, 0, sizeof (T) * NN);
 
     for (int i = 0; i < N; ++i) {
-        specenv[2 * i] = log (magn[i] / NN + EPS);
+        specenv[2 * i] = 20. * log10 (magn[2 * i] + .00001);
         specenv[2 * i + 1] = 0;
     }
     // inverse transform
     fft->inverse (specenv);
 
-    for (int i = 0; i < N; ++i) {
-        specenv[2 * i] /= N;
-        specenv[2 * i + 1] = 0;
-    }
-    
+    // norm of ifft
+	for (int i = 0; i < N;  ++i) {
+	 	specenv[2 * i] /= N;
+	 	specenv[2 * i + 1] /= N;
+	}
+
     // liftering
-    specenv[0] *= .5;
-    for (int i = C + 1; i < N; ++i) {
-        specenv[2 * i] = 0;
+    for (int i = 1; i < C;  ++i) {
+        specenv[2 * i] *= 2;
+        specenv[2 * i + 1] *= 2;
     }
-    
+   
+    for (int i = C + 1; i < N;  ++i) {
+    	specenv[2 * i] = 0;
+        specenv[2 * i + 1] = 0;
+	}
+
     // spectral envelope
-    fft->forward (specenv);
+    fft->forward (specenv); // REAL PART -> envelope
 }
 
 #endif	// FFT_H 

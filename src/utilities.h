@@ -106,7 +106,8 @@ struct Config {
 	T xover_rate;
 	T mutation_rate;
 	int mutation_amp;
-	bool export_sol;
+	T harmonic_filter;
+	bool export_solutions;
 };
 
 template <typename T>
@@ -159,8 +160,10 @@ void read_config (const char* config_file, Config<T>* p) {
         	p->mutation_rate = atof (tokens[1].c_str ());
         } else if (tokens[0] == "mutation_amp") {
         	p->mutation_amp = atol (tokens[1].c_str ());
-        } else if (tokens[0] == "export_sol") {
-        	p->export_sol = (bool) atol (tokens[1].c_str ());
+        } else if (tokens[0] == "harmonic_filter") {
+        	p->harmonic_filter = atof (tokens[1].c_str ());
+        } else if (tokens[0] == "export_solutions") {
+        	p->export_solutions = (bool) atol (tokens[1].c_str ());
         } else {
             std::stringstream err;
             err << "invalid token in configuration file at line " << line;
@@ -225,6 +228,18 @@ void load_db (const char* dbfile, std::vector<db_entry>& database,
 	}
 }
 
+void harmonic_filter (const std::vector<db_entry>& database, std::map<std::string, int>& notes,
+	std::vector<db_entry>& outdb) {
+
+	for (unsigned j = 0; j < database.size (); ++j) {
+		for (std::map<std::string, int>::iterator i = notes.begin(); i != notes.end (); ++i) {
+			if (database[j].file.find (i->first) != std::string::npos) {
+				outdb.push_back(database[j]);
+				break;
+			}
+		}
+	}
+}
 // -------------------------------------------------------------------------- //
 void listdir (const char *name, const char* trailing_path, std::vector<std::string>& list) {
     DIR *dir;
@@ -284,29 +299,24 @@ void deinterleave (const T* stereo, T* l, T* r, int n) {
 }	
 
 // -----------------------------------------------------------------------------
-void plot_vector (const char* name, const std::vector<float>& target, bool bipolar, 
+void plot_vector (const char* name, const std::vector<float>& target, 
 	bool dots = false, unsigned height = 256) {
+	int minPos = 0;
 	int maxPos = 0;
+	float min = minimum(&target[0], target.size (), minPos);
 	float max = maximum(&target[0], target.size (), maxPos);
-	
+	float delta = max - min;
+
 	BMP24 t (target.size (), height);
 	t.background(127, 127, 127);
+
 	for (unsigned z = 0; z < target.size (); ++z) {
-		if (bipolar) {
-			if (dots) {
-			t.set (z, (int) ((float) height / 2. + ((float) height * target[z] / max)), 
-				0, 0, 0);	
-			} else {	
-				t.line(z, 0, z, (int) ((float) height / 2. + ((float) height * target[z] / max)), 
-				0, 0, 127, true);			
-			}
+		if (dots) {
+			t.set (z, (int) ((float) height * target[z] / delta) + min, 0, 0, 0);
 		} else {
-			if (dots) {
-				t.set (z, (int) ((float) height * target[z] / max), 0, 0, 0);
-			} else {
-				t.line(z, 0, z,(int) ((float) height * target[z] / max), 0, 0, 127, true);
-			}	
-		}
+			t.line(z, 0, z,(int) ((float) height * target[z] / delta) + min, 0, 0, 127, true);
+		}	
+
 	}
 	t.grid (10, 10, 0, 0, 0);
 	t.save (name);
