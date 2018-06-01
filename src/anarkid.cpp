@@ -63,6 +63,7 @@ int main (int argc, char* argv[]) {
 		vector<float> target (ncoeff);
 		compute_features(argv[1], target, bsize, hopsize, ncoeff, type);
 		normalize(&target[0], &target[0], ncoeff);
+		// plot_vector("target.bmp", target);
 		cout << "done" << endl;
 
 		// pfilt  --------------------------------------------------------------
@@ -70,7 +71,7 @@ int main (int argc, char* argv[]) {
 		if (c.partials_filtering > 0) {
 			cout << "partials filtering...";
 			map<string, int> notes;
-			get_notes (argv[1], notes, bsize, hopsize, c.partials_filtering);
+			partials_to_notes (argv[1], notes, bsize * 2, hopsize, c.partials_filtering);
 			
 			harmonic_filter(idb, notes, database);
 			if (database.size () < 1) {
@@ -81,7 +82,8 @@ int main (int argc, char* argv[]) {
 
 			cout << "notes      : ";
 			for (map<string, int>::iterator i = notes.begin(); i != notes.end (); ++i) {
-				cout << i->first << " ";
+				cout << i->first << " (" << 
+					(i->second > 0 ? "+" : "") << i->second << " cents) ";
 			}
 			cout << endl;
 		} else {
@@ -179,6 +181,7 @@ int main (int argc, char* argv[]) {
 		// export --------------------------------------------------------------				
 		vector<Individual> uniques;
 		make_uniques(best_pop, uniques);
+		evaluate_population(uniques, target, database, ncoeff);
 
 		cout << "best fitness = " << max_fit << " (epoch " << best_epoch << ", "
 			<< uniques.size () << " individuals)" << endl << endl;
@@ -191,10 +194,12 @@ int main (int argc, char* argv[]) {
 		}
 		cout << endl;	
 
-		if (c.export_solutions) {		
+		if (c.export_solutions > 0) {		
 			cout << "saving best solutions..."; cout.flush ();
-			if  (c.max_exported < uniques.size ()) uniques.resize (c.max_exported);
-
+			std::sort (uniques.begin (), uniques.end ());
+			std::reverse(uniques.begin (), uniques.end());
+			
+			if (c.export_solutions < uniques.size ()) uniques.resize(c.export_solutions);
 			export_population(uniques, database, c.sound_path.c_str (), 
 				type, ncoeff);
 			cout << "done" << endl;

@@ -35,8 +35,7 @@ struct Config {
 	T mutation_rate;
 	int mutation_amp;
 	T partials_filtering;
-	bool export_solutions;
-	int max_exported;
+	int export_solutions;
 };
 
 // -----------------------------------------------------------------------------
@@ -170,9 +169,7 @@ void read_config (const char* config_file, Config<T>* p) {
         } else if (tokens[0] == "partials_filtering") {
         	p->partials_filtering = atof (tokens[1].c_str ());
         } else if (tokens[0] == "export_solutions") {
-        	p->export_solutions = (bool) atol (tokens[1].c_str ());
-        } else if (tokens[0] == "max_exported") {
-        	p->max_exported = atol (tokens[1].c_str ());
+        	p->export_solutions = atol (tokens[1].c_str ());
         } else {
             std::stringstream err;
             err << "invalid token in configuration file at line " << line;
@@ -323,7 +320,7 @@ void deinterleave (const T* stereo, T* l, T* r, int n) {
 
 // -----------------------------------------------------------------------------
 void plot_vector (const char* name, const std::vector<float>& target, 
-	bool dots = false, unsigned height = 256) {
+	unsigned width = 512, unsigned height = 512) {
 	int minPos = 0;
 	int maxPos = 0;
 	float min = minimum(&target[0], target.size (), minPos);
@@ -333,19 +330,31 @@ void plot_vector (const char* name, const std::vector<float>& target,
 	BMP24 t (target.size (), height);
 	t.background(127, 127, 127);
 
-	for (unsigned z = 0; z < target.size (); ++z) {
-		if (dots) {
-			t.set (z, (int) ((float) height * target[z] / delta) + min, 0, 0, 0);
-		} else {
-			t.line(z, 0, z,(int) ((float) height * target[z] / delta) + min, 0, 0, 127, true);
-		}	
+	float stretch = width / target.size ();
+	std::cout << "-- " << min << " " << max << " " << delta << " " << stretch << std::endl;
+	for (unsigned z = 0; z < target.size () - 1; ++z) {
+		std::cout << (int) (z * stretch) << " " << (int) ((z + 1) * stretch)
+			<< (int) ((float) height * target[z] - min)/ delta <<
+			(int) ((float) height * target[z + 1] - min)/ delta << std::endl;
 
+		t.line(
+			(int) (z * stretch), 
+			(int) ((float) height * target[z + 1] - min)/ delta, 
+			(int) ((z + 1) * stretch), 
+			(int) ((float) height * target[z + 1] - min)/ delta, 0, 0, 127, true);
 	}
 	t.grid (10, 10, 0, 0, 0);
 	t.save (name);
 }
 
 // -----------------------------------------------------------------------------
+
+float cents_to_ratio (int cents) {
+	float c = cents;
+	c /= 1200.;
+	return std::pow (2., c);
+}
+	
 void create_sound_mix (const std::vector<std::string>& files, 
 	const char* sound_path, 
 	const std::vector<float>& ratios, const char* outfile) {

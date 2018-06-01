@@ -61,7 +61,6 @@ void compute_features (const char* name, std::vector<float>& features,
 	float* win = new float[bsize];
 	makeWindow<float>(win, bsize, .5, .5, 0.); // hanning
 
-
 	float tot_nrg = 0;
 	for (unsigned i = 0; i < samples; i += hop) {
 		memset(cdata, 0, sizeof(float) * bsize * 2);		
@@ -114,7 +113,7 @@ void compute_features (const char* name, std::vector<float>& features,
 	delete fft;
 }
 
-void get_notes (const char* name, std::map<std::string, int>& notes,
+void partials_to_notes (const char* name, std::map<std::string, int>& notes,
 	unsigned bsize, unsigned hopsize, float threshold) {
 	static const char* note_names[] = {
 		"A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"
@@ -127,14 +126,14 @@ void get_notes (const char* name, std::map<std::string, int>& notes,
 	std::vector<int> peaks;
 	locmax(&spectrum[0], bsize / 2, peaks);
 
-	float freqPerBin = 44100. / bsize;
-	
+	float* freq = new float[bsize / 2];
+	ampFreqQuad(&spectrum[0], freq, bsize / 2, 44100.);
+
 	Hz2Note<float> hz2n;	
 	for (unsigned i = 0; i < peaks.size() - 1; ++i) {
 		if (spectrum[peaks[i]] > threshold) {
-			// float fn = (peaks[i] * spectrum[peaks[i]] + spectrum[peaks[i - 1]] * peaks[i - 1]) 
-			// 	/ (spectrum[peaks[i]] + spectrum[peaks[i - 1]]);
-			float fn = peaks[i] * freqPerBin;
+			// float fn = peaks[i] * freqPerBin;
+			float fn = freq[peaks[i]];
 			float nfreq = 0;
 			int oct = 0;
 			int note = 0;
@@ -142,10 +141,10 @@ void get_notes (const char* name, std::map<std::string, int>& notes,
 			hz2n.convert(fn, nfreq, oct, note, cents);
 			std::stringstream n;
 			n << note_names[note] << oct;
-			//std::cout << freqPerBin * peaks[i] << " vs " << fn << " for " << n.str () << std::endl;
 			notes[n.str ()] = cents;
 		}
 	}
+	delete [] freq;
 }
 
 

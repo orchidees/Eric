@@ -14,6 +14,9 @@
 struct Individual {
 	std::vector<int> chromosome;
 	float fitness;
+	bool operator< (const Individual& rhs) const {
+		return this->fitness < rhs.fitness;
+	}
 };
 
 void gen_random_chromosome (std::vector<int>& f, 
@@ -192,6 +195,19 @@ void decode_chromosome (const std::vector<int>& chromosome,
 	}
 }
 
+void make_uniques (const std::vector<Individual>& population, 
+	std::vector<Individual>& uniques) {
+	std::map<std::vector<int>, Individual> uniques_map;
+	for (unsigned i = 0; i < population.size (); ++i) {
+		uniques_map[population[i].chromosome] = population[i];
+	}
+
+	for (std::map<std::vector<int>, Individual>::iterator it = uniques_map.begin();
+		it != uniques_map.end (); ++it) {
+		uniques.push_back(it->second);
+	}
+}
+
 void export_population (const std::vector<Individual>& pop,
 	const std::vector<DB_entry>& database, const char* root_path,
 	const std::string& type, unsigned ncoeff) {
@@ -200,8 +216,9 @@ void export_population (const std::vector<Individual>& pop,
 	
 	for (unsigned i = 0; i < pop.size (); ++i) {
 		std::vector<float> values (ncoeff, 0);		
-		forecast_individual(pop[i], database, values, ncoeff);
+		//forecast_individual(pop[i], database, values, ncoeff);
 
+		std::cout << "fit  " <<  pop[i].fitness << std::endl;
 		std::stringstream name_wav;
 		name_wav << "solution_" << i << ".wav";			
 		std::vector<std::string> files;
@@ -218,18 +235,6 @@ void export_population (const std::vector<Individual>& pop,
 	solutions.close ();
 }
 
-void make_uniques (const std::vector<Individual>& population, 
-	std::vector<Individual>& uniques) {
-	std::map<std::vector<int>, Individual> uniques_map;
-	for (unsigned i = 0; i < population.size (); ++i) {
-		uniques_map[population[i].chromosome] = population[i];
-	}
-
-	for (std::map<std::vector<int>, Individual>::iterator it = uniques_map.begin();
-		it != uniques_map.end (); ++it) {
-		uniques.push_back(it->second);
-	}
-}
 #endif	// GA_H 
 
 // EOF

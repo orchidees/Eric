@@ -500,6 +500,23 @@ void ampFreqLinear (const T* amp, T* freq, int N,  double R) {
 	}
 }
 
+
+template <typename T>
+void ampFreqQuad (const T* amp, T* freq, int N,  double R) {
+	T freqPerBin = (R ) / (T) (2. * N); // positive spectrum only
+	
+	freq[0] = 0.;
+	for (int k = 1; k < N - 1; ++k) {
+		T y1 =  amp[k - 1];
+		T y2  =  amp[k];
+		T y3 =  amp[k + 1];
+		T d = (y3 - y1) / (2. * (2. * y2 - y1 - y3));
+		freq[k]  =  freqPerBin * (k + d);
+	}
+	freq[N - 1] = 0.;
+}
+
+
 template <typename T>
 void ampFreqBins (const T* cbuffer, T* amp, T* freq, int N,  double R) {
 	T freqPerBin = (R) / (T) N;
