@@ -6,8 +6,6 @@
 
 #include <cmath>
 
-#define DCT_MAX_SIZE 128
-
 template <typename T>
 class MFCC {
 private:

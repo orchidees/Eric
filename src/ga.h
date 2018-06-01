@@ -44,10 +44,11 @@ void forecast_individual (const Individual& id, const std::vector<DB_entry>& dat
 	forecast.clear ();
 	forecast.resize (ncoeff);
 	for (unsigned i = 0; i < id.chromosome.size (); ++i) {
+		if (id.chromosome[i] == -1) continue; // silent instrument
 		DB_entry e = database[id.chromosome[i]];
 
 		for (unsigned j = 0; j < ncoeff; ++j) {
-			forecast[j] += (e.features[j]); // / id.chromosome.size());			
+			forecast[j] += (e.features[j]/ id.chromosome.size());			
 		}
 	}
 
@@ -127,26 +128,29 @@ void crossover_parents (Individual& offspring1, Individual& offspring2,
 }
 
 void mutate_individual (Individual& id, float mutation_rate, 
-	unsigned mutation_amp, const std::vector<std::string>& orchestra, 
+	const std::vector<std::string>& orchestra, 
 	std::map<std::string, std::vector<int> >& instruments) {
 	std::stringstream mutation;
 	for (unsigned i = 0; i < id.chromosome.size (); ++i) {
 		float choice = frand<float>(0., 1.);
 		if (choice < mutation_rate) {
 			unsigned range = instruments[orchestra[i]].size();
-
-			// int r = (rand () % mutation_amp);
-			// id.chromosome[i] += instruments[orchestra[i]][r];
-			// if (id.chromosome[i] >= range || id.chromosome[i] < 0) {
-				id.chromosome[i] = instruments[orchestra[i]][rand () % range];
-			// } 
+			id.chromosome[i] = instruments[orchestra[i]][rand () % range];
 		} 
+	}
+}
+
+void apply_sparsity (Individual& id, float sparsity) {
+	float p = frand<float>(0., 1.);
+
+	if (p < sparsity) {
+		id.chromosome[rand() % id.chromosome.size ()] = -1;
 	}
 }
 
 void gen_offspring_population (const std::vector<Individual>& old_pop,
 	std::vector<Individual>& new_pop, unsigned n_individuals, float total_fitness,
-	float crossover_rate, float mutation_rate, unsigned  mutation_amp, 
+	float crossover_rate, float mutation_rate, float sparsity,
 	const std::vector<std::string>& orchestra, 
 	std::map<std::string, std::vector<int> >& instruments) {
 
@@ -157,9 +161,12 @@ void gen_offspring_population (const std::vector<Individual>& old_pop,
 		Individual offspring1, offspring2;
 		crossover_parents (offspring1, offspring2, parent_a, parent_b, crossover_rate);
 		
-		mutate_individual (offspring1, mutation_rate, mutation_amp, orchestra, instruments);
-		mutate_individual (offspring2, mutation_rate, mutation_amp, orchestra, instruments);
+		mutate_individual (offspring1, mutation_rate, orchestra, instruments);
+		mutate_individual (offspring2, mutation_rate, orchestra, instruments);
 		
+		apply_sparsity(offspring1, sparsity);
+		apply_sparsity(offspring2, sparsity);
+
 		new_pop.push_back(offspring1);
 		new_pop.push_back(offspring2);
 	}
@@ -200,22 +207,6 @@ void make_uniques (const std::vector<Individual>& population,
 	}
 }
 
-void decode_chromosome (const std::vector<int>& chromosome, 
-	const std::vector<DB_entry>& database,
-	std::vector<std::string>& files,
-	std::vector<float>& ratios,
-	std::map<std::string, int>& notes,
-	float partials_filtering) {
-
-	for (unsigned i = 0; i < chromosome.size (); ++i) {
-		files.push_back(database[chromosome[i]].file);
-		if (partials_filtering > 0) {
-			float r = cents_to_ratio (notes[database[chromosome[i]].symbols[2]]);
-			ratios.push_back (r);
-		} else ratios.push_back (1.);
-	}
-}
-
 void export_population (const std::vector<Individual>& pop,
 	const std::vector<DB_entry>& database, const Config<float>& c,
 	std::map<std::string, int>& notes,
@@ -224,19 +215,52 @@ void export_population (const std::vector<Individual>& pop,
 	solutions << "features: " << type << " " << ncoeff << std::endl << std::endl;
 	
 	for (unsigned i = 0; i < pop.size (); ++i) {
-		std::vector<float> values;
+		solutions << ">" << i << std::endl;
 		std::vector<float> ratios;
-
+		std::vector<std::string> files;
+		std::vector<float> pans;
+		
 		std::stringstream name_wav;
 		name_wav << "solution_" << i << ".wav";			
-		std::vector<std::string> files;
-		decode_chromosome(pop[i].chromosome, database, files, ratios, notes, 
-			c.partials_filtering);
+		
+		std::string symbols;
 
-		create_sound_mix(files, c.sound_path.c_str (), ratios, name_wav.str ().c_str ());
-		for (unsigned z = 0; z < files.size (); ++z) {
-			solutions << files[z] << " ";
+		for (unsigned j = 0; j < pop[i].chromosome.size (); ++j) {
+			if (pop[i].chromosome[j] == -1) {
+				solutions << "-" << std::endl;
+				continue; // silent instrument
+			}	
+
+			DB_entry d = database[pop[i].chromosome[j]];
+			files.push_back(d.file);
+			if (c.partials_filtering > 0) {
+				float r = cents_to_ratio (notes[d.symbols[2]]);
+				ratios.push_back (r);
+			} else ratios.push_back (1.);
+
+			if (d.symbols[0].find ("Fl") != std::string::npos)pans.push_back (.5);
+			else if (d.symbols[0].find ("Ob") != std::string::npos) pans.push_back(.6);
+			else if (d.symbols[0].find ("Cl") != std::string::npos) pans.push_back(.4);
+			else if (d.symbols[0].find ("Bn") != std::string::npos) pans.push_back(.55);
+			else if (d.symbols[0].find ("Hn") != std::string::npos) pans.push_back(.3);
+			else if (d.symbols[0].find ("Tp") != std::string::npos) pans.push_back(.4);
+			else if (d.symbols[0].find ("Tbn") != std::string::npos) pans.push_back(.55);
+			else if (d.symbols[0].find ("BT") != std::string::npos) pans.push_back(.65);
+			else if (d.symbols[0].find ("Hp") != std::string::npos) pans.push_back(.3);
+			else if (d.symbols[0].find ("Vl") != std::string::npos) pans.push_back(.2);
+			else if (d.symbols[0].find ("Va") != std::string::npos) pans.push_back(.55);
+			else if (d.symbols[0].find ("Vc") != std::string::npos) pans.push_back(.8);
+			else if (d.symbols[0].find ("Cb") != std::string::npos) pans.push_back(.7);
+			else pans.push_back(.5);
+
+			for (unsigned z = 0; z < d.symbols.size (); ++z) {
+				solutions << d.symbols[z] << " ";	
+			}
+			solutions << d.file << std::endl;
 		}
+
+		create_sound_mix(files, c.sound_path.c_str (), ratios, pans,
+			name_wav.str ().c_str ());
 		solutions << std::endl;
 	}
 

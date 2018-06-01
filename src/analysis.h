@@ -144,6 +144,26 @@ void partials_to_notes (const char* name, std::map<std::string, int>& notes,
 			notes[n.str ()] = cents;
 		}
 	}
+
+	// WavOutFile out("target.wav", 44100., 16, 1);
+	// unsigned samples = (unsigned) (44100.);
+	// float* buff = new float[samples];
+	// memset(buff, 0, sizeof (float) * samples);
+
+	// float* win = new float[samples];
+	// makeWindow<float>(win, samples, .5, .5, 0.);
+
+	// for (unsigned i = 0; i < samples; ++i) {
+	// 	for (unsigned j = 0; j < peaks.size (); ++j) {
+	// 		buff[i] += spectrum[peaks[j]] * sin (2. * M_PI * freq[peaks[j]] 
+	// 			* ((float) i / samples));
+	// 	}
+	// 	buff[i] *= .25 * win[i];
+	// }
+
+	// out.write(buff, samples);	
+
+	// delete [] buff;
 	delete [] freq;
 }
 

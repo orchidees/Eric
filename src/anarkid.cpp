@@ -24,8 +24,10 @@ using namespace std;
 // 5. evaluation is = sum of corresponding envelopes and distance with target
 
 // TODO: filtri, matching pursuit per startup e mutation,
-//	     incremento database, miglioramento interfaccia codice
-//	     spazializzazione, strumenti doppi
+//	     incremento database, tuning quantizzato (??)
+//	     strumenti doppi, plot vector 512 512, check mfcc
+
+// REFACTOR: miglioramento interfaccia codice
 
 const int MAX_EQUAL_FITNESS = 15;
 
@@ -63,7 +65,7 @@ int main (int argc, char* argv[]) {
 		vector<float> target (ncoeff);
 		compute_features(argv[1], target, bsize, hopsize, ncoeff, type);
 		normalize(&target[0], &target[0], ncoeff);
-		// plot_vector("target.bmp", target);
+		plot_vector("target.bmp", target, 256, 256);
 		cout << "done" << endl;
 
 		// pfilt  --------------------------------------------------------------
@@ -93,7 +95,7 @@ int main (int argc, char* argv[]) {
 		cout << "features   : " << type << ", " << bsize << ", " << hopsize << ", "
 			<< ncoeff << endl;
 		cout << "parameters : " << c.xover_rate << ", " << c.mutation_rate << ", "
-			<< c.mutation_amp << endl;
+			 << c.sparsity << endl;
 
 		// instr ---------------------------------------------------------------
 		map<string, vector<int> > instruments;
@@ -151,8 +153,7 @@ int main (int argc, char* argv[]) {
 
 			vector<Individual> new_pop;
 			gen_offspring_population(population, new_pop, c.pop_size, total_fitness,
-				c.xover_rate, c.mutation_rate, c.mutation_amp,
-				c.orchestra, instruments);
+				c.xover_rate, c.mutation_rate, c.sparsity, c.orchestra, instruments);
 	
 			copy_population (new_pop, population);
 
@@ -185,11 +186,19 @@ int main (int argc, char* argv[]) {
 		cout << "best fitness = " << max_fit << " (epoch " << best_epoch << ", "
 			<< uniques.size () << " individuals)" << endl << endl;
 
+		plot_vector("fitness.bmp", fitness, 256, 256);
 		Individual best = get_best_individual(uniques);
 		cout << "best solution: " << endl;
 		unsigned n_instruments = c.orchestra.size ();
 		for (unsigned i = 0; i < n_instruments; ++i) {
-			cout << "\t" << database[best.chromosome[i]].file << endl;
+			if (best.chromosome[i] == -1) {
+				cout << "\t-" << endl;
+				continue;
+			}
+			for (unsigned h = 0; h < database[best.chromosome[i]].symbols.size (); ++h) {
+				cout << "\t" << database[best.chromosome[i]].symbols[h] << " ";
+			}
+			cout << endl;
 		}
 		cout << endl;	
 

@@ -9,6 +9,7 @@
 #include "BMP24.h"
 #include "algorithms.h"
 #include "tokenizer.h"
+#include "FFT.h"
 
 #include <dirent.h>
 
@@ -36,7 +37,7 @@ struct Config {
 	int max_epochs;
 	T xover_rate;
 	T mutation_rate;
-	int mutation_amp;
+	T sparsity;
 	T partials_filtering;
 	int export_solutions;
 };
@@ -167,8 +168,8 @@ void read_config (const char* config_file, Config<T>* p) {
         	p->xover_rate = atof (tokens[1].c_str ());
         } else if (tokens[0] == "mutation_rate") {
         	p->mutation_rate = atof (tokens[1].c_str ());
-        } else if (tokens[0] == "mutation_amp") {
-        	p->mutation_amp = atol (tokens[1].c_str ());
+        } else if (tokens[0] == "sparsity") {
+        	p->sparsity = atof (tokens[1].c_str ());
         } else if (tokens[0] == "partials_filtering") {
         	p->partials_filtering = atof (tokens[1].c_str ());
         } else if (tokens[0] == "export_solutions") {
@@ -325,28 +326,30 @@ void deinterleave (const T* stereo, T* l, T* r, int n) {
 
 // -----------------------------------------------------------------------------
 void plot_vector (const char* name, const std::vector<float>& target, 
-	unsigned width = 512, unsigned height = 512) {
+	unsigned width = 256, unsigned height = 256) {
 	int minPos = 0;
 	int maxPos = 0;
 	float min = minimum(&target[0], target.size (), minPos);
 	float max = maximum(&target[0], target.size (), maxPos);
 	float delta = max - min;
 
-	BMP24 t (target.size (), height);
+	BMP24 t (width, height);
 	t.background(127, 127, 127);
 
-	float stretch = width / target.size ();
-	std::cout << "-- " << min << " " << max << " " << delta << " " << stretch << std::endl;
-	for (unsigned z = 0; z < target.size () - 1; ++z) {
-		std::cout << (int) (z * stretch) << " " << (int) ((z + 1) * stretch)
-			<< (int) ((float) height * target[z] - min)/ delta <<
-			(int) ((float) height * target[z + 1] - min)/ delta << std::endl;
+	float stretch = width / (target.size ());
+	for (unsigned z = 0; z < target.size (); ++z) {
+		// t.line(
+		// 	(int) (z * stretch), 
+		// 	(int) ((float) height * (target[z] - min)) / delta, 
+		// 	(int) ((z + 1) * stretch), 
+		// 	(int) ((float) height * (target[z + 1] - min)) / delta, 0, 0, 127);
+
 
 		t.line(
 			(int) (z * stretch), 
-			(int) ((float) height * target[z + 1] - min)/ delta, 
-			(int) ((z + 1) * stretch), 
-			(int) ((float) height * target[z + 1] - min)/ delta, 0, 0, 127, true);
+			(int) 0, 
+			(int) ((z) * stretch), 
+			(int) ((float) height * (target[z] - min)) / delta, 0, 0, 127, true);		
 	}
 	t.grid (10, 10, 0, 0, 0);
 	t.save (name);
@@ -362,7 +365,8 @@ float cents_to_ratio (int cents) {
 	
 void create_sound_mix (const std::vector<std::string>& files, 
 	const char* sound_path, 
-	const std::vector<float>& ratios, const char* outfile) {
+	const std::vector<float>& ratios, 
+	const std::vector<float>& pans, const char* outfile) {
 	std::vector <float*> pointers;
 	std::vector <int> lengths;
 
@@ -408,25 +412,27 @@ void create_sound_mix (const std::vector<std::string>& files,
 
 	int maxPos = 0;
 	int maxLen = maximum (&lengths[0], lengths.size (), maxPos);
-	float* mix = new float[maxLen];
-	memset (mix, 0, sizeof(float) * maxLen);
+	float* mix = new float[maxLen * 2];
+	memset (mix, 0, sizeof(float) * maxLen * 2);
 
 	for (unsigned i = 0; i < pointers.size (); ++i) {
 		double phase = 0;
 		double incr = ratios[i];
-			for (unsigned j = 0; j < lengths[i]; ++j) {
+		for (unsigned j = 0; j < lengths[i]; ++j) {
 			int index = (int) phase;
 			double frac = phase - index;
 			if (index >= lengths[i] - 1) break;
 			float sample = pointers[i][index] * (1. - frac) + pointers[i][index + 1] * frac;
-			mix[j] += (sample / pointers.size ());
+			float v = (sample / pointers.size ());
+			mix[2 * j] += (v * (1. - pans[i]));
+			mix[2 * j  + 1] += (v * pans[i]);
 			phase += incr;
 			if (phase >= lengths[i]) break;
 		}
 	}
 
-	WavOutFile out(outfile, 44100, 16, 1);
-	out.write(mix, maxLen); 
+	WavOutFile out(outfile, 44100, 16, 2);
+	out.write(mix, maxLen * 2); 
 
 	delete [] mix;
 	for (unsigned i = 0; i < pointers.size (); ++i) {
