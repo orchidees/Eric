@@ -5,6 +5,12 @@
 #ifndef UTILITIES_H
 #define UTILITIES_H 
 
+#include "WavFile.h"
+#include "BMP24.h"
+#include "algorithms.h"
+
+#include <dirent.h>
+
 #include <fstream>
 #include <vector>
 #include <sstream>
@@ -12,12 +18,6 @@
 #include <stdexcept>
 #include <iostream>
 #include <map>
-
-#include <dirent.h>
-
-#include "WavFile.h"
-#include "BMP24.h"
-#include "algorithms.h"
 
 struct DB_entry {
 	std::string file;

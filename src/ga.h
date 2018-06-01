@@ -4,12 +4,12 @@
 #ifndef GA_H
 #define GA_H 
 
+#include "utilities.h"
+#include "algorithms.h" 
+
 #include <vector>
 #include <cmath>
 #include <iostream>
-
-#include "utilities.h"
-#include "algorithms.h"
 
 struct Individual {
 	std::vector<int> chromosome;
@@ -215,10 +215,8 @@ void export_population (const std::vector<Individual>& pop,
 	solutions << "features: " << type << " " << ncoeff << std::endl << std::endl;
 	
 	for (unsigned i = 0; i < pop.size (); ++i) {
-		std::vector<float> values (ncoeff, 0);		
-		//forecast_individual(pop[i], database, values, ncoeff);
+		std::vector<float> values (ncoeff, 0);
 
-		std::cout << "fit  " <<  pop[i].fitness << std::endl;
 		std::stringstream name_wav;
 		name_wav << "solution_" << i << ".wav";			
 		std::vector<std::string> files;

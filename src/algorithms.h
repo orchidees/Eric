@@ -86,7 +86,7 @@ T mean(const T* values,
 
 	return sum(values, N) / N;
 }
-
+ 
 template <typename T>
 void normalize(const T* data, T* result, int N) {
 	T min = data[0];
