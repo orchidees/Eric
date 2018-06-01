@@ -24,8 +24,8 @@ using namespace std;
 // 5. evaluation is = sum of corresponding envelopes and distance with target
 
 // TODO: filtri, matching pursuit per startup e mutation,
-//	     incremento database, gestione dati simbolici (?), miglioramento interfaccia codice
-//		 correzione pitch, spazializzazione
+//	     incremento database, miglioramento interfaccia codice
+//	     spazializzazione, strumenti doppi
 
 const int MAX_EQUAL_FITNESS = 15;
 
@@ -68,17 +68,16 @@ int main (int argc, char* argv[]) {
 
 		// pfilt  --------------------------------------------------------------
 		vector<DB_entry> database;
+		map<string, int> notes;
 		if (c.partials_filtering > 0) {
 			cout << "partials filtering...";
-			map<string, int> notes;
 			partials_to_notes (argv[1], notes, bsize * 2, hopsize, c.partials_filtering);
 			
-			harmonic_filter(idb, notes, database);
+			partials_filter (idb, notes, database);
 			if (database.size () < 1) {
 				throw runtime_error("empty search space; please check filters");
 			}
 			cout << "done" << endl << endl;
-
 
 			cout << "notes      : ";
 			for (map<string, int>::iterator i = notes.begin(); i != notes.end (); ++i) {
@@ -99,7 +98,7 @@ int main (int argc, char* argv[]) {
 		// instr ---------------------------------------------------------------
 		map<string, vector<int> > instruments;
 		for (unsigned i = 0; i < database.size (); ++i) {
-			string instr = get_instrument(database[i]);
+			string instr = database[i].symbols[0];
 			map<string, vector<int> >::iterator it = instruments.find (instr);
 			if (it == instruments.end ()) {
 				vector<int> d;
@@ -198,10 +197,9 @@ int main (int argc, char* argv[]) {
 			cout << "saving best solutions..."; cout.flush ();
 			std::sort (uniques.begin (), uniques.end ());
 			std::reverse(uniques.begin (), uniques.end());
-			
+
 			if (c.export_solutions < uniques.size ()) uniques.resize(c.export_solutions);
-			export_population(uniques, database, c.sound_path.c_str (), 
-				type, ncoeff);
+			export_population(uniques, database, c, notes, type, ncoeff);
 			cout << "done" << endl;
 		}
     } catch (exception& e) {

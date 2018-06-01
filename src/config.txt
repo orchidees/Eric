@@ -10,5 +10,5 @@ max_epochs			100
 xover_rate			0.8
 mutation_rate		0.01
 mutation_amp 		10
-partials_filtering	0.3 
+partials_filtering	0.2 
 export_solutions	50

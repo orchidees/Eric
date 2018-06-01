@@ -186,14 +186,6 @@ Individual get_best_individual (const std::vector<Individual>& population) {
 	return population[max_index];
 }
 
-void decode_chromosome (const std::vector<int>& chromosome, 
-	const std::vector<DB_entry>& database,
-	std::vector<std::string>& files) {
-
-	for (unsigned i = 0; i < chromosome.size (); ++i) {
-		files.push_back(database[chromosome[i]].file);
-	}
-}
 
 void make_uniques (const std::vector<Individual>& population, 
 	std::vector<Individual>& uniques) {
@@ -208,22 +200,40 @@ void make_uniques (const std::vector<Individual>& population,
 	}
 }
 
+void decode_chromosome (const std::vector<int>& chromosome, 
+	const std::vector<DB_entry>& database,
+	std::vector<std::string>& files,
+	std::vector<float>& ratios,
+	std::map<std::string, int>& notes,
+	float partials_filtering) {
+
+	for (unsigned i = 0; i < chromosome.size (); ++i) {
+		files.push_back(database[chromosome[i]].file);
+		if (partials_filtering > 0) {
+			float r = cents_to_ratio (notes[database[chromosome[i]].symbols[2]]);
+			ratios.push_back (r);
+		} else ratios.push_back (1.);
+	}
+}
+
 void export_population (const std::vector<Individual>& pop,
-	const std::vector<DB_entry>& database, const char* root_path,
+	const std::vector<DB_entry>& database, const Config<float>& c,
+	std::map<std::string, int>& notes,
 	const std::string& type, unsigned ncoeff) {
 	std::ofstream solutions ("solutions.txt");
 	solutions << "features: " << type << " " << ncoeff << std::endl << std::endl;
 	
 	for (unsigned i = 0; i < pop.size (); ++i) {
-		std::vector<float> values (ncoeff, 0);
+		std::vector<float> values;
+		std::vector<float> ratios;
 
 		std::stringstream name_wav;
 		name_wav << "solution_" << i << ".wav";			
 		std::vector<std::string> files;
-		decode_chromosome(pop[i].chromosome, database, files);
-		std::vector<float> ratios (files.size (), 1);
+		decode_chromosome(pop[i].chromosome, database, files, ratios, notes, 
+			c.partials_filtering);
 
-		create_sound_mix(files, root_path, ratios, name_wav.str ().c_str ());
+		create_sound_mix(files, c.sound_path.c_str (), ratios, name_wav.str ().c_str ());
 		for (unsigned z = 0; z < files.size (); ++z) {
 			solutions << files[z] << " ";
 		}

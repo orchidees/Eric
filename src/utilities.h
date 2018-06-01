@@ -8,6 +8,7 @@
 #include "WavFile.h"
 #include "BMP24.h"
 #include "algorithms.h"
+#include "tokenizer.h"
 
 #include <dirent.h>
 
@@ -18,10 +19,12 @@
 #include <stdexcept>
 #include <iostream>
 #include <map>
+#include <deque>
 
 struct DB_entry {
 	std::string file;
 	std::vector<float> features;
+	std::deque<std::string> symbols;
 };
 
 template <typename T>
@@ -189,6 +192,19 @@ void read_config (const char* config_file, Config<T>* p) {
 	}	
 }
 
+void extract_symbols (DB_entry& e) {
+	std::string file = removePath(e.file);
+	file = removeExtension(file);
+
+	tokenize (file, e.symbols, "-"); // instr technique note dynamics
+
+	if (e.symbols.size () < 4) {
+		std::stringstream err;
+		err << "invalid symbols in "  << e.file;
+		throw std::runtime_error (err.str ());
+	}
+}
+
 void load_db (const char* dbfile, std::vector<DB_entry>& database, 
 	int& bsize, int& hopsize, int& ncoeff, std::string& type) {
 	std::ifstream db (dbfile);
@@ -216,7 +232,8 @@ void load_db (const char* dbfile, std::vector<DB_entry>& database,
 			err << "invalid filename in db at line " << lineno;
 			throw std::runtime_error (err.str ());
 		}
-	
+
+		extract_symbols (e);
 		while (!linestream.eof ()) {
 			std::string token;
 			linestream >> token;
@@ -235,29 +252,17 @@ void load_db (const char* dbfile, std::vector<DB_entry>& database,
 	}
 }
 
-void harmonic_filter (const std::vector<DB_entry>& database, std::map<std::string, int>& notes,
+void partials_filter (const std::vector<DB_entry>& database, std::map<std::string, int>& notes,
 	std::vector<DB_entry>& outdb) {
 
 	for (unsigned j = 0; j < database.size (); ++j) {
 		for (std::map<std::string, int>::iterator i = notes.begin(); i != notes.end (); ++i) {
-			if (database[j].file.find (i->first) != std::string::npos) {
+			if (database[j].symbols[2] == i->first) {
 				outdb.push_back(database[j]);
 				break;
 			}
 		}
 	}
-}
-
-std::string get_instrument (const DB_entry& e) {
-	std::string file = removePath(e.file);
-	int first_dash = file.find_first_of("-");
-	if (first_dash == std::string::npos) {
-		std::stringstream err;
-		err << "malformed entry " << e.file;
-		throw std::runtime_error (err.str ());
-	}
-
-	return file.substr (0, first_dash);
 }
 
 // -------------------------------------------------------------------------- //
