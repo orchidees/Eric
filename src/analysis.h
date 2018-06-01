@@ -120,26 +120,29 @@ void get_notes (const char* name, std::map<std::string, int>& notes,
 		"A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"
 	};
 
-	std::vector<float> spectrum (bsize);
+	std::vector<float> spectrum (bsize / 2);
 	compute_features(name, spectrum, bsize, hopsize, bsize / 2, "spectrum");
 	normalize(&spectrum[0], &spectrum[0], bsize / 2);
 
 	std::vector<int> peaks;
-	locmax(&spectrum[0], bsize, peaks);
-	float bin_size = 44100. / bsize;
-	Hz2Note<float> hz2n;
+	locmax(&spectrum[0], bsize / 2, peaks);
+
+	float freqPerBin = 44100. / bsize;
 	
-	for (unsigned i = 0; i < peaks.size(); ++i) {
+	Hz2Note<float> hz2n;	
+	for (unsigned i = 0; i < peaks.size() - 1; ++i) {
 		if (spectrum[peaks[i]] > threshold) {
-			float freq = peaks[i] * bin_size;
+			// float fn = (peaks[i] * spectrum[peaks[i]] + spectrum[peaks[i - 1]] * peaks[i - 1]) 
+			// 	/ (spectrum[peaks[i]] + spectrum[peaks[i - 1]]);
+			float fn = peaks[i] * freqPerBin;
 			float nfreq = 0;
 			int oct = 0;
 			int note = 0;
 			int cents = 0;
-			hz2n.convert(freq, nfreq, oct, note, cents);
+			hz2n.convert(fn, nfreq, oct, note, cents);
 			std::stringstream n;
 			n << note_names[note] << oct;
-			// std::cout << freq << " " << peaks[i] << " " << spectrum[peaks[i]] << n.str () << std::endl;
+			//std::cout << freqPerBin * peaks[i] << " vs " << fn << " for " << n.str () << std::endl;
 			notes[n.str ()] = cents;
 		}
 	}

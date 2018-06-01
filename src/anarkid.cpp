@@ -193,6 +193,8 @@ int main (int argc, char* argv[]) {
 
 		if (c.export_solutions) {		
 			cout << "saving best solutions..."; cout.flush ();
+			if  (c.max_exported < uniques.size ()) uniques.resize (c.max_exported);
+
 			export_population(uniques, database, c.sound_path.c_str (), 
 				type, ncoeff);
 			cout << "done" << endl;

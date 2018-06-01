@@ -132,11 +132,11 @@ void mutate_individual (Individual& id, float mutation_rate,
 		if (choice < mutation_rate) {
 			unsigned range = instruments[orchestra[i]].size();
 
-			int r = (rand () % mutation_amp);
-			id.chromosome[i] += instruments[orchestra[i]][r];
-			if (id.chromosome[i] >= range || id.chromosome[i] < 0) {
+			// int r = (rand () % mutation_amp);
+			// id.chromosome[i] += instruments[orchestra[i]][r];
+			// if (id.chromosome[i] >= range || id.chromosome[i] < 0) {
 				id.chromosome[i] = instruments[orchestra[i]][rand () % range];
-			} 
+			// } 
 		} 
 	}
 }

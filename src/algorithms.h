@@ -347,6 +347,22 @@ static inline T linreg(
 	return slope;
 }
 
+template <typename T>
+T parabolicInterpolate (T x1, T x2, T x3, T y1, T y2, T y3, T *min) {
+	T a, b, c;
+	T pos;
+	a= ((y1 - y2) / (x1 - x2) - (y2 - y3) / (x2 - x3)) / (x1 - x3);
+	b= (y1 - y2) / (x1 - x2) - a * (x1 + x2);
+	c= y1 - a * x1 * x1 - b * x1;
+	
+	*min= c;
+	
+	// dy/dx = 2a * x + b = 0
+	pos= -b / 2. / a;
+	return pos;
+	
+}	
+
 // -------------------------------------------------------------- //
 
 template <typename T>

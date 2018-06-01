@@ -490,6 +490,17 @@ int locmax (const T* amp, int N, std::vector<int>& max) {
 }
 
 template <typename T>
+void ampFreqLinear (const T* amp, T* freq, int N,  double R) {
+	T freqPerBin = (R ) / (T) (2. * N); // positive spectrum only
+	
+	freq[0] = 0.;
+	for (int i = 1; i < N; ++i) {
+		freq[i] = (amp[i - 1] * freqPerBin * (i - 1) + amp[i] * freqPerBin * i) 
+			/ (amp[i - 1] + amp[i]);
+	}
+}
+
+template <typename T>
 void ampFreqBins (const T* cbuffer, T* amp, T* freq, int N,  double R) {
 	T freqPerBin = (R) / (T) N;
 	for (int i = 0; i < N; ++i) {

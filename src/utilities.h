@@ -36,6 +36,7 @@ struct Config {
 	int mutation_amp;
 	T partials_filtering;
 	bool export_solutions;
+	int max_exported;
 };
 
 // -----------------------------------------------------------------------------
@@ -170,6 +171,8 @@ void read_config (const char* config_file, Config<T>* p) {
         	p->partials_filtering = atof (tokens[1].c_str ());
         } else if (tokens[0] == "export_solutions") {
         	p->export_solutions = (bool) atol (tokens[1].c_str ());
+        } else if (tokens[0] == "max_exported") {
+        	p->max_exported = atol (tokens[1].c_str ());
         } else {
             std::stringstream err;
             err << "invalid token in configuration file at line " << line;
