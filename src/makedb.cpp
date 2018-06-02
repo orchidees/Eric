@@ -13,6 +13,8 @@ using namespace std;
 // (0. read all files of a folder, compute MFCC and save a text file)
 
 int main (int argc, char* argv[]) {
+    srand (time (NULL));
+    
 	cout << "[makedb, ver. 0.1]" << endl << endl;
 	cout << "feature analysis for anarkid" << endl;
 	cout << "(c) 2018, www.carminecella.com" << endl << endl;

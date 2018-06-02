@@ -38,6 +38,7 @@ struct Config {
 	T xover_rate;
 	T mutation_rate;
 	T sparsity;
+	int partials_window;
 	T partials_filtering;
 	int export_solutions;
 };
@@ -170,6 +171,8 @@ void read_config (const char* config_file, Config<T>* p) {
         	p->mutation_rate = atof (tokens[1].c_str ());
         } else if (tokens[0] == "sparsity") {
         	p->sparsity = atof (tokens[1].c_str ());
+        } else if (tokens[0] == "partials_window") {
+        	p->partials_window = atol (tokens[1].c_str ());
         } else if (tokens[0] == "partials_filtering") {
         	p->partials_filtering = atof (tokens[1].c_str ());
         } else if (tokens[0] == "export_solutions") {
@@ -325,7 +328,8 @@ void deinterleave (const T* stereo, T* l, T* r, int n) {
 }	
 
 // -----------------------------------------------------------------------------
-void plot_vector (const char* name, const std::vector<float>& target, 
+template <typename T>
+void plot_vector (const char* name, const std::vector<T>& target, 
 	unsigned width = 256, unsigned height = 256) {
 	int minPos = 0;
 	int maxPos = 0;
@@ -336,7 +340,7 @@ void plot_vector (const char* name, const std::vector<float>& target,
 	BMP24 t (width, height);
 	t.background(127, 127, 127);
 
-	float stretch = width / (target.size ());
+	float stretch = (float)width / (target.size ());
 	for (unsigned z = 0; z < target.size (); ++z) {
 		// t.line(
 		// 	(int) (z * stretch), 
@@ -344,11 +348,10 @@ void plot_vector (const char* name, const std::vector<float>& target,
 		// 	(int) ((z + 1) * stretch), 
 		// 	(int) ((float) height * (target[z + 1] - min)) / delta, 0, 0, 127);
 
-
 		t.line(
-			(int) (z * stretch), 
+			(int) ((float) z * stretch), 
 			(int) 0, 
-			(int) ((z) * stretch), 
+			(int) ((float) z * stretch), 
 			(int) ((float) height * (target[z] - min)) / delta, 0, 0, 127, true);		
 	}
 	t.grid (10, 10, 0, 0, 0);

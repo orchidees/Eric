@@ -577,6 +577,58 @@ void cepstralEnvelope (int C, const T* magn, T* specenv,
     fft->forward (specenv); // REAL PART -> envelope
 }
 
+
+template <typename T>
+inline T speccentr(
+		const T* amplitudes,
+		const T* frequencies,
+		int N) {
+	return centroid(amplitudes, frequencies, N);
+}
+
+template <typename T>
+inline T specspread(
+		const T* amplitudes,
+		const T* frequencies,
+		int N,
+		T centroid) {
+	return std::sqrt(moment<T > (amplitudes, frequencies, N, 2, centroid));
+}
+
+template <typename T>
+inline T specskew(
+		const T* amplitudes,
+		const T* frequencies,
+		int N,
+		T centroid,
+		T spread) {
+
+	T delta = std::pow(spread, 3);
+	T tmp = moment<T> (amplitudes, frequencies, N, 3, centroid);
+	if (delta != 0) {
+		tmp /= delta;
+	}
+
+	return tmp;
+}
+
+template <typename T>
+inline T speckurt(
+		const T* amplitudes,
+		const T* frequencies,
+		int N,
+		T centroid,
+		T spread) {
+
+	T delta = std::pow(spread, 4);
+	T tmp = moment<T > (amplitudes, frequencies, N, 4, centroid);
+	if (delta != 0) {
+		tmp /= delta;
+	}
+
+	return tmp;
+}
+
 #endif	// FFT_H 
 
 // EOF

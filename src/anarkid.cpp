@@ -25,7 +25,7 @@ using namespace std;
 
 // TODO: filtri, matching pursuit per startup e mutation,
 //	     incremento database, tuning quantizzato (??)
-//	     strumenti doppi, plot vector 512 512, check mfcc
+//	     strumenti doppi, check mfcc
 
 // REFACTOR: miglioramento interfaccia codice
 
@@ -44,14 +44,14 @@ int main (int argc, char* argv[]) {
 		}
 
 		// config --------------------------------------------------------------
-		cout << "loading configuration...";
+		cout << "loading configuration..."; cout.flush ();
 		Config<float> c;
 		read_config(argv[2], &c);
 		cout << "done" << endl;
 
 
 		// db ------------------------------------------------------------------
-		cout << "loading database...";
+		cout << "loading database...";  cout.flush ();
 		vector<DB_entry> idb;
 		int bsize = 1024;			// defaults
 		int hopsize = 512;
@@ -61,10 +61,9 @@ int main (int argc, char* argv[]) {
 		cout << "done" << endl;
 
 		// target --------------------------------------------------------------
-		cout << "analysing target...";
+		cout << "analysing target...";  cout.flush ();
 		vector<float> target (ncoeff);
 		compute_features(argv[1], target, bsize, hopsize, ncoeff, type);
-		normalize(&target[0], &target[0], ncoeff);
 		plot_vector("target.bmp", target, 256, 256);
 		cout << "done" << endl;
 
@@ -72,9 +71,9 @@ int main (int argc, char* argv[]) {
 		vector<DB_entry> database;
 		map<string, int> notes;
 		if (c.partials_filtering > 0) {
-			cout << "partials filtering...";
-			partials_to_notes (argv[1], notes, bsize * 2, hopsize, c.partials_filtering);
-			
+			cout << "partials filtering...";  cout.flush ();
+			partials_to_notes (argv[1], notes, c.partials_window, c.partials_window / 4, 
+				c.partials_filtering);
 			partials_filter (idb, notes, database);
 			if (database.size () < 1) {
 				throw runtime_error("empty search space; please check filters");
@@ -128,7 +127,7 @@ int main (int argc, char* argv[]) {
 			map<string, vector<int> >::iterator it = instruments.find (c.orchestra[i]);
 			if (it == instruments.end ()) {
 				std::stringstream err;
-				err << "invalid isntrument " << c.orchestra[i] << " specified";
+				err << "invalid instrument " << c.orchestra[i] << " specified";
 				throw runtime_error(err.str ());
 			}
 		}
@@ -201,6 +200,10 @@ int main (int argc, char* argv[]) {
 			cout << endl;
 		}
 		cout << endl;	
+
+		std::vector<float> values (target.size (), 0);
+		forecast_individual(best, database, values, ncoeff);
+		plot_vector<float>("best.bmp", values);
 
 		if (c.export_solutions > 0) {		
 			cout << "saving best solutions..."; cout.flush ();

@@ -21,6 +21,14 @@
 
 void compute_features (const char* name, std::vector<float>& features, 
 	int bsize, int hop, int ncoeff, const std::string& type) {
+	features.resize(ncoeff, 0); // + 1);
+	if (type == "random") {
+		for (unsigned j = 0; j < ncoeff; ++j) {
+			features[j] = frand<float> (0, 1);
+		}			
+		return;
+	} 
+
 	WavInFile in (name); // raises exception on failure
 	
 	int sr = in.getSampleRate();
@@ -62,6 +70,7 @@ void compute_features (const char* name, std::vector<float>& features,
 	makeWindow<float>(win, bsize, .5, .5, 0.); // hanning
 
 	float tot_nrg = 0;
+	int frames = 0;
 	for (unsigned i = 0; i < samples; i += hop) {
 		memset(cdata, 0, sizeof(float) * bsize * 2);		
 
@@ -73,6 +82,7 @@ void compute_features (const char* name, std::vector<float>& features,
 		}
 		nrg = std::sqrt (nrg); // frame energy
 		tot_nrg += nrg;
+
 		fft->forward(cdata);
 		for (unsigned j = 0; j < bsize; ++j) {
 			spectrum[j] = sqrt (cdata[j * 2] * cdata[j * 2] + 
@@ -82,16 +92,27 @@ void compute_features (const char* name, std::vector<float>& features,
 		for (unsigned j = 0; j < bsize; ++j) {
 			avg_coeffs[2 * j] += (spectrum[j] * nrg); // avg spectrum
 		}			
+		++frames;
 	}
 
 	for (unsigned i = 0; i < bsize; ++i) {
 		avg_coeffs[2 *  i] /= tot_nrg; // renormalization
 	}
 	
-	features.resize(ncoeff);
 	if (type == "spectrum") {
 		for (unsigned j = 0; j < ncoeff; ++j) {
 			features[j] = avg_coeffs[2 * j];
+		}			
+	} else if (type == "specpeaks") {
+		for (unsigned j = 0; j < bsize; ++j) {
+			spectrum[j] = avg_coeffs[2 * j];
+		}		
+		std::vector<int> peaks;
+		locmax(spectrum, bsize / 2, peaks);
+	
+		if (peaks.size () < ncoeff) peaks.resize (ncoeff, 0); // preserves data
+		for (unsigned j = 0; j < ncoeff; ++j) {
+			features[j] = spectrum[peaks[j]];
 		}			
 	} else if (type == "specenv") {
 		cepstralEnvelope(NUM_SMOOTH, avg_coeffs, env, fft, bsize);
@@ -99,12 +120,29 @@ void compute_features (const char* name, std::vector<float>& features,
 			features[j] = env[2 * j];
 		}			
 	} else if (type == "mfcc") {
-			for (unsigned j = 0; j < ncoeff; ++j) {
-				features[j] = (mfcc.getCoeff (avg_coeffs, j));
-			}
-		} else {
+		for (unsigned j = 0; j < ncoeff; ++j) {
+			features[j] = (mfcc.getCoeff (avg_coeffs, j));
+		}
+
+	} else if (type == "moments") {
+		features.resize (4, 0); // fixed size
+
+		for (unsigned j = 0; j < bsize; ++j) {
+			spectrum[j] = avg_coeffs[2 * j];
+		}				
+		float* freq = new float[bsize / 2];
+		ampFreqQuad(&spectrum[0], freq, bsize / 2, 44100.);
+
+		features[0] = speccentr(spectrum, freq, bsize / 2);
+		features[1] = specspread(spectrum, freq, bsize / 2, features[0]);
+		features[2] = specskew(spectrum, freq, bsize / 2, features[0], features[1]);
+		features[3] = speckurt(spectrum, freq, bsize / 2, features[0], features[1]);
+
+		delete [] freq;
+	} else {
 		throw std::runtime_error ("invalid feature type requested");
-	}
+	} 
+	//features[ncoeff] = tot_nrg; // store total nrg
 
 	delete [] buffer;
 	delete [] cdata;
@@ -145,25 +183,25 @@ void partials_to_notes (const char* name, std::map<std::string, int>& notes,
 		}
 	}
 
-	// WavOutFile out("target.wav", 44100., 16, 1);
-	// unsigned samples = (unsigned) (44100.);
-	// float* buff = new float[samples];
-	// memset(buff, 0, sizeof (float) * samples);
+	WavOutFile out("target.wav", 44100., 16, 1);
+	unsigned samples = (unsigned) (2. * 44100.);
+	float* buff = new float[samples];
+	memset(buff, 0, sizeof (float) * samples);
 
-	// float* win = new float[samples];
-	// makeWindow<float>(win, samples, .5, .5, 0.);
+	float* win = new float[samples];
+	makeWindow<float>(win, samples, .5, .5, 0.);
 
-	// for (unsigned i = 0; i < samples; ++i) {
-	// 	for (unsigned j = 0; j < peaks.size (); ++j) {
-	// 		buff[i] += spectrum[peaks[j]] * sin (2. * M_PI * freq[peaks[j]] 
-	// 			* ((float) i / samples));
-	// 	}
-	// 	buff[i] *= .25 * win[i];
-	// }
+	for (unsigned i = 0; i < samples; ++i) {
+		for (unsigned j = 0; j < peaks.size (); ++j) {
+			buff[i] += spectrum[peaks[j]] * sin (2. * M_PI * freq[peaks[j]] 
+				* ((float) i / 44100.));
+		}
+		buff[i] *= .125 * win[i];
+	}
 
-	// out.write(buff, samples);	
+	out.write(buff, samples);	
 
-	// delete [] buff;
+	delete [] buff;
 	delete [] freq;
 }
 
