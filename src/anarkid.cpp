@@ -25,7 +25,7 @@ using namespace std;
 
 // TODO: filtri, matching pursuit per startup e mutation,
 //	     incremento database, tuning quantizzato (??)
-//	     strumenti doppi, check mfcc
+//	     strumenti doppi, check mfcc, riverbero 
 
 // REFACTOR: miglioramento interfaccia codice
 
@@ -44,97 +44,129 @@ int main (int argc, char* argv[]) {
 		}
 
 		// config --------------------------------------------------------------
-		cout << "loading configuration..."; cout.flush ();
+		cout << "loading configuration... "; cout.flush ();
 		Config<float> c;
 		read_config(argv[2], &c);
 		cout << "done" << endl;
-
+		cout << "parameters.............. " << c.xover_rate << ", " << c.mutation_rate << ", "
+			 << c.sparsity << endl;
 
 		// db ------------------------------------------------------------------
-		cout << "loading database...";  cout.flush ();
+		cout << "loading database........ ";  cout.flush ();
 		vector<DB_entry> idb;
 		int bsize = 1024;			// defaults
 		int hopsize = 512;
 		int ncoeff = bsize / 2;
 		std::string type = "spectrum";
 		load_db (c.db_file.c_str (), idb, bsize, hopsize, ncoeff, type);
+		cout << "done (" << idb.size () << " entries)" << endl;
+		cout << "features................ " << type << ", " << bsize << ", " << hopsize << ", "
+			<< ncoeff << endl;
+		
+		// symbols -------------------------------------------------------------
+		cout << "gathering symbols....... "; cout.flush();
+		map<string, vector<int> > tot_instruments;
+		map<string, vector <int> > styles;
+		map<string, vector <int> > pitches;
+		map<string, vector <int> > dynamics;
+		for (unsigned i = 0; i < idb.size (); ++i) {
+			insert_symbol (tot_instruments, idb[i].symbols[0], i);
+			insert_symbol (styles, idb[i].symbols[1], i);
+			insert_symbol (pitches, idb[i].symbols[2], i);
+			insert_symbol (dynamics, idb[i].symbols[3], i);
+		}			
 		cout << "done" << endl;
-
-		// target --------------------------------------------------------------
-		cout << "analysing target...";  cout.flush ();
-		vector<float> target (ncoeff);
-		compute_features(argv[1], target, bsize, hopsize, ncoeff, type);
-		plot_vector("target.bmp", target, 256, 256);
-		cout << "done" << endl;
+		cout << "instruments............. ";
+		print_coll (cout, tot_instruments, 25);
+		cout << endl;
+		cout << "styles.................. ";
+		print_coll (cout, styles, 25);
+		cout << endl;
+		cout << "pitches................. ";
+		print_coll (cout, pitches, 25); 
+		cout << endl;
+		cout << "dynamics................ ";
+		print_coll (cout, dynamics, 25);
+		cout << endl;
 
 		// pfilt  --------------------------------------------------------------
 		vector<DB_entry> database;
 		map<string, int> notes;
 		if (c.partials_filtering > 0) {
-			cout << "partials filtering...";  cout.flush ();
+			cout << "filtering database...... ";  cout.flush ();
 			partials_to_notes (argv[1], notes, c.partials_window, c.partials_window / 4, 
 				c.partials_filtering);
 			partials_filter (idb, notes, database);
 			if (database.size () < 1) {
 				throw runtime_error("empty search space; please check filters");
 			}
-			cout << "done" << endl << endl;
-
-			cout << "notes      : ";
+			cout << "done (" << database.size () << " entries)" << endl;
+			cout << "target pitches.......... ";
+			int nl = 0;
 			for (map<string, int>::iterator i = notes.begin(); i != notes.end (); ++i) {
 				cout << i->first << " (" << 
 					(i->second > 0 ? "+" : "") << i->second << " cents) ";
-			}
+				if (nl == 3) {
+					cout << endl;
+					for (unsigned i = 0; i < 25; ++i) cout << " ";
+					nl = 0;
+				}
+				++nl;
+			}		
 			cout << endl;
 		} else {
 			database = idb;
 			cout << endl;
 		}
 
-		cout << "features   : " << type << ", " << bsize << ", " << hopsize << ", "
-			<< ncoeff << endl;
-		cout << "parameters : " << c.xover_rate << ", " << c.mutation_rate << ", "
-			 << c.sparsity << endl;
-
-		// instr ---------------------------------------------------------------
-		map<string, vector<int> > instruments;
+		// check ---------------------------------------------------------------
+		cout << "checking instruments.... "; cout.flush();
+		map<string, vector <int> > instruments;
+		vector<string> effective_orchestra;
 		for (unsigned i = 0; i < database.size (); ++i) {
-			string instr = database[i].symbols[0];
-			map<string, vector<int> >::iterator it = instruments.find (instr);
-			if (it == instruments.end ()) {
-				vector<int> d;
-				d.push_back(i);
-				instruments[instr] = d;
-			} else {
-				instruments[instr].push_back (i);
-			}
-		}			
-
-		int nl = 0;
-		cout << "instruments: ";
-		for (map<string, vector<int> >::iterator it = instruments.begin ();
-			it != instruments.end (); ++it) {
-			cout << it->first << " ";
-			++nl;
-			if (nl == 6) {
-				cout << endl << "             ";
-				nl = 0;
-			}
+			insert_symbol (instruments, database[i].symbols[0], i);
 		}
-		cout << endl << endl;
+		for (vector<string>::iterator i = c.orchestra.begin(); i != c.orchestra.end ();
+			++i) {
 
-		for (unsigned i = 0; i < c.orchestra.size (); ++i) {
-			map<string, vector<int> >::iterator it = instruments.find (c.orchestra[i]);
-			if (it == instruments.end ()) {
-				std::stringstream err;
-				err << "invalid instrument " << c.orchestra[i] << " specified";
-				throw runtime_error(err.str ());
+			bool missing = false;
+			if ((*i).find ("|") != string::npos) {
+				deque<string> res;
+				tokenize(*i, res, "|");
+	
+				for (unsigned k = 0; k < res.size (); ++k) {
+					map<string, vector<int> >::iterator it = instruments.find (res[k]);
+					if (it == instruments.end ()) {
+						missing = true;
+					}	
+				}
+			} 
+
+			if (!missing) {
+				map<string, vector<int> >::iterator it = instruments.find (*i);
+				if (it != instruments.end ()) {
+					effective_orchestra.push_back(*i);
+				}
 			}
+
 		}
-		
+		cout << "done" << endl;
+ 
+ 		for (unsigned i = 0; i < effective_orchestra.size (); ++i) {
+ 			cout << effective_orchestra[i] << " ";
+ 		}
+ 		getchar ();
+
+		// target --------------------------------------------------------------
+		cout << "analysing target........ ";  cout.flush ();
+		vector<float> target (ncoeff);
+		compute_features(argv[1], target, bsize, hopsize, ncoeff, type);
+		plot_vector("target.bmp", target, 256, 256);
+		cout << "done" << endl;
+
 		// ga ------------------------------------------------------------------
 		vector<Individual> population (c.pop_size);
-		gen_random_population (population, c.orchestra, instruments);
+		gen_random_population (population, effective_orchestra, instruments);
 
 		float total_fitness = 0;
 		vector<float> fitness;
@@ -144,7 +176,7 @@ int main (int argc, char* argv[]) {
 		float max_fit = 0;
 		float old_fit = 0;
 		int best_epoch = 0;
-		cout << "searching..."; cout.flush ();
+		cout << "searching............... "; cout.flush ();
 		for (unsigned i = 0; i < c.max_epochs; ++i) {
 			total_fitness = evaluate_population(population, target, database, ncoeff);	
 
@@ -152,7 +184,7 @@ int main (int argc, char* argv[]) {
 
 			vector<Individual> new_pop;
 			gen_offspring_population(population, new_pop, c.pop_size, total_fitness,
-				c.xover_rate, c.mutation_rate, c.sparsity, c.orchestra, instruments);
+				c.xover_rate, c.mutation_rate, c.sparsity, effective_orchestra, instruments);
 	
 			copy_population (new_pop, population);
 
@@ -166,7 +198,7 @@ int main (int argc, char* argv[]) {
 			if (fit_count > MAX_EQUAL_FITNESS) break;
 			old_fit = total_fitness;
 		}
-		cout << "done" << endl << endl;
+		cout << "done" << endl;
 
 		ofstream fit ("fitness.txt");
 		fit << "[";
@@ -182,31 +214,28 @@ int main (int argc, char* argv[]) {
 		make_uniques(best_pop, uniques);
 		evaluate_population(uniques, target, database, ncoeff);
 
-		cout << "best fitness = " << max_fit << " (epoch " << best_epoch << ", "
-			<< uniques.size () << " individuals)" << endl << endl;
-
-		plot_vector("fitness.bmp", fitness, 256, 256);
 		Individual best = get_best_individual(uniques);
-		cout << "best solution: " << endl;
-		unsigned n_instruments = c.orchestra.size ();
+		cout << "best fitness............ " << max_fit << " (epoch " << best_epoch << ", "
+			<< uniques.size () << " individuals)" << endl;
+		
+		cout << "best solution........... ";
+		unsigned n_instruments = effective_orchestra.size ();
 		for (unsigned i = 0; i < n_instruments; ++i) {
+			if (i != 0) for (unsigned i = 0; i < 25; ++i) cout << " ";
 			if (best.chromosome[i] == -1) {
-				cout << "\t-" << endl;
+				cout << "-" << endl;
 				continue;
 			}
 			for (unsigned h = 0; h < database[best.chromosome[i]].symbols.size (); ++h) {
-				cout << "\t" << database[best.chromosome[i]].symbols[h] << " ";
+				cout << database[best.chromosome[i]].symbols[h] << "\t";
 			}
 			cout << endl;
 		}
-		cout << endl;	
-
-		std::vector<float> values (target.size (), 0);
-		forecast_individual(best, database, values, ncoeff);
-		plot_vector<float>("best.bmp", values);
-
 		if (c.export_solutions > 0) {		
-			cout << "saving best solutions..."; cout.flush ();
+			std::vector<float> values (target.size (), 0);
+			forecast_individual(best, database, values, ncoeff);
+
+			cout << "saving best solutions... "; cout.flush ();
 			std::sort (uniques.begin (), uniques.end ());
 			std::reverse(uniques.begin (), uniques.end());
 
@@ -214,6 +243,8 @@ int main (int argc, char* argv[]) {
 			export_population(uniques, database, c, notes, type, ncoeff);
 			cout << "done" << endl;
 		}
+
+		cout << endl;	
     } catch (exception& e) {
         cout << "Error: " << e.what () << endl;
     } catch (...) {

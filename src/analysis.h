@@ -22,12 +22,6 @@
 void compute_features (const char* name, std::vector<float>& features, 
 	int bsize, int hop, int ncoeff, const std::string& type) {
 	features.resize(ncoeff, 0); // + 1);
-	if (type == "random") {
-		for (unsigned j = 0; j < ncoeff; ++j) {
-			features[j] = frand<float> (0, 1);
-		}			
-		return;
-	} 
 
 	WavInFile in (name); // raises exception on failure
 	

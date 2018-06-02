@@ -45,7 +45,6 @@ void forecast_individual (const Individual& id, const std::vector<DB_entry>& dat
 	for (unsigned i = 0; i < id.chromosome.size (); ++i) {
 		if (id.chromosome[i] == -1) continue; // silent instrument
 		DB_entry e = database[id.chromosome[i]];
-
 		for (unsigned j = 0; j < ncoeff; ++j) {
 			forecast[j] += (e.features[j] / id.chromosome.size());			
 		}

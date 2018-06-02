@@ -209,6 +209,32 @@ void extract_symbols (DB_entry& e) {
 	}
 }
 
+void insert_symbol (std::map<std::string, std::vector<int> >& coll,
+	const std::string& key, int index) {
+	std::map<std::string, std::vector<int> >::iterator it = coll.find (key);
+	if (it == coll.end ()) {
+		std::vector<int> d;
+		d.push_back(index);
+		coll[key] = d;
+	} else {
+		coll[key].push_back (index);
+	}
+}
+
+void print_coll (std::ostream& out, std::map<std::string, std::vector<int> >& coll, 
+	int offset) {
+	int nl = 0;
+	for (std::map<std::string, std::vector<int> >::iterator it = coll.begin ();
+		it != coll.end (); ++it) {
+		out << it->first << " ";
+		++nl;
+		if (nl == 6) {
+			out << std::endl;
+			for (unsigned j = 0; j < offset; ++j) out << " ";
+			nl = 0;
+		}
+	}
+}
 void load_db (const char* dbfile, std::vector<DB_entry>& database, 
 	int& bsize, int& hopsize, int& ncoeff, std::string& type) {
 	std::ifstream db (dbfile);
