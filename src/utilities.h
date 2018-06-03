@@ -136,11 +136,12 @@ void read_config (const char* config_file, Config<T>* p) {
         ++line;
         std::getline (config, inp, '\n');
 
+        inp = trim (inp);
         if (inp.size () == 0) continue;
 
         std::istringstream istr (inp, std::ios_base::out);
 
-        std::vector <std::string> tokens;
+        std::deque <std::string> tokens;
         while (!istr.eof ()) {
             istr >> opcode;
             tokens.push_back (opcode);

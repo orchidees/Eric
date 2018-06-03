@@ -128,40 +128,33 @@ int main (int argc, char* argv[]) {
 		}
 		for (vector<string>::iterator i = c.orchestra.begin(); i != c.orchestra.end ();
 			++i) {
-
-			bool missing = false;
 			if ((*i).find ("|") != string::npos) {
 				deque<string> res;
 				tokenize(*i, res, "|");
 	
+				bool missing = false;
 				for (unsigned k = 0; k < res.size (); ++k) {
 					map<string, vector<int> >::iterator it = instruments.find (res[k]);
 					if (it == instruments.end ()) {
 						missing = true;
+						break;
 					}	
 				}
-			} 
-
-			if (!missing) {
+				if (!missing) effective_orchestra.push_back(*i);
+			} else {
 				map<string, vector<int> >::iterator it = instruments.find (*i);
 				if (it != instruments.end ()) {
 					effective_orchestra.push_back(*i);
 				}
 			}
-
 		}
 		cout << "done" << endl;
  
- 		for (unsigned i = 0; i < effective_orchestra.size (); ++i) {
- 			cout << effective_orchestra[i] << " ";
- 		}
- 		getchar ();
-
 		// target --------------------------------------------------------------
 		cout << "analysing target........ ";  cout.flush ();
 		vector<float> target (ncoeff);
 		compute_features(argv[1], target, bsize, hopsize, ncoeff, type);
-		plot_vector("target.bmp", target, 256, 256);
+		// plot_vector("target.bmp", target, 256, 256);
 		cout << "done" << endl;
 
 		// ga ------------------------------------------------------------------

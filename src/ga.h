@@ -22,10 +22,20 @@ struct Individual {
 void gen_random_chromosome (std::vector<int>& f, 
 	const std::vector<std::string>& orchestra, 
 	std::map<std::string, std::vector<int> >& instruments) {
-	f.resize(orchestra.size ());
+	f.resize(orchestra.size ());	
 	for (unsigned i = 0; i < f.size (); ++i) {
-		int p = rand () % instruments[orchestra[i]].size ();
-		f[i] = instruments[orchestra[i]][p];
+		std::string inum = orchestra[i];
+
+		std::deque<std::string> res;
+		if (orchestra[i].find ("|") != std::string::npos) { // doublings
+			tokenize(orchestra[i], res, "|");
+			int p = rand () % res.size ();
+			inum = res[p];
+		}
+
+		
+		unsigned p = rand () % instruments[inum].size();		
+		f[i] = instruments[inum][p];
 	}
 }
 
@@ -127,11 +137,22 @@ void mutate_individual (Individual& id, float mutation_rate,
 	const std::vector<std::string>& orchestra, 
 	std::map<std::string, std::vector<int> >& instruments) {
 	std::stringstream mutation;
+
 	for (unsigned i = 0; i < id.chromosome.size (); ++i) {
 		float choice = frand<float>(0., 1.);
+		
 		if (choice < mutation_rate) {
-			unsigned range = instruments[orchestra[i]].size();
-			id.chromosome[i] = instruments[orchestra[i]][rand () % range];
+			std::string inum = orchestra[i];
+
+			std::deque<std::string> res;
+			if (orchestra[i].find ("|") != std::string::npos) { // doublings
+				tokenize(orchestra[i], res, "|");
+				int p = rand () % res.size ();
+				inum = res[p];
+			}
+
+			unsigned range = instruments[inum].size();
+			id.chromosome[i] = instruments[inum][rand () % range];
 		} 
 	}
 }
@@ -227,6 +248,7 @@ void export_population (const std::vector<Individual>& pop,
 				continue; // silent instrument
 			}	
 
+			// #error SEMBRA CHE EXPORT NON FUNZIONI CON DOUBLINGS
 			DB_entry d = database[pop[i].chromosome[j]];
 			files.push_back(d.file);
 			if (c.partials_filtering > 0) {

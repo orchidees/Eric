@@ -1,20 +1,20 @@
 ; anarkid - configuration file
 ;
 
-db_file 			SOL_ord_mfcc.txt
+db_file 			SOL_ord_spectrum.txt
 sound_path 			/Users/Carmine/Elementi/Datasets/SOL_ordinario_wav
 
 ;orchestra			Fl Ob ClBb Bn Hn TpC+C TpC+H TpC+S Vn Va Vc Cb Tbn+C Tbn+H Tbn+S BTb
-orchestra 	 		Bn Cb Hn Tbn+C|Tbn+H|Tbn+S BTb TpC+C|TpC+H|TpC+S 
-;orchestra			Hn Hn Vc Vc Ob Ob
+orchestra 	 		Bn Cb Hn Tbn+C|Tbn+H|Tbn+S BTb TpC+C|TpC+H|TpC+S
+;orchestra			Fl|Ob Hn|TpC Va|Vc
 
 pop_size			500
 max_epochs			100
 xover_rate			0.8
 mutation_rate		0.01
-sparsity			0.001
+sparsity			0
 
-partials_window		32768
-partials_filtering	0.25
+partials_window		4096
+partials_filtering	0.3
 
-export_solutions	10
+export_solutions	50
