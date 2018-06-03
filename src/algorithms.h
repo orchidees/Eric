@@ -13,26 +13,7 @@
 #include <cstring>
 #include <cassert>
 
-
-// -----------------------------------------------------------------//
-
-template <typename T>
-inline T logTwo(const T& x) {
-	return LOG2OF10 * std::log10((T) x);
-}
-
 // ------------------------------------------------------------------//
-
-template <typename T>
-inline void scale(
-		T* values,
-		T sc,
-		int N) {
-
-	for (int i = 0; i < N; ++i) {
-		values[i] *= sc;
-	}
-}
 
 template <typename T>
 inline T minimum(const T* values,
@@ -86,74 +67,7 @@ T mean(const T* values,
 
 	return sum(values, N) / N;
 }
- 
-template <typename T>
-void normalize(const T* data, T* result, int N) {
-	T min = data[0];
-	T max = data[0];
 
-	for (int i = 0; i < N; ++i) {
-		if (max < data[i]) max = data[i];
-		if (min > data[i]) min = data[i];
-	}
-
-	double delta = max - min;
-	//T fmin = fabs(min);
-	for (int i = 0; i < N; ++i) {
-		result[i] = delta != 0 ? ((data[i] - min) / (max - min)): 0;
-		//result[i] += min;
-	}
-}
-
-template <typename T>
-void normalize2(const T* data, T* result, int N) {
-	T* weights = new T[N];
-	for (int i = 0; i < N; ++i) weights[i] = 1;
-
-	T mean = centroid (weights, data, N);
-	T stdd = stddev (weights, data, mean, N);
-
-
-	for (int i = 0; i < N; ++i) {
-		result[i] = stdd != 0 ? ((data[i] - mean) / stdd) : 0;
-		//result[i] += mean;
-	}
-	delete [] weights;
-}
-
-template <typename T>
-void unnormalize(const T* data, T* result, int N) {
-	T min = data[0];
-	T max = data[0];
-
-	for (int i = 0; i < N; ++i) {
-		if (max < data[i]) max = data[i];
-		if (min > data[i]) min = data[i];
-	}
-
-	double delta = max - min;
-	//T fmin = fabs(min);
-	for (int i = 0; i < N; ++i) {
-		result[i] = (data[i] * delta) + min;
-		//result[i] += min;
-	}
-}
-
-template <typename T>
-void unnormalize2(const T* data, T* result, int N) {
-	T* weights = new T[N];
-	for (int i = 0; i < N; ++i) weights[i] = 1;
-
-	T mean = centroid (weights, data, N);
-	T stdd = stddev (weights, data, mean, N);
-
-
-	for (int i = 0; i < N; ++i) {
-		result[i] = (data[i]* stdd) + mean;
-		//result[i] += mean;
-	}
-	delete [] weights;
-}
 
 template <typename T>
 void scale(const T* buff, T* out, int len, T factor) {
@@ -199,20 +113,7 @@ T median(T a[], int n) {
 	return kth_smallest(a, n, (((n) & 1) ? ((n) / 2) : (((n) / 2) - 1)));
 }
 
-template <typename T>
-T frand(T min, T max) {
-	return ((max - min) * ((T)rand() / RMAX) + min);
-}
 
-template <typename T>
-int wchoice(T* dist, int n) {
-	T R = frand(0., 1.);
-	for (int i = 0; i < n; ++i) {
-		if (dist[i] >= R) return i;
-	}
-
-	return (int) frand(0, n);
-}
 // ------------------------------------------------------------------//
 
 template <typename T>
@@ -301,6 +202,74 @@ inline T moment(
 }
 
 template <typename T>
+void normalize(const T* data, T* result, int N) {
+	T min = data[0];
+	T max = data[0];
+
+	for (int i = 0; i < N; ++i) {
+		if (max < data[i]) max = data[i];
+		if (min > data[i]) min = data[i];
+	}
+
+	double delta = max - min;
+	//T fmin = fabs(min);
+	for (int i = 0; i < N; ++i) {
+		result[i] = delta != 0 ? ((data[i] - min) / (max - min)): 0;
+		//result[i] += min;
+	}
+}
+
+template <typename T>
+void normalize2(const T* data, T* result, int N) {
+	T* weights = new T[N];
+	for (int i = 0; i < N; ++i) weights[i] = 1;
+
+	T mean = centroid (weights, data, N);
+	T stdd = stddev (weights, data, mean, N);
+
+
+	for (int i = 0; i < N; ++i) {
+		result[i] = stdd != 0 ? ((data[i] - mean) / stdd) : 0;
+		//result[i] += mean;
+	}
+	delete [] weights;
+}
+
+template <typename T>
+void unnormalize(const T* data, T* result, int N) {
+	T min = data[0];
+	T max = data[0];
+
+	for (int i = 0; i < N; ++i) {
+		if (max < data[i]) max = data[i];
+		if (min > data[i]) min = data[i];
+	}
+
+	double delta = max - min;
+	//T fmin = fabs(min);
+	for (int i = 0; i < N; ++i) {
+		result[i] = (data[i] * delta) + min;
+		//result[i] += min;
+	}
+}
+
+template <typename T>
+void unnormalize2(const T* data, T* result, int N) {
+	T* weights = new T[N];
+	for (int i = 0; i < N; ++i) weights[i] = 1;
+
+	T mean = centroid (weights, data, N);
+	T stdd = stddev (weights, data, mean, N);
+
+
+	for (int i = 0; i < N; ++i) {
+		result[i] = (data[i]* stdd) + mean;
+		//result[i] += mean;
+	}
+	delete [] weights;
+}
+
+template <typename T>
 static inline T linreg(
 		const T* weights,
 		const T* values,
@@ -346,22 +315,6 @@ static inline T linreg(
 	}
 	return slope;
 }
-
-template <typename T>
-T parabolicInterpolate (T x1, T x2, T x3, T y1, T y2, T y3, T *min) {
-	T a, b, c;
-	T pos;
-	a= ((y1 - y2) / (x1 - x2) - (y2 - y3) / (x2 - x3)) / (x1 - x3);
-	b= (y1 - y2) / (x1 - x2) - a * (x1 + x2);
-	c= y1 - a * x1 * x1 - b * x1;
-	
-	*min= c;
-	
-	// dy/dx = 2a * x + b = 0
-	pos= -b / 2. / a;
-	return pos;
-	
-}	
 
 // -------------------------------------------------------------- //
 
@@ -548,6 +501,13 @@ void kmeans(T** data, int n, int m, int k, T t, int* labels, T** centroids) {
 
 	delete [] c1;
 	delete [] counts;
+}
+
+// -----------------------------------------------------------------------------
+
+template <typename T>
+T frand(T min, T max) {
+	return ((max - min) * ((T)rand() / RMAX) + min);
 }
 
 #endif	// ALGORITHMS_H

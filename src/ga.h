@@ -210,7 +210,6 @@ Individual get_best_individual (const std::vector<Individual>& population) {
 	return population[max_index];
 }
 
-
 void make_uniques (const std::vector<Individual>& population, 
 	std::vector<Individual>& uniques) {
 	std::map<std::vector<int>, Individual> uniques_map;
@@ -248,7 +247,6 @@ void export_population (const std::vector<Individual>& pop,
 				continue; // silent instrument
 			}	
 
-			// #error SEMBRA CHE EXPORT NON FUNZIONI CON DOUBLINGS
 			DB_entry d = database[pop[i].chromosome[j]];
 			files.push_back(d.file);
 			if (c.partials_filtering > 0) {

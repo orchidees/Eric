@@ -1,8 +1,8 @@
-// fourier.h
+// FFT.h
 // 
 
-#ifndef FOURIER_H
-#define FOURIER_H 
+#ifndef FFT_H
+#define FFT_H 
 
 //#define USE_VDSP  
 
@@ -465,6 +465,6 @@ inline T speckurt(
 	return tmp;
 }
 
-#endif	// FOURIER_H 
+#endif	// FFT_H 
 
 // EOF

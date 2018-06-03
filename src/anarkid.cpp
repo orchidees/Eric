@@ -96,7 +96,8 @@ int main (int argc, char* argv[]) {
 			cout << "filtering database...... ";  cout.flush ();
 			partials_to_notes (argv[1], notes, c.partials_window, c.partials_window / 4, 
 				c.partials_filtering);
-			partials_filter (idb, notes, database);
+			apply_filters (idb, notes, c.styles, c.dynamics, database);
+
 			if (database.size () < 1) {
 				throw runtime_error("empty search space; please check filters");
 			}
@@ -154,7 +155,6 @@ int main (int argc, char* argv[]) {
 		cout << "analysing target........ ";  cout.flush ();
 		vector<float> target (ncoeff);
 		compute_features(argv[1], target, bsize, hopsize, ncoeff, type);
-		// plot_vector("target.bmp", target, 256, 256);
 		cout << "done" << endl;
 
 		// ga ------------------------------------------------------------------

@@ -6,10 +6,9 @@
 #define UTILITIES_H 
 
 #include "WavFile.h"
-#include "BMP24.h"
 #include "algorithms.h"
 #include "tokenizer.h"
-#include "FFT.h"
+#include "fourier.h"
 
 #include <dirent.h>
 
@@ -33,6 +32,8 @@ struct Config {
 	std::string db_file;
 	std::string sound_path;
 	std::vector<std::string> orchestra;
+	std::vector<std::string> styles;
+	std::vector<std::string> dynamics;
 	int pop_size;
 	int max_epochs;
 	T xover_rate;
@@ -42,38 +43,6 @@ struct Config {
 	T partials_filtering;
 	int export_solutions;
 };
-
-// -----------------------------------------------------------------------------
-template <typename T>
-void serialize (std::ostream& out , const T* data, int size) {
-	for (int i = 0; i < size; ++i) {
-		out.write ((char*) &data[i], sizeof (T));
-	}
-}
-
-template <typename T>
-void serialize (const std::string& name, const T* data, int size) {
-	std::ofstream out (name.c_str (), std::ios::binary);
-	if (!out.good ()) {
-		std::string err = "cannot create " + name;
-		throw std::runtime_error (err.c_str ());
-	}
-	serialize(out, data, size);
-	out.close ();
-}
-
-template <typename T>
-void deserialize (const std::string& name, T* data, int size) {
-	std::ifstream in (name.c_str (), std::ios::binary);
-	if (!in.good ()) {
-		std::string err = "cannot open " + name;
-		throw std::runtime_error (err.c_str ());
-	}
-	for (int i = 0; i < size; ++i) {
-		in.read ((char*) &data[i], sizeof (T));
-	}
-	in.close ();
-}
 
 // -----------------------------------------------------------------------------
 std::string removePath (const std::string& in) {
@@ -106,7 +75,6 @@ std::string trim (std::string const& source,
 		result.erase ();
 	return result;
 }	
-
 
 void erase_substring (std::string & mainStr, const std::string & toErase) {
 	// Search for the substring in string
@@ -161,6 +129,14 @@ void read_config (const char* config_file, Config<T>* p) {
         } else if (tokens[0] == "orchestra") {
         	for (unsigned i = 1; i < tokens.size (); ++i) {
         		p->orchestra.push_back (tokens[i]);
+        	}
+        } else if (tokens[0] == "styles") {
+        	for (unsigned i = 1; i < tokens.size (); ++i) {
+        		p->styles.push_back (tokens[i]);
+        	}
+        } else if (tokens[0] == "dynamics") {
+        	for (unsigned i = 1; i < tokens.size (); ++i) {
+        		p->dynamics.push_back (tokens[i]);
         	}
         } else if (tokens[0] == "pop_size") {
         	p->pop_size = atol (tokens[1].c_str ());
@@ -283,15 +259,39 @@ void load_db (const char* dbfile, std::vector<DB_entry>& database,
 	}
 }
 
-void partials_filter (const std::vector<DB_entry>& database, std::map<std::string, int>& notes,
+void apply_filters (const std::vector<DB_entry>& database, 
+	std::map<std::string, int>& notes, const std::vector<std::string>& styles,
+	const std::vector<std::string>& dynamics,
 	std::vector<DB_entry>& outdb) {
 
 	for (unsigned j = 0; j < database.size (); ++j) {
+		bool note_check = notes.size () == 0 ? true : false;
+		bool style_check = styles.size () == 0 ? true : false;
+		bool dynamics_check = dynamics.size () == 0 ? true : false;
+
 		for (std::map<std::string, int>::iterator i = notes.begin(); i != notes.end (); ++i) {
 			if (database[j].symbols[2] == i->first) {
-				outdb.push_back(database[j]);
+				note_check = true;
 				break;
 			}
+		}
+
+		for (unsigned i = 0; i < styles.size (); ++i) {
+			if (database[j].symbols[1] == styles[i]) {
+				style_check = true;
+				break;
+			}
+		}
+
+		for (unsigned i = 0; i < dynamics.size (); ++i) {
+			if (database[j].symbols[3] == dynamics[i]) {
+				dynamics_check = true;
+				break;
+			}
+		}
+
+		if (note_check && style_check && dynamics_check) {
+			outdb.push_back(database[j]);
 		}
 	}
 }
@@ -324,20 +324,6 @@ void listdir (const char *name, const char* trailing_path, std::vector<std::stri
     closedir(dir);
 }
 // -----------------------------------------------------------------------------
-template <typename T>	
-inline void convert16to32 (const short* in, T* out, int size) {
-	for (int i = 0; i < size; ++i) {
-		out[i] = (T) in[i] / 32768.;
-	}
-}
-
-template <typename T>
-inline void convert32to16 (const T* in, short* out, int size) {
-	for (int i = 0; i < size; ++i) {
-		out[i] = (short) (in[i] * 32768.);
-	}
-}
-
 template <typename T>
 void interleave (T* stereo, const T* l, const T* r, int n) {
 	for (int i = 0; i < n; ++i) {
@@ -353,37 +339,6 @@ void deinterleave (const T* stereo, T* l, T* r, int n) {
 		r[i] = stereo[2 * i + 1];
 	}
 }	
-
-// -----------------------------------------------------------------------------
-template <typename T>
-void plot_vector (const char* name, const std::vector<T>& target, 
-	unsigned width = 256, unsigned height = 256) {
-	int minPos = 0;
-	int maxPos = 0;
-	float min = minimum(&target[0], target.size (), minPos);
-	float max = maximum(&target[0], target.size (), maxPos);
-	float delta = max - min;
-
-	BMP24 t (width, height);
-	t.background(127, 127, 127);
-
-	float stretch = (float)width / (target.size ());
-	for (unsigned z = 0; z < target.size (); ++z) {
-		// t.line(
-		// 	(int) (z * stretch), 
-		// 	(int) ((float) height * (target[z] - min)) / delta, 
-		// 	(int) ((z + 1) * stretch), 
-		// 	(int) ((float) height * (target[z + 1] - min)) / delta, 0, 0, 127);
-
-		t.line(
-			(int) ((float) z * stretch), 
-			(int) 0, 
-			(int) ((float) z * stretch), 
-			(int) ((float) height * (target[z] - min)) / delta, 0, 0, 127, true);		
-	}
-	t.grid (10, 10, 0, 0, 0);
-	t.save (name);
-}
 
 // -----------------------------------------------------------------------------
 

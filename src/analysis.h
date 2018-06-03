@@ -1,7 +1,6 @@
 // analysis.h
 // 
 
-
 #ifndef ANALYSIS_H
 #define ANALYSIS_H 
 
@@ -11,7 +10,7 @@
 #include <map>
 
 #include "WavFile.h"
-#include "FFT.h"
+#include "fourier.h"
 #include "utilities.h"
 #include "Hz2Note.h"
 #include "MFCC.h"
