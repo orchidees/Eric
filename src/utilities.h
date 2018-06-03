@@ -41,6 +41,7 @@ struct Config {
 	T sparsity;
 	int partials_window;
 	T partials_filtering;
+	std::vector<std::string> extra_pitches;
 	int export_solutions;
 };
 
@@ -156,6 +157,10 @@ void read_config (const char* config_file, Config<T>* p) {
         	p->partials_window = atol (tokens[1].c_str ());
         } else if (tokens[0] == "partials_filtering") {
         	p->partials_filtering = atof (tokens[1].c_str ());
+        } else if (tokens[0] == "extra_pitches") {
+        	for (unsigned i = 1; i < tokens.size (); ++i) {
+        		p->extra_pitches.push_back (tokens[i]);
+        	}
         } else if (tokens[0] == "export_solutions") {
         	p->export_solutions = atol (tokens[1].c_str ());
         } else {

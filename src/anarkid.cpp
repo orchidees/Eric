@@ -24,7 +24,7 @@ using namespace std;
 // 5. evaluation is = sum of corresponding envelopes and distance with target
 
 // TODO: matching pursuit per startup e mutation,
-//	     incremento database, tuning quantizzato (??)
+//	     tuning quantizzato (??)
 //	     check mfcc, riverbero 
 
 // REFACTOR: miglioramento interfaccia codice
@@ -96,9 +96,13 @@ int main (int argc, char* argv[]) {
 		map<string, int> notes;
 		
 		cout << "filtering database...... ";  cout.flush ();
+
 		if (c.partials_filtering > 0) {
 			partials_to_notes (argv[1], notes, c.partials_window, c.partials_window / 4, 
 				c.partials_filtering);
+			for (unsigned i = 0; i < c.extra_pitches.size (); ++i) {
+				notes[c.extra_pitches[i]] = 0;
+			}			
 		}
 		apply_filters (idb, notes, c.styles, c.dynamics, database);
 
