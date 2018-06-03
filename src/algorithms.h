@@ -68,6 +68,18 @@ T mean(const T* values,
 	return sum(values, N) / N;
 }
 
+template <typename T>
+T norm(const T* values,
+		int N) {
+	if (1 > N) return 0;
+
+	T sum = 0.;
+	for (int i = 0; i < N; ++i) {
+		sum += values[i] * values[i];
+	}
+
+	return sqrt (sum);
+}
 
 template <typename T>
 void scale(const T* buff, T* out, int len, T factor) {

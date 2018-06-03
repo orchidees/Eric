@@ -41,7 +41,7 @@ void gen_random_chromosome (std::vector<int>& f,
 struct Comp{
     Comp( const std::vector<float>& v ) : _v(v) {}
     bool operator ()(int a, int b) {  
-    	return _v[a] < _v[b]; 
+    	return _v[a] > _v[b]; 
     }
     const std::vector<float>& _v;
 };
@@ -71,31 +71,30 @@ void gen_pursuit_chromosome (std::vector<int>& f,
 			inum = res[p];
 		}
 
-		normalize(&residual[0], &residual[0], residual.size ());
-
-		std::vector<float> distances;
+		std::vector<float> projections;
 		std::vector<float> indexes;
 		for (unsigned k = 0; k < instruments[inum].size (); ++k) {
 			DB_entry e = database[instruments[inum][k]];
-			float d = edistance(&residual[0], &e.features[0], residual.size ());
-			distances.push_back(d);
+			float d = fabs (inner_prod(&residual[0], &e.features[0], residual.size ()));
+			projections.push_back(d);
 			indexes.push_back(instruments[inum][k]);
 			// std::cout << e.file << " " << d << std::endl;
 		}
 
-		std::vector<int> vx (distances.size ());
-		for (unsigned k = 0; k < distances.size(); ++k){
+		std::vector<int> vx (projections.size ());
+		for (unsigned k = 0; k < projections.size(); ++k){
 			vx[k]= k;
 		}
 		kth = kth > vx.size () ? vx.size () : kth;
 
-		partial_sort (vx.begin(), vx.begin() + kth, vx.end (), Comp(distances));
+		partial_sort (vx.begin(), vx.begin() + kth, vx.end (), Comp(projections));
 
 		unsigned p = rand () % kth;		
 		f[i] = indexes[vx[p]];
 
+		float no = norm<float> (&database[f[i]].features[0], database[f[i]].features.size ());
 		for (unsigned k = 0; k < residual.size (); ++k) {
-			residual[k] -= database[f[i]].features[k];
+			residual[k] -= projections[vx[p]] * database[f[i]].features[k] / no;
 		}
 		// std::cout << "---------------------------------------" << std::endl;
 	}
