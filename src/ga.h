@@ -32,18 +32,93 @@ void gen_random_chromosome (std::vector<int>& f,
 			int p = rand () % res.size ();
 			inum = res[p];
 		}
-
 		
 		unsigned p = rand () % instruments[inum].size();		
 		f[i] = instruments[inum][p];
 	}
 }
 
-void gen_random_population (std::vector<Individual>& population, 
+struct Comp{
+    Comp( const std::vector<float>& v ) : _v(v) {}
+    bool operator ()(int a, int b) {  
+    	return _v[a] < _v[b]; 
+    }
+    const std::vector<float>& _v;
+};
+
+void gen_pursuit_chromosome (std::vector<int>& f, 
 	const std::vector<std::string>& orchestra, 
-	std::map<std::string, std::vector<int> >& instruments) {
+	std::map<std::string, std::vector<int> >& instruments,
+	const std::vector<DB_entry>& database,
+	const std::vector<float>& target,
+	int kth) {
+
+	f.resize(orchestra.size ());	
+
+	std::vector<float> residual (target.size ());
+	for (unsigned i = 0; i < target.size (); ++i) {
+		residual[i] = target[i];
+	}
+
+	for (unsigned i = 0; i < f.size (); ++i) {
+		// std::cout << "i = " << i << std::endl;
+		std::string inum = orchestra[i];
+
+		std::deque<std::string> res;
+		if (orchestra[i].find ("|") != std::string::npos) { // doublings
+			tokenize(orchestra[i], res, "|");
+			int p = rand () % res.size ();
+			inum = res[p];
+		}
+
+		normalize(&residual[0], &residual[0], residual.size ());
+
+		std::vector<float> distances;
+		std::vector<float> indexes;
+		for (unsigned k = 0; k < instruments[inum].size (); ++k) {
+			DB_entry e = database[instruments[inum][k]];
+			float d = edistance(&residual[0], &e.features[0], residual.size ());
+			distances.push_back(d);
+			indexes.push_back(instruments[inum][k]);
+			// std::cout << e.file << " " << d << std::endl;
+		}
+
+		std::vector<int> vx (distances.size ());
+		for (unsigned k = 0; k < distances.size(); ++k){
+			vx[k]= k;
+		}
+		kth = kth > vx.size () ? vx.size () : kth;
+
+		partial_sort (vx.begin(), vx.begin() + kth, vx.end (), Comp(distances));
+
+		unsigned p = rand () % kth;		
+		f[i] = indexes[vx[p]];
+
+		for (unsigned k = 0; k < residual.size (); ++k) {
+			residual[k] -= database[f[i]].features[k];
+		}
+		// std::cout << "---------------------------------------" << std::endl;
+	}
+}
+
+void gen_population (std::vector<Individual>& population, 
+	const std::vector<std::string>& orchestra, 
+	std::map<std::string, std::vector<int> >& instruments,
+	const std::vector<DB_entry>& database,
+	const std::vector<float>& target,
+	int k) {
 	for (unsigned i = 0; i < population.size (); ++i) {
-		gen_random_chromosome(population[i].chromosome, orchestra, instruments);
+		switch (k) {
+			case 0:
+				gen_random_chromosome(population[i].chromosome, orchestra, instruments);
+			break;
+			default:
+				// std::cout << "ID " << i << std::endl;
+				gen_pursuit_chromosome(population[i].chromosome, orchestra, instruments,
+					database, target, k);	
+			break;	
+		}
+		
 		population[i].fitness = 0.;
 	}
 }
@@ -226,8 +301,10 @@ void make_uniques (const std::vector<Individual>& population,
 void export_population (const std::vector<Individual>& pop,
 	const std::vector<DB_entry>& database, const Config<float>& c,
 	std::map<std::string, int>& notes,
-	const std::string& type, unsigned ncoeff) {
-	std::ofstream solutions ("solutions.txt");
+	const std::string& type, unsigned ncoeff, const std::string& prefix = "solution") {
+	std::stringstream nn;
+	nn << prefix << ".txt";
+	std::ofstream solutions (nn.str ());
 	solutions << "features: " << type << " " << ncoeff << std::endl << std::endl;
 	
 	for (unsigned i = 0; i < pop.size (); ++i) {
@@ -237,7 +314,7 @@ void export_population (const std::vector<Individual>& pop,
 		std::vector<float> pans;
 		
 		std::stringstream name_wav;
-		name_wav << "solution_" << i << ".wav";			
+		name_wav << prefix << "_" << i << ".wav";			
 		
 		std::string symbols;
 

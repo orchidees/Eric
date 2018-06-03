@@ -29,6 +29,17 @@ struct DB_entry {
 
 template <typename T>
 struct Config {
+	Config () {
+		pop_size = 100;
+		max_epochs = 50;
+		pursuit = 0;
+		xover_rate = .7;
+		mutation_rate = .01;
+		sparsity = 0.001;
+		partials_window = 4096;
+		partials_filtering = .2;
+		export_solutions = 30;
+	}
 	std::vector<std::string> db_files;
 	std::vector<std::string> sound_paths;
 	std::vector<std::string> orchestra;
@@ -36,6 +47,7 @@ struct Config {
 	std::vector<std::string> dynamics;
 	int pop_size;
 	int max_epochs;
+	int pursuit;
 	T xover_rate;
 	T mutation_rate;
 	T sparsity;
@@ -147,6 +159,8 @@ void read_config (const char* config_file, Config<T>* p) {
         	p->pop_size = atol (tokens[1].c_str ());
         } else if (tokens[0] == "max_epochs") {
         	p->max_epochs = atol (tokens[1].c_str ());
+        } else if (tokens[0] == "pursuit") {
+        	p->pursuit = atol (tokens[1].c_str ());
         } else if (tokens[0] == "xover_rate") {
         	p->xover_rate = atof (tokens[1].c_str ());
         } else if (tokens[0] == "mutation_rate") {
@@ -179,6 +193,9 @@ void read_config (const char* config_file, Config<T>* p) {
 	if (p->max_epochs <= 0) {
         throw std::runtime_error ("invalid number of epochs");
 	}
+	if (p->pursuit < 0) {
+        throw std::runtime_error ("invalid value for pursuit");
+	}	
 	if (p->mutation_rate <= 0 || p->mutation_rate > 1) {
         throw std::runtime_error ("invalid mutation rate");
 	}	

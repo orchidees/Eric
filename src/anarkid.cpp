@@ -168,8 +168,12 @@ int main (int argc, char* argv[]) {
 		cout << "done" << endl;
 
 		// ga ------------------------------------------------------------------
+		cout << "init population......... "; cout.flush ();
 		vector<Individual> population (c.pop_size);
-		gen_random_population (population, effective_orchestra, instruments);
+		gen_population (population, effective_orchestra, instruments, database, 
+			target, c.pursuit);	
+		// export_population(population, database, c, notes, type, ncoeff, "pursuit");
+		cout << "done" << endl;
 
 		float total_fitness = 0;
 		vector<float> fitness;
@@ -210,7 +214,6 @@ int main (int argc, char* argv[]) {
 		}
 		fit << "]" << endl;
 		fit.close ();
-
 
 		// export --------------------------------------------------------------				
 		vector<Individual> uniques;
