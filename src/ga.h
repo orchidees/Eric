@@ -255,9 +255,13 @@ void export_population (const std::vector<Individual>& pop,
 			} else ratios.push_back (1.);
 
 			if (d.symbols[0].find ("Fl") != std::string::npos)pans.push_back (.5);
+			else if (d.symbols[0].find ("MulFl") != std::string::npos)pans.push_back (.5);
 			else if (d.symbols[0].find ("Ob") != std::string::npos) pans.push_back(.6);
+			else if (d.symbols[0].find ("MulOb") != std::string::npos) pans.push_back(.6);
 			else if (d.symbols[0].find ("Cl") != std::string::npos) pans.push_back(.4);
+			else if (d.symbols[0].find ("MulCl") != std::string::npos) pans.push_back(.4);
 			else if (d.symbols[0].find ("Bn") != std::string::npos) pans.push_back(.55);
+			else if (d.symbols[0].find ("MulBn") != std::string::npos) pans.push_back(.55);
 			else if (d.symbols[0].find ("Hn") != std::string::npos) pans.push_back(.3);
 			else if (d.symbols[0].find ("Tp") != std::string::npos) pans.push_back(.4);
 			else if (d.symbols[0].find ("Tbn") != std::string::npos) pans.push_back(.55);
@@ -275,7 +279,7 @@ void export_population (const std::vector<Individual>& pop,
 			solutions << d.file << std::endl;
 		}
 
-		create_sound_mix(files, c.sound_path.c_str (), ratios, pans,
+		create_sound_mix(files, c.sound_paths, ratios, pans,
 			name_wav.str ().c_str ());
 		solutions << std::endl;
 	}

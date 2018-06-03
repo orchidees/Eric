@@ -32,7 +32,7 @@ int main (int argc, char* argv[]) {
         
 
         int bsize = atol (argv[4]);
-        if (bsize <= 0) {
+        if (bsize < 2 || ((((~bsize + 1) & bsize) != bsize))) {
             throw runtime_error("invalid value for bsize");
         }
 

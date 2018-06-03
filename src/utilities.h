@@ -29,8 +29,8 @@ struct DB_entry {
 
 template <typename T>
 struct Config {
-	std::string db_file;
-	std::string sound_path;
+	std::vector<std::string> db_files;
+	std::vector<std::string> sound_paths;
 	std::vector<std::string> orchestra;
 	std::vector<std::string> styles;
 	std::vector<std::string> dynamics;
@@ -122,10 +122,14 @@ void read_config (const char* config_file, Config<T>* p) {
             throw std::runtime_error (err.str ());
         }
 
-        if (tokens[0] == "db_file") {
-        	p->db_file = tokens[1];
-        } else if (tokens[0] == "sound_path") {
-        	p->sound_path = tokens[1];
+        if (tokens[0] == "db_files") {
+        	for (unsigned i = 1; i < tokens.size (); ++i) {
+        		p->db_files.push_back (tokens[i]);
+        	}        	
+        } else if (tokens[0] == "sound_paths") {
+        	for (unsigned i = 1; i < tokens.size (); ++i) {
+        		p->sound_paths.push_back (tokens[i]);
+        	}
         } else if (tokens[0] == "orchestra") {
         	for (unsigned i = 1; i < tokens.size (); ++i) {
         		p->orchestra.push_back (tokens[i]);
@@ -167,10 +171,27 @@ void read_config (const char* config_file, Config<T>* p) {
 	if (p->pop_size <= 0) {
         throw std::runtime_error ("invalid size for population");
 	}	
-	if (p->mutation_rate <= 0 || p->mutation_rate > 1 || p->xover_rate <= 0 ||
-		p->xover_rate > 1) {
-        throw std::runtime_error ("invalid xover or mutation rate");
+	if (p->max_epochs <= 0) {
+        throw std::runtime_error ("invalid number of epochs");
+	}
+	if (p->mutation_rate <= 0 || p->mutation_rate > 1) {
+        throw std::runtime_error ("invalid mutation rate");
 	}	
+	if (p->xover_rate <= 0 || p->xover_rate > 1) {
+        throw std::runtime_error ("invalid cross-over rate");
+	}		
+	if (p->sparsity < 0 || p->sparsity > 1) {
+        throw std::runtime_error ("invalid sparsity");
+	}	
+	if (p->partials_window < 2 || ((((~p->partials_window + 1) & p->partials_window) != p->partials_window))) {
+		throw std::runtime_error ("invalid size for partials window");
+	}
+	if (p->partials_filtering < 0 || p->partials_filtering > 1) {
+        throw std::runtime_error ("invalid filtering rate for partials");
+	}	
+	if (p->export_solutions < 0) {
+        throw std::runtime_error ("invalid number of solutions to export");
+	}
 }
 
 void extract_symbols (DB_entry& e) {
@@ -220,6 +241,11 @@ void load_db (const char* dbfile, std::vector<DB_entry>& database,
 	}
 
 	db >> type >> bsize >> hopsize >> ncoeff;
+	if (database.size () != 0) {
+		if (database[0].features.size () != ncoeff) {
+			throw std::runtime_error ("incompatible feature size among databases");
+		}
+	}
 
 	int lineno = 1;
 	while (!db.eof ()) {
@@ -348,17 +374,41 @@ float cents_to_ratio (int cents) {
 	return std::pow (2., c);
 }
 	
+inline bool file_exists (const std::string& name) {
+    std::ifstream f(name.c_str());
+    return f.good();
+}
+
 void create_sound_mix (const std::vector<std::string>& files, 
-	const char* sound_path, 
+	const std::vector<std::string>& sound_paths, 
 	const std::vector<float>& ratios, 
 	const std::vector<float>& pans, const char* outfile) {
 	std::vector <float*> pointers;
 	std::vector <int> lengths;
 
 	for (int i = 0; i < files.size (); ++i) {
-		std::stringstream snd;
-		snd << sound_path << files[i];
-		WavInFile in (snd.str ().c_str ()); // raises exception on error
+		std::string full_name;
+	            
+        bool found = false;
+        for (unsigned j = 0; j < sound_paths.size (); ++j) {
+        	std::stringstream snd;
+       		snd << sound_paths[j] << files[i];
+       		full_name = snd.str ();
+
+			if (file_exists (snd.str())) {
+				
+				found = true;
+				break;
+			}
+		}
+
+		if (!found) {
+			std::stringstream msg;
+			msg << "file " << full_name << " cannot be found";
+			throw std::runtime_error (msg.str ());
+		}
+		
+		WavInFile in (full_name.c_str ()); // raises exception on error
 		int sr = in.getSampleRate();
 		int samples  = in.getNumSamples();
 		int channels = in.getNumChannels ();

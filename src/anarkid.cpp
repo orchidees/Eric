@@ -23,9 +23,9 @@ using namespace std;
 // 4. mutation is +-r integer
 // 5. evaluation is = sum of corresponding envelopes and distance with target
 
-// TODO: filtri, matching pursuit per startup e mutation,
+// TODO: matching pursuit per startup e mutation,
 //	     incremento database, tuning quantizzato (??)
-//	     strumenti doppi, check mfcc, riverbero 
+//	     check mfcc, riverbero 
 
 // REFACTOR: miglioramento interfaccia codice
 
@@ -52,13 +52,15 @@ int main (int argc, char* argv[]) {
 			 << c.sparsity << endl;
 
 		// db ------------------------------------------------------------------
-		cout << "loading database........ ";  cout.flush ();
+		cout << "loading databases....... ";  cout.flush ();
 		vector<DB_entry> idb;
 		int bsize = 1024;			// defaults
 		int hopsize = 512;
 		int ncoeff = bsize / 2;
 		std::string type = "spectrum";
-		load_db (c.db_file.c_str (), idb, bsize, hopsize, ncoeff, type);
+		for (unsigned i = 0; i < c.db_files.size (); ++i) {
+			load_db (c.db_files[i].c_str (), idb, bsize, hopsize, ncoeff, type);
+		}
 		cout << "done (" << idb.size () << " entries)" << endl;
 		cout << "features................ " << type << ", " << bsize << ", " << hopsize << ", "
 			<< ncoeff << endl;
@@ -92,16 +94,20 @@ int main (int argc, char* argv[]) {
 		// pfilt  --------------------------------------------------------------
 		vector<DB_entry> database;
 		map<string, int> notes;
+		
+		cout << "filtering database...... ";  cout.flush ();
 		if (c.partials_filtering > 0) {
-			cout << "filtering database...... ";  cout.flush ();
 			partials_to_notes (argv[1], notes, c.partials_window, c.partials_window / 4, 
 				c.partials_filtering);
-			apply_filters (idb, notes, c.styles, c.dynamics, database);
+		}
+		apply_filters (idb, notes, c.styles, c.dynamics, database);
 
-			if (database.size () < 1) {
-				throw runtime_error("empty search space; please check filters");
-			}
-			cout << "done (" << database.size () << " entries)" << endl;
+		if (database.size () < 1) {
+			throw runtime_error("empty search space; please check filters");
+		}
+		cout << "done (" << database.size () << " entries)" << endl;
+
+		if (c.partials_filtering) {
 			cout << "target pitches.......... ";
 			int nl = 0;
 			for (map<string, int>::iterator i = notes.begin(); i != notes.end (); ++i) {
@@ -114,9 +120,6 @@ int main (int argc, char* argv[]) {
 				}
 				++nl;
 			}		
-			cout << endl;
-		} else {
-			database = idb;
 			cout << endl;
 		}
 
@@ -148,6 +151,9 @@ int main (int argc, char* argv[]) {
 					effective_orchestra.push_back(*i);
 				}
 			}
+		}
+		if (effective_orchestra.size () == 0) {
+			throw runtime_error ("empty orchestra; please check filters");
 		}
 		cout << "done" << endl;
  
