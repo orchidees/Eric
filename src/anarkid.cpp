@@ -97,12 +97,12 @@ int main (int argc, char* argv[]) {
 		
 		cout << "filtering database...... ";  cout.flush ();
 
+		for (unsigned i = 0; i < c.extra_pitches.size (); ++i) {
+			notes[c.extra_pitches[i]] = 0;
+		}		
 		if (c.partials_filtering > 0) {
 			partials_to_notes (argv[1], notes, c.partials_window, c.partials_window / 4, 
-				c.partials_filtering);
-			for (unsigned i = 0; i < c.extra_pitches.size (); ++i) {
-				notes[c.extra_pitches[i]] = 0;
-			}			
+				c.partials_filtering);	
 		}
 		apply_filters (idb, notes, c.styles, c.dynamics, database);
 
@@ -238,9 +238,6 @@ int main (int argc, char* argv[]) {
 			cout << endl;
 		}
 		if (c.export_solutions > 0) {		
-			std::vector<float> values (target.size (), 0);
-			forecast_individual(best, database, values, ncoeff);
-
 			cout << "saving best solutions... "; cout.flush ();
 			std::sort (uniques.begin (), uniques.end ());
 			std::reverse(uniques.begin (), uniques.end());

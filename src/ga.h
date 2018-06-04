@@ -71,28 +71,31 @@ void gen_pursuit_chromosome (std::vector<int>& f,
 			inum = res[p];
 		}
 
+		std::vector<float> moduli;
 		std::vector<float> projections;
 		std::vector<float> indexes;
 		for (unsigned k = 0; k < instruments[inum].size (); ++k) {
 			DB_entry e = database[instruments[inum][k]];
-			float d = fabs (inner_prod(&residual[0], &e.features[0], residual.size ()));
+			float d = (inner_prod(&residual[0], &e.features[0], residual.size ()));
 			projections.push_back(d);
+			moduli.push_back(fabs (d));
 			indexes.push_back(instruments[inum][k]);
 			// std::cout << e.file << " " << d << std::endl;
 		}
 
-		std::vector<int> vx (projections.size ());
-		for (unsigned k = 0; k < projections.size(); ++k){
+		std::vector<int> vx (moduli.size ());
+		for (unsigned k = 0; k < moduli.size(); ++k){
 			vx[k]= k;
 		}
 		kth = kth > vx.size () ? vx.size () : kth;
 
-		partial_sort (vx.begin(), vx.begin() + kth, vx.end (), Comp(projections));
+		partial_sort (vx.begin(), vx.begin() + kth, vx.end (), Comp(moduli));
 
 		unsigned p = rand () % kth;		
 		f[i] = indexes[vx[p]];
 
 		float no = norm<float> (&database[f[i]].features[0], database[f[i]].features.size ());
+		no *= no;
 		for (unsigned k = 0; k < residual.size (); ++k) {
 			residual[k] -= projections[vx[p]] * database[f[i]].features[k] / no;
 		}
@@ -123,25 +126,30 @@ void gen_population (std::vector<Individual>& population,
 }
 
 void forecast_individual (const Individual& id, const std::vector<DB_entry>& database, 
-	std::vector<float>& forecast, unsigned ncoeff) {
-	forecast.clear ();
-	forecast.resize (ncoeff, 0);
+	std::vector<float>& forecast, const std::vector<float>& target) {
+	
+	// inner product approach
 	for (unsigned i = 0; i < id.chromosome.size (); ++i) {
 		if (id.chromosome[i] == -1) continue; // silent instrument
 		DB_entry e = database[id.chromosome[i]];
-		for (unsigned j = 0; j < ncoeff; ++j) {
-			forecast[j] += (e.features[j] / id.chromosome.size());			
+		float no = norm<float>(&e.features[0], e.features.size ());
+		float prod = inner_prod(&target[0], &e.features[0], target.size ());
+		no *= no;
+		for (unsigned j = 0; j < target.size (); ++j) {
+			forecast[j] += (prod * e.features[j] / no);
+			//forecast[j] += (e.features[j] / id.chromosome.size());	
 		}
 	}
+
+	// std::cout << "norms " << norm (&target[0], target.size ()) << " " << norm (&forecast[0], forecast.size ()) << std::endl;
 }
 
 float evaluate_individual (const Individual& id, const std::vector<float>& target,
 	const std::vector<DB_entry>& database, unsigned ncoeff) {
 	std::vector<float> values (target.size (), 0);
 
-	forecast_individual(id, database, values, ncoeff);
+	forecast_individual(id, database, values, target);
 	return edistance<float>(&values[0], &target[0], target.size ());
-
 }
 
 float evaluate_population (std::vector<Individual>& population, 

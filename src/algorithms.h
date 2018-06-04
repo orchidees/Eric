@@ -336,8 +336,7 @@ T inner_prod (const T* a, const T* b, int size) {
 	T sum = 0;
 
 	for (int i = 0; i < size; ++i) {
-		T s = a[i] * b[i];
-		sum += s;
+		sum += a[i] * b[i];
 	}
 	if (std::isnan(sum) || std::isinf(sum)) return 0;
 	else return sum;

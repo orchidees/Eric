@@ -5,32 +5,32 @@
 ;sound_paths			/Users/Carmine/Elementi/Datasets/CSOL_multiphonics
 
 ;db_files 			CSOL_tam_tam_mfcc.txt CSOL_multiphonics_mfcc.txt CSOL_ordinario_mfcc.txt
-;db_files 			CSOL_tam_tam_spectrum.txt CSOL_multiphonics_spectrum.txt CSOL_ordinario_spectrum.txt
-;sound_paths			/Users/Carmine/Elementi/Datasets/CSOL_tam_tam /Users/Carmine/Elementi/Datasets/CSOL_multiphonics /Users/Carmine/Elementi/Datasets/CSOL_ordinario
+db_files 			CSOL_tam_tam_spectrum.txt CSOL_multiphonics_spectrum.txt CSOL_ordinario_spectrum.txt
+sound_paths			/Users/Carmine/Elementi/Datasets/CSOL_tam_tam /Users/Carmine/Elementi/Datasets/CSOL_multiphonics /Users/Carmine/Elementi/Datasets/CSOL_ordinario
 
-db_files 			CSOL_ordinario_spectrum.txt
-sound_paths			/Users/Carmine/Elementi/Datasets/CSOL_ordinario
+;db_files 			CSOL_ordinario_moments.txt
+;sound_paths			/Users/Carmine/Elementi/Datasets/CSOL_ordinario
 
-;orchestra			Fl Fl Ob Ob ClBb ClBb Bn Bn Hn Hn TpC TpC Tbn Tbn Vn Vn Va Va Vc Vc Cb
+orchestra			Fl Fl Ob Ob ClBb ClBb Bn Bn Hn Hn TpC TpC Tbn Tbn Vn Vn Va Va Vc Vc Cb
 ;orchestra 	 		Bn Cb Hn Tbn+C|Tbn+H|Tbn+S BTb TpC+C|TpC+H|TpC+S
 ;orchestra			Fl|Ob Hn|TpC Va|Vc
 ;orchestra			MulFl  MulOb MulCl MulBn
 ;orchestra			tt tt tt tt
-orchestra 	 		Bn Cb Hn Tbn+C|Tbn+H|Tbn+S BTb TpC+C|TpC+H|TpC+S MulFl|MulOb MulCl|MulBn tt
+;orchestra 	 		Bn Cb Hn Tbn+C|Tbn+H|Tbn+S BTb TpC+C|TpC+H|TpC+S MulFl|MulOb MulCl|MulBn tt
 ;orchestra			Fl Ob Vn
 
 ;styles				nonvib cresc ord
-dynamics			ff f mf N
+;dynamics			ff f N
 
 pop_size			500
 max_epochs			100
-pursuit				0
+pursuit				2
 xover_rate			0.8
 mutation_rate		0.01
-sparsity			0.001
+sparsity			0.1
 
 partials_window		32768
-partials_filtering	0
-;extra_pitches		N
+partials_filtering	0.3
+;extra_pitches		C3 C2 C4 A2 A3 A4
 
 export_solutions	30
