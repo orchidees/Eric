@@ -137,7 +137,7 @@ void forecast_individual (const Individual& id, const std::vector<DB_entry>& dat
 		no *= no;
 		for (unsigned j = 0; j < target.size (); ++j) {
 			forecast[j] += (prod * e.features[j] / no);
-			//forecast[j] += (e.features[j] / id.chromosome.size());	
+			// forecast[j] += (e.features[j] / id.chromosome.size());	
 		}
 	}
 
@@ -364,7 +364,7 @@ void export_population (const std::vector<Individual>& pop,
 		}
 
 		create_sound_mix(files, c.sound_paths, ratios, pans,
-			name_wav.str ().c_str ());
+			name_wav.str ().c_str (), c);
 		solutions << std::endl;
 	}
 

@@ -9,6 +9,7 @@
 #include "algorithms.h"
 #include "tokenizer.h"
 #include "fourier.h"
+#include "ClassicVerb.h"
 
 #include <dirent.h>
 
@@ -39,6 +40,8 @@ struct Config {
 		partials_window = 4096;
 		partials_filtering = .2;
 		export_solutions = 30;
+		t60 = 2.6;
+		dry_wet = .6;
 	}
 	std::vector<std::string> db_files;
 	std::vector<std::string> sound_paths;
@@ -55,6 +58,8 @@ struct Config {
 	T partials_filtering;
 	std::vector<std::string> extra_pitches;
 	int export_solutions;
+	T t60;
+	T dry_wet;
 };
 
 // -----------------------------------------------------------------------------
@@ -177,7 +182,11 @@ void read_config (const char* config_file, Config<T>* p) {
         	}
         } else if (tokens[0] == "export_solutions") {
         	p->export_solutions = atol (tokens[1].c_str ());
-        } else {
+        } else if (tokens[0] == "t60") {
+        	p->t60 = atof (tokens[1].c_str ());
+        }  else if (tokens[0] == "dry_wet") {
+        	p->dry_wet = atof (tokens[1].c_str ());
+        }else {
             std::stringstream err;
             err << "invalid token in configuration file at line " << line;
             throw std::runtime_error (err.str ());
@@ -213,6 +222,12 @@ void read_config (const char* config_file, Config<T>* p) {
 	}	
 	if (p->export_solutions < 0) {
         throw std::runtime_error ("invalid number of solutions to export");
+	}
+	if (p->t60 < 0) {
+        throw std::runtime_error ("invalid reverberation time t60");
+	}
+	if (p->dry_wet < 0 || p->dry_wet > 1) {
+        throw std::runtime_error ("invalid reverberation dry/wey coefficient");
 	}
 }
 
@@ -404,7 +419,8 @@ inline bool file_exists (const std::string& name) {
 void create_sound_mix (const std::vector<std::string>& files, 
 	const std::vector<std::string>& sound_paths, 
 	const std::vector<float>& ratios, 
-	const std::vector<float>& pans, const char* outfile) {
+	const std::vector<float>& pans, const char* outfile,
+	const Config<float>& c) {
 	std::vector <float*> pointers;
 	std::vector <int> lengths;
 
@@ -467,10 +483,12 @@ void create_sound_mix (const std::vector<std::string>& files,
 		lengths.push_back(samples * (1. / ratios[i]));
 	}
 
+	int revSamples = (int) (44100. * c.t60);
+
 	int maxPos = 0;
 	int maxLen = maximum (&lengths[0], lengths.size (), maxPos);
-	float* mix = new float[maxLen * 2];
-	memset (mix, 0, sizeof(float) * maxLen * 2);
+	float* mix = new float[(maxLen + revSamples) * 2];
+	memset (mix, 0, sizeof(float) * (maxLen + revSamples) * 2);
 
 	for (unsigned i = 0; i < pointers.size (); ++i) {
 		double phase = 0;
@@ -488,8 +506,30 @@ void create_sound_mix (const std::vector<std::string>& files,
 		}
 	}
 
+	if (c.dry_wet != 1) { // skip computing if all dry
+		float* left = new float[(maxLen + revSamples)];
+		float* right = new float[(maxLen + revSamples)];
+		memset(left, 0, (maxLen + revSamples) * sizeof(float));
+		memset(right, 0, (maxLen + revSamples) * sizeof(float));
+
+		deinterleave(mix, left, right, (maxLen + revSamples));
+		ClassicVerb<float> cl(44100, (maxLen + revSamples), 8, 4, 0);
+		cl.t60(c.t60);
+		cl.gains(c.dry_wet, 0, 1. - c.dry_wet);
+		ClassicVerb<float> cr(44100, (maxLen + revSamples), 8, 4, 23);
+		cr.t60(c.t60);
+		cr.gains(c.dry_wet, 0, 1. - c.dry_wet);
+
+		cl.process(left, left, (maxLen + revSamples));
+		cr.process(right, right, (maxLen + revSamples));
+
+		interleave(mix, left, right, (maxLen + revSamples));			
+		delete [] left;
+		delete [] right;
+	}
+
 	WavOutFile out(outfile, 44100, 16, 2);
-	out.write(mix, maxLen * 2); 
+	out.write(mix, (maxLen + revSamples) * 2); 
 
 	delete [] mix;
 	for (unsigned i = 0; i < pointers.size (); ++i) {

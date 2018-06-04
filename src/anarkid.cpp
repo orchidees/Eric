@@ -23,9 +23,8 @@ using namespace std;
 // 4. mutation is +-r integer
 // 5. evaluation is = sum of corresponding envelopes and distance with target
 
-// TODO: matching pursuit per startup e mutation,
-//	     tuning quantizzato (??)
-//	     check mfcc, riverbero 
+// TODO: tuning quantizzato (??)
+//	     check mfcc 
 
 // REFACTOR: miglioramento interfaccia codice
 
