@@ -23,10 +23,14 @@ using namespace std;
 // 4. mutation is +-r integer
 // 5. evaluation is = sum of corresponding envelopes and distance with target
 
-// TODO: tuning quantizzato (??)
-//	     check mfcc 
+// TODO: tuning quantizzato (??),
+//	     check mfcc, test Winchester su varie features senza filtri
+//		 suono Archeos senza filtri con orchestra grave e tam
+//       accordo Beethoven con orchestra normale e filtri
 
 // REFACTOR: miglioramento interfaccia codice
+
+// IDEE: NMF per scomposiione / temporalità
 
 const int MAX_EQUAL_FITNESS = 15;
 
@@ -215,6 +219,10 @@ int main (int argc, char* argv[]) {
 		fit.close ();
 
 		// export --------------------------------------------------------------				
+		if (best_pop.size () == 0) {
+			best_pop = population;
+		}
+
 		vector<Individual> uniques;
 		make_uniques(best_pop, uniques);
 		evaluate_population(uniques, target, database, ncoeff);

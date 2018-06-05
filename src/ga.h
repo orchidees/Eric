@@ -22,7 +22,7 @@ struct Individual {
 void gen_random_chromosome (std::vector<int>& f, 
 	const std::vector<std::string>& orchestra, 
 	std::map<std::string, std::vector<int> >& instruments) {
-	f.resize(orchestra.size ());	
+ 	f.resize(orchestra.size ());	
 	for (unsigned i = 0; i < f.size (); ++i) {
 		std::string inum = orchestra[i];
 
@@ -60,7 +60,7 @@ void gen_pursuit_chromosome (std::vector<int>& f,
 		residual[i] = target[i];
 	}
 
-	for (unsigned i = 0; i < f.size (); ++i) {
+	for (unsigned i = 0; i < f.size (); ++i) {		
 		// std::cout << "i = " << i << std::endl;
 		std::string inum = orchestra[i];
 
@@ -76,11 +76,15 @@ void gen_pursuit_chromosome (std::vector<int>& f,
 		std::vector<float> indexes;
 		for (unsigned k = 0; k < instruments[inum].size (); ++k) {
 			DB_entry e = database[instruments[inum][k]];
+			// std::vector<float> nfeat (e.features);
+			// normalize(&nfeat[0], &nfeat[0], nfeat.size());
+
+			float R = norm (&e.features[0], e.features.size()); // regularization
 			float d = (inner_prod(&residual[0], &e.features[0], residual.size ()));
 			projections.push_back(d);
-			moduli.push_back(fabs (d));
+			moduli.push_back(fabs (d) - R);
 			indexes.push_back(instruments[inum][k]);
-			// std::cout << e.file << " " << d << std::endl;
+			// std::cout << k << " " << e.file << " " << fabs(d) << std::endl;
 		}
 
 		std::vector<int> vx (moduli.size ());
@@ -93,13 +97,13 @@ void gen_pursuit_chromosome (std::vector<int>& f,
 
 		unsigned p = rand () % kth;		
 		f[i] = indexes[vx[p]];
-
+		// std::cout << "SELECTED " << vx[p] << " " << database[f[i]].file << std::endl;
 		float no = norm<float> (&database[f[i]].features[0], database[f[i]].features.size ());
 		no *= no;
 		for (unsigned k = 0; k < residual.size (); ++k) {
-			residual[k] -= projections[vx[p]] * database[f[i]].features[k] / no;
+			residual[k] -= (projections[vx[p]] * database[f[i]].features[k] / no);
 		}
-		// std::cout << "---------------------------------------" << std::endl;
+		// std::cout << "--------------------------------------- " << norm (&residual[0], residual.size()) << std::endl;
 	}
 }
 
@@ -115,7 +119,6 @@ void gen_population (std::vector<Individual>& population,
 				gen_random_chromosome(population[i].chromosome, orchestra, instruments);
 			break;
 			default:
-				// std::cout << "ID " << i << std::endl;
 				gen_pursuit_chromosome(population[i].chromosome, orchestra, instruments,
 					database, target, k);	
 			break;	
@@ -132,12 +135,12 @@ void forecast_individual (const Individual& id, const std::vector<DB_entry>& dat
 	for (unsigned i = 0; i < id.chromosome.size (); ++i) {
 		if (id.chromosome[i] == -1) continue; // silent instrument
 		DB_entry e = database[id.chromosome[i]];
-		float no = norm<float>(&e.features[0], e.features.size ());
-		float prod = inner_prod(&target[0], &e.features[0], target.size ());
-		no *= no;
+		// float no = norm<float>(&e.features[0], e.features.size ());
+		// float prod = inner_prod(&target[0], &e.features[0], target.size ());
+		// no *= no;
 		for (unsigned j = 0; j < target.size (); ++j) {
-			forecast[j] += (prod * e.features[j] / no);
-			// forecast[j] += (e.features[j] / id.chromosome.size());	
+			//forecast[j] += (prod * e.features[j] / no);
+			forecast[j] += (e.features[j] / id.chromosome.size());	
 		}
 	}
 

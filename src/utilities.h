@@ -41,7 +41,6 @@ struct Config {
 		partials_filtering = .2;
 		export_solutions = 30;
 		t60 = 2.6;
-		dry_wet = .6;
 	}
 	std::vector<std::string> db_files;
 	std::vector<std::string> sound_paths;
@@ -59,7 +58,7 @@ struct Config {
 	std::vector<std::string> extra_pitches;
 	int export_solutions;
 	T t60;
-	T dry_wet;
+	std::vector<T> dry_wet;
 };
 
 // -----------------------------------------------------------------------------
@@ -185,7 +184,9 @@ void read_config (const char* config_file, Config<T>* p) {
         } else if (tokens[0] == "t60") {
         	p->t60 = atof (tokens[1].c_str ());
         }  else if (tokens[0] == "dry_wet") {
-        	p->dry_wet = atof (tokens[1].c_str ());
+        	for (unsigned i = 1; i < tokens.size (); ++i) {
+        		p->dry_wet.push_back (atof (tokens[i].c_str ()));
+        	};
         }else {
             std::stringstream err;
             err << "invalid token in configuration file at line " << line;
@@ -196,10 +197,11 @@ void read_config (const char* config_file, Config<T>* p) {
 	if (p->orchestra.size() <= 0) {
         throw std::runtime_error ("invalid number of instruments");
 	}
-	if (p->pop_size <= 0) {
+	if (p->pop_size < 2) {
         throw std::runtime_error ("invalid size for population");
 	}	
-	if (p->max_epochs <= 0) {
+	p->pop_size = (int)((float) p->pop_size / 2)  * 2; // need to be even
+	if (p->max_epochs < 0) {
         throw std::runtime_error ("invalid number of epochs");
 	}
 	if (p->pursuit < 0) {
@@ -226,8 +228,8 @@ void read_config (const char* config_file, Config<T>* p) {
 	if (p->t60 < 0) {
         throw std::runtime_error ("invalid reverberation time t60");
 	}
-	if (p->dry_wet < 0 || p->dry_wet > 1) {
-        throw std::runtime_error ("invalid reverberation dry/wey coefficient");
+	if (p->dry_wet.size () != 2) {
+        throw std::runtime_error ("invalid number of dry/wet coefficients");
 	}
 }
 
@@ -506,7 +508,7 @@ void create_sound_mix (const std::vector<std::string>& files,
 		}
 	}
 
-	if (c.dry_wet != 1) { // skip computing if all dry
+	if (c.dry_wet[1] == 0) { // skip computing if all dry
 		float* left = new float[(maxLen + revSamples)];
 		float* right = new float[(maxLen + revSamples)];
 		memset(left, 0, (maxLen + revSamples) * sizeof(float));
@@ -515,10 +517,10 @@ void create_sound_mix (const std::vector<std::string>& files,
 		deinterleave(mix, left, right, (maxLen + revSamples));
 		ClassicVerb<float> cl(44100, (maxLen + revSamples), 8, 4, 0);
 		cl.t60(c.t60);
-		cl.gains(c.dry_wet, 0, 1. - c.dry_wet);
+		cl.gains(c.dry_wet[0], 0, c.dry_wet[1]);
 		ClassicVerb<float> cr(44100, (maxLen + revSamples), 8, 4, 23);
 		cr.t60(c.t60);
-		cr.gains(c.dry_wet, 0, 1. - c.dry_wet);
+		cr.gains(c.dry_wet[0], 0, c.dry_wet[1]);
 
 		cl.process(left, left, (maxLen + revSamples));
 		cr.process(right, right, (maxLen + revSamples));
