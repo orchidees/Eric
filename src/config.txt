@@ -5,14 +5,15 @@
 ;sound_paths			/Users/Carmine/Elementi/Datasets/CSOL_multiphonics
 
 ;db_files 			CSOL_tam_tam_mfcc.txt CSOL_multiphonics_mfcc.txt CSOL_ordinario_mfcc.txt
+
 db_files 			CSOL_tam_tam_spectrum.txt CSOL_multiphonics_spectrum.txt CSOL_ordinario_spectrum.txt
 sound_paths			/Users/Carmine/Elementi/Datasets/CSOL_tam_tam /Users/Carmine/Elementi/Datasets/CSOL_multiphonics /Users/Carmine/Elementi/Datasets/CSOL_ordinario
 
 ;db_files 			CSOL_ordinario_moments.txt
 ;sound_paths			/Users/Carmine/Elementi/Datasets/CSOL_ordinario
 
-
 orchestra			Fl Fl Ob Ob ClBb ClBb Bn Bn Hn Hn TpC TpC Tbn Tbn BTb Vn Vn Va Va Vc Vc Cb Cb
+
 ;orchestra 	 		Bn Cb Hn Tbn+C|Tbn+H|Tbn+S BTb TpC+C|TpC+H|TpC+S
 ;orchestra			Fl|Ob Hn|TpC Va|Vc
 ;orchestra			MulFl  MulOb MulCl MulBn
@@ -22,6 +23,7 @@ orchestra			Fl Fl Ob Ob ClBb ClBb Bn Bn Hn Hn TpC TpC Tbn Tbn BTb Vn Vn Va Va Vc
 ;orchestra			Fl Ob Vn
 ;orchestra 	 		Bn Bn Hn Hn Tbn Tbn BTb Cb tt MulBn
 ;orchestra 	 		Fl Fl Ob Ob|MulOb ClBb ClBb|MulCl TpC TpC+C|TpC+H|TpC+S Vn Vn Vn Vn Va Va Va Va tt
+
 
 ;styles				nonvib cresc ord
 ;dynamics			ff f N
@@ -34,8 +36,8 @@ mutation_rate		0.05
 sparsity			0.01
 
 partials_window		32768
-partials_filtering	0.2
-;extra_pitches		D2 D3 F#4 A4 A5 D6 F#6 A6
+partials_filtering	0.3
+;extra_pitches		N
 
 export_solutions	30
 t60					2.7

@@ -239,10 +239,8 @@ void extract_symbols (DB_entry& e) {
 
 	tokenize (file, e.symbols, "-"); // instr technique note dynamics
 
-	if (e.symbols.size () < 4) {
-		std::stringstream err;
-		err << "invalid symbols in "  << e.file;
-		throw std::runtime_error (err.str ());
+	while (e.symbols.size () < 4) { // add missing symbols (if needed)
+		e.symbols.push_back ("N");
 	}
 }
 
