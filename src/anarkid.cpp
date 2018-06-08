@@ -24,9 +24,7 @@ using namespace std;
 // 5. evaluation is = sum of corresponding envelopes and distance with target
 
 // TODO: tuning quantizzato (??),
-//	     check mfcc, test Winchester su varie features senza filtri
-//		 suono Archeos senza filtri con orchestra grave e tam
-//       accordo Beethoven con orchestra normale e filtri
+//	     check mfcc
 
 // REFACTOR: miglioramento interfaccia codice
 

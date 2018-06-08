@@ -107,6 +107,56 @@ void gen_pursuit_chromosome (std::vector<int>& f,
 	}
 }
 
+void gen_free_pursuit_chromosome (
+	std::vector<int>& f,
+	const std::vector<DB_entry>& database,
+	const std::vector<float>& target,
+	int size,
+	int kth) {
+	
+	f.clear ();	
+
+	std::vector<float> residual (target.size ());
+	for (unsigned i = 0; i < target.size (); ++i) {
+		residual[i] = target[i];
+	}
+	for (unsigned i = 0; i < size; ++i) {		
+		std::vector<float> moduli;
+		std::vector<float> projections;
+		std::vector<float> indexes;
+		for (unsigned k = 0; k < database.size (); ++k) {
+			DB_entry e = database[k];
+
+			float R = norm (&e.features[0], e.features.size()); // regularization
+			float d = (inner_prod(&residual[0], &e.features[0], residual.size ()));
+			projections.push_back(d);
+			moduli.push_back(fabs (d) - R);
+			indexes.push_back(k);
+		}
+
+		std::vector<int> vx (moduli.size ());
+		for (unsigned k = 0; k < moduli.size(); ++k){
+			vx[k]= k;
+		}
+		kth = kth > vx.size () ? vx.size () : kth;
+
+		partial_sort (vx.begin(), vx.begin() + kth, vx.end (), Comp(moduli));
+
+		unsigned p = rand () % kth;		
+		int idx = indexes[vx[p]];
+		std::cout << "SELECTED " << vx[p] << " " << database[idx].file << std::endl;
+		float no = norm<float> (&database[idx].features[0], database[idx].features.size ());
+		no *= no;
+		for (unsigned k = 0; k < residual.size (); ++k) {
+			residual[k] -= (projections[vx[p]] * database[idx].features[k] / no);
+		}
+
+		f.push_back(idx);
+		float nn = norm (&residual[0], residual.size ());
+		std::cout << " --------------------------------------- " << nn << std::endl;
+	}
+}
+
 void gen_population (std::vector<Individual>& population, 
 	const std::vector<std::string>& orchestra, 
 	std::map<std::string, std::vector<int> >& instruments,
@@ -123,8 +173,12 @@ void gen_population (std::vector<Individual>& population,
 					database, target, k);	
 			break;	
 		}
-		
-		population[i].fitness = 0.;
+		// gen_free_pursuit_chromosome(
+		// 	population[i].chromosome,  
+		// 	database, 
+		// 	target, 
+		// 	orchestra.size(), k);
+		// population[i].fitness = 0.;
 	}
 }
 
