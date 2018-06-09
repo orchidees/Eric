@@ -506,17 +506,17 @@ void create_sound_mix (const std::vector<std::string>& files,
 		}
 	}
 
-	if (c.dry_wet[1] == 0) { // skip computing if all dry
+	if (c.dry_wet[1] != 0) { // skip computing if all dry
 		float* left = new float[(maxLen + revSamples)];
 		float* right = new float[(maxLen + revSamples)];
 		memset(left, 0, (maxLen + revSamples) * sizeof(float));
 		memset(right, 0, (maxLen + revSamples) * sizeof(float));
 
 		deinterleave(mix, left, right, (maxLen + revSamples));
-		ClassicVerb<float> cl(44100, (maxLen + revSamples), 8, 4, 0);
+		ClassicVerb<float> cl(44100, (maxLen + revSamples), 6, 1, 0);
 		cl.t60(c.t60);
 		cl.gains(c.dry_wet[0], 0, c.dry_wet[1]);
-		ClassicVerb<float> cr(44100, (maxLen + revSamples), 8, 4, 23);
+		ClassicVerb<float> cr(44100, (maxLen + revSamples), 6, 1, 23);
 		cr.t60(c.t60);
 		cr.gains(c.dry_wet[0], 0, c.dry_wet[1]);
 

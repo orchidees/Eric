@@ -24,7 +24,7 @@ using namespace std;
 // 5. evaluation is = sum of corresponding envelopes and distance with target
 
 // TODO: tuning quantizzato (??),
-//	     check mfcc
+//	     check mfcc, orchestrazione dinamica, constraints, regole di concatenazione
 
 // REFACTOR: miglioramento interfaccia codice
 
