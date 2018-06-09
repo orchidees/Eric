@@ -18,15 +18,15 @@ public:
 		m_fftSize = fftSize;
 		
 		// the matrix has one element more if both directions (safety, not used)
-		m_dctMatrix = new T*[m_fftSize];
+		m_melMatrix = new T*[m_fftSize];
 		for (int i = 0; i < m_fftSize; ++i) {
-			m_dctMatrix[i] = new T[m_numFilters + 1];
-			memset (m_dctMatrix[i], 0, sizeof (T) * (m_numFilters + 1));
+			m_melMatrix[i] = new T[m_numFilters + 1];
+			memset (m_melMatrix[i], 0, sizeof (T) * (m_numFilters + 1));
 		}
 	
 		for (unsigned int l = 1; l <= m_numFilters; ++l) {
 			for (int k = 0; k < m_fftSize - 1; ++k) {
-				m_dctMatrix[k][l] = getFilterParam (k, l);
+				m_melMatrix[k][l] = getFilterParam (k, l);
 			}
 		}
 
@@ -37,9 +37,9 @@ public:
 	}
 	virtual ~MFCC () {
 		for (int i = 0; i < m_fftSize; ++i) {
-			delete [] m_dctMatrix[i];
+			delete [] m_melMatrix[i];
 		}
-		delete [] m_dctMatrix;
+		delete [] m_melMatrix;
 		delete [] m_tmp;
 	}
 
@@ -53,14 +53,14 @@ public:
 			return 0.0f;
 		}
 
-		result = m == 0 ? m_normFactor0 : m_normFactorM;
+		result = (m == 0) ? m_normFactor0 : m_normFactorM;
 
 		// FIXME: optimize for multiple coefficients request
 		for (unsigned int l = 1; l <= m_numFilters; l++) {
 			// Compute inner sum
 			innerSum = 0.0f;
 			for (int k = 0; k < m_fftSize - 1; k++) {
-				innerSum += fabs (spectralData[k] * m_dctMatrix[k][l]);
+				innerSum += fabs (spectralData[k] * m_melMatrix[k][l]);
 			}
 
 			if (innerSum > 0.f) {
@@ -76,19 +76,7 @@ public:
 
 		return result;
 	}
-
-	void getMFCCs (T* spectralData, T* mfcss, int numCoeff) {
-		for (int i  = 0; i < m_numFilters; ++i) {
-			m_tmp[i] = m_tmp[i] > 0.f ? log (m_tmp[i]) : m_tmp[i];
-		}
-
-		memset (mfcss, 0, sizeof (T) * numCoeff);
-		for (int j = 0; j < numCoeff; ++j) {
-			for (int k = 0; k < m_numFilters; ++k) {
-				mfcss[j] += m_tmp[k] * m_dctMatrix[k][j];
-			}
-		}
-	}		
+	
 private:
 	T getFilterParam (unsigned int frequencyBand, unsigned int filterBand) {
 		T filterParameter = 0.0f;
@@ -142,7 +130,7 @@ private:
 		return centerFrequency;
 	}
 	
-	T** m_dctMatrix;
+	T** m_melMatrix;
 	T m_samplingRate;
 	T* m_tmp;
 	unsigned int m_numFilters;
