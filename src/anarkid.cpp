@@ -28,7 +28,23 @@ using namespace std;
 
 // REFACTOR: miglioramento interfaccia codice
 
-// IDEE: NMF per scomposiione / temporalità
+// IDEE: NMF per scomposiione / temporalità; self-similarity matrix
+
+// AbstractAnalysis, StaticSpectralFeatures, AbstractSource, Source, Matrix, 
+// AbstractTarget, SoundTarget, AbstractOptimizer, Solution, StandardGA,
+// Parameters, Session
+
+// int main () {
+// 	Parameters p;
+// 	read_config (argv[1], p);
+//  Source source (p);
+// 	Target t (argv[2], p);
+// 	Orchestrator s (p);
+// 	s.search (t);
+// 	s.export ("folder");
+
+// 	return 0;
+// } 
 
 const int MAX_EQUAL_FITNESS = 15;
 
