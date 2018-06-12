@@ -4,6 +4,7 @@
 #ifndef GA_H
 #define GA_H 
 
+#include "Parameters.h"
 #include "utilities.h"
 #include "algorithms.h" 
 
@@ -363,7 +364,7 @@ void make_uniques (const std::vector<Individual>& population,
 }
 
 void export_population (const std::vector<Individual>& pop,
-	const std::vector<DB_entry>& database, const Config<float>& c,
+	const std::vector<DB_entry>& database, const Parameters<float>& c,
 	std::map<std::string, int>& notes,
 	const std::string& type, unsigned ncoeff, const std::string& prefix = "solution") {
 	std::stringstream nn;
@@ -421,7 +422,7 @@ void export_population (const std::vector<Individual>& pop,
 		}
 
 		create_sound_mix(files, c.sound_paths, ratios, pans,
-			name_wav.str ().c_str (), c);
+			name_wav.str ().c_str (), c.t60, c.dry_wet);
 		solutions << std::endl;
 	}
 

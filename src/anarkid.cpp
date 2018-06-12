@@ -1,6 +1,7 @@
 // anarkid.cpp
 //
 
+#include "Parameters.h"
 #include "analysis.h"
 #include "utilities.h"
 #include "constants.h"
@@ -62,8 +63,8 @@ int main (int argc, char* argv[]) {
 
 		// config --------------------------------------------------------------
 		cout << "loading configuration... "; cout.flush ();
-		Config<float> c;
-		read_config(argv[2], &c);
+		Parameters<float> c(argv[2]);
+
 		cout << "done" << endl;
 		cout << "parameters.............. " << c.xover_rate << ", " << c.mutation_rate << ", "
 			 << c.sparsity << endl;
