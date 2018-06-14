@@ -111,8 +111,8 @@ int main (int argc, char* argv[]) {
 
 		// pfilt  --------------------------------------------------------------
 		cout << "filtering database...... ";  cout.flush ();
-		vector<string> effective_orchestra = params.orchestra;
-		map<string, vector <int> > instruments = source.tot_instruments;
+		vector<string> effective_orchestra; //= params.orchestra;
+		map<string, vector <int> > instruments;// = source.tot_instruments;
 		source.apply_filters (target.notes, effective_orchestra, instruments);
 		cout << "done (" << source.database.size () << " entries)" << endl;
 
