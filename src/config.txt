@@ -11,7 +11,7 @@
 db_files 			CSOL_ordinario_mfcc.txt
 sound_paths			/Users/Carmine/Elementi/Datasets/CSOL_ordinario
 
-;orchestra			Fl Fl Ob Ob ClBb ClBb Bn Bn Hn Hn TpC TpC Tbn Tbn BTb Vn Vn Va Va Vc Vc Cb Cb
+orchestra			Fl Fl Ob Ob ClBb ClBb Bn Bn Hn Hn TpC TpC Tbn Tbn BTb Vn Vn Va Va Vc Vc Cb Cb
 
 ;orchestra 	 		Bn Cb Hn Tbn+C|Tbn+H|Tbn+S BTb TpC+C|TpC+H|TpC+S
 ;orchestra			Fl|Ob Hn|TpC Va|Vc
@@ -22,10 +22,10 @@ sound_paths			/Users/Carmine/Elementi/Datasets/CSOL_ordinario
 ;orchestra			Fl Ob Vn
 ;orchestra 	 		Bn Bn Hn Hn Tbn Tbn BTb Cb tt MulBn
 ;orchestra 	 		Fl Fl Ob Ob|MulOb ClBb ClBb|MulCl TpC TpC+C|TpC+H|TpC+S Vn Vn Vn Vn Va Va Va Va tt
-orchestra 	 		Fl Fl Fl Ob Ob Ob|MulOb ClBb ClBb ClBb|MulCl TpC TpC
+;orchestra 	 		Fl Fl Fl Ob Ob Ob|MulOb ClBb ClBb ClBb|MulCl TpC TpC
 
 ;styles				nonvib cresc ord
-dynamics			ff f N
+;dynamics			ff f N
 
 pop_size			400
 max_epochs			100
@@ -35,7 +35,7 @@ mutation_rate		0.1
 sparsity			0.001
 
 partials_window		32768
-partials_filtering	0.05
+partials_filtering	0.3
 ;extra_pitches		N
 
 export_solutions	20

@@ -22,12 +22,6 @@
 #include <map>
 #include <deque>
 
-struct DB_entry {
-	std::string file;
-	std::vector<float> features;
-	std::deque<std::string> symbols;
-};
-
 // -----------------------------------------------------------------------------
 std::string removePath (const std::string& in) {
 	size_t pos = std::string::npos;
@@ -72,29 +66,6 @@ void erase_substring (std::string & mainStr, const std::string & toErase) {
 
 // -----------------------------------------------------------------------------
 
-void extract_symbols (DB_entry& e) {
-	std::string file = removePath(e.file);
-	file = removeExtension(file);
-
-	tokenize (file, e.symbols, "-"); // instr technique note dynamics
-
-	while (e.symbols.size () < 4) { // add missing symbols (if needed)
-		e.symbols.push_back ("N");
-	}
-}
-
-void insert_symbol (std::map<std::string, std::vector<int> >& coll,
-	const std::string& key, int index) {
-	std::map<std::string, std::vector<int> >::iterator it = coll.find (key);
-	if (it == coll.end ()) {
-		std::vector<int> d;
-		d.push_back(index);
-		coll[key] = d;
-	} else {
-		coll[key].push_back (index);
-	}
-}
-
 void print_coll (std::ostream& out, std::map<std::string, std::vector<int> >& coll, 
 	int offset) {
 	int nl = 0;
@@ -106,94 +77,6 @@ void print_coll (std::ostream& out, std::map<std::string, std::vector<int> >& co
 			out << std::endl;
 			for (unsigned j = 0; j < offset; ++j) out << " ";
 			nl = 0;
-		}
-	}
-}
-void load_db (const char* dbfile, std::vector<DB_entry>& database, 
-	int& bsize, int& hopsize, int& ncoeff, std::string& type) {
-	std::ifstream db (dbfile);
-	if (!db.good ()) {
-		throw std::runtime_error("cannot open db file");
-	}
-
-	db >> type >> bsize >> hopsize >> ncoeff;
-	if (database.size () != 0) {
-		if (database[0].features.size () != ncoeff) {
-			throw std::runtime_error ("incompatible feature size among databases");
-		}
-	}
-
-	int lineno = 1;
-	while (!db.eof ()) {
-		std::string line;
-		std::getline(db, line);
-		line = trim (line);
-		
-		if (line.size () == 0) continue;
-
-		std::stringstream linestream;
-		linestream << line;
-		
-		DB_entry e;
-		linestream >> e.file;
-		if (e.file.size () == 0) {
-			std::stringstream err;
-			err << "invalid filename in db at line " << lineno;
-			throw std::runtime_error (err.str ());
-		}
-
-		extract_symbols (e);
-		while (!linestream.eof ()) {
-			std::string token;
-			linestream >> token;
-			float f = atof (token.c_str ());
-			e.features.push_back(f);
-		}
-
-		if (e.features.size () != ncoeff) {
-			std::stringstream err;
-			err << "invalid number of features in db at line " << lineno;
-			throw std::runtime_error (err.str ());
-		}
-
-		database.push_back(e);
-		++lineno;
-	}
-}
-
-void apply_filters (const std::vector<DB_entry>& database, 
-	std::map<std::string, int>& notes, const std::vector<std::string>& styles,
-	const std::vector<std::string>& dynamics,
-	std::vector<DB_entry>& outdb) {
-
-	for (unsigned j = 0; j < database.size (); ++j) {
-		bool note_check = notes.size () == 0 ? true : false;
-		bool style_check = styles.size () == 0 ? true : false;
-		bool dynamics_check = dynamics.size () == 0 ? true : false;
-
-		for (std::map<std::string, int>::iterator i = notes.begin(); i != notes.end (); ++i) {
-			if (database[j].symbols[2] == i->first) {
-				note_check = true;
-				break;
-			}
-		}
-
-		for (unsigned i = 0; i < styles.size (); ++i) {
-			if (database[j].symbols[1] == styles[i]) {
-				style_check = true;
-				break;
-			}
-		}
-
-		for (unsigned i = 0; i < dynamics.size (); ++i) {
-			if (database[j].symbols[3] == dynamics[i]) {
-				dynamics_check = true;
-				break;
-			}
-		}
-
-		if (note_check && style_check && dynamics_check) {
-			outdb.push_back(database[j]);
 		}
 	}
 }

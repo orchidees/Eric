@@ -1,6 +1,8 @@
 // anarkid.cpp
 //
 
+#include "Target.h"
+#include "Source.h"
 #include "Parameters.h"
 #include "analysis.h"
 #include "utilities.h"
@@ -25,7 +27,7 @@ using namespace std;
 // 5. evaluation is = sum of corresponding envelopes and distance with target
 
 // TODO: tuning quantizzato (??),
-//	     check mfcc, orchestrazione dinamica, constraints, regole di concatenazione
+//	     orchestrazione dinamica, constraints, regole di concatenazione
 
 // REFACTOR: miglioramento interfaccia codice
 
@@ -63,76 +65,38 @@ int main (int argc, char* argv[]) {
 
 		// config --------------------------------------------------------------
 		cout << "loading configuration... "; cout.flush ();
-		Parameters<float> c(argv[2]);
-
+		Parameters<float> params (argv[2]);
 		cout << "done" << endl;
-		cout << "parameters.............. " << c.xover_rate << ", " << c.mutation_rate << ", "
-			 << c.sparsity << endl;
+		cout << "parameters.............. " << params.xover_rate << ", " 
+			<< params.mutation_rate << ", " << params.sparsity << endl;
 
 		// db ------------------------------------------------------------------
 		cout << "loading databases....... ";  cout.flush ();
-		vector<DB_entry> idb;
-		int bsize = 1024;			// defaults
-		int hopsize = 512;
-		int ncoeff = bsize / 2;
-		std::string type = "spectrum";
-		for (unsigned i = 0; i < c.db_files.size (); ++i) {
-			load_db (c.db_files[i].c_str (), idb, bsize, hopsize, ncoeff, type);
-		}
-		cout << "done (" << idb.size () << " entries)" << endl;
-		cout << "features................ " << type << ", " << bsize << ", " << hopsize << ", "
-			<< ncoeff << endl;
+		Source<float> source  (&params);
+		cout << "done (" << source.database.size () << " entries)" << endl;
 		
 		// symbols -------------------------------------------------------------
-		cout << "gathering symbols....... "; cout.flush();
-		map<string, vector<int> > tot_instruments;
-		map<string, vector <int> > styles;
-		map<string, vector <int> > pitches;
-		map<string, vector <int> > dynamics;
-		for (unsigned i = 0; i < idb.size (); ++i) {
-			insert_symbol (tot_instruments, idb[i].symbols[0], i);
-			insert_symbol (styles, idb[i].symbols[1], i);
-			insert_symbol (pitches, idb[i].symbols[2], i);
-			insert_symbol (dynamics, idb[i].symbols[3], i);
-		}			
-		cout << "done" << endl;
 		cout << "instruments............. ";
-		print_coll (cout, tot_instruments, 25);
+		print_coll (cout, source.tot_instruments, 25);
 		cout << endl;
 		cout << "styles.................. ";
-		print_coll (cout, styles, 25);
+		print_coll (cout, source.styles, 25);
 		cout << endl;
 		cout << "pitches................. ";
-		print_coll (cout, pitches, 25); 
+		print_coll (cout, source.pitches, 25); 
 		cout << endl;
 		cout << "dynamics................ ";
-		print_coll (cout, dynamics, 25);
+		print_coll (cout, source.dynamics, 25);
 		cout << endl;
-
-		// pfilt  --------------------------------------------------------------
-		vector<DB_entry> database;
-		map<string, int> notes;
-		
-		cout << "filtering database...... ";  cout.flush ();
-
-		for (unsigned i = 0; i < c.extra_pitches.size (); ++i) {
-			notes[c.extra_pitches[i]] = 0;
-		}		
-		if (c.partials_filtering > 0) {
-			partials_to_notes (argv[1], notes, c.partials_window, c.partials_window / 4, 
-				c.partials_filtering);	
-		}
-		apply_filters (idb, notes, c.styles, c.dynamics, database);
-
-		if (database.size () < 1) {
-			throw runtime_error("empty search space; please check filters");
-		}
-		cout << "done (" << database.size () << " entries)" << endl;
-
-		if (c.partials_filtering) {
+ 
+		// target --------------------------------------------------------------
+		cout << "analysing target........ ";  cout.flush ();
+		Target<float> target (argv[1], &source, &params);
+		cout << "done" << endl;
+		if (params.partials_filtering) {			
 			cout << "target pitches.......... ";
 			int nl = 0;
-			for (map<string, int>::iterator i = notes.begin(); i != notes.end (); ++i) {
+			for (map<string, int>::iterator i = target.notes.begin(); i != target.notes.end (); ++i) {
 				cout << i->first << " (" << 
 					(i->second > 0 ? "+" : "") << i->second << " cents) ";
 				if (nl == 3) {
@@ -145,52 +109,18 @@ int main (int argc, char* argv[]) {
 			cout << endl;
 		}
 
-		// check ---------------------------------------------------------------
-		cout << "checking instruments.... "; cout.flush();
-		map<string, vector <int> > instruments;
-		vector<string> effective_orchestra;
-		for (unsigned i = 0; i < database.size (); ++i) {
-			insert_symbol (instruments, database[i].symbols[0], i);
-		}
-		for (vector<string>::iterator i = c.orchestra.begin(); i != c.orchestra.end ();
-			++i) {
-			if ((*i).find ("|") != string::npos) {
-				deque<string> res;
-				tokenize(*i, res, "|");
-	
-				bool missing = false;
-				for (unsigned k = 0; k < res.size (); ++k) {
-					map<string, vector<int> >::iterator it = instruments.find (res[k]);
-					if (it == instruments.end ()) {
-						missing = true;
-						break;
-					}	
-				}
-				if (!missing) effective_orchestra.push_back(*i);
-			} else {
-				map<string, vector<int> >::iterator it = instruments.find (*i);
-				if (it != instruments.end ()) {
-					effective_orchestra.push_back(*i);
-				}
-			}
-		}
-		if (effective_orchestra.size () == 0) {
-			throw runtime_error ("empty orchestra; please check filters");
-		}
-		cout << "done" << endl;
- 
-		// target --------------------------------------------------------------
-		cout << "analysing target........ ";  cout.flush ();
-		vector<float> target (ncoeff);
-		compute_features(argv[1], target, bsize, hopsize, ncoeff, type);
-		cout << "done" << endl;
+		// pfilt  --------------------------------------------------------------
+		cout << "filtering database...... ";  cout.flush ();
+		vector<string> effective_orchestra = params.orchestra;
+		map<string, vector <int> > instruments = source.tot_instruments;
+		source.apply_filters (target.notes, effective_orchestra, instruments);
+		cout << "done (" << source.database.size () << " entries)" << endl;
 
 		// ga ------------------------------------------------------------------
 		cout << "init population......... "; cout.flush ();
-		vector<Individual> population (c.pop_size);
-		gen_population (population, effective_orchestra, instruments, database, 
-			target, c.pursuit);	
-		// export_population(population, database, c, notes, type, ncoeff, "pursuit");
+		vector<Individual> population (params.pop_size);
+		gen_population (population, effective_orchestra, instruments, source.database, 
+			target.features, params.pursuit);	
 		cout << "done" << endl;
 
 		float total_fitness = 0;
@@ -202,14 +132,16 @@ int main (int argc, char* argv[]) {
 		float old_fit = 0;
 		int best_epoch = 0;
 		cout << "searching............... "; cout.flush ();
-		for (unsigned i = 0; i < c.max_epochs; ++i) {
-			total_fitness = evaluate_population(population, target, database, ncoeff);	
+		for (unsigned i = 0; i < params.max_epochs; ++i) {
+			total_fitness = evaluate_population(population, target.features, 
+				source.database, source.ncoeff);	
 
 			fitness.push_back(total_fitness);
 
 			vector<Individual> new_pop;
-			gen_offspring_population(population, new_pop, c.pop_size, total_fitness,
-				c.xover_rate, c.mutation_rate, c.sparsity, effective_orchestra, instruments);
+			gen_offspring_population(population, new_pop, params.pop_size, total_fitness,
+				params.xover_rate, params.mutation_rate, params.sparsity, 
+				effective_orchestra, instruments);
 	
 			copy_population (new_pop, population);
 
@@ -240,7 +172,7 @@ int main (int argc, char* argv[]) {
 
 		vector<Individual> uniques;
 		make_uniques(best_pop, uniques);
-		evaluate_population(uniques, target, database, ncoeff);
+		evaluate_population(uniques, target.features, source.database, source.ncoeff);
 
 		Individual best = get_best_individual(uniques);
 		cout << "best fitness............ " << max_fit << " (epoch " << best_epoch << ", "
@@ -254,18 +186,19 @@ int main (int argc, char* argv[]) {
 				cout << "-" << endl;
 				continue;
 			}
-			for (unsigned h = 0; h < database[best.chromosome[i]].symbols.size (); ++h) {
-				cout << database[best.chromosome[i]].symbols[h] << "\t";
+			for (unsigned h = 0; h < source.database[best.chromosome[i]].symbols.size (); ++h) {
+				cout << source.database[best.chromosome[i]].symbols[h] << "\t";
 			}
 			cout << endl;
 		}
-		if (c.export_solutions > 0) {		
+		if (params.export_solutions > 0) {		
 			cout << "saving best solutions... "; cout.flush ();
 			std::sort (uniques.begin (), uniques.end ());
 			std::reverse(uniques.begin (), uniques.end());
 
-			if (c.export_solutions < uniques.size ()) uniques.resize(c.export_solutions);
-			export_population(uniques, database, c, notes, type, ncoeff);
+			if (params.export_solutions < uniques.size ()) uniques.resize(params.export_solutions);
+			export_population(uniques, source.database, params, target.notes, 
+				source.type, source.ncoeff);
 			cout << "done" << endl;
 		}
 

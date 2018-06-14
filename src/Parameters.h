@@ -157,6 +157,8 @@ struct Parameters {
 		if (dry_wet.size () != 2) {
 	        throw std::runtime_error ("invalid number of dry/wet coefficients");
 		}
+
+		std::cout << "stlyesize " <<styles.size () << std::endl;
 	}
 
 	std::vector<std::string> db_files;

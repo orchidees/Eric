@@ -4,6 +4,7 @@
 #ifndef GA_H
 #define GA_H 
 
+#include "Source.h"
 #include "Parameters.h"
 #include "utilities.h"
 #include "algorithms.h" 
@@ -47,10 +48,11 @@ struct Comp{
     const std::vector<float>& _v;
 };
 
+
 void gen_pursuit_chromosome (std::vector<int>& f, 
 	const std::vector<std::string>& orchestra, 
 	std::map<std::string, std::vector<int> >& instruments,
-	const std::vector<DB_entry>& database,
+	const std::vector<DB_entry<float> >& database,
 	const std::vector<float>& target,
 	int kth) {
 
@@ -76,7 +78,7 @@ void gen_pursuit_chromosome (std::vector<int>& f,
 		std::vector<float> projections;
 		std::vector<float> indexes;
 		for (unsigned k = 0; k < instruments[inum].size (); ++k) {
-			DB_entry e = database[instruments[inum][k]];
+			DB_entry<float> e = database[instruments[inum][k]];
 			// std::vector<float> nfeat (e.features);
 			// normalize(&nfeat[0], &nfeat[0], nfeat.size());
 
@@ -110,7 +112,7 @@ void gen_pursuit_chromosome (std::vector<int>& f,
 
 void gen_free_pursuit_chromosome (
 	std::vector<int>& f,
-	const std::vector<DB_entry>& database,
+	const std::vector<DB_entry<float>>& database,
 	const std::vector<float>& target,
 	int size,
 	int kth) {
@@ -126,7 +128,7 @@ void gen_free_pursuit_chromosome (
 		std::vector<float> projections;
 		std::vector<float> indexes;
 		for (unsigned k = 0; k < database.size (); ++k) {
-			DB_entry e = database[k];
+			DB_entry<float> e = database[k];
 
 			float R = norm (&e.features[0], e.features.size()); // regularization
 			float d = (inner_prod(&residual[0], &e.features[0], residual.size ()));
@@ -161,7 +163,7 @@ void gen_free_pursuit_chromosome (
 void gen_population (std::vector<Individual>& population, 
 	const std::vector<std::string>& orchestra, 
 	std::map<std::string, std::vector<int> >& instruments,
-	const std::vector<DB_entry>& database,
+	const std::vector<DB_entry<float>>& database,
 	const std::vector<float>& target,
 	int k) {
 	for (unsigned i = 0; i < population.size (); ++i) {
@@ -183,13 +185,13 @@ void gen_population (std::vector<Individual>& population,
 	}
 }
 
-void forecast_individual (const Individual& id, const std::vector<DB_entry>& database, 
+void forecast_individual (const Individual& id, const std::vector<DB_entry<float>>& database, 
 	std::vector<float>& forecast, const std::vector<float>& target) {
 	
 	// inner product approach
 	for (unsigned i = 0; i < id.chromosome.size (); ++i) {
 		if (id.chromosome[i] == -1) continue; // silent instrument
-		DB_entry e = database[id.chromosome[i]];
+		DB_entry<float> e = database[id.chromosome[i]];
 		// float no = norm<float>(&e.features[0], e.features.size ());
 		// float prod = inner_prod(&target[0], &e.features[0], target.size ());
 		// no *= no;
@@ -203,7 +205,7 @@ void forecast_individual (const Individual& id, const std::vector<DB_entry>& dat
 }
 
 float evaluate_individual (const Individual& id, const std::vector<float>& target,
-	const std::vector<DB_entry>& database, unsigned ncoeff) {
+	const std::vector<DB_entry<float>>& database, unsigned ncoeff) {
 	std::vector<float> values (target.size (), 0);
 
 	forecast_individual(id, database, values, target);
@@ -211,7 +213,7 @@ float evaluate_individual (const Individual& id, const std::vector<float>& targe
 }
 
 float evaluate_population (std::vector<Individual>& population, 
-	const std::vector<float>& target, const std::vector<DB_entry>& database, 
+	const std::vector<float>& target, const std::vector<DB_entry<float>>& database, 
 	unsigned ncoeff) {
 	float total_fitness = 0;
 
@@ -364,7 +366,7 @@ void make_uniques (const std::vector<Individual>& population,
 }
 
 void export_population (const std::vector<Individual>& pop,
-	const std::vector<DB_entry>& database, const Parameters<float>& c,
+	const std::vector<DB_entry<float>>& database, const Parameters<float>& c,
 	std::map<std::string, int>& notes,
 	const std::string& type, unsigned ncoeff, const std::string& prefix = "solution") {
 	std::stringstream nn;
@@ -389,7 +391,7 @@ void export_population (const std::vector<Individual>& pop,
 				continue; // silent instrument
 			}	
 
-			DB_entry d = database[pop[i].chromosome[j]];
+			DB_entry<float> d = database[pop[i].chromosome[j]];
 			files.push_back(d.file);
 			if (c.partials_filtering > 0) {
 				float r = cents_to_ratio (notes[d.symbols[2]]);
