@@ -4,6 +4,7 @@
 #include "Target.h"
 #include "Source.h"
 #include "Parameters.h"
+#include "StandardGA.h"
 #include "analysis.h"
 #include "utilities.h"
 #include "constants.h"
@@ -48,8 +49,6 @@ using namespace std;
 
 // 	return 0;
 // } 
-
-const int MAX_EQUAL_FITNESS = 15;
 
 int main (int argc, char* argv[]) {
     try {
@@ -111,15 +110,13 @@ int main (int argc, char* argv[]) {
 
 		// pfilt  --------------------------------------------------------------
 		cout << "filtering database...... ";  cout.flush ();
-		vector<string> effective_orchestra; //= params.orchestra;
-		map<string, vector <int> > instruments;// = source.tot_instruments;
-		source.apply_filters (target.notes, effective_orchestra, instruments);
+		source.apply_filters (target.notes);
 		cout << "done (" << source.database.size () << " entries)" << endl;
 
 		// ga ------------------------------------------------------------------
 		cout << "init population......... "; cout.flush ();
 		vector<Individual> population (params.pop_size);
-		gen_population (population, effective_orchestra, instruments, source.database, 
+		gen_population (population, source.actual_orchestra, source.actual_instruments, source.database, 
 			target.features, params.pursuit);	
 		cout << "done" << endl;
 
@@ -141,7 +138,7 @@ int main (int argc, char* argv[]) {
 			vector<Individual> new_pop;
 			gen_offspring_population(population, new_pop, params.pop_size, total_fitness,
 				params.xover_rate, params.mutation_rate, params.sparsity, 
-				effective_orchestra, instruments);
+				source.actual_orchestra, source.actual_instruments);
 	
 			copy_population (new_pop, population);
 
@@ -179,7 +176,7 @@ int main (int argc, char* argv[]) {
 			<< uniques.size () << " individuals)" << endl;
 		
 		cout << "best solution........... ";
-		unsigned n_instruments = effective_orchestra.size ();
+		unsigned n_instruments = source.actual_orchestra.size ();
 		for (unsigned i = 0; i < n_instruments; ++i) {
 			if (i != 0) for (unsigned i = 0; i < 25; ++i) cout << " ";
 			if (best.chromosome[i] == -1) {

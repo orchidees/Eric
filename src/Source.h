@@ -92,13 +92,16 @@ struct Source {
 			insert_symbol (pitches, database[i].symbols[2], i);
 			insert_symbol (dynamics, database[i].symbols[3], i);
 		}			
+
+		actual_orchestra = parameters->orchestra;
+		actual_instruments = tot_instruments;
 	}
 
-	void apply_filters (std::map<std::string, int>& notes,
-		std::vector<std::string>& effective_orchestra,
-		std::map<std::string, std::vector <int> >& instruments) {
+	void apply_filters (std::map<std::string, int>& notes) {
 		original_database = database;
 		database.clear ();
+		actual_orchestra.clear ();
+		actual_instruments.clear ();
 
 		for (unsigned j = 0; j < original_database.size (); ++j) {
 			bool note_check = notes.size () == 0 ? true : false;
@@ -137,7 +140,7 @@ struct Source {
 		}
 
 		for (unsigned i = 0; i <database.size (); ++i) {
-			insert_symbol (instruments, database[i].symbols[0], i);
+			insert_symbol (actual_instruments, database[i].symbols[0], i);
 		}
 		for (std::vector<std::string>::iterator i = parameters->orchestra.begin(); 
 			i != parameters->orchestra.end ();
@@ -149,22 +152,22 @@ struct Source {
 				bool missing = false;
 				for (unsigned k = 0; k < res.size (); ++k) {
 					std::map<std::string, std::vector<int> >::iterator it = 
-						instruments.find (res[k]);
-					if (it == instruments.end ()) {
+						actual_instruments.find (res[k]);
+					if (it == actual_instruments.end ()) {
 						missing = true;
 						break;
 					}	
 				}
-				if (!missing) effective_orchestra.push_back(*i);
+				if (!missing) actual_orchestra.push_back(*i);
 			} else {
-				std::map<std::string, std::vector<int> >::iterator it = instruments.find (*i);
-				if (it != instruments.end ()) {
-					effective_orchestra.push_back(*i);
+				std::map<std::string, std::vector<int> >::iterator it = actual_instruments.find (*i);
+				if (it != actual_instruments.end ()) {
+					actual_orchestra.push_back(*i);
 				}
 			}
 		}
 
-		if (effective_orchestra.size () == 0) {
+		if (actual_orchestra.size () == 0) {
 			throw std::runtime_error ("empty orchestra; please check filters");
 		}
 
@@ -187,6 +190,9 @@ struct Source {
 	std::map<std::string, std::vector <int> > styles;
 	std::map<std::string, std::vector <int> > pitches;
 	std::map<std::string, std::vector <int> > dynamics;
+
+	std::map<std::string, std::vector<int> > actual_instruments;	
+	std::vector<std::string> actual_orchestra;
 private:
 	std::vector<DB_entry<T> > original_database;
 

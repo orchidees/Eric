@@ -12,6 +12,7 @@
 #include <vector>
 #include <cmath>
 #include <iostream>
+#include <iomanip>
 
 struct Individual {
 	std::vector<int> chromosome;
@@ -40,13 +41,13 @@ void gen_random_chromosome (std::vector<int>& f,
 	}
 }
 
-struct Comp{
-    Comp( const std::vector<float>& v ) : _v(v) {}
-    bool operator ()(int a, int b) {  
-    	return _v[a] > _v[b]; 
-    }
-    const std::vector<float>& _v;
-};
+// struct Comp{
+//     Comp( const std::vector<float>& v ) : _v(v) {}
+//     bool operator ()(int a, int b) {  
+//     	return _v[a] > _v[b]; 
+//     }
+//     const std::vector<float>& _v;
+// };
 
 
 void gen_pursuit_chromosome (std::vector<int>& f, 
@@ -316,7 +317,7 @@ void export_population (const std::vector<Individual>& pop,
 	std::map<std::string, int>& notes,
 	const std::string& type, unsigned ncoeff, const std::string& prefix = "solution") {
 	std::stringstream nn;
-	nn << prefix << ".txt";
+	nn << prefix << "_summary.txt";
 	std::ofstream solutions (nn.str ());
 	solutions << "features: " << type << " " << ncoeff << std::endl << std::endl;
 	
@@ -327,8 +328,7 @@ void export_population (const std::vector<Individual>& pop,
 		std::vector<float> pans;
 		
 		std::stringstream name_wav;
-		name_wav << prefix << "_" << i << ".wav";			
-		
+		name_wav << prefix << "_" << std::setw(3) << std::setfill('0') << i << ".wav";			
 		std::string symbols;
 
 		for (unsigned j = 0; j < pop[i].chromosome.size (); ++j) {
