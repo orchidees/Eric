@@ -8,11 +8,11 @@
 ;db_files 			CSOL_tam_tam_spectrum.txt CSOL_multiphonics_spectrum.txt CSOL_ordinario_spectrum.txt
 ;sound_paths			/Users/Carmine/Elementi/Datasets/CSOL_tam_tam /Users/Carmine/Elementi/Datasets/CSOL_multiphonics /Users/Carmine/Elementi/Datasets/CSOL_ordinario
 	
-;db_files 			CSOL_ordinario_mfcc.txt
-;sound_paths			/Users/Carmine/Desktop/Datasets/CSOL_ordinario
+db_files 			CSOL_ordinario_mfcc.txt
+sound_paths			/Users/Carmine/Desktop/Datasets/CSOL_ordinario
 
-db_files 			OrchDB_spectrum.txt
-sound_paths			/Users/Carmine/Desktop/Datasets/OrchDB_flat
+;db_files 			OrchDB_spectrum.txt
+;sound_paths			/Users/Carmine/Desktop/Datasets/OrchDB_flat
 
 orchestra			Fl Fl Ob Ob ClBb ClBb Bn Bn Hn Hn TpC TpC Tbn Tbn BTb Vn Vn Va Va Vc Vc Cb Cb
 

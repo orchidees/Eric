@@ -8,7 +8,7 @@
 #include "analysis.h"
 #include "utilities.h"
 #include "constants.h"
-#include "ga.h"
+#include "solutions.h"
 
 #include <stdexcept>
 #include <iostream>
@@ -94,17 +94,7 @@ int main (int argc, char* argv[]) {
 		cout << "done" << endl;
 		if (params.partials_filtering) {			
 			cout << "target pitches.......... ";
-			int nl = 0;
-			for (map<string, int>::iterator i = target.notes.begin(); i != target.notes.end (); ++i) {
-				cout << i->first << " (" << 
-					(i->second > 0 ? "+" : "") << i->second << " cents) ";
-				if (nl == 3) {
-					cout << endl;
-					for (unsigned i = 0; i < 25; ++i) cout << " ";
-					nl = 0;
-				}
-				++nl;
-			}		
+			//print_coll(cout, target.notes, 25);
 			cout << endl;
 		}
 
@@ -113,67 +103,31 @@ int main (int argc, char* argv[]) {
 		source.apply_filters (target.notes);
 		cout << "done (" << source.database.size () << " entries)" << endl;
 
-		// ga ------------------------------------------------------------------
-		cout << "init population......... "; cout.flush ();
-		vector<Individual> population (params.pop_size);
-		gen_population (population, source.actual_orchestra, source.actual_instruments, source.database, 
-			target.features, params.pursuit);	
+		// prepare search ------------------------------------------------------
+		cout << "preparing search........ ";  cout.flush ();
+		source.setup_orchestra();
 		cout << "done" << endl;
-
-		float total_fitness = 0;
-		vector<float> fitness;
-
-		vector<Individual> best_pop;
-		int fit_count = 0;
-		float max_fit = 0;
-		float old_fit = 0;
-		int best_epoch = 0;
+		
+		// ga ------------------------------------------------------------------
+		StandardGA<float> ga (&source, &params);
+		
+		vector<Solution<float> > solutions;
 		cout << "searching............... "; cout.flush ();
-		for (unsigned i = 0; i < params.max_epochs; ++i) {
-			total_fitness = evaluate_population(population, target.features, 
-				source.database, source.ncoeff);	
-
-			fitness.push_back(total_fitness);
-
-			vector<Individual> new_pop;
-			gen_offspring_population(population, new_pop, params.pop_size, total_fitness,
-				params.xover_rate, params.mutation_rate, params.sparsity, 
-				source.actual_orchestra, source.actual_instruments);
-	
-			copy_population (new_pop, population);
-
-			if (max_fit < total_fitness) {
-				max_fit = total_fitness;
-				best_pop = new_pop;
-				best_epoch = i;
-			}
-			if (total_fitness >= LARGE_VALUE) break;
-			if (old_fit == total_fitness) ++fit_count;
-			if (fit_count > MAX_EQUAL_FITNESS) break;
-			old_fit = total_fitness;
-		}
+		float max_fit = ga.search(target, solutions);
 		cout << "done" << endl;
 
 		ofstream fit ("fitness.txt");
 		fit << "[";
-		for (unsigned i = 0; i < fitness.size (); ++i) {
-			fit << fitness[i] << " ";
+		for (unsigned i = 0; i < ga.fitness.size (); ++i) {
+			fit << ga.fitness[i] << " ";
 		}
 		fit << "]" << endl;
 		fit.close ();
 
 		// export --------------------------------------------------------------				
-		if (best_pop.size () == 0) {
-			best_pop = population;
-		}
-
-		vector<Individual> uniques;
-		make_uniques(best_pop, uniques);
-		evaluate_population(uniques, target.features, source.database, source.ncoeff);
-
-		Individual best = get_best_individual(uniques);
-		cout << "best fitness............ " << max_fit << " (epoch " << best_epoch << ", "
-			<< uniques.size () << " individuals)" << endl;
+		Solution<float> best = get_best_solution<float>(solutions);
+		cout << "best fitness............ " << max_fit << " (epoch " << ga.best_epoch << ", "
+			<< solutions.size () << " individuals)" << endl;
 		
 		cout << "best solution........... ";
 		unsigned n_instruments = source.actual_orchestra.size ();
@@ -190,11 +144,9 @@ int main (int argc, char* argv[]) {
 		}
 		if (params.export_solutions > 0) {		
 			cout << "saving best solutions... "; cout.flush ();
-			std::sort (uniques.begin (), uniques.end ());
-			std::reverse(uniques.begin (), uniques.end());
 
-			if (params.export_solutions < uniques.size ()) uniques.resize(params.export_solutions);
-			export_population(uniques, source.database, params, target.notes, 
+			if (params.export_solutions < solutions.size ()) solutions.resize(params.export_solutions);
+			export_solutions(solutions, source.database, params, target.notes, 
 				source.type, source.ncoeff);
 			cout << "done" << endl;
 		}

@@ -39,15 +39,14 @@ struct Solution {
 
 template <typename T>
 struct StandardGA {
-	StandardGA (const Source<T>* s, const Parameters<T>* p) {
+	StandardGA (Source<T>* s, Parameters<T>* p) {
 		source = s;
 		parameters = p;
 	}
 	
 	T search (const Target<T>& target, std::vector<Solution<T> >& solutions) {
 		std::vector<Solution<T> > population (parameters->pop_size);
-		gen_population (population, source->actual_orchestra, source->actual_instruments, 
-			source->database, target.features, parameters->pursuit);	
+		gen_population (population, target.features, parameters->pursuit);	
 
 		fitness.clear ();
 		best_epoch = 0;		
@@ -67,7 +66,7 @@ struct StandardGA {
 			std::vector<Solution<T> > new_pop;
 			gen_offspring_population(population, new_pop, parameters->pop_size, total_fitness,
 				parameters->xover_rate, parameters->mutation_rate, parameters->sparsity, 
-				parameters->actual_orchestra, parameters->actual_instruments);
+				source->actual_orchestra, source->actual_instruments);
 	
 			copy_population (new_pop, population);
 
@@ -86,7 +85,16 @@ struct StandardGA {
 			best_pop = population;
 		}
 
-		make_uniques(best_pop, solutions);
+		std::map<std::vector<int>, Solution<T> > uniques_map;
+		for (unsigned i = 0; i < best_pop.size (); ++i) {
+			uniques_map[best_pop[i].chromosome] = best_pop[i];
+		}
+
+		for (typename std::map<std::vector<int>, Solution<T> >::iterator it = uniques_map.begin();
+			it != uniques_map.end (); ++it) {
+			solutions.push_back(it->second);
+		}
+
 		evaluate_population(solutions, target.features, source->database, source->ncoeff);
 		std::sort (solutions.begin (), solutions.end ());
 		std::reverse(solutions.begin (), solutions.end());
@@ -105,13 +113,10 @@ private:
 		for (unsigned i = 0; i < population.size (); ++i) {
 			switch (k) {
 				case 0:
-					gen_random_chromosome(population[i].chromosome, source->actual_orchestra, 
-						source->actual_instruments);
+					gen_random_chromosome(population[i].chromosome);
 				break;
 				default:
-					gen_pursuit_chromosome(population[i].chromosome, source->actual_orchestra, 
-						source->actual_instruments,
-						source->database, target, k);	
+					gen_pursuit_chromosome(population[i].chromosome, target, k);	
 				break;	
 			}
 		}
@@ -218,8 +223,8 @@ private:
 			Solution<T> offspring1, offspring2;
 			crossover_parents (offspring1, offspring2, parent_a, parent_b, crossover_rate);
 			
-			mutate_individual (offspring1, mutation_rate, orchestra, instruments);
-			mutate_individual (offspring2, mutation_rate, orchestra, instruments);
+			mutate_individual (offspring1, mutation_rate);
+			mutate_individual (offspring2, mutation_rate);
 			
 			apply_sparsity(offspring1, sparsity);
 			apply_sparsity(offspring2, sparsity);

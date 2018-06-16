@@ -93,8 +93,8 @@ struct Source {
 			insert_symbol (dynamics, database[i].symbols[3], i);
 		}			
 
-		actual_orchestra = parameters->orchestra;
-		actual_instruments = tot_instruments;
+		actual_orchestra.clear ();
+		actual_instruments.clear ();
 	}
 
 	void apply_filters (std::map<std::string, int>& notes) {
@@ -138,8 +138,9 @@ struct Source {
 		if (database.size () < 1) {
 			throw std::runtime_error("empty search space; please check filters");
 		}
-
-		for (unsigned i = 0; i <database.size (); ++i) {
+	}
+	void setup_orchestra () {
+		for (unsigned i = 0; i < database.size (); ++i) {
 			insert_symbol (actual_instruments, database[i].symbols[0], i);
 		}
 		for (std::vector<std::string>::iterator i = parameters->orchestra.begin(); 
@@ -169,12 +170,13 @@ struct Source {
 
 		if (actual_orchestra.size () == 0) {
 			throw std::runtime_error ("empty orchestra; please check filters");
-		}
-
+		}		
 	}
 	void clear_filters () {
 		database = original_database;
 		original_database.clear ();
+		actual_instruments.clear ();
+		actual_orchestra.clear ();
 	}
 
 	Parameters<T>* parameters;
