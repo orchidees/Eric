@@ -281,6 +281,8 @@ void create_sound_mix (const std::vector<std::string>& files,
 		delete [] right;
 	}
 
+	scale<float>(&mix[0], &mix[0], (maxLen + revSamples) * 2, 2.);
+
 	WavOutFile out(outfile, 44100, 16, 2);
 	out.write(mix, (maxLen + revSamples) * 2); 
 

@@ -195,7 +195,7 @@ private:
 			// T prod = inner_prod(&target[0], &e.features[0], target.size ());
 			// no *= no;
 			for (unsigned j = 0; j < target.size (); ++j) {
-				//forecast[j] += (prod * e.features[j] / no);
+				// forecast[j] += (prod * e.features[j] / no);
 				forecast[j] += (e.features[j] / id.indices.size());	
 			}
 		}

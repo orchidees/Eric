@@ -11,7 +11,7 @@
 ;db_files 			/Users/Carmine/Desktop/Datasets/CSOL_ordinario_mfcc.txt
 ;sound_paths			/Users/Carmine/Desktop/Datasets/CSOL_ordinario
 
-db_files 			/Users/Carmine/Desktop/Datasets/OrchDB_spectrum.txt
+db_files 			/Users/Carmine/Desktop/Datasets/OrchDB_mfcc.txt
 sound_paths			/Users/Carmine/Desktop/Datasets/OrchDB_flat
 
 orchestra			Fl Fl Ob Ob ClBb ClBb Bn Bn Hn Hn TpC TpC TTbn TTbn BTb Vn Vn Va Va Vc Vc Cb Cb
@@ -33,13 +33,13 @@ styles				ord
 
 pop_size			400
 max_epochs			100
-pursuit				3
+pursuit				0
 xover_rate			0.8
 mutation_rate		0.1
-sparsity			0.01
+sparsity			0
 
 partials_window		32768
-partials_filtering	0.1
+partials_filtering	0.2
 ;extra_pitches		N
 
 export_solutions	20
