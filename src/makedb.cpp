@@ -3,6 +3,7 @@
 
 #include "utilities.h"
 #include "analysis.h"
+#include "config.h"
 
 #include <stdexcept>
 #include <iostream>
@@ -10,19 +11,20 @@
 
 using namespace std;
 
-// (0. read all files of a folder, compute MFCC and save a text file)
+// (0. read all files of a folder, compute features and save a text file)
 
 int main (int argc, char* argv[]) {
     srand (time (NULL));
     
-	cout << "[makedb, ver. 0.1]" << endl << endl;
+    cout << "[makedb, ver. " << MAKEDB_VERSION_MAJOR << "." << 
+        MAKEDB_VERSION_MINOR << "]" << endl << endl;
 	cout << "feature analysis for anarkid" << endl;
 	cout << "(c) 2018, www.carminecella.com" << endl << endl;
 
 	try {
         if (argc != 7) {
             throw runtime_error("syntax is 'makedb path dbfile.txt feature_type bsize hopsize ncoeff'" \
-                "\n\nwhere feature_type = [spectrum | specenv | mfcc]\n");
+                "\n\nwhere feature_type = [spectrum | specpeaks | specenv | mfcc | moments]\n");
         }
 
         ofstream out (argv[2]);
@@ -46,45 +48,18 @@ int main (int argc, char* argv[]) {
             throw runtime_error("invalid number of coefficients requested");
         }
         
-        out << argv[3] << " " << bsize << " " << hopsize << " " << ncoeff << endl;
-
         cout << "parsing source folder...";
     	std::vector<string> files;
-    	listdir (argv[1], argv[1], files);
+    	listdir (argv[1], argv[1], files); 
     	cout << "done" << endl << endl;
 
-    	ofstream errs ("errors.txt");
     	clock_t tic = clock ();
-    	for (unsigned i = 0; i < files.size (); ++i) {    		
-    		if (files[i].find (".wav") != string::npos) {
-    			cout << "(" << i << "/" << files.size () << ") analysing " << files[i] << "...";
-    			cout.flush();
-    			try {
-    				vector<float> features;
-    				stringstream fullname;
-    				fullname << argv[1] << files[i];
-    				compute_features<float> (fullname.str ().c_str (), features, 
-    					bsize, hopsize, ncoeff, (string) (argv[3]));	
-
-    				out << files[i] << " ";
-					for (int i = 0; i < features.size (); ++i) {
-						out << features[i] << " ";
-					}
-    				out << endl;
-    				out.flush ();
-    			} catch (exception& e) {
-    				errs << files[i] << endl;
-    				cout << e.what () << endl;
-    			}
-    			cout << "done" << endl;
-    		}
-    	}
-    	clock_t toc = clock ();
+        make_db<float>(argv[1], files, out, cout, bsize, hopsize, ncoeff, argv[3]);
+    	clock_t toc = clock (); 
 
     	cout << endl << "analysis performed in " << ((float) toc - tic) / CLOCKS_PER_SEC << " sec." << endl;
 
     	out.close ();
-    	errs.close ();
 	}
 	catch (exception& e) {
 		cout << "Error: " << e.what () << endl;

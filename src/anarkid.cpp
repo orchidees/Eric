@@ -9,7 +9,7 @@
 #include "analysis.h"
 #include "utilities.h"
 #include "constants.h"
-#include "solutions.h"
+#include "config.h"
 
 #include <stdexcept>
 #include <iostream>
@@ -37,13 +37,14 @@ using namespace std;
 // Solution 
 
 int main (int argc, char* argv[]) {
+	srand (time (NULL));
+
+	cout << "[anarkid, ver. " << ANARKID_VERSION_MAJOR << "." << 
+		ANARKID_VERSION_MINOR << "]" << endl << endl;
+	cout << "anarchist assisted orchestration" << endl;
+	cout << "(c) 2018, www.carminecella.com" << endl << endl;	
+
     try {
-    	srand (time (NULL));
-
-		cout << "[anarkid, ver. 0.1]" << endl << endl;
-		cout << "anarchist assisted orchestration" << endl;
-		cout << "(c) 2018, www.carminecella.com" << endl << endl;
-
 		if (argc != 3) {
 			throw runtime_error("syntax is 'anarkid target.wav config.txt");
 		}

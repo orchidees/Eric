@@ -146,6 +146,38 @@ void compute_features (const char* name, std::vector<T>& features,
 }
 
 template <typename T>
+void make_db (const char* path, const std::vector<std::string>& files,  
+	std::ostream& out, std::ostream& console, int bsize, int hopsize, int ncoeff, 
+	const std::string& type) {
+	std::ofstream errs ("errors.txt");
+	out << type << " " << bsize << " " << hopsize << " " << ncoeff << std::endl;
+	for (unsigned i = 0; i < files.size (); ++i) {    		
+		if (files[i].find (".wav") != std::string::npos) {
+			console << "(" << i << "/" << files.size () << ") analysing " << files[i] << "...";
+			console.flush();
+			try {
+				std::vector<T> features;
+				std::stringstream fullname;
+				fullname << path << files[i];
+				compute_features<float> (fullname.str ().c_str (), features, 
+					bsize, hopsize, ncoeff, type);	
+
+				out << files[i] << " ";
+				for (int i = 0; i < features.size (); ++i) {
+					out << features[i] << " ";
+				}
+				out << std::endl;
+				out.flush ();
+			} catch (std::exception& e) {
+				errs << files[i] << std::endl;
+				console << "error: " << e.what () << std::endl;
+			}
+			console << "done" << std::endl;
+		}
+	}
+}
+
+template <typename T>
 void partials_to_notes (const char* name, std::map<std::string, int>& notes,
 	unsigned bsize, unsigned hopsize, T threshold) {
 	static const char* note_names[] = {
