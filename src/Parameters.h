@@ -84,6 +84,10 @@ struct Parameters {
 	        	for (unsigned i = 1; i < tokens.size (); ++i) {
 	        		dynamics.push_back (tokens[i]);
 	        	}
+	        } else if (tokens[0] == "others") {
+	        	for (unsigned i = 1; i < tokens.size (); ++i) {
+	        		others.push_back (tokens[i]);
+	        	}
 	        } else if (tokens[0] == "pop_size") {
 	        	pop_size = atol (tokens[1].c_str ());
 	        } else if (tokens[0] == "max_epochs") {
@@ -163,6 +167,7 @@ struct Parameters {
 	std::vector<std::string> orchestra;
 	std::vector<std::string> styles;
 	std::vector<std::string> dynamics;
+	std::vector<std::string> others;
 	int pop_size;
 	int max_epochs;
 	int pursuit;

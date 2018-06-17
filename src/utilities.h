@@ -87,7 +87,7 @@ std::ostream& print_coll (std::ostream& out, std::map<std::string, std::vector<T
 		it != coll.end (); ++it) {
 		out << it->first << " ";
 		++nl;
-		if (nl == 6) {
+		if (nl == 5) {
 			out << std::endl;
 			for (unsigned j = 0; j < offset; ++j) out << " ";
 			nl = 0;

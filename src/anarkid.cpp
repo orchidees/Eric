@@ -31,9 +31,9 @@ using namespace std;
 
 // TODO: tuning quantizzato (??),
 //	     orchestrazione dinamica, constraints, regole di concatenazione
-//       energia nel forecast, features multiple con pesi, parsing orchdb
+//       energia nel forecast, features multiple con pesi, filtro ottave
 
-// IDEE: NMF per scomposiione / temporalità; self-similarity matrix
+// IDEE: NMF per scomposizione / temporalità; self-similarity matrix
 
 // AbstractAnalysis, StaticSpectralFeatures,  Matrix
 
@@ -75,7 +75,12 @@ int main (int argc, char* argv[]) {
 		cout << "dynamics................ ";
 		print_coll<int> (cout, source.dynamics, 25);
 		cout << endl;
- 
+		if (source.others.size ()) {
+	 		cout << "others.................. ";
+			print_coll<int> (cout, source.others, 25);
+			cout << endl;
+		}
+
 		// target --------------------------------------------------------------
 		cout << "analysing target........ ";  cout.flush ();
 		Target<float> target (argv[1], &source, &params);

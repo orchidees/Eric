@@ -27,11 +27,43 @@ void extract_symbols (DB_entry<T>& e) {
 	std::string file = removePath(e.file);
 	file = removeExtension(file);
 
-	tokenize (file, e.symbols, "-"); // instr technique note dynamics
+	std::deque<std::string> syms;
+	tokenize (file, syms, "-"); 
 
-	while (e.symbols.size () < 4) { // add missing symbols (if needed)
-		e.symbols.push_back ("N");
-	}
+	if (syms.size () == 4) e.symbols = syms; // instr technique note dynamics
+	else if (syms.size () > 4) { // instr multi-technique note dynamics ...
+		int pos = 1;
+		for (unsigned i = 1; i < syms.size (); ++i) {
+			if ((syms[i][0] == 'N' ||
+				syms[i][0] == 'A' ||
+				syms[i][0] == 'B' ||
+				syms[i][0] == 'C' ||
+				syms[i][0] == 'D' ||
+				syms[i][0] == 'E' ||
+				syms[i][0] == 'F' ||
+				syms[i][0] == 'G') &&
+				syms[i].size () <= 3) {
+				pos = i;
+				break;
+			}
+		}
+
+		e.symbols.push_back (syms[0]);
+		std::stringstream tmp;
+		for (unsigned i = 1; i < pos; ++i) {
+			tmp << syms[i];
+			if (i != pos -1) tmp << "-";
+		}
+		e.symbols.push_back (tmp.str ());
+		for (unsigned i = pos; i < syms.size (); ++i) {
+			e.symbols.push_back (syms[i]);
+		}
+	} else {
+		e.symbols = syms;
+		while (e.symbols.size () < 4) { // add missing symbols (if needed)
+			e.symbols.push_back ("N");
+		}
+	}	
 }
 void insert_symbol (std::map<std::string, std::vector<int> >& coll,
 	const std::string& key, int index) {
@@ -57,6 +89,7 @@ struct Source {
 		styles.clear ();
 		pitches.clear ();
 		dynamics.clear ();
+		others.clear ();
 
 		for (unsigned i = 0; i < db_files.size (); ++i) {
 			std::ifstream db (db_files[i].c_str());
@@ -114,6 +147,9 @@ struct Source {
 			insert_symbol (styles, database[i].symbols[1], i);
 			insert_symbol (pitches, database[i].symbols[2], i);
 			insert_symbol (dynamics, database[i].symbols[3], i);
+			for (unsigned j = 4; j < database[i].symbols.size (); ++j) {
+				insert_symbol (others, database[i].symbols[j], i);
+			}
 		}			
 	}
 
@@ -130,6 +166,7 @@ struct Source {
 	std::map<std::string, std::vector <int> > styles;
 	std::map<std::string, std::vector <int> > pitches;
 	std::map<std::string, std::vector <int> > dynamics;
+	std::map<std::string, std::vector <int> > others;
 
 };
 

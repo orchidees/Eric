@@ -90,13 +90,12 @@ struct Session {
 				} else ratios.push_back (1.);
 
 				if (d.symbols[0].find ("Fl") != std::string::npos)pans.push_back (.5);
-				else if (d.symbols[0].find ("MulFl") != std::string::npos)pans.push_back (.5);
+				else if (d.symbols[0].find ("Picc") != std::string::npos)pans.push_back (.5);
+				else if (d.symbols[0].find ("Acc") != std::string::npos) pans.push_back(.3);
+				else if (d.symbols[0].find ("ASax") != std::string::npos) pans.push_back(.7);
 				else if (d.symbols[0].find ("Ob") != std::string::npos) pans.push_back(.6);
-				else if (d.symbols[0].find ("MulOb") != std::string::npos) pans.push_back(.6);
 				else if (d.symbols[0].find ("Cl") != std::string::npos) pans.push_back(.4);
-				else if (d.symbols[0].find ("MulCl") != std::string::npos) pans.push_back(.4);
 				else if (d.symbols[0].find ("Bn") != std::string::npos) pans.push_back(.55);
-				else if (d.symbols[0].find ("MulBn") != std::string::npos) pans.push_back(.55);
 				else if (d.symbols[0].find ("Hn") != std::string::npos) pans.push_back(.3);
 				else if (d.symbols[0].find ("Tp") != std::string::npos) pans.push_back(.4);
 				else if (d.symbols[0].find ("Tbn") != std::string::npos) pans.push_back(.55);
@@ -133,6 +132,7 @@ struct Session {
 			bool note_check = target.notes.size () == 0 ? true : false;
 			bool style_check = parameters->styles.size () == 0 ? true : false;
 			bool dynamics_check = parameters->dynamics.size () == 0 ? true : false;
+			bool others_check = parameters->others.size () == 0 ? true : false;
 
 			for (std::map<std::string, int>::iterator i = target.notes.begin(); 
 				i != target.notes.end (); ++i) {
@@ -156,7 +156,18 @@ struct Session {
 				}
 			}
 
-			if (note_check && style_check && dynamics_check) {
+			for (unsigned i = 0; i < parameters->others.size (); ++i) {
+				std::stringstream others;
+				for (unsigned z = 4; z < source->database[j].symbols.size (); ++z){
+					others << source->database[j].symbols[z];
+				}
+				if (others.str ().find (parameters->others[i]) != std::string::npos) {
+					others_check = true;
+					break;
+				}
+			}			
+
+			if (note_check && style_check && dynamics_check && others_check) {
 				model.database.push_back(source->database[j]);
 			}
 		}
