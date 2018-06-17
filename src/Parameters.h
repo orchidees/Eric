@@ -33,7 +33,6 @@ struct Parameters {
 	}
 	
 	void read (const char* config_file) {
-
 		std::ifstream config (config_file);
 		if (!config.good ()) {
 			throw std::runtime_error ("cannot open configuration file");

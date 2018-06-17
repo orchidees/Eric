@@ -22,11 +22,11 @@ struct Target {
 		analyze(name);
 	}
 	void analyze (const char* name) {
-		compute_features(name, features, source->bsize, 
+		compute_features<T>(name, features, source->bsize, 
 			source->hopsize, source->ncoeff, source->type);
 		
 		if (parameters->partials_filtering > 0) {
-			partials_to_notes (name, notes, 
+			partials_to_notes<T> (name, notes, 
 				parameters->partials_window, parameters->partials_window / 4, 
 				parameters->partials_filtering);	
 			for (unsigned i = 0; i < parameters->extra_pitches.size (); ++i) {

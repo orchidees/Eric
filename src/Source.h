@@ -23,6 +23,29 @@ struct DB_entry {
 };
 
 template <typename T>
+void extract_symbols (DB_entry<T>& e) {
+	std::string file = removePath(e.file);
+	file = removeExtension(file);
+
+	tokenize (file, e.symbols, "-"); // instr technique note dynamics
+
+	while (e.symbols.size () < 4) { // add missing symbols (if needed)
+		e.symbols.push_back ("N");
+	}
+}
+void insert_symbol (std::map<std::string, std::vector<int> >& coll,
+	const std::string& key, int index) {
+	std::map<std::string, std::vector<int> >::iterator it = coll.find (key);
+	if (it == coll.end ()) {
+		std::vector<int> d;
+		d.push_back(index);
+		coll[key] = d;
+	} else {
+		coll[key].push_back (index);
+	}
+}	
+
+template <typename T>
 struct Source {
 	Source (Parameters<T>* params) {
 		parameters = params;
@@ -30,11 +53,11 @@ struct Source {
 	}
 	void load (const std::vector<std::string>& db_files) {
 		database.clear ();
-		original_database.clear ();
 		tot_instruments.clear ();
 		styles.clear ();
 		pitches.clear ();
 		dynamics.clear ();
+
 		for (unsigned i = 0; i < db_files.size (); ++i) {
 			std::ifstream db (db_files[i].c_str());
 			if (!db.good ()) {
@@ -92,91 +115,6 @@ struct Source {
 			insert_symbol (pitches, database[i].symbols[2], i);
 			insert_symbol (dynamics, database[i].symbols[3], i);
 		}			
-
-		actual_orchestra.clear ();
-		actual_instruments.clear ();
-	}
-
-	void apply_filters (std::map<std::string, int>& notes) {
-		original_database = database;
-		database.clear ();
-		actual_orchestra.clear ();
-		actual_instruments.clear ();
-
-		for (unsigned j = 0; j < original_database.size (); ++j) {
-			bool note_check = notes.size () == 0 ? true : false;
-			bool style_check = parameters->styles.size () == 0 ? true : false;
-			bool dynamics_check = parameters->dynamics.size () == 0 ? true : false;
-
-			for (std::map<std::string, int>::iterator i = notes.begin(); 
-				i != notes.end (); ++i) {
-				if (original_database[j].symbols[2] == i->first) {
-					note_check = true;
-					break;
-				}
-			}
-
-			for (unsigned i = 0; i < parameters->styles.size (); ++i) {
-				if (original_database[j].symbols[1] == parameters->styles[i]) {
-					style_check = true;
-					break;
-				}
-			}
-
-			for (unsigned i = 0; i < parameters->dynamics.size (); ++i) {
-				if (original_database[j].symbols[3] == parameters->dynamics[i]) {
-					dynamics_check = true;
-					break;
-				}
-			}
-
-			if (note_check && style_check && dynamics_check) {
-				database.push_back(original_database[j]);
-			}
-		}
-
-		if (database.size () < 1) {
-			throw std::runtime_error("empty search space; please check filters");
-		}
-	}
-	void setup_orchestra () {
-		for (unsigned i = 0; i < database.size (); ++i) {
-			insert_symbol (actual_instruments, database[i].symbols[0], i);
-		}
-		for (std::vector<std::string>::iterator i = parameters->orchestra.begin(); 
-			i != parameters->orchestra.end ();
-			++i) {
-			if ((*i).find ("|") != std::string::npos) {
-				std::deque<std::string> res;
-				tokenize(*i, res, "|");
-	
-				bool missing = false;
-				for (unsigned k = 0; k < res.size (); ++k) {
-					std::map<std::string, std::vector<int> >::iterator it = 
-						actual_instruments.find (res[k]);
-					if (it == actual_instruments.end ()) {
-						missing = true;
-						break;
-					}	
-				}
-				if (!missing) actual_orchestra.push_back(*i);
-			} else {
-				std::map<std::string, std::vector<int> >::iterator it = actual_instruments.find (*i);
-				if (it != actual_instruments.end ()) {
-					actual_orchestra.push_back(*i);
-				}
-			}
-		}
-
-		if (actual_orchestra.size () == 0) {
-			throw std::runtime_error ("empty orchestra; please check filters");
-		}		
-	}
-	void clear_filters () {
-		database = original_database;
-		original_database.clear ();
-		actual_instruments.clear ();
-		actual_orchestra.clear ();
 	}
 
 	Parameters<T>* parameters;
@@ -193,32 +131,6 @@ struct Source {
 	std::map<std::string, std::vector <int> > pitches;
 	std::map<std::string, std::vector <int> > dynamics;
 
-	std::map<std::string, std::vector<int> > actual_instruments;	
-	std::vector<std::string> actual_orchestra;
-private:
-	std::vector<DB_entry<T> > original_database;
-
-	void extract_symbols (DB_entry<T>& e) {
-		std::string file = removePath(e.file);
-		file = removeExtension(file);
-
-		tokenize (file, e.symbols, "-"); // instr technique note dynamics
-
-		while (e.symbols.size () < 4) { // add missing symbols (if needed)
-			e.symbols.push_back ("N");
-		}
-	}
-	void insert_symbol (std::map<std::string, std::vector<int> >& coll,
-		const std::string& key, int index) {
-		std::map<std::string, std::vector<int> >::iterator it = coll.find (key);
-		if (it == coll.end ()) {
-			std::vector<int> d;
-			d.push_back(index);
-			coll[key] = d;
-		} else {
-			coll[key].push_back (index);
-		}
-	}	
 };
 
 #endif	// SOURCE_H 

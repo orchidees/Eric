@@ -4,7 +4,8 @@
 #include "Target.h"
 #include "Source.h"
 #include "Parameters.h"
-#include "StandardGA.h"
+#include "GeneticOrchestra.h"
+#include "Session.h"
 #include "analysis.h"
 #include "utilities.h"
 #include "constants.h"
@@ -30,25 +31,10 @@ using namespace std;
 // TODO: tuning quantizzato (??),
 //	     orchestrazione dinamica, constraints, regole di concatenazione
 
-// REFACTOR: miglioramento interfaccia codice
-
 // IDEE: NMF per scomposiione / temporalità; self-similarity matrix
 
-// AbstractAnalysis, StaticSpectralFeatures, AbstractSource, Source, Matrix, 
-// AbstractTarget, SoundTarget, AbstractOptimizer, Solution, StandardGA,
-// Parameters, Session
-
-// int main () {
-// 	Parameters p;
-// 	read_config (argv[1], p);
-//  Source source (p);
-// 	Target t (argv[2], p);
-// 	Orchestrator s (p);
-// 	s.search (t);
-// 	s.export ("folder");
-
-// 	return 0;
-// } 
+// AbstractAnalysis, StaticSpectralFeatures,  Matrix, 
+// Solution 
 
 int main (int argc, char* argv[]) {
     try {
@@ -76,16 +62,16 @@ int main (int argc, char* argv[]) {
 		
 		// symbols -------------------------------------------------------------
 		cout << "instruments............. ";
-		print_coll (cout, source.tot_instruments, 25);
+		print_coll<int> (cout, source.tot_instruments, 25);
 		cout << endl;
 		cout << "styles.................. ";
-		print_coll (cout, source.styles, 25);
+		print_coll<int> (cout, source.styles, 25);
 		cout << endl;
 		cout << "pitches................. ";
-		print_coll (cout, source.pitches, 25); 
+		print_coll<int> (cout, source.pitches, 25); 
 		cout << endl;
 		cout << "dynamics................ ";
-		print_coll (cout, source.dynamics, 25);
+		print_coll<int> (cout, source.dynamics, 25);
 		cout << endl;
  
 		// target --------------------------------------------------------------
@@ -94,64 +80,35 @@ int main (int argc, char* argv[]) {
 		cout << "done" << endl;
 		if (params.partials_filtering) {			
 			cout << "target pitches.......... ";
-			//print_coll(cout, target.notes, 25);
+			print_coll<int> (cout, target.notes, 25);
 			cout << endl;
 		}
 
-		// pfilt  --------------------------------------------------------------
-		cout << "filtering database...... ";  cout.flush ();
-		source.apply_filters (target.notes);
-		cout << "done (" << source.database.size () << " entries)" << endl;
-
-		// prepare search ------------------------------------------------------
-		cout << "preparing search........ ";  cout.flush ();
-		source.setup_orchestra();
-		cout << "done" << endl;
-		
 		// ga ------------------------------------------------------------------
-		StandardGA<float> ga (&source, &params);
+		GeneticOrchestra<float> ga (&params);
+		Session<float> session (&source, &params, &ga);
 		
-		vector<Solution<float> > solutions;
 		cout << "searching............... "; cout.flush ();
-		float max_fit = ga.search(target, solutions);
+		vector<Solution<float> > solutions;
+		float max_fit = session.orchestrate(target, solutions);
 		cout << "done" << endl;
-
-		ofstream fit ("fitness.txt");
-		fit << "[";
-		for (unsigned i = 0; i < ga.fitness.size (); ++i) {
-			fit << ga.fitness[i] << " ";
-		}
-		fit << "]" << endl;
-		fit.close ();
 
 		// export --------------------------------------------------------------				
-		Solution<float> best = get_best_solution<float>(solutions);
-		cout << "best fitness............ " << max_fit << " (epoch " << ga.best_epoch << ", "
-			<< solutions.size () << " individuals)" << endl;
+		save_vector<float> ("fitness.txt", ga.fitness);
+		cout << "best fitness............ " << max_fit << " (epoch " << 
+			ga.best_epoch << ", " << solutions.size () << " individuals)" << endl;
 		
-		cout << "best solution........... ";
-		unsigned n_instruments = source.actual_orchestra.size ();
-		for (unsigned i = 0; i < n_instruments; ++i) {
-			if (i != 0) for (unsigned i = 0; i < 25; ++i) cout << " ";
-			if (best.chromosome[i] == -1) {
-				cout << "-" << endl;
-				continue;
-			}
-			for (unsigned h = 0; h < source.database[best.chromosome[i]].symbols.size (); ++h) {
-				cout << source.database[best.chromosome[i]].symbols[h] << "\t";
-			}
+		if (solutions.size ()) {
+			cout << "best solution........... ";
+			session.dump_solution(cout, solutions[0], 25);
 			cout << endl;
 		}
+
 		if (params.export_solutions > 0) {		
 			cout << "saving best solutions... "; cout.flush ();
-
-			if (params.export_solutions < solutions.size ()) solutions.resize(params.export_solutions);
-			export_solutions(solutions, source.database, params, target.notes, 
-				source.type, source.ncoeff);
+			session.export_solutions(solutions);
 			cout << "done" << endl;
 		}
-
-		cout << endl;	
     } catch (exception& e) {
         cout << "Error: " << e.what () << endl;
     } catch (...) {

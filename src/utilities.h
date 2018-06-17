@@ -63,13 +63,27 @@ void erase_substring (std::string & mainStr, const std::string & toErase) {
 		mainStr.erase(pos, toErase.length());
 	}
 }
-
 // -----------------------------------------------------------------------------
+template <typename T>
+void save_vector (const char* file, const std::vector<T>& v) {
+	std::ofstream out (file);
+	if (!out.good ()) {
+		throw std::runtime_error ("cannot create output file");
+	}
 
-void print_coll (std::ostream& out, std::map<std::string, std::vector<int> >& coll, 
+	out << "[";
+	for (unsigned i = 0; i < v.size (); ++i) {
+		out << v[i] << " ";
+	}
+	out << "]";
+	out.close ();
+}
+// -----------------------------------------------------------------------------
+template <typename T>
+std::ostream& print_coll (std::ostream& out, std::map<std::string, std::vector<T> >& coll, 
 	int offset) {
 	int nl = 0;
-	for (std::map<std::string, std::vector<int> >::iterator it = coll.begin ();
+	for (typename std::map<std::string, std::vector<T> >::iterator it = coll.begin ();
 		it != coll.end (); ++it) {
 		out << it->first << " ";
 		++nl;
@@ -79,6 +93,21 @@ void print_coll (std::ostream& out, std::map<std::string, std::vector<int> >& co
 			nl = 0;
 		}
 	}
+	return out;
+}
+
+template <typename T>
+std::ostream& print_coll (std::ostream& out, std::map<std::string, T >& coll, 
+	int offset) {
+
+	std::map<std::string, std::vector<int> > remap;
+	for (std::map<std::string, int>::iterator it = coll.begin ();
+		it != coll.end (); ++it) {
+		std::vector<int> p;
+		p.push_back(it->second);
+		remap[it->first] = p;
+	}
+	return print_coll<T>(out, remap, offset);
 }
 
 // -------------------------------------------------------------------------- //
@@ -127,8 +156,9 @@ void deinterleave (const T* stereo, T* l, T* r, int n) {
 
 // -----------------------------------------------------------------------------
 
-float cents_to_ratio (int cents) {
-	float c = cents;
+template <typename T>
+T cents_to_ratio (int cents) {
+	T c = cents;
 	c /= 1200.;
 	return std::pow (2., c);
 }
@@ -138,12 +168,13 @@ inline bool file_exists (const std::string& name) {
     return f.good();
 }
 
+template <typename T>
 void create_sound_mix (const std::vector<std::string>& files, 
 	const std::vector<std::string>& sound_paths, 
-	const std::vector<float>& ratios, 
-	const std::vector<float>& pans, const char* outfile,
-	float t60, const std::vector<float>& dry_wet) {
-	std::vector <float*> pointers;
+	const std::vector<T>& ratios, 
+	const std::vector<T>& pans, const char* outfile,
+	T t60, const std::vector<T>& dry_wet) {
+	std::vector <T*> pointers;
 	std::vector <int> lengths;
 
 	for (int i = 0; i < files.size (); ++i) {
@@ -184,15 +215,15 @@ void create_sound_mix (const std::vector<std::string>& files,
 			throw std::runtime_error ("unsupported number of bits");	
 		}
 		
-		float* data = new float[samples * channels];
-		float* right = new float[samples];
-		float* left = new float[samples];
+		T* data = new T[samples * channels];
+		T* right = new T[samples];
+		T* left = new T[samples];
 
 		in.read (data, samples * channels);
 
 		if (channels == 2) {
-			float* left = new float[samples];
-		 	float* right = new float[samples];
+			T* left = new T[samples];
+		 	T* right = new T[samples];
 			deinterleave (data, left, right, samples);
 			for (unsigned i = 0; i < samples; ++i) {
 				data[i] = (left[i] + right[i]) * .5;
@@ -209,8 +240,8 @@ void create_sound_mix (const std::vector<std::string>& files,
 
 	int maxPos = 0;
 	int maxLen = maximum (&lengths[0], lengths.size (), maxPos);
-	float* mix = new float[(maxLen + revSamples) * 2];
-	memset (mix, 0, sizeof(float) * (maxLen + revSamples) * 2);
+	T* mix = new T[(maxLen + revSamples) * 2];
+	memset (mix, 0, sizeof(T) * (maxLen + revSamples) * 2);
 
 	for (unsigned i = 0; i < pointers.size (); ++i) {
 		double phase = 0;
@@ -219,8 +250,8 @@ void create_sound_mix (const std::vector<std::string>& files,
 			int index = (int) phase;
 			double frac = phase - index;
 			if (index >= lengths[i] - 1) break;
-			float sample = pointers[i][index] * (1. - frac) + pointers[i][index + 1] * frac;
-			float v = (sample / pointers.size ());
+			T sample = pointers[i][index] * (1. - frac) + pointers[i][index + 1] * frac;
+			T v = (sample / pointers.size ());
 			mix[2 * j] += (v * (1. - pans[i]));
 			mix[2 * j  + 1] += (v * pans[i]);
 			phase += incr;
@@ -229,16 +260,16 @@ void create_sound_mix (const std::vector<std::string>& files,
 	}
 
 	if (dry_wet[1] != 0) { // skip computing if all dry
-		float* left = new float[(maxLen + revSamples)];
-		float* right = new float[(maxLen + revSamples)];
-		memset(left, 0, (maxLen + revSamples) * sizeof(float));
-		memset(right, 0, (maxLen + revSamples) * sizeof(float));
+		T* left = new T[(maxLen + revSamples)];
+		T* right = new T[(maxLen + revSamples)];
+		memset(left, 0, (maxLen + revSamples) * sizeof(T));
+		memset(right, 0, (maxLen + revSamples) * sizeof(T));
 
 		deinterleave(mix, left, right, (maxLen + revSamples));
-		ClassicVerb<float> cl(44100, (maxLen + revSamples), 6, 1, 0);
+		ClassicVerb<T> cl(44100, (maxLen + revSamples), 6, 1, 0);
 		cl.t60(t60);
 		cl.gains(dry_wet[0], 0, dry_wet[1]);
-		ClassicVerb<float> cr(44100, (maxLen + revSamples), 6, 1, 23);
+		ClassicVerb<T> cr(44100, (maxLen + revSamples), 6, 1, 23);
 		cr.t60(t60);
 		cr.gains(dry_wet[0], 0, dry_wet[1]);
 

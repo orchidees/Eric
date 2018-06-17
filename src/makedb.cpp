@@ -63,7 +63,7 @@ int main (int argc, char* argv[]) {
     				vector<float> features;
     				stringstream fullname;
     				fullname << argv[1] << files[i];
-    				compute_features (fullname.str ().c_str (), features, 
+    				compute_features<float> (fullname.str ().c_str (), features, 
     					bsize, hopsize, ncoeff, (string) (argv[3]));	
 
     				out << files[i] << " ";

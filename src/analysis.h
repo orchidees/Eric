@@ -18,7 +18,8 @@
 #define NUM_SMOOTH 160
 #define NUM_FILTERS 40
 
-void compute_features (const char* name, std::vector<float>& features, 
+template <typename T>
+void compute_features (const char* name, std::vector<T>& features, 
 	int bsize, int hop, int ncoeff, const std::string& type) {
 	features.resize(ncoeff, 0); // + 1);
 
@@ -39,35 +40,35 @@ void compute_features (const char* name, std::vector<float>& features,
 		throw std::runtime_error ("unsupported number of bits");	
 	}
 	
-	float* buffer = new float[samples * channels];
+	T* buffer = new T[samples * channels];
 	in.read (buffer, samples * channels);
 
 	if (channels == 2) {
-		float* left = new float[samples];
-	 	float* right = new float[samples];
+		T* left = new T[samples];
+	 	T* right = new T[samples];
 		deinterleave (buffer, left, right, samples);
 		for (unsigned i = 0; i < samples; ++i) {
 			buffer[i] = (left[i] + right[i]) * .5;
 		}		
 	}
 	
-	MFCC<float> mfcc (sr, NUM_FILTERS, bsize);
-	AbstractFFT<float>* fft = createFFT<float>(bsize);
+	MFCC<T> mfcc (sr, NUM_FILTERS, bsize);
+	AbstractFFT<T>* fft = createFFT<T>(bsize);
 
-	float* cdata = new float[bsize * 2];
-	float* spectrum = new float[bsize];
-	float* avg_coeffs = new float[bsize * 2];
-	memset(avg_coeffs, 0, sizeof(float) * 2 * bsize);
-	float* env = new float[bsize * 2];
-	float* win = new float[bsize];
-	makeWindow<float>(win, bsize, .5, .5, 0.); // hanning
+	T* cdata = new T[bsize * 2];
+	T* spectrum = new T[bsize];
+	T* avg_coeffs = new T[bsize * 2];
+	memset(avg_coeffs, 0, sizeof(T) * 2 * bsize);
+	T* env = new T[bsize * 2];
+	T* win = new T[bsize];
+	makeWindow<T>(win, bsize, .5, .5, 0.); // hanning
 
-	float tot_nrg = 0;
+	T tot_nrg = 0;
 	int frames = 0;
 	for (unsigned i = 0; i < samples; i += hop) {
-		memset(cdata, 0, sizeof(float) * bsize * 2);		
+		memset(cdata, 0, sizeof(T) * bsize * 2);		
 
-		float nrg = 0;
+		T nrg = 0;
 		int rsize = i + bsize > samples ? samples - i : bsize;
 		for (unsigned j = 0; j < rsize; ++j) {
 			cdata[2 * j] = buffer[j] * win[j]; // windowing
@@ -123,7 +124,7 @@ void compute_features (const char* name, std::vector<float>& features,
 		for (unsigned j = 0; j < bsize; ++j) {
 			spectrum[j] = avg_coeffs[2 * j];
 		}				
-		float* freq = new float[bsize / 2];
+		T* freq = new T[bsize / 2];
 		ampFreqQuad(&spectrum[0], freq, bsize / 2, 44100.);
 
 		features[0] = speccentr(spectrum, freq, bsize / 2);
@@ -144,28 +145,29 @@ void compute_features (const char* name, std::vector<float>& features,
 	delete fft;
 }
 
+template <typename T>
 void partials_to_notes (const char* name, std::map<std::string, int>& notes,
-	unsigned bsize, unsigned hopsize, float threshold) {
+	unsigned bsize, unsigned hopsize, T threshold) {
 	static const char* note_names[] = {
 		"A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"
 	};
 
-	std::vector<float> spectrum (bsize / 2);
+	std::vector<T> spectrum (bsize / 2);
 	compute_features(name, spectrum, bsize, hopsize, bsize / 2, "spectrum");
 	normalize(&spectrum[0], &spectrum[0], bsize / 2);
 
 	std::vector<int> peaks;
 	locmax(&spectrum[0], bsize / 2, peaks);
 
-	float* freq = new float[bsize / 2];
+	T* freq = new T[bsize / 2];
 	ampFreqQuad(&spectrum[0], freq, bsize / 2, 44100.);
 
-	Hz2Note<float> hz2n;	
+	Hz2Note<T> hz2n;	
 	for (unsigned i = 0; i < peaks.size() - 1; ++i) {
 		if (spectrum[peaks[i]] > threshold) {
-			// float fn = peaks[i] * freqPerBin;
-			float fn = freq[peaks[i]];
-			float nfreq = 0;
+			// T fn = peaks[i] * freqPerBin;
+			T fn = freq[peaks[i]];
+			T nfreq = 0;
 			int oct = 0;
 			int note = 0;
 			int cents = 0;
@@ -178,16 +180,16 @@ void partials_to_notes (const char* name, std::map<std::string, int>& notes,
 
 	// WavOutFile out("target.wav", 44100., 16, 1);
 	// unsigned samples = (unsigned) (2. * 44100.);
-	// float* buff = new float[samples];
-	// memset(buff, 0, sizeof (float) * samples);
+	// T* buff = new T[samples];
+	// memset(buff, 0, sizeof (T) * samples);
 
-	// float* win = new float[samples];
-	// makeWindow<float>(win, samples, .5, .5, 0.);
+	// T* win = new T[samples];
+	// makeWindow<T>(win, samples, .5, .5, 0.);
 
 	// for (unsigned i = 0; i < samples; ++i) {
 	// 	for (unsigned j = 0; j < peaks.size (); ++j) {
 	// 		buff[i] += spectrum[peaks[j]] * sin (2. * M_PI * freq[peaks[j]] 
-	// 			* ((float) i / 44100.));
+	// 			* ((T) i / 44100.));
 	// 	}
 	// 	buff[i] *= .125 * win[i];
 	// }
