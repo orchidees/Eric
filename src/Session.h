@@ -26,17 +26,17 @@ struct Session {
 		source = s;
 		optim = o;
 	}
-	T orchestrate (Target<T>& target, std::vector<Solution<T> >& solutions) {
-		make_model(target, model);
+	T orchestrate (OrchestrationModel<T>& model, 
+		std::vector<Solution<T> >& solutions) {
+		check_model(model);
 		T fit = optim->search(model, solutions);
 		std::sort (solutions.begin (), solutions.end ());
 		std::reverse(solutions.begin (), solutions.end());
 		return fit;
 	}
-	std::ostream& dump_solution (std::ostream& out, const Solution<T>& sol, int offset) {
-		if (model.target == nullptr) {
-			throw std::runtime_error ("orchestration not performed");
-		}
+	std::ostream& dump_solution (std::ostream& out, 
+		OrchestrationModel<T>& model, const Solution<T>& sol, int offset) {
+		check_model(model);
 
 		unsigned n_instruments = model.orchestra.size ();
 		for (unsigned i = 0; i < n_instruments; ++i) {
@@ -53,12 +53,12 @@ struct Session {
 
 		return out;
 	}
-	void export_solutions (std::vector<Solution<T> >& solutions) {
+	void export_solutions (OrchestrationModel<T>& model,
+		std::vector<Solution<T> >& solutions) {
 		std::string prefix = "";
 
-		if (model.target == nullptr || solutions.size () == 0) {
-			throw std::runtime_error ("orchestration not performed or no solutions");
-		}
+		check_model(model);
+
 		std::stringstream nn;
 		nn << prefix << "solutions_summary.txt";
 		std::ofstream solutions_summary (nn.str ());
@@ -122,8 +122,6 @@ struct Session {
 		solutions_summary.close ();
 	}
 	
-	OrchestrationModel<T> model;
-private:
 	void make_model (Target<T>& target, OrchestrationModel<T>& model) {
 		model.database.clear ();
 		model.orchestra.clear ();
@@ -198,11 +196,19 @@ private:
 		if (model.orchestra.size () == 0) {
 			throw std::runtime_error ("empty orchestra; please check filters");
 		}				
-	}
+	}	
 
 	Parameters<T>* parameters;
 	Source<T>* source;
 	OptimizerI<T>* optim;
+
+private:
+	void check_model (OrchestrationModel<T>& model) {
+		if (model.target == nullptr || model.database.size () == 0 || 
+			model.orchestra.size () == 0) {
+			throw std::runtime_error ("invalid model for orchestration");
+		}		
+	}
 };
 
 #endif	// SESSION_H 

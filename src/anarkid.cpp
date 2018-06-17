@@ -6,6 +6,7 @@
 #include "Parameters.h"
 #include "GeneticOrchestra.h"
 #include "Session.h"
+#include "OrchestrationModel.h"
 #include "analysis.h"
 #include "utilities.h"
 #include "constants.h"
@@ -30,11 +31,11 @@ using namespace std;
 
 // TODO: tuning quantizzato (??),
 //	     orchestrazione dinamica, constraints, regole di concatenazione
+//       energia nel forecast, features multiple con pesi, parsing orchdb
 
 // IDEE: NMF per scomposiione / temporalità; self-similarity matrix
 
-// AbstractAnalysis, StaticSpectralFeatures,  Matrix, 
-// Solution 
+// AbstractAnalysis, StaticSpectralFeatures,  Matrix
 
 int main (int argc, char* argv[]) {
 	srand (time (NULL));
@@ -90,8 +91,10 @@ int main (int argc, char* argv[]) {
 		Session<float> session (&source, &params, &ga);
 		
 		cout << "searching............... "; cout.flush ();
+		OrchestrationModel<float> model;
 		vector<Solution<float> > solutions;
-		float max_fit = session.orchestrate(target, solutions);
+		session.make_model (target, model);
+		float max_fit = session.orchestrate (model, solutions);
 		cout << "done" << endl;
 
 		// export --------------------------------------------------------------				
@@ -101,13 +104,13 @@ int main (int argc, char* argv[]) {
 		
 		if (solutions.size ()) {
 			cout << "best solution........... ";
-			session.dump_solution(cout, solutions[0], 25);
+			session.dump_solution(cout, model, solutions[0], 25); // ranked first
 			cout << endl;
 		}
 
 		if (params.export_solutions > 0) {		
 			cout << "saving best solutions... "; cout.flush ();
-			session.export_solutions(solutions);
+			session.export_solutions(model, solutions);
 			cout << "done" << endl;
 		}
     } catch (exception& e) {

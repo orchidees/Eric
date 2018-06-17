@@ -13,7 +13,7 @@ configure_file (
   "${PROJECT_BINARY_DIR}/config.h"
   )
 
-add_executable(anarkid anarkid.cpp  Target.h Source.h Parameters.h GeneticOrchestra.h Session.h analysis.h utilities.h constants.h)
+add_executable(anarkid anarkid.cpp  Target.h Source.h Parameters.h GeneticOrchestra.h Session.h OrchestrationModel.h analysis.h utilities.h constants.h)
 target_link_libraries (anarkid dl ${LIBS})
 
 add_executable(makedb makedb.cpp analysis.h utilities.h)
