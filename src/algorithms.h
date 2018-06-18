@@ -410,15 +410,10 @@ template <typename T>
 T kullbackLeibler (const T* a, const T* b, int size){
 	T d = 0;
 	for (int i = 0; i < size; ++i){
-		if (b[i] != 0) {
-			d += a[i] * log (a[i] / b[i]);
-		}
-		else {
-			d += a[i] * log (a[i] / EPS);
-		}
+		d += a[i] * log (a[i] / (b[i] + EPS));
 	}
 	if (std::isnan(d) || std::isinf(d)) return 0;
-	else return d;
+	else return -d;
 }
 
 // ------------------------------------------------------------------//

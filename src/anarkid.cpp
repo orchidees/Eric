@@ -6,7 +6,7 @@
 #include "Parameters.h"
 #include "GeneticOrchestra.h"
 #include "Session.h"
-#include "OrchestrationModel.h"
+#include "forecasts.h"
 #include "analysis.h"
 #include "utilities.h"
 #include "constants.h"
@@ -84,6 +84,7 @@ int main (int argc, char* argv[]) {
 		// target --------------------------------------------------------------
 		cout << "analysing target........ ";  cout.flush ();
 		Target<float> target (argv[1], &source, &params);
+		save_vector<float> ("target.txt", target.features);
 		cout << "done" << endl;
 		if (params.partials_filtering) {			
 			cout << "target pitches.......... ";
@@ -92,30 +93,32 @@ int main (int argc, char* argv[]) {
 		}
 
 		// ga ------------------------------------------------------------------
-		GeneticOrchestra<float> ga (&params);
+		GeneticOrchestra<float, AdditiveForecast> ga (&params);
 		Session<float> session (&source, &params, &ga);
 		
 		cout << "searching............... "; cout.flush ();
-		OrchestrationModel<float> model;
 		vector<Solution<float> > solutions;
-		session.make_model (target, model);
-		float max_fit = session.orchestrate (model, solutions);
+		float max_fit = session.orchestrate (target, solutions);
 		cout << "done" << endl;
 
 		// export --------------------------------------------------------------				
 		save_vector<float> ("fitness.txt", ga.fitness);
 		cout << "best fitness............ " << max_fit << " (epoch " << 
 			ga.best_epoch << ", " << solutions.size () << " individuals)" << endl;
-		
+	
 		if (solutions.size ()) {
+			vector<float> fcast (target.features.size ());
+			AdditiveForecast<float>::compute(solutions[0], source.database, fcast, target.features);
+			save_vector("best_solution.txt", fcast);
+
 			cout << "best solution........... ";
-			session.dump_solution(cout, model, solutions[0], 25); // ranked first
+			session.dump_solution(cout, solutions[0], 25); // ranked first
 			cout << endl;
 		}
 
 		if (params.export_solutions > 0) {		
 			cout << "saving best solutions... "; cout.flush ();
-			session.export_solutions(model, solutions);
+			session.export_solutions(solutions);
 			cout << "done" << endl;
 		}
     } catch (exception& e) {

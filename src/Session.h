@@ -26,16 +26,16 @@ struct Session {
 		source = s;
 		optim = o;
 	}
-	T orchestrate (OrchestrationModel<T>& model, 
+	T orchestrate (Target<T>& target, 
 		std::vector<Solution<T> >& solutions) {
-		check_model(model);
+		make_model(target, model);
 		T fit = optim->search(model, solutions);
 		std::sort (solutions.begin (), solutions.end ());
 		std::reverse(solutions.begin (), solutions.end());
 		return fit;
 	}
 	std::ostream& dump_solution (std::ostream& out, 
-		OrchestrationModel<T>& model, const Solution<T>& sol, int offset) {
+		const Solution<T>& sol, int offset) {
 		check_model(model);
 
 		unsigned n_instruments = model.orchestra.size ();
@@ -53,8 +53,7 @@ struct Session {
 
 		return out;
 	}
-	void export_solutions (OrchestrationModel<T>& model,
-		std::vector<Solution<T> >& solutions) {
+	void export_solutions (std::vector<Solution<T> >& solutions) {
 		std::string prefix = "";
 
 		check_model(model);
@@ -213,6 +212,7 @@ struct Session {
 	Source<T>* source;
 	OptimizerI<T>* optim;
 
+	OrchestrationModel<T> model;
 private:
 	void check_model (OrchestrationModel<T>& model) {
 		if (model.target == nullptr || model.database.size () == 0 || 

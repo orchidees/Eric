@@ -168,7 +168,6 @@ void make_db (const char* path, const std::vector<std::string>& files,
 				compute_features<float> (fullname.str ().c_str (), features, 
 					bsize, hopsize, ncoeff, type);	
 
-				std::cout << files[i] << features.size() << std::endl;
 				out << files[i] << " ";
 				for (int i = 0; i < features.size (); ++i) {
 					out << features[i] << " ";
@@ -183,6 +182,8 @@ void make_db (const char* path, const std::vector<std::string>& files,
 		}
 	}
 }
+
+#define MIN_FREQ 20
 
 template <typename T>
 void partials_to_notes (const char* name, std::map<std::string, int>& notes,
@@ -202,10 +203,9 @@ void partials_to_notes (const char* name, std::map<std::string, int>& notes,
 	ampFreqQuad(&spectrum[0], freq, bsize / 2, 44100.);
 
 	Hz2Note<T> hz2n;	
-	for (unsigned i = 0; i < peaks.size() - 1; ++i) {
+	for (unsigned i = 0; i < peaks.size () - 1; ++i) {
 		if (spectrum[peaks[i]] > threshold) {
-			// T fn = peaks[i] * freqPerBin;
-			T fn = freq[peaks[i]];
+			T fn = freq[peaks[i]]; 
 			T nfreq = 0;
 			int oct = 0;
 			int note = 0;

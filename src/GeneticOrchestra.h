@@ -21,7 +21,7 @@
 
 // -----------------------------------------------------------------------------
 
-template <typename T>
+template <typename T, template <typename X> class Forecast>
 struct GeneticOrchestra : public OptimizerI<T> {
 	GeneticOrchestra (Parameters<T>* p) : OptimizerI<T>(p) {}
 	
@@ -183,44 +183,24 @@ private:
 	}	
 
 	// evaluation --------------------------------------------------------------
-	void forecast_individual (const Solution<T>& id, 
-		const std::vector<DB_entry<T>>& database, 
-		std::vector<T>& forecast, const std::vector<T>& target) {
 
-		// T tot_nrg = 0;
-		for (unsigned i = 0; i < id.indices.size (); ++i) {
-			if (id.indices[i] == -1) continue; // silent instrument
-			DB_entry<T> e = database[id.indices[i]];
-			
-			// T no = norm<T>(&e.features[0], e.features.size ());
-			// T prod = inner_prod(&target[0], &e.features[0], target.size ());
-			// no *= no;
-
-			for (unsigned j = 0; j < target.size (); ++j) {
-				// inner product approach
-				// forecast[j] += (prod * e.features[j] / no);
-				
-				// Tardieu's product approach
-				// forecast[j] += e.features[target.size () - 1] * e.features[j];	
-				// tot_nrg += e.features[target.size () - 1];
-				
-				// plain 
-				forecast[j] += e.features[j] / id.indices.size ();	
-			}
-		}
-
-		// for (unsigned j = 0; j < target.size (); ++j) {
-		// 	forecast[j] /= tot_nrg;
-		// }
-
-		// std::cout << "norms " << norm (&target[0], target.size ()) << " " << norm (&forecast[0], forecast.size ()) << std::endl;
-	}
 	T evaluate_individual (const Solution<T>& id, const std::vector<T>& target,
 		const std::vector<DB_entry<T>>& database) {
 		std::vector<T> values (target.size (), 0);
 
-		forecast_individual(id, database, values, target);
-		return edistance<T>(&values[0], &target[0], target.size ());
+		Forecast<T>::compute(id, database, values, target);
+		//return edistance<T>(&values[0], &target[0], target.size ());
+		// T d1 = kullbackLeibler<T>(&values[0], &target[0], target.size ());
+		// T d2 = kullbackLeibler<T>(&target[0], &values[0], target.size ());
+		// std::cout << "kl " << d1 << " " << d2 << std::endl;
+		// return d1 + d2;
+
+		T sum = 0; 
+		for (unsigned i = 0; i < target.size(); ++i) {
+			sum = fabs (values[i] - target[i]);
+		}
+		std::cout << "sss " << sum << std::endl;
+		return -sum;
 	}
 
 	T evaluate_population (std::vector<Solution<T> >& population, 
