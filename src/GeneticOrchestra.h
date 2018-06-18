@@ -187,10 +187,10 @@ private:
 		const std::vector<DB_entry<T>>& database, 
 		std::vector<T>& forecast, const std::vector<T>& target) {
 		
-		// inner product approach
 		for (unsigned i = 0; i < id.indices.size (); ++i) {
 			if (id.indices[i] == -1) continue; // silent instrument
 			DB_entry<T> e = database[id.indices[i]];
+			// inner product approach
 			// T no = norm<T>(&e.features[0], e.features.size ());
 			// T prod = inner_prod(&target[0], &e.features[0], target.size ());
 			// no *= no;
