@@ -42,7 +42,7 @@ struct GeneticOrchestra : public OptimizerI<T> {
 		std::vector<Solution<T> > best_pop;
 		for (unsigned i = 0; i < OptimizerI<T>::parameters->max_epochs; ++i) {
 			total_fitness = evaluate_population(population, model.target->features, 
-				model.database, model.ncoeff);	
+				model.database);	
 
 			fitness.push_back(total_fitness);
 
@@ -83,7 +83,7 @@ struct GeneticOrchestra : public OptimizerI<T> {
 		}
 
 		evaluate_population(solutions, model.target->features, 
-			model.database, model.ncoeff);
+			model.database);
 		return max_fit;
 	}
 
@@ -186,24 +186,37 @@ private:
 	void forecast_individual (const Solution<T>& id, 
 		const std::vector<DB_entry<T>>& database, 
 		std::vector<T>& forecast, const std::vector<T>& target) {
-		
+
+		// T tot_nrg = 0;
 		for (unsigned i = 0; i < id.indices.size (); ++i) {
 			if (id.indices[i] == -1) continue; // silent instrument
 			DB_entry<T> e = database[id.indices[i]];
-			// inner product approach
+			
 			// T no = norm<T>(&e.features[0], e.features.size ());
 			// T prod = inner_prod(&target[0], &e.features[0], target.size ());
 			// no *= no;
+
 			for (unsigned j = 0; j < target.size (); ++j) {
+				// inner product approach
 				// forecast[j] += (prod * e.features[j] / no);
-				forecast[j] += (e.features[j] / id.indices.size());	
+				
+				// Tardieu's product approach
+				// forecast[j] += e.features[target.size () - 1] * e.features[j];	
+				// tot_nrg += e.features[target.size () - 1];
+				
+				// plain 
+				forecast[j] += e.features[j] / id.indices.size ();	
 			}
 		}
+
+		// for (unsigned j = 0; j < target.size (); ++j) {
+		// 	forecast[j] /= tot_nrg;
+		// }
 
 		// std::cout << "norms " << norm (&target[0], target.size ()) << " " << norm (&forecast[0], forecast.size ()) << std::endl;
 	}
 	T evaluate_individual (const Solution<T>& id, const std::vector<T>& target,
-		const std::vector<DB_entry<T>>& database, unsigned ncoeff) {
+		const std::vector<DB_entry<T>>& database) {
 		std::vector<T> values (target.size (), 0);
 
 		forecast_individual(id, database, values, target);
@@ -211,12 +224,11 @@ private:
 	}
 
 	T evaluate_population (std::vector<Solution<T> >& population, 
-		const std::vector<T>& target, const std::vector<DB_entry<T>>& database, 
-		unsigned ncoeff) {
+		const std::vector<T>& target, const std::vector<DB_entry<T>>& database) {
 		T total_fitness = 0;
 
 		for (unsigned i = 0; i < population.size (); ++i) {
-			T v =  evaluate_individual(population[i], target, database, ncoeff);
+			T v =  evaluate_individual(population[i], target, database);
 			if (v == 0) population[i].fitness = LARGE_VALUE;
 			else population[i].fitness = pow (1. / v, 2.);
 			

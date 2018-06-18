@@ -9,7 +9,7 @@
 extern const double EPS = .0000000000001;
 extern const double MINIMUM_REASONABLE_THRESHOLD = 0.005;
 extern const double RMAX = 0x7fffffff;
-extern const double LARGE_VALUE = 100000000;
+extern const double LARGE_VALUE = 1000000000;
 
 extern const double PI = 4. * atan ((double) 1.);
 extern const double TWOPI = 8. * atan ((double) 1.);

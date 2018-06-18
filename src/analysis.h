@@ -21,7 +21,7 @@
 template <typename T>
 void compute_features (const char* name, std::vector<T>& features, 
 	int bsize, int hop, int ncoeff, const std::string& type) {
-	features.resize(ncoeff, 0); // + 1);
+	features.resize(ncoeff + 1, 0); // nrg
 
 	WavInFile in (name); // raises exception on failure
 	
@@ -72,9 +72,10 @@ void compute_features (const char* name, std::vector<T>& features,
 		int rsize = i + bsize > samples ? samples - i : bsize;
 		for (unsigned j = 0; j < rsize; ++j) {
 			cdata[2 * j] = buffer[j] * win[j]; // windowing
-			nrg += buffer[j] * buffer[j];
+			T v = fabs (buffer[j]);
+			nrg += v*v;
 		}
-		nrg = std::sqrt (nrg); // frame energy
+		nrg = (nrg / rsize); // frame energy
 		tot_nrg += nrg;
 
 		fft->forward(cdata);
@@ -96,6 +97,10 @@ void compute_features (const char* name, std::vector<T>& features,
 	if (type == "spectrum") {
 		for (unsigned j = 0; j < ncoeff; ++j) {
 			features[j] = avg_coeffs[2 * j];
+		}			
+	} else if (type == "logspec") {
+		for (unsigned j = 0; j < ncoeff; ++j) {
+			features[j] = log (avg_coeffs[2 * j] + EPS);
 		}			
 	} else if (type == "specpeaks") {
 		for (unsigned j = 0; j < bsize; ++j) {
@@ -119,7 +124,7 @@ void compute_features (const char* name, std::vector<T>& features,
 		}
 
 	} else if (type == "moments") {
-		features.resize (4, 0); // fixed size
+		// features.resize (4, 0); // fixed size
 
 		for (unsigned j = 0; j < bsize; ++j) {
 			spectrum[j] = avg_coeffs[2 * j];
@@ -136,7 +141,7 @@ void compute_features (const char* name, std::vector<T>& features,
 	} else {
 		throw std::runtime_error ("invalid feature type requested");
 	} 
-	//features[ncoeff] = tot_nrg; // store total nrg
+	features[ncoeff] = tot_nrg / frames; // store total nrg
 
 	delete [] buffer;
 	delete [] cdata;
@@ -150,7 +155,8 @@ void make_db (const char* path, const std::vector<std::string>& files,
 	std::ostream& out, std::ostream& console, int bsize, int hopsize, int ncoeff, 
 	const std::string& type) {
 	std::ofstream errs ("errors.txt");
-	out << type << " " << bsize << " " << hopsize << " " << ncoeff << std::endl;
+	out << type << " " << bsize << " " << hopsize << " " << ncoeff
+		<< std::endl;
 	for (unsigned i = 0; i < files.size (); ++i) {    		
 		if (files[i].find (".wav") != std::string::npos) {
 			console << "(" << i << "/" << files.size () << ") analysing " << files[i] << "...";
@@ -162,6 +168,7 @@ void make_db (const char* path, const std::vector<std::string>& files,
 				compute_features<float> (fullname.str ().c_str (), features, 
 					bsize, hopsize, ncoeff, type);	
 
+				std::cout << files[i] << features.size() << std::endl;
 				out << files[i] << " ";
 				for (int i = 0; i < features.size (); ++i) {
 					out << features[i] << " ";

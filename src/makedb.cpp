@@ -24,7 +24,7 @@ int main (int argc, char* argv[]) {
 	try {
         if (argc != 7) {
             throw runtime_error("syntax is 'makedb path dbfile.txt feature_type bsize hopsize ncoeff'" \
-                "\n\nwhere feature_type = [spectrum | specpeaks | specenv | mfcc | moments]\n");
+                "\n\nwhere feature_type = [spectrum | logspec | specpeaks | specenv | mfcc | moments]\n");
         }
 
         ofstream out (argv[2]);
