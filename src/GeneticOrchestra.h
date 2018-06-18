@@ -17,8 +17,6 @@
 #include <vector>
 #include <deque>
 
-#define MAX_EQUAL_FITNESS 15
-
 // -----------------------------------------------------------------------------
 
 template <typename T, template <typename X> class Forecast>
@@ -44,8 +42,6 @@ struct GeneticOrchestra : public OptimizerI<T> {
 			total_fitness = evaluate_population(population, model.target->features, 
 				model.database);	
 
-			fitness.push_back(total_fitness);
-
 			std::vector<Solution<T> > new_pop;
 			gen_offspring_population(model, population, new_pop, 
 				OptimizerI<T>::parameters->pop_size, total_fitness,
@@ -61,10 +57,15 @@ struct GeneticOrchestra : public OptimizerI<T> {
 				best_pop = new_pop;
 				best_epoch = i;
 			}
-			if (total_fitness >= LARGE_VALUE) break;
-			if (old_fit == total_fitness) ++fit_count;
-			if (fit_count > MAX_EQUAL_FITNESS) break;
-			old_fit = total_fitness;
+			fitness.push_back(max_fit);
+
+			std::cout << "epoch " << i << " " << max_fit << std::endl;
+
+			if (old_fit == max_fit) ++fit_count;
+			else fit_count = 0;
+			if (fit_count > OptimizerI<T>::parameters->max_epochs / 4) break;
+
+			old_fit = max_fit;
 		}		
 
 		if (best_pop.size () == 0) {
@@ -189,18 +190,17 @@ private:
 		std::vector<T> values (target.size (), 0);
 
 		Forecast<T>::compute(id, database, values, target);
-		//return edistance<T>(&values[0], &target[0], target.size ());
+		// return edistance<T>(&values[0], &target[0], target.size ());
 		// T d1 = kullbackLeibler<T>(&values[0], &target[0], target.size ());
 		// T d2 = kullbackLeibler<T>(&target[0], &values[0], target.size ());
 		// std::cout << "kl " << d1 << " " << d2 << std::endl;
 		// return d1 + d2;
 
-		T sum = 0; 
+		T s = 0; 
 		for (unsigned i = 0; i < target.size(); ++i) {
-			sum = fabs (values[i] - target[i]);
+			s += fabs (values[i] - target[i]);
 		}
-		std::cout << "sss " << sum << std::endl;
-		return -sum;
+		return s;
 	}
 
 	T evaluate_population (std::vector<Solution<T> >& population, 
@@ -210,7 +210,7 @@ private:
 		for (unsigned i = 0; i < population.size (); ++i) {
 			T v =  evaluate_individual(population[i], target, database);
 			if (v == 0) population[i].fitness = LARGE_VALUE;
-			else population[i].fitness = pow (1. / v, 2.);
+			else population[i].fitness = 1. / v; //pow (1. / v, 2.);
 			
 			total_fitness += population[i].fitness;
 		}

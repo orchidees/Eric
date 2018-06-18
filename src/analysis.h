@@ -108,7 +108,7 @@ void compute_features (const char* name, std::vector<T>& features,
 		}		
 		std::vector<int> peaks;
 		locmax(spectrum, bsize / 2, peaks);
-	
+		
 		if (peaks.size () < ncoeff) peaks.resize (ncoeff, 0); // preserves data
 		for (unsigned j = 0; j < ncoeff; ++j) {
 			features[j] = spectrum[peaks[j]];

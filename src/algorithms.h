@@ -407,13 +407,13 @@ T taxicab (const T* a, const T* b, int size) {
 }
 
 template <typename T>
-T kullbackLeibler (const T* a, const T* b, int size){
+T kullbackLeibler (const T* p, const T* q, int size){
 	T d = 0;
 	for (int i = 0; i < size; ++i){
-		d += a[i] * log (a[i] / (b[i] + EPS));
+		d += p[i] * log (p[i] / (q[i] + EPS));
 	}
 	if (std::isnan(d) || std::isinf(d)) return 0;
-	else return -d;
+	else return d;
 }
 
 // ------------------------------------------------------------------//
