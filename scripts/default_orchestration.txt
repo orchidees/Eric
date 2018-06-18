@@ -14,7 +14,7 @@
 db_files 			/Users/Carmine/Desktop/Datasets/OrchDB_mfcc.txt
 sound_paths			/Users/Carmine/Desktop/Datasets/OrchDB_flat
 
-orchestra			Fl Fl Ob Ob ClBb ClBb Bn Bn Hn Hn TpC TpC TTbn TTbn BTb Vn Vn Va Va Vc Vc Cb Cb
+;orchestra			Fl Fl Ob Ob ClBb ClBb Bn Bn Hn Hn TpC TpC TTbn TTbn BTb Vn Vn Va Va Vc Vc Cb Cb
 
 ;orchestra 	 		Bn Cb Hn Tbn+C|Tbn+H|Tbn+S BTb TpC+C|TpC+H|TpC+S
 ;orchestra			Fl|Ob Hn|TpC Va|Vc
@@ -23,7 +23,7 @@ orchestra			Fl Fl Ob Ob ClBb ClBb Bn Bn Hn Hn TpC TpC TTbn TTbn BTb Vn Vn Va Va 
 ;orchestra 	 		Bn Cb Hn Tbn+C|Tbn+H|Tbn+S BTb TpC+C|TpC+H|TpC+S MulFl|MulOb MulCl|MulBn tt
 ;orchestra 	 		Tbn+C|Tbn+H|Tbn+S BTb TpC+C|TpC+H|TpC+S MulFl|MulOb MulCl|MulBn tt
 ;orchestra			Fl Ob Vn
-;orchestra 	 		Bn Bn Hn Hn Tbn Tbn BTb Cb tt MulBn
+orchestra 	 		Bn Bn Hn Hn TTbn TTbn BTb Cb tt MulBn
 ;orchestra 	 		Fl Fl Ob Ob|MulOb ClBb ClBb|MulCl TpC TpC+C|TpC+H|TpC+S Vn Vn Vn Vn Va Va Va Va tt
 ;orchestra 	 		Fl Fl Fl Ob Ob Ob|MulOb ClBb ClBb ClBb|MulCl TpC TpC
 
