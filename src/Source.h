@@ -131,7 +131,7 @@ struct Source {
 					e.features.push_back(f);
 				}
 
-				if (e.features.size () != ncoeff + 1) { // nrg
+				if (e.features.size () != ncoeff) { //+ 1) { // nrg
 					std::stringstream err;
 					err << "invalid number of features in db at line " << lineno;
 					throw std::runtime_error (err.str ());

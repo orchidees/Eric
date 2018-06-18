@@ -21,7 +21,7 @@
 template <typename T>
 void compute_features (const char* name, std::vector<T>& features, 
 	int bsize, int hop, int ncoeff, const std::string& type) {
-	features.resize(ncoeff + 1, 0); // nrg
+	features.resize(ncoeff, 0); // + 1, 0); // nrg
 
 	WavInFile in (name); // raises exception on failure
 	
@@ -141,7 +141,7 @@ void compute_features (const char* name, std::vector<T>& features,
 	} else {
 		throw std::runtime_error ("invalid feature type requested");
 	} 
-	features[ncoeff] = tot_nrg / frames; // store total nrg
+	// features[ncoeff] = tot_nrg / frames; // store total nrg
 
 	delete [] buffer;
 	delete [] cdata;
