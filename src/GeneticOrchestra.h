@@ -17,6 +17,8 @@
 #include <vector>
 #include <deque>
 
+#define MAX_EQUAL_EPOCHS 150
+
 // -----------------------------------------------------------------------------
 
 template <typename T, template <typename X> class Forecast>
@@ -57,13 +59,13 @@ struct GeneticOrchestra : public OptimizerI<T> {
 				best_pop = new_pop;
 				best_epoch = i;
 			}
-			fitness.push_back(max_fit);
+			fitness.push_back(total_fitness);
 
-			std::cout << "epoch " << i << " " << max_fit << std::endl;
+			std::cout << "epoch " << i << " " << max_fit <<" " << total_fitness << std::endl;
 
 			if (old_fit == max_fit) ++fit_count;
 			else fit_count = 0;
-			if (fit_count > OptimizerI<T>::parameters->max_epochs / 4) break;
+			if (fit_count > MAX_EQUAL_EPOCHS) break;
 
 			old_fit = max_fit;
 		}		
@@ -190,11 +192,14 @@ private:
 		std::vector<T> values (target.size (), 0);
 
 		Forecast<T>::compute(id, database, values, target);
+		// normalize(&values[0], &values[0], values.size ());
+		// int scount = 0;
+		// for (int i = 0; i < id.indices.size (); ++i) {
+		// 	if (id.indices[i] == -1) ++scount;
+		// }
+
+		// T norm = id.indices.size () - scount;
 		// return edistance<T>(&values[0], &target[0], target.size ());
-		// T d1 = kullbackLeibler<T>(&values[0], &target[0], target.size ());
-		// T d2 = kullbackLeibler<T>(&target[0], &values[0], target.size ());
-		// std::cout << "kl " << d1 << " " << d2 << std::endl;
-		// return d1 + d2;
 
 		T s = 0; 
 		for (unsigned i = 0; i < target.size(); ++i) {
@@ -229,17 +234,32 @@ private:
 			Solution<T> parent_a = select_parent(old_pop, total_fitness);
 			Solution<T> parent_b = select_parent(old_pop, total_fitness);
 
+			for (unsigned i = 0; i <parent_a.indices.size (); ++i) {
+				std::cout << parent_a.indices[i] << " ";
+			}
+			std::cout << std::endl << "-------------" << std::endl;
+
+			for (unsigned i = 0; i <parent_b.indices.size (); ++i) {
+				std::cout << parent_b.indices[i] << " ";
+			}
+			std::cout << std::endl;
+			
 			Solution<T> offspring1, offspring2;
-			crossover_parents (offspring1, offspring2, parent_a, parent_b, crossover_rate);
+			crossover_parents (offspring1, offspring2, parent_a, parent_b, 
+				crossover_rate);
 			
 			mutate_individual (model, offspring1, mutation_rate);
 			mutate_individual (model, offspring2, mutation_rate);
-			
+
 			apply_sparsity(offspring1, sparsity);
 			apply_sparsity(offspring2, sparsity);
 
+			// new_pop.push_back(parent_a);
+			// new_pop.push_back(parent_b);
+			
 			new_pop.push_back(offspring1);
 			new_pop.push_back(offspring2);
+
 		}
 	}	
 	Solution<T> select_parent (const std::vector<Solution<T> >& population, 
@@ -279,6 +299,7 @@ private:
 		std::stringstream mutation;
 
 		for (unsigned i = 0; i < id.indices.size (); ++i) {
+			if (id.indices[i] == -1) continue; // cannot recreate instruments
 			T choice = frand<T>(0., 1.);
 			
 			if (choice < mutation_rate) {

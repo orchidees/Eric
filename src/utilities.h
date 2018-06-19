@@ -71,11 +71,9 @@ void save_vector (const char* file, const std::vector<T>& v) {
 		throw std::runtime_error ("cannot create output file");
 	}
 
-	out << "[";
 	for (unsigned i = 0; i < v.size (); ++i) {
 		out << v[i] << " ";
 	}
-	out << "]";
 	out.close ();
 }
 // -----------------------------------------------------------------------------
