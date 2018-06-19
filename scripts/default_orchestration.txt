@@ -8,8 +8,12 @@
 ;db_files 			CSOL_tam_tam_spectrum.txt CSOL_multiphonics_spectrum.txt CSOL_ordinario_spectrum.txt
 ;sound_paths			/Users/Carmine/Elementi/Datasets/CSOL_tam_tam /Users/Carmine/Elementi/Datasets/CSOL_multiphonics /Users/Carmine/Elementi/Datasets/CSOL_ordinario
 	
-db_files 			/Users/cella/Desktop/CSOL_ordinario_spectrum.txt
-sound_paths			/Users/cella/Desktop/CSOL_ordinario
+;db_files 			/Users/cella/Desktop/CSOL_ordinario_spectrum.txt
+;sound_paths			/Users/cella/Desktop/CSOL_ordinario
+
+db_files 			CSOL_ordinario_spectrum.txt
+sound_paths			/Users/Carmine/Elementi/Datasets/CSOL_ordinario
+
 
 ;db_files 			/Users/cella/Desktop/OrchDB_mfcc.txt
 ;sound_paths			/Users/cella/Desktop/OrchDB_flat
@@ -36,7 +40,7 @@ max_epochs			500
 pursuit				3
 xover_rate			0.8
 mutation_rate		0.1
-sparsity			0.01
+sparsity			0.1
 
 partials_window		32768
 partials_filtering	0.3

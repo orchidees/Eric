@@ -61,7 +61,7 @@ struct GeneticOrchestra : public OptimizerI<T> {
 			}
 			fitness.push_back(total_fitness);
 
-			std::cout << "epoch " << i << " " << max_fit <<" " << total_fitness << std::endl;
+			// std::cout << "epoch " << i << " " << max_fit <<" " << total_fitness << std::endl;
 
 			if (old_fit == max_fit) ++fit_count;
 			else fit_count = 0;
@@ -234,15 +234,15 @@ private:
 			Solution<T> parent_a = select_parent(old_pop, total_fitness);
 			Solution<T> parent_b = select_parent(old_pop, total_fitness);
 
-			for (unsigned i = 0; i <parent_a.indices.size (); ++i) {
-				std::cout << parent_a.indices[i] << " ";
-			}
-			std::cout << std::endl << "-------------" << std::endl;
+			// for (unsigned i = 0; i <parent_a.indices.size (); ++i) {
+			// 	std::cout << parent_a.indices[i] << " ";
+			// }
+			// std::cout << std::endl << "-------------" << std::endl;
 
-			for (unsigned i = 0; i <parent_b.indices.size (); ++i) {
-				std::cout << parent_b.indices[i] << " ";
-			}
-			std::cout << std::endl;
+			// for (unsigned i = 0; i <parent_b.indices.size (); ++i) {
+			// 	std::cout << parent_b.indices[i] << " ";
+			// }
+			// std::cout << std::endl;
 			
 			Solution<T> offspring1, offspring2;
 			crossover_parents (offspring1, offspring2, parent_a, parent_b, 
@@ -254,8 +254,8 @@ private:
 			apply_sparsity(offspring1, sparsity);
 			apply_sparsity(offspring2, sparsity);
 
-			// new_pop.push_back(parent_a);
-			// new_pop.push_back(parent_b);
+			new_pop.push_back(parent_a);
+			new_pop.push_back(parent_b);
 			
 			new_pop.push_back(offspring1);
 			new_pop.push_back(offspring2);
