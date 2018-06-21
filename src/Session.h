@@ -32,6 +32,7 @@ struct Session {
 		T fit = optim->search(model, solutions);
 		std::sort (solutions.begin (), solutions.end ());
 		std::reverse(solutions.begin (), solutions.end());
+
 		return fit;
 	}
 	std::ostream& dump_solution (std::ostream& out, 

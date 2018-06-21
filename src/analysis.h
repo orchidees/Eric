@@ -116,7 +116,14 @@ void compute_features (const char* name, std::vector<T>& features,
 				features[peaks[j]] = spectrum[peaks[j]];
 			}
 		}			
-		features.resize (ncoeff, 0);
+
+		// if (peaks.size () < ncoeff) peaks.resize (ncoeff, 0);
+		// for (unsigned j = 0; j < ncoeff; ++j) {
+		// 	if (spectrum[peaks[j]] > m) {
+		// 		features[j] = spectrum[peaks[j]];
+		// 	}
+		// }			
+		features.resize (ncoeff, 0);		
 	} else if (type == "specenv") {
 		cepstralEnvelope(NUM_SMOOTH, avg_coeffs, env, fft, bsize);
 		for (unsigned j = 0; j < ncoeff; ++j) {

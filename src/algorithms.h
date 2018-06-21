@@ -248,6 +248,16 @@ void normalize2(const T* data, T* result, int N) {
 }
 
 template <typename T>
+void normalize3(const T* data, T* result, int N) {
+	int mpos = 0;
+	T max = maximum(data, N, mpos);
+
+	for (int i = 0; i < N; ++i) {
+		result[i] = max != 0 ? (data[i] / max) : 0;
+	}
+}
+
+template <typename T>
 void unnormalize(const T* data, T* result, int N) {
 	T min = data[0];
 	T max = data[0];

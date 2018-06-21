@@ -195,22 +195,16 @@ private:
 
 		Forecast<T>::compute(id, database, values, target);
 		normalize2(&values[0], &values[0], values.size ());
-		// int scount = 0;
-		// for (int i = 0; i < id.indices.size (); ++i) {
-		// 	if (id.indices[i] == -1) ++scount;
-		// }
-
-		// T norm = id.indices.size () - scount;
-		// return edistance<T>(&values[0], &target[0], target.size ());
 
 		T s = 0; 
 		for (unsigned i = 0; i < target.size(); ++i) {
-			// T diff = values[i] - target[i];
-			// if (diff >= 0) s += diff;
- 			// 	else s += pow (fabs (diff), 2);
-			s += fabs (values[i] - target[i]);
+			T diff = values[i] - target[i];
+			if (diff >= 0) s += OptimizerI<T>::parameters->positive_penalization *  diff;
+ 			else s +=  OptimizerI<T>::parameters->negative_penalization * fabs (diff);
 		}
 		return s;
+
+		// return edistance<T>(&values[0], &target[0], target.size ());
 	}
 
 	T evaluate_population (std::vector<Solution<T> >& population, 

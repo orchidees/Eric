@@ -24,7 +24,7 @@ struct Target {
 	void analyze (const char* name) {
 		compute_features<T>(name, features, source->bsize, 
 			source->hopsize, source->ncoeff, source->type);
-		normalize2 (&features[0], &features[0], features.size ());
+		normalize2(&features[0], &features[0], features.size ());
 
 		if (parameters->partials_filtering > 0) {
 			partials_to_notes<T> (name, notes, 

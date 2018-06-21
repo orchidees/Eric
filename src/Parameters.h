@@ -23,6 +23,8 @@ struct Parameters {
 		xover_rate = .7;
 		mutation_rate = .01;
 		sparsity = 0.001;
+		positive_penalization = 1.;
+		negative_penalization = 1.;
 		partials_window = 4096;
 		partials_filtering = .2;
 		export_solutions = 30;
@@ -100,6 +102,10 @@ struct Parameters {
 	        	mutation_rate = atof (tokens[1].c_str ());
 	        } else if (tokens[0] == "sparsity") {
 	        	sparsity = atof (tokens[1].c_str ());
+	        } else if (tokens[0] == "positive_penalization") {
+	        	positive_penalization = atof (tokens[1].c_str ());
+	        } else if (tokens[0] == "negative_penalization") {
+	        	negative_penalization = atof (tokens[1].c_str ());
 	        } else if (tokens[0] == "partials_window") {
 	        	partials_window = atol (tokens[1].c_str ());
 	        } else if (tokens[0] == "partials_filtering") {
@@ -174,6 +180,8 @@ struct Parameters {
 	T xover_rate;
 	T mutation_rate;
 	T sparsity;
+	T positive_penalization;
+	T negative_penalization;
 	int partials_window;
 	T partials_filtering;
 	std::vector<std::string> extra_pitches;
