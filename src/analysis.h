@@ -109,10 +109,14 @@ void compute_features (const char* name, std::vector<T>& features,
 		std::vector<int> peaks;
 		locmax(spectrum, bsize / 2, peaks);
 		
-		if (peaks.size () < ncoeff) peaks.resize (ncoeff, 0); // preserves data
-		for (unsigned j = 0; j < ncoeff; ++j) {
-			features[j] = spectrum[peaks[j]];
+		T m = mean (spectrum, bsize / 2);
+		features.resize (bsize / 2, 0);
+		for (unsigned j = 0; j < peaks.size (); ++j) {
+			if (spectrum[peaks[j]] > m) {
+				features[peaks[j]] = spectrum[peaks[j]];
+			}
 		}			
+		features.resize (ncoeff, 0);
 	} else if (type == "specenv") {
 		cepstralEnvelope(NUM_SMOOTH, avg_coeffs, env, fft, bsize);
 		for (unsigned j = 0; j < ncoeff; ++j) {

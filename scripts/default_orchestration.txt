@@ -11,8 +11,8 @@
 ;db_files 			/Users/cella/Desktop/CSOL_ordinario_spectrum.txt
 ;sound_paths			/Users/cella/Desktop/CSOL_ordinario
 
-db_files 			CSOL_ordinario_spectrum.txt
-sound_paths			/Users/Carmine/Elementi/Datasets/CSOL_ordinario
+db_files 			/Users/Carmine/Desktop/Datasets/CSOL_ordinario_specpeaks.txt
+sound_paths			/Users/Carmine/Desktop/Datasets/CSOL_ordinario
 
 
 ;db_files 			/Users/cella/Desktop/OrchDB_mfcc.txt
@@ -35,15 +35,15 @@ styles				ord
 ;dynamics			ppp pp p mf f N
 ;others				2c 4c 
 
-pop_size			400
+pop_size			1500
 max_epochs			500
 pursuit				3
 xover_rate			0.8
-mutation_rate		0.1
-sparsity			0.1
+mutation_rate		0.05
+sparsity			0.001
 
 partials_window		32768
-partials_filtering	0.3
+partials_filtering	0
 ;extra_pitches		N
 
 export_solutions	20

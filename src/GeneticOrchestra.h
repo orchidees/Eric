@@ -28,7 +28,7 @@ struct GeneticOrchestra : public OptimizerI<T> {
 	T search (OrchestrationModel<T>& model,
 		std::vector<Solution<T> >& solutions) {
 		std::vector<Solution<T> > population (OptimizerI<T>::parameters->pop_size);
-		gen_population (model, population, model.target->features, 
+		gen_init_population (model, population, model.target->features, 
 			OptimizerI<T>::parameters->pursuit);	
 
 		fitness.clear ();
@@ -94,7 +94,7 @@ struct GeneticOrchestra : public OptimizerI<T> {
 	int best_epoch;
 private:	
 	// init population ---------------------------------------------------------
-	void gen_population (OrchestrationModel<T>& model,
+	void gen_init_population (OrchestrationModel<T>& model,
 		std::vector<Solution<T> >& population, 
 		const std::vector<T>& target,
 		int k) {
@@ -104,7 +104,9 @@ private:
 					gen_random_chromosome(model, population[i].indices);
 				break;
 				default:
-					gen_pursuit_chromosome(model, population[i].indices, target, k);	
+					gen_pursuit_chromosome(model, population[i].indices, target, k);
+					mutate_individual (model, population[i], 
+						OptimizerI<T>::parameters->mutation_rate);	
 				break;	
 			}
 		}
@@ -192,7 +194,7 @@ private:
 		std::vector<T> values (target.size (), 0);
 
 		Forecast<T>::compute(id, database, values, target);
-		// normalize(&values[0], &values[0], values.size ());
+		normalize2(&values[0], &values[0], values.size ());
 		// int scount = 0;
 		// for (int i = 0; i < id.indices.size (); ++i) {
 		// 	if (id.indices[i] == -1) ++scount;
@@ -203,6 +205,9 @@ private:
 
 		T s = 0; 
 		for (unsigned i = 0; i < target.size(); ++i) {
+			// T diff = values[i] - target[i];
+			// if (diff >= 0) s += diff;
+ 			// 	else s += pow (fabs (diff), 2);
 			s += fabs (values[i] - target[i]);
 		}
 		return s;
@@ -254,8 +259,8 @@ private:
 			apply_sparsity(offspring1, sparsity);
 			apply_sparsity(offspring2, sparsity);
 
-			new_pop.push_back(parent_a);
-			new_pop.push_back(parent_b);
+			// new_pop.push_back(parent_a);
+			// new_pop.push_back(parent_b);
 			
 			new_pop.push_back(offspring1);
 			new_pop.push_back(offspring2);
