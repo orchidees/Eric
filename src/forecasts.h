@@ -5,16 +5,47 @@
 #ifndef FORECASTS_H
 #define FORECASTS_H 
 
+#include "utilities.h"
+#include "analysis.h"
 #include "Source.h"
 #include "OptimizerI.h"
 
 #include <vector>
 
+// template <typename T>
+// struct TrueFeatures {
+// 	static void compute (const Solution<T>& id, 
+// 		const std::vector<DB_entry<T>>& database, 
+// 		std::vector<T>& forecast, const std::vector<T>& target,
+// 		const Parameters<T>* params) {
+
+// 		std::vector<std::string> files;
+// 		std::vector<T> ratios;
+// 		std::vector<T> pans;
+// 		for (unsigned i = 0; i < id.indices.size (); ++i) {
+// 			if (id.indices[i] == -1) continue; // silent instrument
+// 			DB_entry<T> e = database[id.indices[i]];
+// 			files.push_back(e.file);
+// 			ratios.push_back(1.);
+// 			pans.push_back(.5);
+// 		}
+
+
+// 		create_sound_mix<T>(files, params->sound_paths, ratios, pans, 
+// 			"forecast.wav", 1., params->dry_wet);
+
+// 		// FIXME: params to be taken from Source
+// 		compute_features("forecast.wav", forecast,4096, 2048, 
+// 			1024, "specpeaks");
+// 	}
+// };
+
 template <typename T>
 struct AdditiveForecast {
 	static void compute (const Solution<T>& id, 
 		const std::vector<DB_entry<T>>& database, 
-		std::vector<T>& forecast, const std::vector<T>& target) {
+		std::vector<T>& forecast, const std::vector<T>& target,
+		const Parameters<T>* params) {
 
 		for (unsigned i = 0; i < id.indices.size (); ++i) {
 			if (id.indices[i] == -1) continue; // silent instrument
@@ -27,33 +58,35 @@ struct AdditiveForecast {
 	}
 };
 
-template <typename T>
-struct ProjectiveForecast {
-	static void compute (const Solution<T>& id, 
-		const std::vector<DB_entry<T>>& database, 
-		std::vector<T>& forecast, const std::vector<T>& target) {
+// template <typename T>
+// struct ProjectiveForecast {
+// 	static void compute (const Solution<T>& id, 
+// 		const std::vector<DB_entry<T>>& database, 
+// 		std::vector<T>& forecast, const std::vector<T>& target,
+// 		const Parameters<T>* params) {
 
 
-		for (unsigned i = 0; i < id.indices.size (); ++i) {
-			if (id.indices[i] == -1) continue; // silent instrument
-			DB_entry<T> e = database[id.indices[i]];
+// 		for (unsigned i = 0; i < id.indices.size (); ++i) {
+// 			if (id.indices[i] == -1) continue; // silent instrument
+// 			DB_entry<T> e = database[id.indices[i]];
 			
-			T no = norm<T>(&e.features[0], e.features.size ());
-			T prod = inner_prod(&target[0], &e.features[0], target.size ());
-			no *= no;
+// 			T no = norm<T>(&e.features[0], e.features.size ());
+// 			T prod = inner_prod(&target[0], &e.features[0], target.size ());
+// 			no *= no;
 
-			for (unsigned j = 0; j < target.size (); ++j) {
-				forecast[j] += (prod * e.features[j] / no);
-			}
-		}
-	}
-};
+// 			for (unsigned j = 0; j < target.size (); ++j) {
+// 				forecast[j] += (prod * e.features[j] / no);
+// 			}
+// 		}
+// 	}
+// };
 
 template <typename T>
 struct EnergyLevelForecast {
 	static void compute (const Solution<T>& id, 
 		const std::vector<DB_entry<T>>& database, 
-		std::vector<T>& forecast, const std::vector<T>& target) {
+		std::vector<T>& forecast, const std::vector<T>& target,
+		const Parameters<T>* params) {
 
 		T tot_nrg = 0;
 		for (unsigned i = 0; i < id.indices.size (); ++i) {
@@ -67,7 +100,7 @@ struct EnergyLevelForecast {
 				tot_nrg += nrg;
 			}
 		}
-		
+
 		for (unsigned j = 0; j < target.size (); ++j) {
 			forecast[j] = (tot_nrg != 0 ? forecast[j] / tot_nrg : 0);
 		}

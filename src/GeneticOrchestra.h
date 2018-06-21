@@ -61,7 +61,7 @@ struct GeneticOrchestra : public OptimizerI<T> {
 			}
 			fitness.push_back(total_fitness);
 
-			// std::cout << "epoch " << i << " " << max_fit <<" " << total_fitness << std::endl;
+			std::cout << "epoch " << i << " " << max_fit <<" " << total_fitness << std::endl;
 
 			if (old_fit == max_fit) ++fit_count;
 			else fit_count = 0;
@@ -193,7 +193,7 @@ private:
 		const std::vector<DB_entry<T>>& database) {
 		std::vector<T> values (target.size (), 0);
 
-		Forecast<T>::compute(id, database, values, target);
+		Forecast<T>::compute(id, database, values, target, OptimizerI<T>::parameters);
 		normalize2(&values[0], &values[0], values.size ());
 
 		T s = 0; 

@@ -11,7 +11,7 @@
 ;db_files 			/Users/cella/Desktop/CSOL_ordinario_spectrum.txt
 ;sound_paths			/Users/cella/Desktop/CSOL_ordinario
 
-;db_files 			/Users/Carmine/Desktop/Datasets/CSOL_ordinario_specpeaks.txt
+;db_files 			/Users/Carmine/Desktop/Datasets/CSOL_ordinario_spectrum.txt
 ;sound_paths			/Users/Carmine/Desktop/Datasets/CSOL_ordinario
 
 
@@ -45,7 +45,7 @@ positive_penalization .5
 negative_penalization 2
 
 partials_window		32768
-partials_filtering	0
+partials_filtering	0.1
 ;extra_pitches		N
 
 export_solutions	20

@@ -37,6 +37,8 @@ using namespace std;
 
 // AbstractAnalysis, StaticSpectralFeatures,  Matrix
 
+#define FORECAST_POLICY AdditiveForecast
+
 int main (int argc, char* argv[]) {
 	srand (time (NULL));
 
@@ -93,7 +95,7 @@ int main (int argc, char* argv[]) {
 		}
 
 		// ga ------------------------------------------------------------------
-		GeneticOrchestra<float, AdditiveForecast> ga (&params);
+		GeneticOrchestra<float, FORECAST_POLICY> ga (&params);
 		Session<float> session (&source, &params, &ga);
 		
 		cout << "searching............... "; cout.flush ();
@@ -108,7 +110,8 @@ int main (int argc, char* argv[]) {
 	
 		if (solutions.size ()) {
 			vector<float> fcast (target.features.size ());
-			AdditiveForecast<float>::compute(solutions[0], source.database, fcast, target.features);
+			FORECAST_POLICY<float>::compute(solutions[0], source.database, fcast, 
+				target.features, &params);
 			normalize2(&fcast[0], &fcast[0], target.features.size());
 			save_vector("best_solution.txt", fcast);
 
