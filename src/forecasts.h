@@ -60,20 +60,20 @@ struct EnergyLevelForecast {
 			if (id.indices[i] == -1) continue; // silent instrument
 			DB_entry<T> e = database[id.indices[i]];
 			
-			T nrg = map_dynamic (e);
-			std::cout << e.file << " " << nrg << std::endl;
+			T nrg = map_dynamics (e);
+
 			for (unsigned j = 0; j < target.size (); ++j) {
 				forecast[j] += nrg * e.features[j];	
 				tot_nrg += nrg;
 			}
 		}
-
+		
 		for (unsigned j = 0; j < target.size (); ++j) {
-			forecast[j] /= tot_nrg;
+			forecast[j] = (tot_nrg != 0 ? forecast[j] / tot_nrg : 0);
 		}
 	}
 private:
-	static T map_dynamic (const DB_entry<T>& e) {
+	static T map_dynamics (const DB_entry<T>& e) {
 		if (e.symbols[3] == "ppp") return 1;
 		if (e.symbols[3] == "pp") return 2;
 		if (e.symbols[3] == "p") return 3;

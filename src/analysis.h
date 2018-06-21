@@ -215,8 +215,9 @@ void partials_to_notes (const char* name, std::map<std::string, int>& notes,
 
 	Hz2Note<T> hz2n;	
 	for (unsigned i = 0; i < peaks.size () - 1; ++i) {
-		if (spectrum[peaks[i]] > threshold) {
-			T fn = freq[peaks[i]]; 
+		T fn = freq[peaks[i]]; 
+		if (spectrum[peaks[i]] > threshold &&
+			fn > 27.5) {
 			T nfreq = 0;
 			int oct = 0;
 			int note = 0;

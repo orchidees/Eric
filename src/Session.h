@@ -30,6 +30,7 @@ struct Session {
 		std::vector<Solution<T> >& solutions) {
 		make_model(target, model);
 		T fit = optim->search(model, solutions);
+
 		std::sort (solutions.begin (), solutions.end ());
 		std::reverse(solutions.begin (), solutions.end());
 

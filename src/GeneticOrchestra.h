@@ -223,7 +223,7 @@ private:
 	
 	// offsprings --------------------------------------------------------------
 	void gen_offspring_population (OrchestrationModel<T>& model,
-		const std::vector<Solution<T>>& old_pop,
+		std::vector<Solution<T>>& old_pop,
 		std::vector<Solution<T>>& new_pop, unsigned n_individuals, T total_fitness,
 		T crossover_rate, T mutation_rate, T sparsity,
 		const std::vector<std::string>& orchestra, 
@@ -258,7 +258,13 @@ private:
 			
 			new_pop.push_back(offspring1);
 			new_pop.push_back(offspring2);
+		}
 
+		for (typename std::vector<Solution<T> >::iterator it = new_pop.begin (); 
+			it != new_pop.end (); /*--*/) {
+			if (it->is_empty ()) {
+				new_pop.erase(it);
+			} else ++it;
 		}
 	}	
 	Solution<T> select_parent (const std::vector<Solution<T> >& population, 

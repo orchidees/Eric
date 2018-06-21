@@ -109,6 +109,7 @@ int main (int argc, char* argv[]) {
 		if (solutions.size ()) {
 			vector<float> fcast (target.features.size ());
 			AdditiveForecast<float>::compute(solutions[0], source.database, fcast, target.features);
+			normalize2(&fcast[0], &fcast[0], target.features.size());
 			save_vector("best_solution.txt", fcast);
 
 			cout << "best solution........... ";

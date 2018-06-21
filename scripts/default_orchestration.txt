@@ -11,14 +11,14 @@
 ;db_files 			/Users/cella/Desktop/CSOL_ordinario_spectrum.txt
 ;sound_paths			/Users/cella/Desktop/CSOL_ordinario
 
-db_files 			/Users/Carmine/Desktop/Datasets/CSOL_ordinario_specpeaks.txt
-sound_paths			/Users/Carmine/Desktop/Datasets/CSOL_ordinario
+;db_files 			/Users/Carmine/Desktop/Datasets/CSOL_ordinario_specpeaks.txt
+;sound_paths			/Users/Carmine/Desktop/Datasets/CSOL_ordinario
 
 
-;db_files 			/Users/cella/Desktop/OrchDB_mfcc.txt
-;sound_paths			/Users/cella/Desktop/OrchDB_flat
+db_files 			/Users/Carmine/Desktop/Datasets/OrchDB_spectrum.txt
+sound_paths			/Users/Carmine/Desktop/Datasets/OrchDB_flat
 
-orchestra			Fl Fl Ob Ob ClBb ClBb Bn Bn Hn Hn TpC TpC Tbn Tbn BTb Vn Vn Va Va Vc Vc Cb Cb
+orchestra			Acc Fl Fl Ob Ob ClBb ClBb Bn Bn Hn Hn TpC TpC Tbn Tbn BTb Vn Vn Va Va Vc Vc Cb Cb
 
 ;orchestra 	 		Bn Cb Hn Tbn+C|Tbn+H|Tbn+S BTb TpC+C|TpC+H|TpC+S
 ;orchestra			Fl|Ob Hn|TpC Va|Vc
@@ -40,14 +40,14 @@ max_epochs			500
 pursuit				0
 xover_rate			0.8
 mutation_rate		0.05
-sparsity			0.001
+sparsity			0.01
 positive_penalization .5
-negative_penalization 10
+negative_penalization 2
 
 partials_window		32768
-partials_filtering	0.2
+partials_filtering	0
 ;extra_pitches		N
 
 export_solutions	20
-t60					2.7
-dry_wet				.8 .3
+t60					1.7
+dry_wet				.7 .3

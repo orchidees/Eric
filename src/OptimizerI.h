@@ -18,6 +18,13 @@ struct Solution {
 	bool operator< (const Solution<T>& rhs) const {
 		return this->fitness < rhs.fitness;
 	}
+	bool is_empty () {
+		int scount = 0; 
+		for (unsigned j = 0; j < indices.size (); ++j) {
+			if (indices[j] == -1) ++scount;
+		}
+		return scount == indices.size ();
+	}	
 };
 
 template <typename T>
