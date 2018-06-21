@@ -14,24 +14,29 @@
 ;db_files 			/Users/Carmine/Desktop/Datasets/CSOL_ordinario_spectrum.txt
 ;sound_paths			/Users/Carmine/Desktop/Datasets/CSOL_ordinario
 
-
 db_files 			/Users/Carmine/Desktop/Datasets/OrchDB_spectrum.txt
 sound_paths			/Users/Carmine/Desktop/Datasets/OrchDB_flat
 
-orchestra			Acc Fl Fl Ob Ob ClBb ClBb Bn Bn Hn Hn TpC TpC Tbn Tbn BTb Vn Vn Va Va Vc Vc Cb Cb
+
+;db_files 			/Users/Carmine/Desktop/Datasets/CSOL_tam_tam_spectrum.txt /Users/Carmine/Desktop/Datasets/CSOL_multiphonics_spectrum.txt /Users/Carmine/Desktop/Datasets/OrchDB_spectrum.txt
+;sound_paths			/Users/Carmine/Desktop/Datasets/CSOL_tam_tam /Users/Carmine/Desktop/Datasets/CSOL_multiphonics /Users/Carmine/Desktop/Datasets/OrchDB_flat
+
+;orchestra			Acc Fl Fl Ob Ob ClBb ClBb Bn Bn Hn Hn TpC TpC Tbn Tbn BTb Vn Vn Va Va Vc Vc Cb Cb
 
 ;orchestra 	 		Bn Cb Hn Tbn+C|Tbn+H|Tbn+S BTb TpC+C|TpC+H|TpC+S
 ;orchestra			Fl|Ob Hn|TpC Va|Vc
 ;orchestra			MulFl  MulOb MulCl MulBn
 ;orchestra			tt tt tt tt
-;orchestra 	 		Bn Cb Hn Tbn+C|Tbn+H|Tbn+S BTb TpC+C|TpC+H|TpC+S MulFl|MulOb MulCl|MulBn tt
+;orchestra 	 		Bn Cb Hn TTbn+C|TTbn+H|TTbn+S BTb TpC+C|TpC+H|TpC+S MulFl|MulOb MulCl|MulBn tt
 ;orchestra 	 		Tbn+C|Tbn+H|Tbn+S BTb TpC+C|TpC+H|TpC+S MulFl|MulOb MulCl|MulBn tt
 ;orchestra			Fl Ob Vn
 ;orchestra 	 		Bn Bn Hn Hn TTbn TTbn BTb Cb tt MulBn
 ;orchestra 	 		Fl Fl Ob Ob|MulOb ClBb ClBb|MulCl TpC TpC+C|TpC+H|TpC+S Vn Vn Vn Vn Va Va Va Va tt
 ;orchestra 	 		Fl Fl Fl Ob Ob Ob|MulOb ClBb ClBb ClBb|MulCl TpC TpC
 
-styles				ord
+orchestra			Acc Cb Bn
+
+;styles				ord  mulpgbn mulvocl kn_ndle_edge kn_ndle_edge_drawn kn_ndle_mid pont-trem tasto-trem trem tymp_edge tymp_mid v_mh_edge v_mh_mid
 ;dynamics			ppp pp p mf f N
 ;others				2c 4c 
 
@@ -40,13 +45,13 @@ max_epochs			500
 pursuit				0
 xover_rate			0.8
 mutation_rate		0.05
-sparsity			0.01
+sparsity			0.001
 positive_penalization .5
-negative_penalization 2
+negative_penalization 10
 
 partials_window		32768
 partials_filtering	0.1
-;extra_pitches		N
+extra_pitches		N
 
 export_solutions	20
 t60					1.7

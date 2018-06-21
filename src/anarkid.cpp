@@ -31,7 +31,7 @@ using namespace std;
 
 // TODO: tuning quantizzato (??),
 //	     orchestrazione dinamica, constraints, regole di concatenazione
-//       energia nel forecast, features multiple con pesi, filtro ottave
+//       features multiple con pesi, filtro ottave
 
 // IDEE: NMF per scomposizione / temporalità; self-similarity matrix
 
