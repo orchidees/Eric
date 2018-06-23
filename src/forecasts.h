@@ -58,28 +58,28 @@ struct AdditiveForecast {
 	}
 };
 
-// template <typename T>
-// struct ProjectiveForecast {
-// 	static void compute (const Solution<T>& id, 
-// 		const std::vector<DB_entry<T>>& database, 
-// 		std::vector<T>& forecast, const std::vector<T>& target,
-// 		const Parameters<T>* params) {
+template <typename T>
+struct ProjectiveForecast {
+	static void compute (const Solution<T>& id, 
+		const std::vector<DB_entry<T>>& database, 
+		std::vector<T>& forecast, const std::vector<T>& target,
+		const Parameters<T>* params) {
 
 
-// 		for (unsigned i = 0; i < id.indices.size (); ++i) {
-// 			if (id.indices[i] == -1) continue; // silent instrument
-// 			DB_entry<T> e = database[id.indices[i]];
+		for (unsigned i = 0; i < id.indices.size (); ++i) {
+			if (id.indices[i] == -1) continue; // silent instrument
+			DB_entry<T> e = database[id.indices[i]];
 			
-// 			T no = norm<T>(&e.features[0], e.features.size ());
-// 			T prod = inner_prod(&target[0], &e.features[0], target.size ());
-// 			no *= no;
+			T no = norm<T>(&e.features[0], e.features.size ());
+			T prod = inner_prod(&target[0], &e.features[0], target.size ());
+			no *= no;
 
-// 			for (unsigned j = 0; j < target.size (); ++j) {
-// 				forecast[j] += (prod * e.features[j] / no);
-// 			}
-// 		}
-// 	}
-// };
+			for (unsigned j = 0; j < target.size (); ++j) {
+				forecast[j] += (prod * e.features[j] / no);
+			}
+		}
+	}
+};
 
 template <typename T>
 struct EnergyLevelForecast {

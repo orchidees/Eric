@@ -465,6 +465,21 @@ inline T speckurt(
 	return tmp;
 }
 
+
+template <typename T>
+inline T specflux (T* amplitudes, T* oldAmplitudes, int N) {
+	T sf = 0; // spectral flux
+	T a = 0;
+	for (int i = 0; i < N; ++i) {
+		a = (amplitudes[i] - oldAmplitudes[i]);
+		oldAmplitudes[i] = amplitudes[i];
+		sf += a < 0 ? 0 : a; // rectification
+		//sf += a;
+	}
+		
+	return sf;
+}
+
 #endif	// FOURIER_H 
 
 // EOF

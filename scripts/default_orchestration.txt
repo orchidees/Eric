@@ -8,8 +8,8 @@
 ;db_files 			CSOL_tam_tam_spectrum.txt CSOL_multiphonics_spectrum.txt CSOL_ordinario_spectrum.txt
 ;sound_paths			/Users/Carmine/Elementi/Datasets/CSOL_tam_tam /Users/Carmine/Elementi/Datasets/CSOL_multiphonics /Users/Carmine/Elementi/Datasets/CSOL_ordinario
 	
-;db_files 			/Users/cella/Desktop/CSOL_ordinario_spectrum.txt
-;sound_paths			/Users/cella/Desktop/CSOL_ordinario
+;db_files 			/Users/Carmine/Desktop/Datasets/CSOL_ordinario_spectrum.txt
+;sound_paths			/Users/Carmine/Desktop/Datasets/CSOL_ordinario
 
 ;db_files 			/Users/Carmine/Desktop/Datasets/CSOL_ordinario_spectrum.txt
 ;sound_paths			/Users/Carmine/Desktop/Datasets/CSOL_ordinario
@@ -18,41 +18,48 @@ db_files 			/Users/Carmine/Desktop/Datasets/OrchDB_spectrum.txt
 sound_paths			/Users/Carmine/Desktop/Datasets/OrchDB_flat
 
 
-;db_files 			/Users/Carmine/Desktop/Datasets/CSOL_tam_tam_spectrum.txt /Users/Carmine/Desktop/Datasets/CSOL_multiphonics_spectrum.txt /Users/Carmine/Desktop/Datasets/OrchDB_spectrum.txt
-;sound_paths			/Users/Carmine/Desktop/Datasets/CSOL_tam_tam /Users/Carmine/Desktop/Datasets/CSOL_multiphonics /Users/Carmine/Desktop/Datasets/OrchDB_flat
+;db_files 			/Users/Carmine/Desktop/Datasets/CSOL_tam_tam_spectrum.txt /Users/Carmine/Desktop/Datasets/CSOL_multiphonics_spectrum.txt /Users/Carmine/Desktop/Datasets/CSOL_ordinario_spectrum.txt
+;sound_paths			/Users/Carmine/Desktop/Datasets/CSOL_tam_tam /Users/Carmine/Desktop/Datasets/CSOL_multiphonics /Users/Carmine/Desktop/Datasets/CSOL_ordinario
 
-;orchestra			Acc Fl Fl Ob Ob ClBb ClBb Bn Bn Hn Hn TpC TpC Tbn Tbn BTb Vn Vn Va Va Vc Vc Cb Cb
-
+orchestra			Fl Fl Ob Ob ClBb ClBb Bn Bn Hn Hn TpC TpC Tbn Tbn BTb Vn Vn Va Va Vc Vc Cb Cb
+;orchestra			Vl Vl Va Va Vc Vc Cb Cb
 ;orchestra 	 		Bn Cb Hn Tbn+C|Tbn+H|Tbn+S BTb TpC+C|TpC+H|TpC+S
 ;orchestra			Fl|Ob Hn|TpC Va|Vc
-;orchestra			MulFl  MulOb MulCl MulBn
+;orchestra			Fl  Ob ClBb Bn
 ;orchestra			tt tt tt tt
-;orchestra 	 		Bn Cb Hn TTbn+C|TTbn+H|TTbn+S BTb TpC+C|TpC+H|TpC+S MulFl|MulOb MulCl|MulBn tt
+;orchestra 	 		Bn Cb Hn Tbn+C|Tbn+H|Tbn+S BTb TpC+C|TpC+H|TpC+S MulFl|MulOb MulCl|MulBn tt
 ;orchestra 	 		Tbn+C|Tbn+H|Tbn+S BTb TpC+C|TpC+H|TpC+S MulFl|MulOb MulCl|MulBn tt
 ;orchestra			Fl Ob Vn
 ;orchestra 	 		Bn Bn Hn Hn TTbn TTbn BTb Cb tt MulBn
 ;orchestra 	 		Fl Fl Ob Ob|MulOb ClBb ClBb|MulCl TpC TpC+C|TpC+H|TpC+S Vn Vn Vn Vn Va Va Va Va tt
 ;orchestra 	 		Fl Fl Fl Ob Ob Ob|MulOb ClBb ClBb ClBb|MulCl TpC TpC
 
-orchestra			Acc Cb Bn
+;orchestra 	 		TpC+C|TpC+H|TpC+S MulFl MulOb MulCl MulBn tt
+;orchestra			Acc Cb Bn MulBn tt BTb
+;orchestra			Cb Cb Cb Bn MulBn tt BTb
 
-;styles				ord  mulpgbn mulvocl kn_ndle_edge kn_ndle_edge_drawn kn_ndle_mid pont-trem tasto-trem trem tymp_edge tymp_mid v_mh_edge v_mh_mid
-;dynamics			ppp pp p mf f N
+
+;styles				pizz pizz-bartok pizz-lv pizz-partok pizz-sec
+;styles 				sfz
+;styles	            mulpgbn mulvocl kn_ndle_edge kn_ndle_edge_drawn kn_ndle_mid pont-trem tasto-trem trem tymp_edge tymp_mid v_mh_edge v_mh_mid
+;dynamics			ppp pp p N
 ;others				2c 4c 
 
-pop_size			500
-max_epochs			500
+pop_size			1000
+max_epochs			600
 pursuit				0
 xover_rate			0.8
 mutation_rate		0.05
-sparsity			0.001
+sparsity			0.01
 positive_penalization .5
 negative_penalization 10
 
 partials_window		32768
-partials_filtering	0.1
+partials_filtering	0
 extra_pitches		N
 
-export_solutions	20
+export_solutions	25
 t60					1.7
 dry_wet				.7 .3
+
+; eof

@@ -19,40 +19,11 @@
 #define NUM_FILTERS 40
 
 template <typename T>
-void compute_features (const char* name, std::vector<T>& features, 
+void compute_features (const T* buffer, int samples, std::vector<T>& features, 
 	int bsize, int hop, int ncoeff, const std::string& type) {
 	features.resize(ncoeff, 0); // + 1, 0); // nrg
 
-	WavInFile in (name); // raises exception on failure
-	
-	int sr = in.getSampleRate();
-	int samples  = in.getNumSamples();
-	int channels = in.getNumChannels ();
-	int bits = in.getNumBits();
-
-	if (sr != 44100) {
-		throw std::runtime_error ("invalid sampling rate (must be 44100)");
-	}
-	if (channels > 2) {
-		throw std::runtime_error ("unsupported number of channels");
-	}
-	if (bits != 16) {
-		throw std::runtime_error ("unsupported number of bits");	
-	}
-	
-	T* buffer = new T[samples * channels];
-	in.read (buffer, samples * channels);
-
-	if (channels == 2) {
-		T* left = new T[samples];
-	 	T* right = new T[samples];
-		deinterleave (buffer, left, right, samples);
-		for (unsigned i = 0; i < samples; ++i) {
-			buffer[i] = (left[i] + right[i]) * .5;
-		}		
-	}
-	
-	MFCC<T> mfcc (sr, NUM_FILTERS, bsize);
+	MFCC<T> mfcc (44100., NUM_FILTERS, bsize);
 	AbstractFFT<T>* fft = createFFT<T>(bsize);
 
 	T* cdata = new T[bsize * 2];
@@ -162,6 +133,46 @@ void compute_features (const char* name, std::vector<T>& features,
 }
 
 template <typename T>
+void compute_features (const char* name, std::vector<T>& features, 
+	int bsize, int hop, int ncoeff, const std::string& type) {
+	features.resize(ncoeff, 0); // + 1, 0); // nrg
+
+	WavInFile in (name); // raises exception on failure
+	
+	int sr = in.getSampleRate();
+	int samples  = in.getNumSamples();
+	int channels = in.getNumChannels ();
+	int bits = in.getNumBits();
+
+	if (sr != 44100) {
+		throw std::runtime_error ("invalid sampling rate (must be 44100)");
+	}
+	if (channels > 2) {
+		throw std::runtime_error ("unsupported number of channels");
+	}
+	if (bits != 16) {
+		throw std::runtime_error ("unsupported number of bits");	
+	}
+	
+	T* buffer = new T[samples * channels];
+	in.read (buffer, samples * channels);
+
+	if (channels == 2) {
+		T* left = new T[samples];
+	 	T* right = new T[samples];
+		deinterleave (buffer, left, right, samples);
+		for (unsigned i = 0; i < samples; ++i) {
+			buffer[i] = (left[i] + right[i]) * .5;
+		}		
+
+		delete [] left;
+		delete [] right;
+	}
+	
+	compute_features (buffer, samples, features, bsize, hop, ncoeff, type);
+}
+
+template <typename T>
 void make_db (const char* path, const std::vector<std::string>& files,  
 	std::ostream& out, std::ostream& console, int bsize, int hopsize, int ncoeff, 
 	const std::string& type) {
@@ -252,8 +263,6 @@ void partials_to_notes (const char* name, std::map<std::string, int>& notes,
 
 	delete [] freq;
 }
-
-
 
 #endif	// ANALYSIS_H 
 
