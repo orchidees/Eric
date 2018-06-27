@@ -170,7 +170,9 @@ template <typename T>
 void create_sound_mix (const std::vector<std::string>& files, 
 	const std::vector<std::string>& sound_paths, 
 	const std::vector<T>& ratios, 
-	const std::vector<T>& pans, const char* outfile,
+	const std::vector<T>& pans, 
+	int tot_samples,
+	const char* outfile,
 	T t60, const std::vector<T>& dry_wet) {
 	std::vector <T*> pointers;
 	std::vector <int> lengths;
@@ -231,24 +233,30 @@ void create_sound_mix (const std::vector<std::string>& files,
 		delete [] right;
 		delete [] left;
 		pointers.push_back(data);
-		lengths.push_back(samples * (1. / ratios[i]));
+		int r = tot_samples * (1. / ratios[i]) > samples ? samples : 
+			tot_samples * (1. / ratios[i]);
+		lengths.push_back(r);
 	}
 
-	int revSamples = (int) (44100. * t60);
-
+	int revSamples = dry_wet[1] == 0 ? 0 :  (int) (44100. * t60);
 	int maxPos = 0;
 	int maxLen = maximum (&lengths[0], lengths.size (), maxPos);
 	T* mix = new T[(maxLen + revSamples) * 2];
 	memset (mix, 0, sizeof(T) * (maxLen + revSamples) * 2);
 
+
 	for (unsigned i = 0; i < pointers.size (); ++i) {
-		double phase = 0;
-		double incr = ratios[i];
+		T phase = 0;
+		T incr = ratios[i];
+		T env = 1.;
+		int p = (lengths[i] - 4410.);
 		for (unsigned j = 0; j < lengths[i]; ++j) {
 			int index = (int) phase;
-			double frac = phase - index;
+			T frac = phase - index;
+			if (j > p) env -= (1. / 4410.);
 			if (index >= lengths[i] - 1) break;
-			T sample = pointers[i][index] * (1. - frac) + pointers[i][index + 1] * frac;
+			T sample = env * 
+				(pointers[i][index] * (1. - frac) + pointers[i][index + 1] * frac);
 			T v = (sample / pointers.size ());
 			mix[2 * j] += (v * (1. - pans[i]));
 			mix[2 * j  + 1] += (v * pans[i]);

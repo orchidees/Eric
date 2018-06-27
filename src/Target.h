@@ -18,6 +18,8 @@ template <typename T>
 struct Segment {
 	std::vector<T> features;
 	std::map<std::string, int> notes;
+	T start;
+	T length;
 };
 
 template <typename T>
@@ -30,6 +32,8 @@ struct Target {
 	}
 
 	void analyze (const char* name) {
+		segments.clear ();
+
 		WavInFile in (name); // raises exception on failure
 		
 		int sr = in.getSampleRate();
@@ -62,24 +66,40 @@ struct Target {
 			delete [] right;		
 		}
 
-		Segment<T> seg;
-
 		// get segments here
-		// for segments
-		compute_features<T>(buffer, samples, seg.features, source->bsize, 
-			source->hopsize, source->ncoeff, source->type);
-		normalize2(&seg.features[0], &seg.features[0], seg.features.size ());
+		std::vector<T> onsets;
+		get_onsets(buffer, samples, source->bsize, 
+			source->hopsize, (T) 44100., (T) parameters->onsets_threshold, 
+			(T) parameters->onsets_timegate, onsets);
 
-		if (parameters->partials_filtering > 0) {
-			partials_to_notes<T> (name, seg.notes, 
-				parameters->partials_window, parameters->partials_window / 4, 
-				parameters->partials_filtering);	
-			for (unsigned i = 0; i < parameters->extra_pitches.size (); ++i) {
-				seg.notes[parameters->extra_pitches[i]] = 0;
-			}					
+		std::cout << "OS " << parameters->onsets_threshold << " " << parameters->onsets_timegate << std::endl;
+		save_vector("onsets.txt", onsets);
+
+		for (unsigned i = 0; i < onsets.size (); ++i) {
+			Segment<T> seg;
+			int start =  (int) (onsets[i] * 44100.);
+			int len = (int) (i == onsets.size () - 1 ? samples - start
+				: (int) ((onsets[i + 1] - onsets[i]) * 44100.));
+			seg.start = start;
+			seg.length = len;
+			std::cout << "seg start = " << start << " len = " << len << " || tot" << samples <<  std::endl;
+
+			compute_features<T>(buffer + start, len, seg.features, source->bsize, 
+				source->hopsize, source->ncoeff, source->type);
+			normalize2(&seg.features[0], &seg.features[0], seg.features.size ());
+
+			if (parameters->partials_filtering > 0) {
+				partials_to_notes<T> (buffer + start, len, seg.notes, 
+					parameters->partials_window, parameters->partials_window / 4, 
+					parameters->partials_filtering);	
+				for (unsigned i = 0; i < parameters->extra_pitches.size (); ++i) {
+					seg.notes[parameters->extra_pitches[i]] = 0;
+				}
+
+				print_coll(std::cout, seg.notes, 0) << std::endl;
+			}
+			segments.push_back (seg);
 		}
-		segments.push_back (seg);
-		// end
 
 
 		delete [] buffer;

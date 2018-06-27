@@ -193,6 +193,10 @@ private:
 
 		Forecast<T>::compute(id, database, values, target, OptimizerI<T>::parameters);
 		normalize2(&values[0], &values[0], values.size ());
+		// int mpos = 0;
+		// T max = maximum(&target[0], target.size (), mpos);
+		// scale(&values[0], &values[0], values.size (), max);
+		
 
 		T s = 0; 
 		for (unsigned i = 0; i < target.size(); ++i) {

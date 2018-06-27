@@ -27,7 +27,8 @@ struct OrchestrationModel {
 			 parameters->export_solutions : solutions.size ();
 
 		for (unsigned i = 0; i < max_sols; ++i) {
-			solutions_summary << ">" << i << std::endl;
+			solutions_summary << ">" << i << " " << segment->start << " " << 
+				segment->length << std::endl;
 
 			std::stringstream wav_name;
 			wav_name << prefix << "solution_" << std::setw(3) << std::setfill('0') 

@@ -351,6 +351,11 @@ void makeWindow (T* out, int N, T a0, T a1, T a2) {
 template <typename T>
 int locmax (const T* amp, int N, std::vector<int>& max) {
 	T maxPeak = amp[1];
+	if (N < 2) return 0;
+	if (amp[0] > amp[1]) {
+		max.push_back(0);
+	} 
+	
 	for (int i = 1; i < N - 1; ++i) {
 		T magCurr = amp[i];
 		T magPrev = amp[(i - 1)];
@@ -465,7 +470,6 @@ inline T speckurt(
 	return tmp;
 }
 
-
 template <typename T>
 inline T specflux (T* amplitudes, T* oldAmplitudes, int N) {
 	T sf = 0; // spectral flux
@@ -475,6 +479,7 @@ inline T specflux (T* amplitudes, T* oldAmplitudes, int N) {
 		oldAmplitudes[i] = amplitudes[i];
 		sf += a < 0 ? 0 : a; // rectification
 		//sf += a;
+		//sf += fabs (a);
 	}
 		
 	return sf;

@@ -25,6 +25,8 @@ struct Parameters {
 		sparsity = 0.001;
 		positive_penalization = 1.;
 		negative_penalization = 1.;
+		onsets_threshold = .2;
+		onsets_timegate = .1;
 		partials_window = 4096;
 		partials_filtering = .2;
 		export_solutions = 30;
@@ -102,6 +104,10 @@ struct Parameters {
 	        	mutation_rate = atof (tokens[1].c_str ());
 	        } else if (tokens[0] == "sparsity") {
 	        	sparsity = atof (tokens[1].c_str ());
+	        } else if (tokens[0] == "onsets_threshold") {
+	        	onsets_threshold = atof (tokens[1].c_str ());
+	        } else if (tokens[0] == "onsets_timegate") {
+	        	onsets_timegate = atof (tokens[1].c_str ());
 	        } else if (tokens[0] == "positive_penalization") {
 	        	positive_penalization = atof (tokens[1].c_str ());
 	        } else if (tokens[0] == "negative_penalization") {
@@ -150,7 +156,11 @@ struct Parameters {
 		}		
 		if (sparsity < 0 || sparsity > 1) {
 	        throw std::runtime_error ("invalid sparsity");
-		}	
+		}
+		if (onsets_threshold < 0 || onsets_threshold > 1
+			|| onsets_timegate < 0) {
+	        throw std::runtime_error ("invalid parameters for onsets");
+		}			
 		if (partials_window < 2 || ((((~partials_window + 1) & partials_window) != partials_window))) {
 			throw std::runtime_error ("invalid size for partials window");
 		}
@@ -182,6 +192,8 @@ struct Parameters {
 	T sparsity;
 	T positive_penalization;
 	T negative_penalization;
+	T onsets_threshold;
+	T onsets_timegate;	
 	int partials_window;
 	T partials_filtering;
 	std::vector<std::string> extra_pitches;

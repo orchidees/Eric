@@ -1,5 +1,5 @@
 function [t, b] = run_anarkid(path, target, pconfig)
-    %%close all
+   figure
    % freqs = [0:(22050/1024):o22050]; % assumes SR=44100
     
    

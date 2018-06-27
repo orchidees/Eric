@@ -11,12 +11,14 @@
 ;db_files 			/Users/Carmine/Desktop/Datasets/CSOL_ordinario_spectrum.txt
 ;sound_paths			/Users/Carmine/Desktop/Datasets/CSOL_ordinario
 
-db_files 			/Users/Carmine/Desktop/Datasets/CSOL_ordinario_spectrum.txt
-sound_paths			/Users/Carmine/Desktop/Datasets/CSOL_ordinario
+;db_files 			/Users/Carmine/Desktop/Datasets/CSOL_ordinario_specpeaks.txt
+;sound_paths			/Users/Carmine/Desktop/Datasets/CSOL_ordinario
 
 ;db_files 			/Users/Carmine/Desktop/Datasets/OrchDB_specpeaks.txt
 ;sound_paths			/Users/Carmine/Desktop/Datasets/OrchDB_flat
 
+db_files 			/Users/Carmine/Desktop/Datasets/CSOL_ordinario_check_spectrum.txt
+sound_paths			/Users/Carmine/Desktop/Datasets/CSOL_ordinario
 
 ;db_files 			/Users/Carmine/Desktop/Datasets/CSOL_tam_tam_spectrum.txt /Users/Carmine/Desktop/Datasets/CSOL_multiphonics_spectrum.txt /Users/Carmine/Desktop/Datasets/CSOL_ordinario_spectrum.txt
 ;sound_paths			/Users/Carmine/Desktop/Datasets/CSOL_tam_tam /Users/Carmine/Desktop/Datasets/CSOL_multiphonics /Users/Carmine/Desktop/Datasets/CSOL_ordinario
@@ -45,21 +47,24 @@ styles 				ord
 ;dynamics			ppp pp p N
 ;others				2c 4c 
 
-pop_size			500
+pop_size			100
 max_epochs			500
 pursuit				0
 xover_rate			0.8
 mutation_rate		0.01
-sparsity			0.001
-positive_penalization .5
-negative_penalization 6
+sparsity			0.01
+positive_penalization 1
+negative_penalization 10
 
 partials_window		32768
-partials_filtering	0.2
+partials_filtering	0.1
 ;extra_pitches		N
 
-export_solutions	25
-t60					1.7
-dry_wet				.7 .3
+onsets_threshold	.3
+onsets_timegate		.1
+
+export_solutions	1
+t60					2.7
+dry_wet				1 0
 
 ; eof

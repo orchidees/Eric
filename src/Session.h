@@ -23,21 +23,26 @@
 template <typename T>
 struct Session {
 	Session (Source<T>* s, Parameters<T>* p, OptimizerI<T>* o) {
-		parameters = p;
+		parameters = p; 
 		source = s;
 		optim = o;			
 	}
 
-	T orchestrate (OrchestrationModel<T>& model) {
-		T fit = optim->search(model);
+	void orchestrate (Target<T>& target, 
+		std::vector<OrchestrationModel<T> >& orchestrations) {
+		for (unsigned i = 0; i < target.segments.size (); ++i) {
+			std::cout << "segment " << i << std::endl;
+			OrchestrationModel<T> model(parameters);
+			make_model (target.segments[i], model);
+			std::cout << "model. " << model.database.size () << std::endl;
+ 			optim->search(model);
 
-		std::sort (model.solutions.begin (), model.solutions.end ());
-		std::reverse(model.solutions.begin (), model.solutions.end());
+			std::sort (model.solutions.begin (), model.solutions.end ());
+			std::reverse(model.solutions.begin (), model.solutions.end());
 
-		model.best_forecast.resize (model.segment->features.size ());
-
-
-		return fit;
+			model.best_forecast.resize (model.segment->features.size ());
+			orchestrations.push_back(model);
+		}
 	}
 	void make_model (Segment<T>& segment, OrchestrationModel<T>& model) {
 		model.database.clear ();

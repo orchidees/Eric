@@ -73,7 +73,7 @@ struct Solution {
 			summary << d->file << std::endl;
 		}
 
-		create_sound_mix(files,  parameters->sound_paths, ratios, pans,
+		create_sound_mix(files,  parameters->sound_paths, ratios, pans, segment->length,
 			wav_name,  parameters->t60,  parameters->dry_wet);
 		summary << std::endl;
 	}	
