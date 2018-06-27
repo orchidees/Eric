@@ -37,8 +37,6 @@ using namespace std;
 
 // AbstractAnalysis, StaticSpectralFeatures,  Matrix
 
-#define FORECAST_POLICY AdditiveForecast
-
 int main (int argc, char* argv[]) {
 	srand (time (NULL));
 
@@ -82,48 +80,64 @@ int main (int argc, char* argv[]) {
 			print_coll<int> (cout, source.others, 25);
 			cout << endl;
 		}
+		// ga ------------------------------------------------------------------
+		GeneticOrchestra<float, AdditiveForecast> ga (&params);
 
 		// target --------------------------------------------------------------
 		cout << "analysing target........ ";  cout.flush ();
 		Target<float> target (argv[1], &source, &params);
-		save_vector<float> ("target.txt", target.features);
-		cout << "done" << endl;
-		if (params.partials_filtering) {			
-			cout << "target pitches.......... ";
-			print_coll<int> (cout, target.notes, 25);
-			cout << endl;
-		}
+		cout << "done (" << target.segments.size () << " segments)" << endl;
 
-		// ga ------------------------------------------------------------------
-		GeneticOrchestra<float, FORECAST_POLICY> ga (&params);
-		Session<float> session (&source, &params, &ga);
+		for (unsigned i = 0; i < target.segments.size (); ++i) {
+			std::stringstream prefix;
+			prefix << "target_" << setw(3) << setfill('0') << i << "_";
+			cout << endl << "[TARGET " << i << "]" << std::endl;
+
+			std::stringstream target_name;
+			target_name << prefix.str () << "features.txt";
+			save_vector<float> (target_name.str ().c_str (), target.segments[i].features);			
 		
-		cout << "searching............... "; cout.flush ();
-		vector<Solution<float> > solutions;
-		float max_fit = session.orchestrate (target, solutions);
-		cout << "done" << endl;
+			if (params.partials_filtering) {			
+				cout << "target pitches.......... ";
+				print_coll<int> (cout, target.segments[i].notes, 25);
+				cout << endl;
+			}
 
-		// export --------------------------------------------------------------				
-		save_vector<float> ("fitness.txt", ga.fitness);
-		cout << "best fitness............ " << max_fit << " (epoch " << 
-			ga.best_epoch << ", " << solutions.size () << " individuals)" << endl;
-	
-		if (solutions.size ()) {
-			vector<float> fcast (target.features.size ());
-			FORECAST_POLICY<float>::compute(solutions[0], source.database, fcast, 
-				target.features, &params);
-			normalize2(&fcast[0], &fcast[0], target.features.size());
-			save_vector("best_solution.txt", fcast);
-
-			cout << "best solution........... ";
-			session.dump_solution(cout, solutions[0], 25); // ranked first
-			cout << endl;
-		}
-
-		if (params.export_solutions > 0) {		
-			cout << "saving best solutions... "; cout.flush ();
-			session.export_solutions(solutions);
+			Session<float> session (&source, &params, &ga);
+			
+			cout << "searching............... "; cout.flush ();
+			
+			OrchestrationModel<float> model(&params);
+			session.make_model (target.segments[i], model);
+			float max_fit = session.orchestrate (model);
 			cout << "done" << endl;
+
+			// export -----------------------------------------------------------
+			std::stringstream fit_name;
+			fit_name << prefix.str () << "fitness.txt";			
+			save_vector<float> (fit_name.str ().c_str (), model.fitness);
+			cout << "best fitness............ " << max_fit << " (epoch " << 
+				ga.best_epoch << ", " << model.solutions.size () << " individuals)" << endl;
+		
+			if (model.solutions.size ()) {
+				AdditiveForecast<float>::compute(model.solutions[0], model.database, 
+					model.best_forecast, model.segment->features, &params);
+				normalize2(&model.best_forecast[0], &model.best_forecast[0], 
+					model.best_forecast.size());
+
+				std::stringstream best_name;
+				best_name << prefix.str () << "best_forecast.txt";							
+				save_vector(best_name.str ().c_str (), model.best_forecast);
+				cout << "best solution........... ";
+				model.solutions[0].dump (cout, model.database, 25); // ranked first
+				cout << endl;
+			}
+
+			if (params.export_solutions > 0) {		
+				cout << "saving best solutions... "; cout.flush ();
+				model.export_solutions(prefix.str ());
+				cout << "done" << endl;
+			}
 		}
     } catch (exception& e) {
         cout << "Error: " << e.what () << endl;

@@ -11,11 +11,11 @@
 ;db_files 			/Users/Carmine/Desktop/Datasets/CSOL_ordinario_spectrum.txt
 ;sound_paths			/Users/Carmine/Desktop/Datasets/CSOL_ordinario
 
-;db_files 			/Users/Carmine/Desktop/Datasets/CSOL_ordinario_spectrum.txt
-;sound_paths			/Users/Carmine/Desktop/Datasets/CSOL_ordinario
+db_files 			/Users/Carmine/Desktop/Datasets/CSOL_ordinario_spectrum.txt
+sound_paths			/Users/Carmine/Desktop/Datasets/CSOL_ordinario
 
-db_files 			/Users/Carmine/Desktop/Datasets/OrchDB_spectrum.txt
-sound_paths			/Users/Carmine/Desktop/Datasets/OrchDB_flat
+;db_files 			/Users/Carmine/Desktop/Datasets/OrchDB_specpeaks.txt
+;sound_paths			/Users/Carmine/Desktop/Datasets/OrchDB_flat
 
 
 ;db_files 			/Users/Carmine/Desktop/Datasets/CSOL_tam_tam_spectrum.txt /Users/Carmine/Desktop/Datasets/CSOL_multiphonics_spectrum.txt /Users/Carmine/Desktop/Datasets/CSOL_ordinario_spectrum.txt
@@ -40,23 +40,23 @@ orchestra			Fl Fl Ob Ob ClBb ClBb Bn Bn Hn Hn TpC TpC Tbn Tbn BTb Vn Vn Va Va Vc
 
 
 ;styles				pizz pizz-bartok pizz-lv pizz-partok pizz-sec
-;styles 				sfz
+styles 				ord
 ;styles	            mulpgbn mulvocl kn_ndle_edge kn_ndle_edge_drawn kn_ndle_mid pont-trem tasto-trem trem tymp_edge tymp_mid v_mh_edge v_mh_mid
 ;dynamics			ppp pp p N
 ;others				2c 4c 
 
-pop_size			1000
-max_epochs			600
+pop_size			500
+max_epochs			500
 pursuit				0
 xover_rate			0.8
-mutation_rate		0.05
-sparsity			0.01
+mutation_rate		0.01
+sparsity			0.001
 positive_penalization .5
-negative_penalization 10
+negative_penalization 6
 
 partials_window		32768
-partials_filtering	0
-extra_pitches		N
+partials_filtering	0.2
+;extra_pitches		N
 
 export_solutions	25
 t60					1.7

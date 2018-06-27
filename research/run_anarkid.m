@@ -1,11 +1,12 @@
-function run_anarkid (path, target, pconfig)
-    close all
-   % freqs = [0:(22050/1024):22050]; % assumes SR=44100
+function [t, b] = run_anarkid(path, target, pconfig)
+    %%close all
+   % freqs = [0:(22050/1024):o22050]; % assumes SR=44100
     
+   
    system ([path '/anarkid ' target ' ' pconfig]);
-    f = textread ('fitness.txt');
-    t = textread ('target.txt');
-    b = textread ('best_solution.txt');
+    f = textread ('target_000_fitness.txt');
+    t = textread ('target_000_features.txt');
+    b = textread ('target_000_best_forecast.txt');
     
     
     subplot (2, 1, 1)

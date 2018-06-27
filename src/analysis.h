@@ -125,7 +125,6 @@ void compute_features (const T* buffer, int samples, std::vector<T>& features,
 	} 
 	// features[ncoeff] = tot_nrg / frames; // store total nrg
 
-	delete [] buffer;
 	delete [] cdata;
 	delete [] avg_coeffs;
 	delete [] env;
@@ -170,6 +169,8 @@ void compute_features (const char* name, std::vector<T>& features,
 	}
 	
 	compute_features (buffer, samples, features, bsize, hop, ncoeff, type);
+
+	delete [] buffer;
 }
 
 template <typename T>
@@ -208,14 +209,14 @@ void make_db (const char* path, const std::vector<std::string>& files,
 #define MIN_FREQ 20
 
 template <typename T>
-void partials_to_notes (const char* name, std::map<std::string, int>& notes,
+void partials_to_notes (const T* buffer, int samples, std::map<std::string, int>& notes,
 	unsigned bsize, unsigned hopsize, T threshold) {
 	static const char* note_names[] = {
 		"A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"
 	};
 
 	std::vector<T> spectrum (bsize / 2);
-	compute_features(name, spectrum, bsize, hopsize, bsize / 2, "spectrum");
+	compute_features(buffer, samples, spectrum, bsize, hopsize, bsize / 2, "spectrum");
 	normalize(&spectrum[0], &spectrum[0], bsize / 2);
 
 	std::vector<int> peaks;
@@ -262,6 +263,47 @@ void partials_to_notes (const char* name, std::map<std::string, int>& notes,
 	// delete [] win;
 
 	delete [] freq;
+}
+
+template <typename T>
+void partials_to_notes (const char* name, std::map<std::string, int>& notes,
+	unsigned bsize, unsigned hopsize, T threshold) {
+
+	WavInFile in (name); // raises exception on failure
+	
+	int sr = in.getSampleRate();
+	int samples  = in.getNumSamples();
+	int channels = in.getNumChannels ();
+	int bits = in.getNumBits();
+
+	if (sr != 44100) {
+		throw std::runtime_error ("invalid sampling rate (must be 44100)");
+	}
+	if (channels > 2) {
+		throw std::runtime_error ("unsupported number of channels");
+	}
+	if (bits != 16) {
+		throw std::runtime_error ("unsupported number of bits");	
+	}
+	
+	T* buffer = new T[samples * channels];
+	in.read (buffer, samples * channels);
+
+	if (channels == 2) {
+		T* left = new T[samples];
+	 	T* right = new T[samples];
+		deinterleave (buffer, left, right, samples);
+		for (unsigned i = 0; i < samples; ++i) {
+			buffer[i] = (left[i] + right[i]) * .5;
+		}		
+
+		delete [] left;
+		delete [] right;
+	}
+	
+	partials_to_notes(buffer, samples, notes, bsize, hopsize, threshold);
+
+	delete [] buffer;
 }
 
 #endif	// ANALYSIS_H 

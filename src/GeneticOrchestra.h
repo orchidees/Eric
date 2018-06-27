@@ -25,13 +25,12 @@ template <typename T, template <typename X> class Forecast>
 struct GeneticOrchestra : public OptimizerI<T> {
 	GeneticOrchestra (Parameters<T>* p) : OptimizerI<T>(p) {}
 	
-	T search (OrchestrationModel<T>& model,
-		std::vector<Solution<T> >& solutions) {
+	T search (OrchestrationModel<T>& model) {
 		std::vector<Solution<T> > population (OptimizerI<T>::parameters->pop_size);
-		gen_init_population (model, population, model.target->features, 
+		gen_init_population (model, population, model.segment->features, 
 			OptimizerI<T>::parameters->pursuit);	
 
-		fitness.clear ();
+		model.fitness.clear ();
 		best_epoch = 0;		
 
 		T total_fitness = 0;
@@ -41,7 +40,7 @@ struct GeneticOrchestra : public OptimizerI<T> {
 
 		std::vector<Solution<T> > best_pop;
 		for (unsigned i = 0; i < OptimizerI<T>::parameters->max_epochs; ++i) {
-			total_fitness = evaluate_population(population, model.target->features, 
+			total_fitness = evaluate_population(population, model.segment->features, 
 				model.database);	
 
 			std::vector<Solution<T> > new_pop;
@@ -59,7 +58,7 @@ struct GeneticOrchestra : public OptimizerI<T> {
 				best_pop = new_pop;
 				best_epoch = i;
 			}
-			fitness.push_back(total_fitness);
+			model.fitness.push_back(total_fitness);
 
 			// std::cout << "epoch " << i << " " << max_fit <<" " << total_fitness << std::endl;
 
@@ -82,15 +81,14 @@ struct GeneticOrchestra : public OptimizerI<T> {
 		for (typename std::map<std::vector<int>, Solution<T> >::iterator it = 
 			uniques_map.begin();
 			it != uniques_map.end (); ++it) {
-			solutions.push_back(it->second);
+			model.solutions.push_back(it->second);
 		}
 
-		evaluate_population(solutions, model.target->features, 
+		evaluate_population(model.solutions, model.segment->features, 
 			model.database);
 		return max_fit;
 	}
 
-	std::vector<T> fitness;
 	int best_epoch;
 private:	
 	// init population ---------------------------------------------------------
@@ -154,12 +152,12 @@ private:
 			std::vector<T> projections;
 			std::vector<T> indexes;
 			for (unsigned k = 0; k < model.instruments[inum].size (); ++k) {
-				DB_entry<T> e = model.database[model.instruments[inum][k]];
+				DB_entry<T>* e = model.database[model.instruments[inum][k]];
 				// std::vector<T> nfeat (e.features);
 				// normalize(&nfeat[0], &nfeat[0], nfeat.size());
 
-				T R = norm (&e.features[0], e.features.size()); // regularization
-				T d = (inner_prod(&residual[0], &e.features[0], residual.size ()));
+				T R = norm (&e->features[0], e->features.size()); // regularization
+				T d = (inner_prod(&residual[0], &e->features[0], residual.size ()));
 				projections.push_back(d);
 				moduli.push_back(fabs (d) - R);
 				indexes.push_back(model.instruments[inum][k]);
@@ -177,11 +175,11 @@ private:
 			unsigned p = rand () % kth;		
 			f[i] = indexes[vx[p]];
 			// std::cout << "SELECTED " << vx[p] << " " << database[f[i]].file << std::endl;
-			T no = norm<T> (&model.database[f[i]].features[0], 
-				model.database[f[i]].features.size ());
+			T no = norm<T> (&model.database[f[i]]->features[0], 
+				model.database[f[i]]->features.size ());
 			no *= no;
 			for (unsigned k = 0; k < residual.size (); ++k) {
-				residual[k] -= (projections[vx[p]] * model.database[f[i]].features[k] / no);
+				residual[k] -= (projections[vx[p]] * model.database[f[i]]->features[k] / no);
 			}
 			// std::cout << "--------------------------------------- " << norm (&residual[0], residual.size()) << std::endl;
 		}
@@ -190,7 +188,7 @@ private:
 	// evaluation --------------------------------------------------------------
 
 	T evaluate_individual (const Solution<T>& id, const std::vector<T>& target,
-		const std::vector<DB_entry<T>>& database) {
+		const std::vector<DB_entry<T>* >& database) {
 		std::vector<T> values (target.size (), 0);
 
 		Forecast<T>::compute(id, database, values, target, OptimizerI<T>::parameters);
@@ -208,7 +206,7 @@ private:
 	}
 
 	T evaluate_population (std::vector<Solution<T> >& population, 
-		const std::vector<T>& target, const std::vector<DB_entry<T>>& database) {
+		const std::vector<T>& target, const std::vector<DB_entry<T>* >& database) {
 		T total_fitness = 0;
 
 		for (unsigned i = 0; i < population.size (); ++i) {
