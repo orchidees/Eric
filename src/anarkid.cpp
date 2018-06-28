@@ -12,6 +12,8 @@
 #include "constants.h"
 #include "config.h"
 #include "segmentations.h"
+#include "OrchestrationModel.h"
+#include "ConnectionModel.h"
 
 #include <stdexcept>
 #include <iostream>
@@ -34,7 +36,7 @@ using namespace std;
 //	     orchestrazione dinamica, constraints, regole di concatenazione
 //       features multiple con pesi, filtro ottave
 
-// IDEE: NMF per scomposizione / temporalità; self-similarity matrix
+// IDEE: NMF per scomposizione / temporalità; self-similarity matrix; sound-types
 
 // AbstractAnalysis, StaticSpectralFeatures,  Matrix
 
@@ -94,11 +96,16 @@ int main (int argc, char* argv[]) {
 		session.orchestrate(target, orchestrations);
 		cout << "done" << endl;
 
+		ConnectionModel<float> connection;
+		cout << "connecting.............. "; cout.flush ();
+		session.connect (orchestrations, connection);
+		cout << "done" << endl;		
+
 		// export -----------------------------------------------------------
 		for (unsigned i = 0; i < orchestrations.size (); ++i) {
-			cout << "______________________ TARGET " << i << endl;
+			cout << endl << "[SEGMENT " << i << "]" << endl;
 
-			cout << "detected notes............ ";
+			cout << "detected notes.......... ";
 			print_coll<int> (cout, orchestrations[i].segment->notes, 25);
 			cout << endl;
 
@@ -135,6 +142,12 @@ int main (int argc, char* argv[]) {
 				cout << "done" << endl;
 			}
 		}
+
+
+		cout << "saving connection........... "; cout.flush ();
+		connection.export_solutions("");
+		cout << "done" << endl;
+
     } catch (exception& e) {
         cout << "Error: " << e.what () << endl;
     } catch (...) {

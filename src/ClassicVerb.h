@@ -335,11 +335,11 @@ public:
     }
     void gains (float direct, float early, float tail) {
         m_direct = direct;
-        if (m_direct < 0 || m_direct > 1) throw std::runtime_error ("invalid gain for direct path");
+        if (m_direct < 0) throw std::runtime_error ("invalid gain for direct path");
         m_early = early;
-        if (m_early < 0 || m_early > 1) throw std::runtime_error ("invalid gain for early reflections");
+        if (m_early < 0) throw std::runtime_error ("invalid gain for early reflections");
         m_tail = tail;
-        if (m_tail < 0 || m_tail > 1) throw std::runtime_error ("invalid gain for tail reverberation");
+        if (m_tail < 0) throw std::runtime_error ("invalid gain for tail reverberation");
     }
     //
     virtual T* process (const T* input, T* output, int size) {

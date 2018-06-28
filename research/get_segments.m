@@ -1,4 +1,4 @@
-function [S, nc, seg_output] = test_sim (fname, vis)
+function [S, nc, seg_output] = get_segments (fname, vis)
     [y, fs] = audioread (fname);
     y = mean (y, 2);
     

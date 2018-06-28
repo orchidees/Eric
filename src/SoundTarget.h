@@ -66,6 +66,8 @@ struct SoundTarget : public TargetI<T> {
 			(T) TargetI<T>::parameters->onsets_threshold, 
 			(T) TargetI<T>::parameters->onsets_timegate, onsets);
 
+		if (onsets.size () == 0) onsets.push_back(0);
+		
 		save_vector("onsets.txt", onsets);
 		for (unsigned i = 0; i < onsets.size (); ++i) {
 			Segment<T> seg;

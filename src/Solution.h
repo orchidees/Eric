@@ -27,7 +27,10 @@ struct Solution {
 		return scount == indices.size ();
 	}	
 
-	void save (const char* wav_name, std::ostream& summary, 
+	void generate (
+		std::vector<T>& outleft,
+		std::vector<T>& outright,
+		std::ostream& summary, 
 		Segment<T>* segment,
 		Parameters<T>* parameters,
 		const std::vector<DB_entry<T>* >& database) {
@@ -73,8 +76,9 @@ struct Solution {
 			summary << d->file << std::endl;
 		}
 
-		create_sound_mix(files,  parameters->sound_paths, ratios, pans, segment->length,
-			wav_name,  parameters->t60,  parameters->dry_wet);
+		create_sound_mix(files, parameters->sound_paths, ratios, pans,
+			parameters->t60,  parameters->dry_wet,
+			segment->start, segment->length, outleft, outright);
 		summary << std::endl;
 	}	
 

@@ -167,14 +167,18 @@ inline bool file_exists (const std::string& name) {
     return f.good();
 }
 
+#define MINIMUM_FADEOUT 4410.
+
 template <typename T>
 void create_sound_mix (const std::vector<std::string>& files, 
 	const std::vector<std::string>& sound_paths, 
 	const std::vector<T>& ratios, 
 	const std::vector<T>& pans, 
+	T t60, const std::vector<T>& dry_wet,
+	int start_sample,
 	int tot_samples,
-	const char* outfile,
-	T t60, const std::vector<T>& dry_wet) {
+	std::vector<T>& outleft,
+	std::vector<T>& outright) {
 	std::vector <T*> pointers;
 	std::vector <int> lengths;
 
@@ -234,45 +238,42 @@ void create_sound_mix (const std::vector<std::string>& files,
 		delete [] right;
 		delete [] left;
 		pointers.push_back(data);
-		int r = tot_samples * (1. / ratios[i]) > samples ? samples : 
-			tot_samples * (1. / ratios[i]);
+		int r = ceil (tot_samples > samples ? samples : tot_samples);
 		lengths.push_back(r);
 	}
 
 	int revSamples = dry_wet[1] == 0 ? 0 :  (int) (DEFAULT_SR * t60);
-	int maxPos = 0;
-	int maxLen = maximum (&lengths[0], lengths.size (), maxPos);
-	T* mix = new T[(maxLen + revSamples) * 2];
-	memset (mix, 0, sizeof(T) * (maxLen + revSamples) * 2);
-
+	int m = 0;
+	int maxLen = ceil (maximum (&lengths[0], lengths.size (), m) *
+		(1. / minimum(&ratios[0], ratios.size (), m)));
+	
+	T* left = new T[(maxLen + revSamples)];
+	T* right = new T[(maxLen + revSamples)];
+	memset(left, 0, (maxLen + revSamples) * sizeof(T));
+	memset(right, 0, (maxLen + revSamples) * sizeof(T));
 
 	for (unsigned i = 0; i < pointers.size (); ++i) {
 		T phase = 0;
 		T incr = ratios[i];
 		T env = 1.;
-		int p = (lengths[i] - 4410.);
-		for (unsigned j = 0; j < lengths[i]; ++j) {
+		int p = (lengths[i] * (1. / ratios[i]) - MINIMUM_FADEOUT);
+		for (unsigned j = 0; j < lengths[i] * (1. / ratios[i]); ++j) {
 			int index = (int) phase;
 			T frac = phase - index;
-			if (j > p) env -= (1. / 4410.);
-			if (index >= lengths[i] - 1) break;
-			T sample = env * 
-				(pointers[i][index] * (1. - frac) + pointers[i][index + 1] * frac);
+			if (j > p) env -= (1. / MINIMUM_FADEOUT);
+			int next = (index == lengths[i] - 1 ? 0 : index + 1);
+			T sample = env * (pointers[i][index] * (1. - frac) + pointers[i][next] * frac);
 			T v = (sample / pointers.size ());
-			mix[2 * j] += (v * (1. - pans[i]));
-			mix[2 * j  + 1] += (v * pans[i]);
+			left[j] += (v * (1. - pans[i]));
+			right[j] += (v * pans[i]);
 			phase += incr;
-			if (phase >= lengths[i]) break;
+			if (phase >= lengths[i]) {
+				phase -= lengths[i];
+			}
 		}
 	}
 
 	if (dry_wet[1] != 0) { // skip computing if all dry
-		T* left = new T[(maxLen + revSamples)];
-		T* right = new T[(maxLen + revSamples)];
-		memset(left, 0, (maxLen + revSamples) * sizeof(T));
-		memset(right, 0, (maxLen + revSamples) * sizeof(T));
-
-		deinterleave(mix, left, right, (maxLen + revSamples));
 		ClassicVerb<T> cl(DEFAULT_SR, (maxLen + revSamples), 6, 1, 0);
 		cl.t60(t60);
 		cl.gains(dry_wet[0], 0, dry_wet[1]);
@@ -283,17 +284,23 @@ void create_sound_mix (const std::vector<std::string>& files,
 		cl.process(left, left, (maxLen + revSamples));
 		cr.process(right, right, (maxLen + revSamples));
 
-		interleave(mix, left, right, (maxLen + revSamples));			
-		delete [] left;
-		delete [] right;
 	}
 
-	scale<float>(&mix[0], &mix[0], (maxLen + revSamples) * 2, 2.);
+	if (outleft.size () < (start_sample + maxLen + revSamples)) {
+		outleft.resize ((start_sample + maxLen + revSamples), 0); // conservative
+	}
+	if (outright.size () < (start_sample + maxLen + revSamples)) {
+		outright.resize ((start_sample + maxLen + revSamples), 0); // conservative
+	}	
 
-	WavOutFile out(outfile, DEFAULT_SR, 16, 2);
-	out.write(mix, (maxLen + revSamples) * 2); 
+	for (unsigned i = 0; i < maxLen + revSamples; ++i) {
+		outleft[start_sample + i] += left[i];
+		outright[start_sample + i] += right[i];
+	}
+	
+	delete [] left;
+	delete [] right;
 
-	delete [] mix;
 	for (unsigned i = 0; i < pointers.size (); ++i) {
 		delete [] pointers[i];
 	}

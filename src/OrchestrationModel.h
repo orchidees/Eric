@@ -7,6 +7,8 @@
 #include "Parameters.h"
 #include "Solution.h"
 #include "Source.h"
+#include "WavFile.h"
+#include "algorithms.h"
 
 #include <vector>
 #include <map>
@@ -30,13 +32,20 @@ struct OrchestrationModel {
 			solutions_summary << ">" << i << " " << segment->start << " " << 
 				segment->length << std::endl;
 
+			std::vector<T> outleft;
+			std::vector<T> outright;
+			solutions[i].generate (outleft, outright, solutions_summary,
+				segment, parameters, database);
+
+			std::vector<T> mix (outleft.size () * 2);
+			interleave(&mix[0], &outleft[0], &outright[0], outleft.size ());
+			scale<T>(&mix[0], &mix[0], outleft.size () * 2, 2.);
+
 			std::stringstream wav_name;
 			wav_name << prefix << "solution_" << std::setw(3) << std::setfill('0') 
 				<< i << ".wav";			
-
-			solutions[i].save (wav_name.str ().c_str (), solutions_summary,
-				segment, parameters, database);
-
+			WavOutFile outfile (wav_name.str ().c_str(), DEFAULT_SR, 16, 2);
+			outfile.write(&mix[0], outleft.size () * 2);
 		}
 
 		solutions_summary.close ();

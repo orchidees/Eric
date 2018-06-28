@@ -10,6 +10,15 @@
 
 #include <vector>
 
+
+template <typename T>
+struct NoSegments {
+	static void get_onsets (const T* buffer, int samples,
+		int bsize, int hop, T sr, T threshold, T timegate, std::vector<T>& onsets) {
+		onsets.push_back(0);
+	}
+};
+
 template <typename T>
 struct SpectralFluxSegmentation {
 	static void get_onsets (const T* buffer, int samples,

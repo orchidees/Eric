@@ -10,6 +10,7 @@
 #include "TargetI.h"
 #include "OptimizerI.h"
 #include "OrchestrationModel.h"
+#include "ConnectionModel.h"
 
 #include <vector>
 #include <map>
@@ -30,10 +31,8 @@ struct Session {
 	void orchestrate (TargetI<T>& target, 
 		std::vector<OrchestrationModel<T> >& orchestrations) {
 		for (unsigned i = 0; i < target.segments.size (); ++i) {
-			std::cout << "segment " << i << std::endl;
 			OrchestrationModel<T> model(parameters);
 			make_model (target.segments[i], model);
-			std::cout << "model. " << model.database.size () << std::endl;
  			optim->search(model);
 
 			std::sort (model.solutions.begin (), model.solutions.end ());
@@ -41,6 +40,13 @@ struct Session {
 
 			model.best_forecast.resize (model.segment->features.size ());
 			orchestrations.push_back(model);
+		}
+	}
+	void connect (std::vector<OrchestrationModel<T> >& orchestrations,
+		ConnectionModel<T>& connection) {
+		for (unsigned i = 0; i < orchestrations.size (); ++i) {
+			connection.models.push_back (&orchestrations[i]);
+			connection.indices.push_back (0);
 		}
 	}
 	void make_model (Segment<T>& segment, OrchestrationModel<T>& model) {
