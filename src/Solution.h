@@ -4,7 +4,7 @@
 #ifndef SOLUTION_H
 #define SOLUTION_H 
 
-#include "Target.h"
+#include "Segment.h"
 #include "Source.h"
 #include "Parameters.h"
 

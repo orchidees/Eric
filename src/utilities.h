@@ -10,6 +10,7 @@
 #include "tokenizer.h"
 #include "fourier.h"
 #include "ClassicVerb.h"
+#include "constants.h"
 
 #include <dirent.h>
 
@@ -205,8 +206,8 @@ void create_sound_mix (const std::vector<std::string>& files,
 		int channels = in.getNumChannels ();
 		int bits = in.getNumBits();
 
-		if (sr != 44100) {
-			throw std::runtime_error ("invalid sampling rate (must be 44100)");
+		if (sr != DEFAULT_SR) {
+			throw std::runtime_error ("invalid sampling rate");
 		}
 		if (channels > 2) {
 			throw std::runtime_error ("unsupported number of channels");
@@ -238,7 +239,7 @@ void create_sound_mix (const std::vector<std::string>& files,
 		lengths.push_back(r);
 	}
 
-	int revSamples = dry_wet[1] == 0 ? 0 :  (int) (44100. * t60);
+	int revSamples = dry_wet[1] == 0 ? 0 :  (int) (DEFAULT_SR * t60);
 	int maxPos = 0;
 	int maxLen = maximum (&lengths[0], lengths.size (), maxPos);
 	T* mix = new T[(maxLen + revSamples) * 2];
@@ -272,10 +273,10 @@ void create_sound_mix (const std::vector<std::string>& files,
 		memset(right, 0, (maxLen + revSamples) * sizeof(T));
 
 		deinterleave(mix, left, right, (maxLen + revSamples));
-		ClassicVerb<T> cl(44100, (maxLen + revSamples), 6, 1, 0);
+		ClassicVerb<T> cl(DEFAULT_SR, (maxLen + revSamples), 6, 1, 0);
 		cl.t60(t60);
 		cl.gains(dry_wet[0], 0, dry_wet[1]);
-		ClassicVerb<T> cr(44100, (maxLen + revSamples), 6, 1, 23);
+		ClassicVerb<T> cr(DEFAULT_SR, (maxLen + revSamples), 6, 1, 23);
 		cr.t60(t60);
 		cr.gains(dry_wet[0], 0, dry_wet[1]);
 
@@ -289,7 +290,7 @@ void create_sound_mix (const std::vector<std::string>& files,
 
 	scale<float>(&mix[0], &mix[0], (maxLen + revSamples) * 2, 2.);
 
-	WavOutFile out(outfile, 44100, 16, 2);
+	WavOutFile out(outfile, DEFAULT_SR, 16, 2);
 	out.write(mix, (maxLen + revSamples) * 2); 
 
 	delete [] mix;

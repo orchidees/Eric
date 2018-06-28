@@ -18,6 +18,8 @@ extern const double LOG2 = (double) log ((double) 2.);
 extern const double LOG2OF10 = 3.32192809488736234787;
 extern const double SQRT2 = sqrt (2.);
 
+extern const double DEFAULT_SR = 44100.;
+
 
 #endif	// CONSTANTS_H 
 

@@ -14,77 +14,17 @@
 #include "utilities.h"
 #include "Hz2Note.h"
 #include "MFCC.h"
+#include "constants.h"
 
 #define NUM_SMOOTH 160
 #define NUM_FILTERS 40
-
-template <typename T>
-void get_onsets (const T* buffer, int samples,
-	int bsize, int hop, T sr, T threshold, T timegate, std::vector<T>& onsets) {
-	T* cdata = new T[bsize * 2];
-	T* spectrum = new T[bsize];
-	T* old_spectrum = new T[bsize];
-	memset (old_spectrum, 0, sizeof (T) * bsize);
-
-	T* win = new T[bsize];
-	makeWindow<T>(win, bsize, .5, .5, 0.); // hanning
-	AbstractFFT<T>* fft = createFFT<T>(bsize);
-	
-	std::vector<T> flux;
-	int frames = 0;
-	for (unsigned i = 0; i < samples; i += hop) {
-		memset(cdata, 0, sizeof(T) * bsize * 2);		
-
-		int rsize = i + bsize > samples ? samples - i : bsize;
-		for (unsigned j = 0; j < rsize; ++j) {
-			cdata[2 * j] = buffer[i + j] * win[j]; // windowing
-		}
-
-		fft->forward(cdata);
-		for (unsigned j = 0; j < bsize; ++j) {
-			spectrum[j] = sqrt (cdata[j * 2] * cdata[j * 2] + 
-				cdata[j * 2 + 1] * cdata[j * 2 + 1]);
-		}
-	
-		T v = specflux(spectrum, old_spectrum, bsize);
-		flux.push_back (v);
-		++frames;
-	}
-
-	
-	int mpos = 0;
-	T ma = maximum(&flux[0], flux.size(), mpos);
-	scale<T>(&flux[0], &flux[0], flux.size (), 1. / ma);
-	save_vector("flux.txt", flux);
-
-	std::vector<int> fluxpeaks;
-	locmax(&flux[0], flux.size (), fluxpeaks);
-
-	T prev_onset = 0;
-	for (unsigned i = 0; i < fluxpeaks.size (); ++i) {
-		if (flux[fluxpeaks[i]] > threshold) {
-			T pos = fluxpeaks[i] * hop / sr;
-			T dist = fabs (pos - prev_onset);
-			if (dist > timegate || i == 0) {
-				onsets.push_back(pos);
-				prev_onset = pos;
-			}
-		}
-	}
-
- 	delete [] cdata;
-	delete [] spectrum;
-	delete [] old_spectrum;
-	delete [] win;
-	delete fft;
-}
 
 template <typename T>
 void compute_features (const T* buffer, int samples, std::vector<T>& features, 
 	int bsize, int hop, int ncoeff, const std::string& type) {
 	features.resize(ncoeff, 0); // + 1, 0); // nrg
 
-	MFCC<T> mfcc (44100., NUM_FILTERS, bsize);
+	MFCC<T> mfcc (DEFAULT_SR, NUM_FILTERS, bsize);
 	AbstractFFT<T>* fft = createFFT<T>(bsize);
 
 	T* cdata = new T[bsize * 2];
@@ -173,7 +113,7 @@ void compute_features (const T* buffer, int samples, std::vector<T>& features,
 			spectrum[j] = avg_coeffs[2 * j];
 		}				
 		T* freq = new T[bsize / 2];
-		ampFreqQuad(&spectrum[0], freq, bsize / 2, 44100.);
+		ampFreqQuad(&spectrum[0], freq, bsize / 2, DEFAULT_SR);
 
 		features[0] = speccentr(spectrum, freq, bsize / 2);
 		features[1] = specspread(spectrum, freq, bsize / 2, features[0]);
@@ -204,8 +144,8 @@ void compute_features (const char* name, std::vector<T>& features,
 	int channels = in.getNumChannels ();
 	int bits = in.getNumBits();
 
-	if (sr != 44100) {
-		throw std::runtime_error ("invalid sampling rate (must be 44100)");
+	if (sr != DEFAULT_SR) {
+		throw std::runtime_error ("invalid sampling rate");
 	}
 	if (channels > 2) {
 		throw std::runtime_error ("unsupported number of channels");
@@ -284,7 +224,7 @@ void partials_to_notes (const T* buffer, int samples, std::map<std::string, int>
 	locmax(&spectrum[0], bsize / 2, peaks);
 
 	T* freq = new T[bsize / 2];
-	ampFreqQuad(&spectrum[0], freq, bsize / 2, 44100.);
+	ampFreqQuad(&spectrum[0], freq, bsize / 2, DEFAULT_SR);
 
 	Hz2Note<T> hz2n;	
 	for (unsigned i = 0; i < peaks.size () - 1; ++i) {
@@ -302,8 +242,8 @@ void partials_to_notes (const T* buffer, int samples, std::map<std::string, int>
 		}
 	}
 
-	// WavOutFile out("target.wav", 44100., 16, 1);
-	// unsigned samples = (unsigned) (2. * 44100.);
+	// WavOutFile out("target.wav", DEFAULT_SR, 16, 1);
+	// unsigned samples = (unsigned) (2. * DEFAULT_SR);
 	// T* buff = new T[samples];
 	// memset(buff, 0, sizeof (T) * samples);
 
@@ -313,7 +253,7 @@ void partials_to_notes (const T* buffer, int samples, std::map<std::string, int>
 	// for (unsigned i = 0; i < samples; ++i) {
 	// 	for (unsigned j = 0; j < peaks.size (); ++j) {
 	// 		buff[i] += spectrum[peaks[j]] * sin (2. * M_PI * freq[peaks[j]] 
-	// 			* ((T) i / 44100.));
+	// 			* ((T) i / DEFAULT_SR));
 	// 	}
 	// 	buff[i] *= .125 * win[i];
 	// }
@@ -337,8 +277,8 @@ void partials_to_notes (const char* name, std::map<std::string, int>& notes,
 	int channels = in.getNumChannels ();
 	int bits = in.getNumBits();
 
-	if (sr != 44100) {
-		throw std::runtime_error ("invalid sampling rate (must be 44100)");
+	if (sr != DEFAULT_SR) {
+		throw std::runtime_error ("invalid sampling rate");
 	}
 	if (channels > 2) {
 		throw std::runtime_error ("unsupported number of channels");

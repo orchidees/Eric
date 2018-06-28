@@ -6,11 +6,10 @@
 #define SESSION_H 
 
 #include "Parameters.h"
-#include "Target.h"
 #include "Source.h"
+#include "TargetI.h"
 #include "OptimizerI.h"
 #include "OrchestrationModel.h"
-#include "forecasts.h"
 
 #include <vector>
 #include <map>
@@ -28,7 +27,7 @@ struct Session {
 		optim = o;			
 	}
 
-	void orchestrate (Target<T>& target, 
+	void orchestrate (TargetI<T>& target, 
 		std::vector<OrchestrationModel<T> >& orchestrations) {
 		for (unsigned i = 0; i < target.segments.size (); ++i) {
 			std::cout << "segment " << i << std::endl;

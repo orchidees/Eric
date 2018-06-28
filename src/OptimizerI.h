@@ -8,7 +8,6 @@
 #include "Source.h"
 #include "OrchestrationModel.h"
 #include "Parameters.h"
-#include "Solution.h"
 
 #include <vector>
 

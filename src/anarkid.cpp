@@ -1,16 +1,17 @@
 // anarkid.cpp
 //
 
-#include "Target.h"
+#include "SoundTarget.h"
 #include "Source.h"
 #include "Parameters.h"
 #include "GeneticOrchestra.h"
-#include "Session.h"
+#include "Session.h" 
 #include "forecasts.h"
 #include "analysis.h"
 #include "utilities.h"
 #include "constants.h"
 #include "config.h"
+#include "segmentations.h"
 
 #include <stdexcept>
 #include <iostream>
@@ -83,7 +84,7 @@ int main (int argc, char* argv[]) {
 
 		// target --------------------------------------------------------------
 		cout << "analysing target........ ";  cout.flush ();
-		Target<float> target (argv[1], &source, &params);
+		SoundTarget<float, SpectralFluxSegmentation> target (argv[1], &source, &params);
 		cout << "done (" << target.segments.size () << " segments)" << endl;
 
 		GeneticOrchestra<float, AdditiveForecast> ga (&params);

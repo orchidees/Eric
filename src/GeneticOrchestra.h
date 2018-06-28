@@ -5,7 +5,6 @@
 #ifndef GENETICORCHESTRA_H
 #define GENETICORCHESTRA_H 
 
-#include "Target.h"
 #include "Source.h"
 #include "Parameters.h"
 #include "OptimizerI.h"
@@ -21,7 +20,7 @@
 
 // -----------------------------------------------------------------------------
 
-template <typename T, template <typename X> class Forecast>
+template <typename T, template <typename X> class ForecastPolicy>
 struct GeneticOrchestra : public OptimizerI<T> {
 	GeneticOrchestra (Parameters<T>* p) : OptimizerI<T>(p) {}
 	
@@ -191,7 +190,7 @@ private:
 		const std::vector<DB_entry<T>* >& database) {
 		std::vector<T> values (target.size (), 0);
 
-		Forecast<T>::compute(id, database, values, target, OptimizerI<T>::parameters);
+		ForecastPolicy<T>::compute(id, database, values, target, OptimizerI<T>::parameters);
 		normalize2(&values[0], &values[0], values.size ());
 		// int mpos = 0;
 		// T max = maximum(&target[0], target.size (), mpos);
