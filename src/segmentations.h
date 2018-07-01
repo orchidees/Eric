@@ -10,7 +10,6 @@
 
 #include <vector>
 
-
 template <typename T>
 struct NoSegments {
 	static void get_onsets (const T* buffer, int samples,
@@ -20,7 +19,19 @@ struct NoSegments {
 };
 
 template <typename T>
-struct SpectralFluxSegmentation {
+struct Frames {
+	static void get_onsets (const T* buffer, int samples,
+		int bsize, int hop, T sr, T threshold, T timegate, std::vector<T>& onsets) {
+		int p = 0;
+		while (p < samples) {
+			onsets.push_back((T) p / sr);
+			p += bsize;
+		}
+	}
+};
+
+template <typename T>
+struct FluxSegmentation {
 	static void get_onsets (const T* buffer, int samples,
 		int bsize, int hop, T sr, T threshold, T timegate, std::vector<T>& onsets) {
 		T* cdata = new T[bsize * 2];

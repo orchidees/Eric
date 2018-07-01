@@ -20,7 +20,7 @@
 #include <sstream>
 #include <stdexcept>
 
-template <typename T>
+template <typename T, template <typename X> class ConnectionPolicy>
 struct Session {
 	Session (Source<T>* s, Parameters<T>* p, OptimizerI<T>* o) {
 		parameters = p; 
@@ -44,10 +44,15 @@ struct Session {
 	}
 	void connect (std::vector<OrchestrationModel<T> >& orchestrations,
 		ConnectionModel<T>& connection) {
-		for (unsigned i = 0; i < orchestrations.size (); ++i) {
-			connection.models.push_back (&orchestrations[i]);
-			connection.indices.push_back (0);
+		ConnectionPolicy<T>::connect (orchestrations, connection);
+		std::cout << "connection sz " << connection.indices.size () << std::endl;
+		for (unsigned i = 0; i < connection.indices.size (); ++i) {
+			std::cout << "\tidx " << connection.indices[i] << std::endl;
+
 		}
+		std::cout << "..." << std::endl;
+		
+		// continuity model
 	}
 	void make_model (Segment<T>& segment, OrchestrationModel<T>& model) {
 		model.database.clear ();

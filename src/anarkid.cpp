@@ -10,10 +10,11 @@
 #include "analysis.h"
 #include "utilities.h"
 #include "constants.h"
-#include "config.h"
+#include "config.h" 
 #include "segmentations.h"
 #include "OrchestrationModel.h"
 #include "ConnectionModel.h"
+#include "connections.h"
 
 #include <stdexcept>
 #include <iostream>
@@ -86,11 +87,11 @@ int main (int argc, char* argv[]) {
 
 		// target --------------------------------------------------------------
 		cout << "analysing target........ ";  cout.flush ();
-		SoundTarget<float, SpectralFluxSegmentation> target (argv[1], &source, &params);
+		SoundTarget<float, FluxSegmentation> target (argv[1], &source, &params);
 		cout << "done (" << target.segments.size () << " segments)" << endl;
 
 		GeneticOrchestra<float, AdditiveForecast> ga (&params);
-		Session<float> session (&source, &params, &ga);
+		Session<float, ClosestSolutions> session (&source, &params, &ga);
 		vector<OrchestrationModel<float> > orchestrations;	
 		cout << "searching............... "; cout.flush ();
 		session.orchestrate(target, orchestrations);

@@ -167,7 +167,7 @@ inline bool file_exists (const std::string& name) {
     return f.good();
 }
 
-#define MINIMUM_FADEOUT 4410.
+#define MINIMUM_FADEOUT 2205.
 
 template <typename T>
 void create_sound_mix (const std::vector<std::string>& files, 
