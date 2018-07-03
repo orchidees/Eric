@@ -176,7 +176,7 @@ void create_sound_mix (const std::vector<std::string>& files,
 	const std::vector<T>& pans, 
 	T t60, const std::vector<T>& dry_wet,
 	int start_sample,
-	int tot_samples,
+	std::vector<int>& durations,
 	std::vector<T>& outleft,
 	std::vector<T>& outright) {
 	std::vector <T*> pointers;
@@ -238,7 +238,7 @@ void create_sound_mix (const std::vector<std::string>& files,
 		delete [] right;
 		delete [] left;
 		pointers.push_back(data);
-		int r = ceil (tot_samples > samples ? samples : tot_samples);
+		int r = ceil (durations[i] > samples ? samples : durations[i]);
 		lengths.push_back(r);
 	}
 

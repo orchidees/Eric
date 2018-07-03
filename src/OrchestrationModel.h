@@ -29,8 +29,7 @@ struct OrchestrationModel {
 			 parameters->export_solutions : solutions.size ();
 
 		for (unsigned i = 0; i < max_sols; ++i) {
-			solutions_summary << ">" << i << " " << segment->start << " " << 
-				segment->length << std::endl;
+			solutions_summary << ">" << i << " " << segment->start << std::endl;
 
 			std::vector<T> outleft;
 			std::vector<T> outright;

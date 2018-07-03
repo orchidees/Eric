@@ -42,7 +42,7 @@ struct ClosestSolutions {
 				normalize2(&values[0], &values[0], values.size ());
 				T s = 0; 
 				for (unsigned i = 0; i < it->segment->features.size(); ++i) {
-					T diff = values[i] - it->segment->features[i];
+					T diff = values[i] - current->features[i];
 					if (diff >= 0) s += it->parameters->positive_penalization *  diff;
 		 			else s +=  it->parameters->negative_penalization * fabs (diff);
 				}
@@ -59,6 +59,7 @@ struct ClosestSolutions {
 		}
 	}
 };
+
 
 #endif	// CONNECTIONS_H 
 
