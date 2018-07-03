@@ -4,9 +4,9 @@ project (anarkid)
 SET(CMAKE_CXX_FLAGS "-Wall -O2 -std=c++11 -I . -Wno-return-type-c-linkage")
 
 set (ANARKID_VERSION_MAJOR 0)
-set (ANARKID_VERSION_MINOR 2)
+set (ANARKID_VERSION_MINOR 3)
 set (MAKEDB_VERSION_MAJOR 0)
-set (MAKEDB_VERSION_MINOR 2)
+set (MAKEDB_VERSION_MINOR 3)
 
 configure_file (
   "${PROJECT_SOURCE_DIR}/config.h.in"
