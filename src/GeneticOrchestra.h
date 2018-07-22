@@ -174,13 +174,13 @@ private:
 			unsigned p = rand () % kth;		
 			f[i] = indexes[vx[p]];
 			// std::cout << "SELECTED " << vx[p] << " " << database[f[i]].file << std::endl;
-			T no = norm<T> (&model.database[f[i]]->features[0], 
-				model.database[f[i]]->features.size ());
-			no *= no;
-			for (unsigned k = 0; k < residual.size (); ++k) {
-				residual[k] -= (projections[vx[p]] * model.database[f[i]]->features[k] / no);
-			}
-			// std::cout << "--------------------------------------- " << norm (&residual[0], residual.size()) << std::endl;
+			// T no = norm<T> (&model.database[f[i]]->features[0], 
+			// 	model.database[f[i]]->features.size ());
+			// no *= no;
+			// for (unsigned k = 0; k < residual.size (); ++k) {
+			// 	residual[k] -= (projections[vx[p]] * model.database[f[i]]->features[k] / no);
+			// }
+			// // std::cout << "--------------------------------------- " << norm (&residual[0], residual.size()) << std::endl;
 		}
 	}	
 

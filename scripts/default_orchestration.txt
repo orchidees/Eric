@@ -17,21 +17,25 @@
 ;db_files 			/Users/Carmine/Desktop/Datasets/OrchDB_specpeaks.txt
 ;sound_paths			/Users/Carmine/Desktop/Datasets/OrchDB_flat
 
-;db_files 			/Users/Carmine/Desktop/Datasets/CSOL_ordinario_check_spectrum.txt
-;sound_paths			/Users/Carmine/Desktop/Datasets/CSOL_ordinario
+db_files 			/Users/Carmine/Desktop/Datasets/CSOL_ordinario_check_spectrum.txt
+sound_paths			/Users/Carmine/Desktop/Datasets/CSOL_ordinario
 
-db_files 			/Users/Carmine/Desktop/Datasets/OrchDB_check_spectrum.txt
-sound_paths			/Users/Carmine/Desktop/Datasets/OrchDB_flat
+;db_files 			/Users/Carmine/Desktop/Datasets/OrchDB_check_spectrum.txt
+;sound_paths			/Users/Carmine/Desktop/Datasets/OrchDB_flat
 
 ;db_files 			CSOL_ordinario_check_spectrum.txt
 ;sound_paths			/Users/Carmine/Elementi/Datasets/CSOL_ordinario
 
-
 ;db_files 			/Users/Carmine/Desktop/Datasets/CSOL_tam_tam_spectrum.txt /Users/Carmine/Desktop/Datasets/CSOL_multiphonics_spectrum.txt /Users/Carmine/Desktop/Datasets/CSOL_ordinario_spectrum.txt
 ;sound_paths			/Users/Carmine/Desktop/Datasets/CSOL_tam_tam /Users/Carmine/Desktop/Datasets/CSOL_multiphonics /Users/Carmine/Desktop/Datasets/CSOL_ordinario
 
-;orchestra			Fl Fl Ob Ob ClBb ClBb Bn Bn Hn Hn TpC TpC Tbn Tbn BTb Vn Vn Va Va Vc Vc Cb Cb
-orchestra			Picc Fl Fl Ob Ob EH ClBb ClBb BClBb Bn Bn CBn Hn Hn Hn Hn TpC TpC TpC TpC TTbn TTbn TTbn BTb Vns Vns Vas Vcs Cb Cb
+;db_files 			/Users/Carmine/Desktop/Datasets/Piano_DB_spectrum.txt
+;sound_paths			/Users/Carmine/Desktop/Datasets/Piano_DB
+
+orchestra			Fl Fl Ob Ob ClBb ClBb Bn Bn Hn Hn TpC TpC Tbn Tbn BTb Vn Vn Va Va Vc Vc Cb Cb
+;orchestra			Picc Fl Fl Ob Ob EH ClBb ClBb BClBb Bn Bn CBn Hn Hn Hn Hn TpC TpC TpC TpC TTbn TTbn TTbn BTb Vns Vns Vas Vcs Cb Cb
+;orchestra			ClBb ClBbb ASax ASax Hn Hn Hn Hn TpC TpC TpC TpC TTbn TTbn TTbn BTb
+
 ;orchestra			Picc Fl Fl Ob Ob EH ClBb ClBb BClBb Bn Bn CBn 
 ;orchestra			Vn Vn Va Vc Cb
 ;orchestra 	 		Bn Cb Hn Tbn+C|Tbn+H|Tbn+S BTb TpC+C|TpC+H|TpC+S
@@ -50,37 +54,40 @@ orchestra			Picc Fl Fl Ob Ob EH ClBb ClBb BClBb Bn Bn CBn Hn Hn Hn Hn TpC TpC Tp
 ;orchestra			Cb Cb Cb Bn MulBn tt BTb
 
 
-;styles				pizz pizz-bartok pizz-lv pizz-partok pizz-sec
+;orchestra			Ob Ob TpC TpC
+
+;styles				pizz pizz-lv pizz-sec
+;pizz-bartok pizz-lv pizz-partok pizz-sec
 styles 				ord
 ;styles	            mulpgbn mulvocl kn_ndle_edge kn_ndle_edge_drawn kn_ndle_mid pont-trem tasto-trem trem tymp_edge tymp_mid v_mh_edge v_mh_mid
 ;dynamics			ppp pp p N
 ;others				2c 4c 
 
-pop_size			100
-max_epochs			100
+pop_size			300
+max_epochs			300
 pursuit				0
 
 xover_rate			0.8
 mutation_rate		0.01
+sparsity			0.01
 
-sparsity			0.001
 positive_penalization .5
 negative_penalization 10
 
 partials_window		32768
-partials_filtering	0.4
-;extra_pitches		N
+partials_filtering	0.2
+;extra_pitches		D3 F#3 A3 D4
 
-onsets_threshold	.01
+onsets_threshold	2
 onsets_timegate		2
 
 ; brahms .01 2
 ; a_minor .1 .1
 ; jarrett .03 .5
-; coque //
+; coque .1 .1
+; jazz piano .1 .1
 
-
-export_solutions	0
+export_solutions	5
 t60					2.8
 dry_wet				.8 .4
 

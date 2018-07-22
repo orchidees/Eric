@@ -157,8 +157,7 @@ struct Parameters {
 		if (sparsity < 0 || sparsity > 1) {
 	        throw std::runtime_error ("invalid sparsity");
 		}
-		if (onsets_threshold < 0 || onsets_threshold > 1
-			|| onsets_timegate < 0) {
+		if (onsets_threshold < 0 || onsets_timegate < 0) {
 	        throw std::runtime_error ("invalid parameters for onsets");
 		}			
 		if (partials_window < 2 || ((((~partials_window + 1) & partials_window) != partials_window))) {
