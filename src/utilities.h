@@ -244,62 +244,64 @@ void create_sound_mix (const std::vector<std::string>& files,
 
 	int revSamples = dry_wet[1] == 0 ? 0 :  (int) (DEFAULT_SR * t60);
 	int m = 0;
-	int maxLen = ceil (maximum (&lengths[0], lengths.size (), m) *
-		(1. / minimum(&ratios[0], ratios.size (), m)));
-	
-	T* left = new T[(maxLen + revSamples)];
-	T* right = new T[(maxLen + revSamples)];
-	memset(left, 0, (maxLen + revSamples) * sizeof(T));
-	memset(right, 0, (maxLen + revSamples) * sizeof(T));
+	int maxLen = ceil (maximum<int> (&lengths[0], lengths.size (), m) *
+		(1. / minimum<T> (&ratios[0], ratios.size (), m)));
 
-	for (unsigned i = 0; i < pointers.size (); ++i) {
-		T phase = 0;
-		T incr = ratios[i];
-		T env = 1.;
-		int p = (lengths[i] * (1. / ratios[i]) - MINIMUM_FADEOUT);
-		for (unsigned j = 0; j < lengths[i] * (1. / ratios[i]); ++j) {
-			int index = (int) phase;
-			T frac = phase - index;
-			if (j > p) env -= (1. / MINIMUM_FADEOUT);
-			int next = (index == lengths[i] - 1 ? 0 : index + 1);
-			T sample = env * (pointers[i][index] * (1. - frac) + pointers[i][next] * frac);
-			T v = (sample / pointers.size ());
-			left[j] += (v * (1. - pans[i]));
-			right[j] += (v * pans[i]);
-			phase += incr;
-			if (phase >= lengths[i]) {
-				phase -= lengths[i];
+	if (maxLen > 0) {
+		T* left = new T[(maxLen + revSamples)];
+		T* right = new T[(maxLen + revSamples)];
+		memset(left, 0, (maxLen + revSamples) * sizeof(T));
+		memset(right, 0, (maxLen + revSamples) * sizeof(T));
+
+		for (unsigned i = 0; i < pointers.size (); ++i) {
+			T phase = 0;
+			T incr = ratios[i];
+			T env = 1.;
+			int p = (lengths[i] * (1. / ratios[i]) - MINIMUM_FADEOUT);
+			for (unsigned j = 0; j < lengths[i] * (1. / ratios[i]); ++j) {
+				int index = (int) phase;
+				T frac = phase - index;
+				if (j > p) env -= (1. / MINIMUM_FADEOUT);
+				int next = (index == lengths[i] - 1 ? 0 : index + 1);
+				T sample = env * (pointers[i][index] * (1. - frac) + pointers[i][next] * frac);
+				T v = (sample / pointers.size ());
+				left[j] += (v * (1. - pans[i]));
+				right[j] += (v * pans[i]);
+				phase += incr;
+				if (phase >= lengths[i]) {
+					phase -= lengths[i];
+				}
 			}
 		}
+
+		if (dry_wet[1] != 0) { // skip computing if all dry
+			ClassicVerb<T> cl(DEFAULT_SR, (maxLen + revSamples), 6, 1, 0);
+			cl.t60(t60);
+			cl.gains(dry_wet[0], 0, dry_wet[1]);
+			ClassicVerb<T> cr(DEFAULT_SR, (maxLen + revSamples), 6, 1, 23);
+			cr.t60(t60);
+			cr.gains(dry_wet[0], 0, dry_wet[1]);
+
+			cl.process(left, left, (maxLen + revSamples));
+			cr.process(right, right, (maxLen + revSamples));
+
+		}
+
+		if (outleft.size () < (start_sample + maxLen + revSamples)) {
+			outleft.resize ((start_sample + maxLen + revSamples), 0); // conservative
+		}
+		if (outright.size () < (start_sample + maxLen + revSamples)) {
+			outright.resize ((start_sample + maxLen + revSamples), 0); // conservative
+		}	
+
+		for (unsigned i = 0; i < maxLen + revSamples; ++i) {
+			outleft[start_sample + i] += left[i];
+			outright[start_sample + i] += right[i];
+		}
+		
+		delete [] left;
+		delete [] right;
 	}
-
-	if (dry_wet[1] != 0) { // skip computing if all dry
-		ClassicVerb<T> cl(DEFAULT_SR, (maxLen + revSamples), 6, 1, 0);
-		cl.t60(t60);
-		cl.gains(dry_wet[0], 0, dry_wet[1]);
-		ClassicVerb<T> cr(DEFAULT_SR, (maxLen + revSamples), 6, 1, 23);
-		cr.t60(t60);
-		cr.gains(dry_wet[0], 0, dry_wet[1]);
-
-		cl.process(left, left, (maxLen + revSamples));
-		cr.process(right, right, (maxLen + revSamples));
-
-	}
-
-	if (outleft.size () < (start_sample + maxLen + revSamples)) {
-		outleft.resize ((start_sample + maxLen + revSamples), 0); // conservative
-	}
-	if (outright.size () < (start_sample + maxLen + revSamples)) {
-		outright.resize ((start_sample + maxLen + revSamples), 0); // conservative
-	}	
-
-	for (unsigned i = 0; i < maxLen + revSamples; ++i) {
-		outleft[start_sample + i] += left[i];
-		outright[start_sample + i] += right[i];
-	}
-	
-	delete [] left;
-	delete [] right;
 
 	for (unsigned i = 0; i < pointers.size (); ++i) {
 		delete [] pointers[i];
