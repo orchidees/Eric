@@ -1,0 +1,8 @@
+-------------------------
+Anarkid - version changes
+-------------------------
+
+0.0.4 - September, 3, 2018
+
+First version deployed. Allow static and basic temporal orchestrations.
+Command line tools (anarkid and makedb) with dedicated scripts.
