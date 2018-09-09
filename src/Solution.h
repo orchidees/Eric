@@ -71,7 +71,7 @@ struct Solution {
 			else if (d->symbols[0].find ("Cb") != std::string::npos) pans.push_back(.7);
 			else pans.push_back(.5);
 
-			summary << durations[j] << " ";
+			summary << ((float) durations[j] / DEFAULT_SR) * 1000.  << " ";
 			for (unsigned z = 0; z < d->symbols.size (); ++z) {
 				summary << d->symbols[z] << " ";	
 			}

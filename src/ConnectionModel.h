@@ -18,7 +18,8 @@ struct ConnectionModel {
 		std::vector<T> outleft;
 		std::vector<T> outright;		
 		for (unsigned i = 0; i < models.size (); ++i) {
-			solutions_summary << ">" << i << " " << models[i]->segment->start << std::endl;
+			solutions_summary << ">" << i << " " 
+				<< ((float) models[i]->segment->start / DEFAULT_SR) * 1000. << std::endl;
 
 			models[i]->solutions[indices[i]].generate (outleft, outright, 
 				solutions_summary,
