@@ -26,7 +26,7 @@
 ; If your files are not named as specified, they will be tagged with 'N' for
 ; each specific field. The structure of the folder is not important.
 
-db_files 			/Users/Carmine/Elementi/Dati/Elettronica/Lavori/IRCAM_17_18/Orchids/anarkid/build/src/CSOL_ordinario_check_spectrum.txt
+db_files 			/Users/Carmine/Elementi/Datasets/CSOL_ordinario_spectrum.txt
 sound_paths			/Users/Carmine/Elementi/Datasets/CSOL_ordinario
 
 ;db_files 			CSOL_tam_tam_spectrum.txt CSOL_multiphonics_spectrum.txt CSOL_ordinario_spectrum.txt
@@ -70,8 +70,8 @@ styles 				ord
 ; for dynamic targets probably using 100 for both (or 100 and 300 respectively) 
 ; can be more appropriate.
 
-pop_size			500
-max_epochs			500
+pop_size			3000
+max_epochs			3000
 
 ; To determine the initial population for the optimization, Anarkid uses a method
 ; called 'relaxed pursuit'. Generally speaking, the method tries to generate right
@@ -100,7 +100,7 @@ mutation_rate		0.01
 ; Suggestion: use 0.01 for general targets, 0.001 for symphonic targets, 0.1 for
 ; single notes of instruments used as targets.
 
-sparsity			0.1
+sparsity			0.01
 
 ; The way Anarkid determins if a solution is close or not to the target is given 
 ; by an asymmetric function that considers differently cases in which a solution
@@ -128,7 +128,7 @@ negative_penalization 10
 ; than pitch, and something between 0.1 < x < 0.3 if pitches are also important.
 
 partials_window		32768
-partials_filtering	.2
+partials_filtering	0.2
 
 ; If, after the target analysis, there are still some pitches that are missing
 ; you can add them here in standard notation (ex. A4, B#3, ...)
@@ -146,8 +146,7 @@ partials_filtering	.2
 ; on the specific problem.
 
 onsets_threshold	2
-onsets_timegate		.1
-
+onsets_timegate		2
 
 ; brahms .01 2
 ; a_minor .1 .1
