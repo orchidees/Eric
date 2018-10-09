@@ -9,8 +9,11 @@
 #define TOOL_PATH "."
 
 int main (int argc, char* argv[]) {
-	printf ("[orchidea - C API test driver]\n\n");
-
+		printf ("[orchidea, ver. %s.%s]\n\n", ORCHIDEA_VERSION_MAJOR, 
+			ORCHIDEA_VERSION_MINOR);
+	printf ("C API test driver (shared)\n");
+	printf ("(c) 2018, www.carminecella.com\n\n");
+	
 	// OrchideaHandle* h = orchidea_create ();
 	// int err = ORCHIDEA_NO_ERROR;
 

@@ -16,9 +16,9 @@ using namespace std;
 int main (int argc, char* argv[]) {
     srand (time (NULL));
     
-    cout << "[makedb, ver. " << MAKEDB_VERSION_MAJOR << "." << 
-        MAKEDB_VERSION_MINOR << "]" << endl << endl;
-	cout << "feature analysis for anarkid" << endl;
+    cout << "[orchidea, ver. " << ORCHIDEA_VERSION_MAJOR << "." << 
+        ORCHIDEA_VERSION_MINOR << "]" << endl << endl;
+	cout << "feature analysis tool" << endl;
 	cout << "(c) 2018, www.carminecella.com" << endl << endl;
 
 	try {

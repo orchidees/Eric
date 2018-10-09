@@ -1,4 +1,4 @@
-// anarkid.cpp
+// orchestrate.cpp
 //
 
 #include "SoundTarget.h"
@@ -44,14 +44,14 @@ using namespace std;
 int main (int argc, char* argv[]) {
 	srand (time (NULL));
 
-	cout << "[anarkid, ver. " << ANARKID_VERSION_MAJOR << "." << 
-		ANARKID_VERSION_MINOR << "]" << endl << endl;
-	cout << "anarchist assisted orchestration" << endl;
+	cout << "[orchidea, ver. " << ORCHIDEA_VERSION_MAJOR << "." << 
+		ORCHIDEA_VERSION_MINOR << "]" << endl << endl;
+	cout << "assisted orchestration tool" << endl;
 	cout << "(c) 2018, www.carminecella.com" << endl << endl;	
 
     try {
 		if (argc != 3) {
-			throw runtime_error("syntax is 'anarkid target.wav config.txt");
+			throw runtime_error("syntax is 'orchidea target.wav config.txt");
 		}
 
 		// config --------------------------------------------------------------
