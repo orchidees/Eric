@@ -1,0 +1,67 @@
+// orchidea.h - C interface
+// 
+
+#ifndef ORCHIDEA_H
+#define ORCHIDEA_H 
+
+#include "config.h"
+
+struct OrchideaHandle; // An opaque type that we'll use as a handle
+typedef struct OrchideaHandle OrchideaHandle;
+
+// TODO:
+//		- getters: features of target, source explorer?
+
+#ifdef __cplusplus 
+extern "C" {
+#endif
+	enum {
+		ORCHIDEA_NO_ERROR,
+		ORCHIDEA_TARGET_ERROR,
+		ORCHIDEA_DB_ERROR,
+		ORCHIDEA_INVALID_PARAMETER,
+		ORCHIDEA_TARGET_NOT_DEFINED,
+		ORCHIDEA_SOURCE_NOT_DEFINED,
+		ORCHIDEA_SEARCH_NOT_DEFINED,
+		ORCHIDEA_INVALID_SEARCH_ALGORITHM,
+		ORCHIDEA_NO_SOUNDS,
+		ORCHIDEA_EXPORT_ERROR,
+		ORCHIDEA_ORCHESTRATION_ERROR,
+		ORCHIDEA_NO_INSTRUMENTS,
+		ORCHIDEA_ANALYSIS_ERROR
+	};
+	
+
+	#ifndef NOTIFIER_TYPE
+	#define NOTIFIER_TYPE
+	typedef void (*orchidea_notifier) (const char* action, float status);
+	#endif
+
+	OrchideaHandle* orchidea_create ();
+	void orchidea_destroy (OrchideaHandle* h);
+	
+	int orchidea_set_target (OrchideaHandle* h, const char* filename);
+	int orchidea_set_source (OrchideaHandle* h, const char* db_path[], int size);
+	const char* orchidea_dump_source (OrchideaHandle* h);
+
+	int orchidea_set_search (OrchideaHandle* h, const char* algorithm, orchidea_notifier notif);
+	int orchidea_set_param (OrchideaHandle* h, const char* param[], int size);
+	void orchidea_reset_filters (OrchideaHandle* h);
+
+	int orchidea_orchestrate (OrchideaHandle* h, int* nb_solutions);
+	int orchidea_export_solutions (OrchideaHandle* h, const char* export_path, orchidea_notifier notif);
+
+	int orchidea_analyse_sounds (OrchideaHandle* h, const char* sound_folder, 
+		const char* db_folder, const char* db_name, const char* tool_path, 
+		orchidea_notifier notif) ;
+
+	const char* orchidea_get_error_details (OrchideaHandle* h);
+	const char* orchidea_decode_error (int error);
+	void orchidea_throw (OrchideaHandle* h, int err); 
+#ifdef __cplusplus
+}
+#endif
+
+#endif	// ORCHIDEA_H 
+
+// EOF

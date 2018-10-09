@@ -3,13 +3,14 @@
 
 #include "orchidea.h"
 
+
 #include <stdlib.h>
 #include <stdio.h>
 
 #define TOOL_PATH "."
 
 int main (int argc, char* argv[]) {
-		printf ("[orchidea, ver. %s.%s]\n\n", ORCHIDEA_VERSION_MAJOR, 
+		printf ("[orchidea, ver. %d.%d]\n\n", ORCHIDEA_VERSION_MAJOR, 
 			ORCHIDEA_VERSION_MINOR);
 	printf ("C API test driver (shared)\n");
 	printf ("(c) 2018, www.carminecella.com\n\n");

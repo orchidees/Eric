@@ -24,6 +24,9 @@ struct SoundTarget : public TargetI<T> {
 		analyze(name);
 	}
 
+	SoundTarget (Source<T>* s, Parameters<T>* p) : TargetI<T> (s, p) {
+		TargetI<T>::segments.clear ();
+	}
 	void analyze (const char* name) {
 		TargetI<T>::segments.clear ();
 

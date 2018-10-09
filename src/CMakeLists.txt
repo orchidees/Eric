@@ -44,4 +44,5 @@ add_custom_command(TARGET orchidea POST_BUILD
 
 add_custom_command(TARGET orchidea_shared POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/../build/bin/
+  COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:orchidea_shared> ${PROJECT_SOURCE_DIR}/../build/bin/
 )

@@ -79,11 +79,11 @@ void insert_symbol (std::map<std::string, std::vector<int> >& coll,
 
 template <typename T>
 struct Source {
-	Source (Parameters<T>* params) {
+	Source (Parameters<T>* params, bool load_db = true) {
 		parameters = params;
-		load (parameters->db_files);
+		if (load_db) load ();
 	}
-	void load (const std::vector<std::string>& db_files) {
+	void load () {
 		database.clear ();
 		tot_instruments.clear ();
 		styles.clear ();
@@ -91,8 +91,8 @@ struct Source {
 		dynamics.clear ();
 		others.clear ();
 
-		for (unsigned i = 0; i < db_files.size (); ++i) {
-			std::ifstream db (db_files[i].c_str());
+		for (unsigned i = 0; i < parameters->db_files.size (); ++i) {
+			std::ifstream db (parameters->db_files[i].c_str());
 			if (!db.good ()) {
 				throw std::runtime_error("cannot open db file");
 			}
@@ -168,6 +168,39 @@ struct Source {
 	std::map<std::string, std::vector <int> > dynamics;
 	std::map<std::string, std::vector <int> > others;
 
+	void dump (std::ostream& output) {
+		std::map<std::string, std::vector<int> >::iterator it;
+
+		output << "INSTRUMENTS" << std::endl;
+		for (it = tot_instruments.begin (); it != tot_instruments.end (); ++it) {
+			output << it->first << " ";
+		}
+		output << std::endl << std::endl;
+		
+		output << "STYLES" << std::endl;
+		for (it = styles.begin (); it != styles.end (); ++it) {
+			output << it->first << " ";
+		}
+		output << std::endl << std::endl;
+
+		output << "PITCHES" << std::endl;
+		for (it = pitches.begin (); it != pitches.end (); ++it) {
+			output << it->first << " ";
+		}
+		output << std::endl << std::endl;
+
+		output << "DYNAMICS" << std::endl;
+		for (it = dynamics.begin (); it != dynamics.end (); ++it) {
+			output << it->first << " ";
+		}
+		output << std::endl << std::endl;
+
+		output << "OTHERS" << std::endl;
+		for (it = others.begin (); it != others.end (); ++it) {
+			output << it->first << " ";
+		}
+		output << std::endl << std::endl;
+	}
 };
 
 #endif	// SOURCE_H 

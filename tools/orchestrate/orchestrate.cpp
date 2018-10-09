@@ -33,13 +33,14 @@ using namespace std;
 // 4. mutation is +-r integer
 // 5. evaluation is = sum of corresponding envelopes and distance with target
 
-// TODO: tuning quantizzato (??),
-//	     orchestrazione dinamica, constraints, regole di concatenazione
-//       features multiple con pesi, filtro ottave
+// TODO:  quantized tuning,
+//	     dynamic symbolic constraints,
+//       filter by octave,
+//		 joint optimization
 
-// IDEE: NMF per scomposizione / temporalità; self-similarity matrix; sound-types
+// IDEAS: NMF decomposition for temporality, self-similarity matrix, sound-types
 
-// AbstractAnalysis, StaticSpectralFeatures,  Matrix
+// OTHER: AbstractAnalysis, StaticSpectralFeatures,  Matrix
 
 int main (int argc, char* argv[]) {
 	srand (time (NULL));

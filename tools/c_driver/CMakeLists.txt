@@ -14,6 +14,7 @@ set_target_properties(c_driver PROPERTIES LINK_FLAGS "-Wl,-rpath,./")
 
 target_include_directories(c_driver
     PUBLIC 
+      ${PROJECT_BINARY_DIR}/../../src/
       ${PROJECT_SOURCE_DIR}/../../src/
 )
 

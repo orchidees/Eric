@@ -16,7 +16,7 @@ set_target_properties(orchestrate PROPERTIES LINK_FLAGS "-Wl,-rpath,./")
 
 target_include_directories(orchestrate
     PUBLIC 
-
+		  ${PROJECT_BINARY_DIR}/../../src/
     	   ${PROJECT_SOURCE_DIR}/../../src/
  )
 

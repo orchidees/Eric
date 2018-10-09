@@ -3,8 +3,8 @@ project (orchidea)
 
 add_subdirectory (src)
 add_subdirectory (tools/makedb)
-add_subdirectory (tools/orchidea)
-add_subdirectory (tools/c_api)
-add_subdirectory (tools/cpp_api)
+add_subdirectory (tools/orchestrate)
+add_subdirectory (tools/c_driver)
+add_subdirectory (tools/cpp_driver)
 
 

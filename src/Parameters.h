@@ -14,6 +14,11 @@
 #include <deque>
 #include <sstream>
 
+#ifndef NOTIFIER_TYPE
+#define NOTIFIER_TYPE
+typedef void (*orchidea_notifier) (const char* action, float status);
+#endif
+
 template <typename T>
 struct Parameters {
 	Parameters () {
@@ -68,73 +73,81 @@ struct Parameters {
 	            throw std::runtime_error (err.str ());
 	        }
 
-	        if (tokens[0] == "db_files") {
-	        	for (unsigned i = 1; i < tokens.size (); ++i) {
-	        		db_files.push_back (tokens[i]);
-	        	}        	
-	        } else if (tokens[0] == "sound_paths") {
-	        	for (unsigned i = 1; i < tokens.size (); ++i) {
-	        		sound_paths.push_back (tokens[i]);
-	        	}
-	        } else if (tokens[0] == "orchestra") {
-	        	for (unsigned i = 1; i < tokens.size (); ++i) {
-	        		orchestra.push_back (tokens[i]);
-	        	}
-	        } else if (tokens[0] == "styles") {
-	        	for (unsigned i = 1; i < tokens.size (); ++i) {
-	        		styles.push_back (tokens[i]);
-	        	}
-	        } else if (tokens[0] == "dynamics") {
-	        	for (unsigned i = 1; i < tokens.size (); ++i) {
-	        		dynamics.push_back (tokens[i]);
-	        	}
-	        } else if (tokens[0] == "others") {
-	        	for (unsigned i = 1; i < tokens.size (); ++i) {
-	        		others.push_back (tokens[i]);
-	        	}
-	        } else if (tokens[0] == "pop_size") {
-	        	pop_size = atol (tokens[1].c_str ());
-	        } else if (tokens[0] == "max_epochs") {
-	        	max_epochs = atol (tokens[1].c_str ());
-	        } else if (tokens[0] == "pursuit") {
-	        	pursuit = atol (tokens[1].c_str ());
-	        } else if (tokens[0] == "xover_rate") {
-	        	xover_rate = atof (tokens[1].c_str ());
-	        } else if (tokens[0] == "mutation_rate") {
-	        	mutation_rate = atof (tokens[1].c_str ());
-	        } else if (tokens[0] == "sparsity") {
-	        	sparsity = atof (tokens[1].c_str ());
-	        } else if (tokens[0] == "onsets_threshold") {
-	        	onsets_threshold = atof (tokens[1].c_str ());
-	        } else if (tokens[0] == "onsets_timegate") {
-	        	onsets_timegate = atof (tokens[1].c_str ());
-	        } else if (tokens[0] == "positive_penalization") {
-	        	positive_penalization = atof (tokens[1].c_str ());
-	        } else if (tokens[0] == "negative_penalization") {
-	        	negative_penalization = atof (tokens[1].c_str ());
-	        } else if (tokens[0] == "partials_window") {
-	        	partials_window = atol (tokens[1].c_str ());
-	        } else if (tokens[0] == "partials_filtering") {
-	        	partials_filtering = atof (tokens[1].c_str ());
-	        } else if (tokens[0] == "extra_pitches") {
-	        	for (unsigned i = 1; i < tokens.size (); ++i) {
-	        	 	extra_pitches.push_back (tokens[i]);
-	        	}
-	        } else if (tokens[0] == "export_solutions") {
-	        	export_solutions = atol (tokens[1].c_str ());
-	        } else if (tokens[0] == "t60") {
-	        	t60 = atof (tokens[1].c_str ());
-	        }  else if (tokens[0] == "dry_wet") {
-	        	for (unsigned i = 1; i < tokens.size (); ++i) {
-	        		dry_wet.push_back (atof (tokens[i].c_str ()));
-	        	};
-	        }else {
-	            std::stringstream err;
-	            err << "invalid token in configuration file at line " << line;
-	            throw std::runtime_error (err.str ());
-	        }
+	        set_parameter (tokens);
 	    }
 
+	    check_params ();
+	}
+
+	void set_parameter (std::deque<std::string>& tokens) {
+        if (tokens[0] == "db_files") {
+        	for (unsigned i = 1; i < tokens.size (); ++i) {
+        		db_files.push_back (tokens[i]);
+        	}        	
+        } else if (tokens[0] == "sound_paths") {
+        	for (unsigned i = 1; i < tokens.size (); ++i) {
+        		sound_paths.push_back (tokens[i]);
+        	}
+        } else if (tokens[0] == "orchestra") {
+        	for (unsigned i = 1; i < tokens.size (); ++i) {
+        		orchestra.push_back (tokens[i]);
+        	}
+        } else if (tokens[0] == "styles") {
+        	for (unsigned i = 1; i < tokens.size (); ++i) {
+        		styles.push_back (tokens[i]);
+        	}
+        } else if (tokens[0] == "dynamics") {
+        	for (unsigned i = 1; i < tokens.size (); ++i) {
+        		dynamics.push_back (tokens[i]);
+        	}
+        } else if (tokens[0] == "others") {
+        	for (unsigned i = 1; i < tokens.size (); ++i) {
+        		others.push_back (tokens[i]);
+        	}
+        } else if (tokens[0] == "pop_size") {
+        	pop_size = atol (tokens[1].c_str ());
+        } else if (tokens[0] == "max_epochs") {
+        	max_epochs = atol (tokens[1].c_str ());
+        } else if (tokens[0] == "pursuit") {
+        	pursuit = atol (tokens[1].c_str ());
+        } else if (tokens[0] == "xover_rate") {
+        	xover_rate = atof (tokens[1].c_str ());
+        } else if (tokens[0] == "mutation_rate") {
+        	mutation_rate = atof (tokens[1].c_str ());
+        } else if (tokens[0] == "sparsity") {
+        	sparsity = atof (tokens[1].c_str ());
+        } else if (tokens[0] == "onsets_threshold") {
+        	onsets_threshold = atof (tokens[1].c_str ());
+        } else if (tokens[0] == "onsets_timegate") {
+        	onsets_timegate = atof (tokens[1].c_str ());
+        } else if (tokens[0] == "positive_penalization") {
+        	positive_penalization = atof (tokens[1].c_str ());
+        } else if (tokens[0] == "negative_penalization") {
+        	negative_penalization = atof (tokens[1].c_str ());
+        } else if (tokens[0] == "partials_window") {
+        	partials_window = atol (tokens[1].c_str ());
+        } else if (tokens[0] == "partials_filtering") {
+        	partials_filtering = atof (tokens[1].c_str ());
+        } else if (tokens[0] == "extra_pitches") {
+        	for (unsigned i = 1; i < tokens.size (); ++i) {
+        	 	extra_pitches.push_back (tokens[i]);
+        	}
+        } else if (tokens[0] == "export_solutions") {
+        	export_solutions = atol (tokens[1].c_str ());
+        } else if (tokens[0] == "t60") {
+        	t60 = atof (tokens[1].c_str ());
+        }  else if (tokens[0] == "dry_wet") {
+        	for (unsigned i = 1; i < tokens.size (); ++i) {
+        		dry_wet.push_back (atof (tokens[i].c_str ()));
+        	};
+        } else {
+            std::stringstream err;
+            err << "invalid parameter " << tokens[0];
+            throw std::runtime_error (err.str ());
+        }		
+	}
+
+	void check_params () {
 		if (orchestra.size() <= 0) {
 	        throw std::runtime_error ("invalid number of instruments");
 		}
@@ -174,9 +187,8 @@ struct Parameters {
 		}
 		if (dry_wet.size () != 2) {
 	        throw std::runtime_error ("invalid number of dry/wet coefficients");
-		}
+		}		
 	}
-
 	std::vector<std::string> db_files;
 	std::vector<std::string> sound_paths;
 	std::vector<std::string> orchestra;
@@ -199,6 +211,9 @@ struct Parameters {
 	int export_solutions;
 	T t60;
 	std::vector<T> dry_wet;
+
+	// internal
+	orchidea_notifier notif;
 };
 
 
