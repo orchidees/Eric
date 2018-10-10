@@ -39,6 +39,10 @@ struct GeneticOrchestra : public OptimizerI<T> {
 
 		std::vector<Solution<T> > best_pop;
 		for (unsigned i = 0; i < OptimizerI<T>::parameters->max_epochs; ++i) {
+	        if (OptimizerI<T>::parameters->notifier != nullptr) {
+	        	OptimizerI<T>::parameters->notifier ("genetic search ", (((float)i + 1) 
+	        		/ (float)OptimizerI<T>::parameters->max_epochs) * 100.);
+	        }
 			total_fitness = evaluate_population(population, model.segment->features, 
 				model.database);	
 

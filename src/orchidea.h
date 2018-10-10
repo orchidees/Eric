@@ -39,21 +39,21 @@ extern "C" {
 
 	OrchideaHandle* orchidea_create ();
 	void orchidea_destroy (OrchideaHandle* h);
-	
+	void orchidea_set_notifier (OrchideaHandle* h, orchidea_notifier notifier);
+
 	int orchidea_set_target (OrchideaHandle* h, const char* filename);
 	int orchidea_set_source (OrchideaHandle* h, const char* db_path[], int size);
 	const char* orchidea_dump_source (OrchideaHandle* h);
 
-	int orchidea_set_search (OrchideaHandle* h, const char* algorithm, orchidea_notifier notif);
+	int orchidea_set_search (OrchideaHandle* h, const char* algorithm);
 	int orchidea_set_param (OrchideaHandle* h, const char* param[], int size);
 	void orchidea_reset_filters (OrchideaHandle* h);
 
 	int orchidea_orchestrate (OrchideaHandle* h, int* nb_solutions);
-	int orchidea_export_solutions (OrchideaHandle* h, const char* export_path, orchidea_notifier notif);
+	int orchidea_export_solutions (OrchideaHandle* h, const char* export_path);
 
 	int orchidea_analyse_sounds (OrchideaHandle* h, const char* sound_folder, 
-		const char* db_folder, const char* db_name, const char* tool_path, 
-		orchidea_notifier notif) ;
+		const char* db_name, int bsize, int hopsize, int ncoeff, const char* feature);
 
 	const char* orchidea_get_error_details (OrchideaHandle* h);
 	const char* orchidea_decode_error (int error);

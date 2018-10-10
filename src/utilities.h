@@ -23,6 +23,11 @@
 #include <map>
 #include <deque>
 
+#ifndef NOTIFIER_TYPE
+#define NOTIFIER_TYPE
+typedef void (*orchidea_notifier) (const char* action, float status);
+#endif
+
 // -----------------------------------------------------------------------------
 std::string removePath (const std::string& in) {
 	size_t pos = std::string::npos;

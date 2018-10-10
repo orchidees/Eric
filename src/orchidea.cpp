@@ -65,6 +65,9 @@ extern "C" {
 	void orchidea_destroy (OrchideaHandle* h) {
 		delete h;
 	}
+	void orchidea_set_notifier (OrchideaHandle* h, orchidea_notifier notifier) {
+		h->params.notifier = notifier;
+	}
 	int orchidea_set_target (OrchideaHandle* h, 
 		const char* filename) {
 		try {
@@ -95,8 +98,7 @@ extern "C" {
 	const char* orchidea_dump_source (OrchideaHandle* h) {
 		return h->db_status.c_str ();
 	}
-	int orchidea_set_search (OrchideaHandle* h, const char* algorithm, 
-		orchidea_notifier notif) {
+	int orchidea_set_search (OrchideaHandle* h, const char* algorithm) {
 		std::string alg = algorithm;
 		if (algorithm == (std::string) "genetic") {
 			delete h->search; // created in constructor
@@ -152,8 +154,7 @@ extern "C" {
 		}
 		return ORCHIDEA_NO_ERROR;
 	}
-	int orchidea_export_solutions (OrchideaHandle* h, const char* export_path, 
-		orchidea_notifier notif) {
+	int orchidea_export_solutions (OrchideaHandle* h, const char* export_path) {
 		if (h->params.sound_paths.size () == 0) {
 			h->error_details = "";
 			return ORCHIDEA_NO_SOUNDS;
@@ -169,8 +170,8 @@ extern "C" {
 		
 				int nsol = h->orchestrations[i].solutions.size ();
 				if (nsol) {
-			        if (h->params.notif != nullptr) {
-			        	h->params.notif ("exporting solutions ", (((float)i + 1) / (float)nsol) * 100.);
+			        if (h->params.notifier != nullptr) {
+			        	h->params.notifier ("exporting solutions ", (((float)i + 1) / (float)nsol) * 100.);
 			        }
 
 					std::stringstream tar_name;
@@ -195,8 +196,8 @@ extern "C" {
 				}
 			}
 
-	        if (h->params.notif != nullptr) {
-	        	h->params.notif ("exporting connection ", 100.);
+	        if (h->params.notifier != nullptr) {
+	        	h->params.notifier ("exporting connection ", 100.);
 	        }
 			h->connection.export_solutions("");
 		}
@@ -207,21 +208,26 @@ extern "C" {
 
 	    return ORCHIDEA_NO_ERROR;
 	}
-	int orchidea_analyse_sounds (OrchideaHandle* h, const char* sound_folder, const char* db_folder, 
-		const char* db_name, const char* tool_path,  orchidea_notifier notif) {
+	int orchidea_analyse_sounds (OrchideaHandle* h, const char* sound_folder, 
+		const char* db_name, int bsize, int hopsize, int ncoeff, const char* feature) {
 
-		// try {
-	 //        orchidea::KnowledgeBDBPtr sKnowledge = orchidea::KnowledgeBDBPtr(
-	 //        	new orchidea::KnowledgeBDB(db_folder, "", tool_path));
-	        
-	 //        if (!sKnowledge->getBDBConnector()->addSoundDirectory(sound_folder, db_name, "", notif)) {
-	 //        	h->error_details = "";
-	 //        	return ORCHIDEA_ANALYSIS_ERROR;
-	 //        }			
-		// } catch (std::exception& e) {
-		// 	h->error_details = e.what ();
-		// 	return ORCHIDEA_ANALYSIS_ERROR;
-		// }
+		try {
+	    	std::vector<std::string> files;
+	        if (h->params.notifier != nullptr) {
+	        	h->params.notifier ("listing files", 100.);
+	        }
+	    	listdir (sound_folder, sound_folder, files); 
+
+	    	std::ofstream out (db_name);
+	    	if (!out.good ()) {
+	    		throw std::runtime_error ("cannot create database");
+	    	}
+	        make_db<Real>(sound_folder, files, out, std::cout, 
+	        	bsize, hopsize, ncoeff, feature, h->params.notifier);
+		} catch (std::exception& e) {
+			h->error_details = e.what ();
+			return ORCHIDEA_ANALYSIS_ERROR;
+		}
 
         return ORCHIDEA_NO_ERROR;			
 	}
@@ -231,40 +237,40 @@ extern "C" {
 	const char* orchidea_decode_error (int error) {
 		switch (error) {
 			case ORCHIDEA_DB_ERROR:
-				return "liborchidea: wrong or missing DB";
+				return "orchidea: wrong or missing DB";
 			break;
 			case ORCHIDEA_TARGET_ERROR:
-				return "liborchidea: cannot load target or compute features";
+				return "orchidea: cannot load target or compute features";
 			break;			
 			case ORCHIDEA_INVALID_PARAMETER:
-				return "liborchidea: invalid parameter name";
+				return "orchidea: invalid parameter name";
 			break;
 			case ORCHIDEA_TARGET_NOT_DEFINED:
-				return "liborchidea: target not defined";
+				return "orchidea: target not defined";
 			break;
 			case ORCHIDEA_SOURCE_NOT_DEFINED:
-				return "liborchidea: source not defined";
+				return "orchidea: source not defined";
 			break;
 			case ORCHIDEA_INVALID_SEARCH_ALGORITHM:
-				return "liborchidea: invalid search algorithm requested";
+				return "orchidea: invalid search algorithm requested";
 			break;						
 			case ORCHIDEA_NO_SOUNDS:
-				return "liborchidea: no sound folders defined";
+				return "orchidea: no sound folders defined";
 			break;			
 			case ORCHIDEA_EXPORT_ERROR:
-				return "liborchidea: export error";
+				return "orchidea: export error";
 			break;
 			case ORCHIDEA_ORCHESTRATION_ERROR:
-				return "liborchidea: orchestration error";
+				return "orchidea: orchestration error";
 			break;
 			case ORCHIDEA_NO_INSTRUMENTS:
-				return "liborchidea: no instruments defined";
+				return "orchidea: no instruments defined";
 			break;
 			case ORCHIDEA_ANALYSIS_ERROR:
-				return "liborchidea: cannot perform sound analysis";
+				return "orchidea: cannot perform sound analysis";
 			break;			
 			default:
-				return "liborchidea: no errors";
+				return "orchidea: no errors";
 			break;
 		}
 	}

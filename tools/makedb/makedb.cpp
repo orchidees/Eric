@@ -49,12 +49,13 @@ int main (int argc, char* argv[]) {
         }
         
         cout << "parsing source folder...";
-    	std::vector<string> files;
+    	vector<string> files;
     	listdir (argv[1], argv[1], files); 
     	cout << "done" << endl << endl;
 
     	clock_t tic = clock ();
-        make_db<float>(argv[1], files, out, cout, bsize, hopsize, ncoeff, argv[3]);
+        make_db<float>(argv[1], files, out, cout, bsize, hopsize, ncoeff, argv[3], 
+            nullptr);
     	clock_t toc = clock (); 
 
     	cout << endl << "analysis performed in " << ((float) toc - tic) / CLOCKS_PER_SEC << " sec." << endl;

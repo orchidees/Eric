@@ -14,11 +14,6 @@
 #include <deque>
 #include <sstream>
 
-#ifndef NOTIFIER_TYPE
-#define NOTIFIER_TYPE
-typedef void (*orchidea_notifier) (const char* action, float status);
-#endif
-
 template <typename T>
 struct Parameters {
 	Parameters () {
@@ -213,7 +208,7 @@ struct Parameters {
 	std::vector<T> dry_wet;
 
 	// internal
-	orchidea_notifier notif;
+	orchidea_notifier notifier;
 };
 
 

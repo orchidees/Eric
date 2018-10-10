@@ -4,17 +4,17 @@
 #ifndef ANALYSIS_H
 #define ANALYSIS_H 
 
-#include <string>
-#include <sstream>
-#include <vector>
-#include <map>
-
 #include "WavFile.h"
 #include "fourier.h"
 #include "utilities.h"
 #include "Hz2Note.h"
 #include "MFCC.h"
 #include "constants.h"
+
+#include <string>
+#include <sstream>
+#include <vector>
+#include <map>
 
 #define NUM_SMOOTH 160
 #define NUM_FILTERS 40
@@ -177,14 +177,19 @@ void compute_features (const char* name, std::vector<T>& features,
 template <typename T>
 void make_db (const char* path, const std::vector<std::string>& files,  
 	std::ostream& out, std::ostream& console, int bsize, int hopsize, int ncoeff, 
-	const std::string& type) {
+	const std::string& type, orchidea_notifier notifier) {
 	std::ofstream errs ("errors.txt");
 	out << type << " " << bsize << " " << hopsize << " " << ncoeff
 		<< std::endl;
 	for (unsigned i = 0; i < files.size (); ++i) {    		
 		if (files[i].find (".wav") != std::string::npos) {
-			console << "(" << i << "/" << files.size () << ") analysing " << files[i] << "...";
+			std::stringstream tmp;
+			tmp << "(" << i << "/" << files.size () << ") analysing " << files[i] << "...";
+			console << tmp.str ();
 			console.flush();
+	        if (notifier != nullptr) {
+	        	notifier (tmp.str ().c_str (), 100.);
+	        }
 			try {
 				std::vector<T> features;
 				std::stringstream fullname;
