@@ -47,6 +47,7 @@ struct SoundTarget : public TargetI<T> {
 			throw std::runtime_error ("unsupported number of bits");	
 		}
 		
+
 		T* buffer = new T[samples * channels];
 		in.read (buffer, samples * channels);
 
@@ -62,7 +63,7 @@ struct SoundTarget : public TargetI<T> {
 			delete [] right;		
 		}
 
-		// get segments here
+ 		// get segments here
 		std::vector<T> onsets;
 		SegmentationPolicy<T>::get_onsets(buffer, samples, TargetI<T>::source->bsize, 
 			TargetI<T>::source->hopsize, (T) DEFAULT_SR, 
@@ -71,7 +72,7 @@ struct SoundTarget : public TargetI<T> {
 
 		if (onsets.size () == 0) onsets.push_back(0);
 		
-		save_vector("onsets.txt", onsets);
+		// save_vector("onsets.txt", onsets);
 		for (unsigned i = 0; i < onsets.size (); ++i) {
 			Segment<T> seg;
 			int start =  (int) (onsets[i] * DEFAULT_SR);

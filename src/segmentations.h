@@ -39,6 +39,8 @@ struct FluxSegmentation {
 		T* old_spectrum = new T[bsize];
 		memset (old_spectrum, 0, sizeof (T) * bsize);
 
+		
+
 		T* win = new T[bsize];
 		makeWindow<T>(win, bsize, .5, .5, 0.); // hanning
 		AbstractFFT<T>* fft = createFFT<T>(bsize);
@@ -68,7 +70,7 @@ struct FluxSegmentation {
 		int mpos = 0;
 		T ma = maximum(&flux[0], flux.size(), mpos);
 		scale<T>(&flux[0], &flux[0], flux.size (), 1. / ma);
-		save_vector("flux.txt", flux);
+		// save_vector("flux.txt", flux);
 
 		std::vector<int> fluxpeaks;
 		locmax(&flux[0], flux.size (), fluxpeaks);

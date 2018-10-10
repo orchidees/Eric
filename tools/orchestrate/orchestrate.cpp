@@ -68,23 +68,7 @@ int main (int argc, char* argv[]) {
 		cout << "done (" << source.database.size () << " entries)" << endl;
 		
 		// symbols -------------------------------------------------------------
-		cout << "instruments............. ";
-		print_coll<int> (cout, source.tot_instruments, 25);
-		cout << endl;
-		cout << "styles.................. ";
-		print_coll<int> (cout, source.styles, 25);
-		cout << endl;
-		cout << "pitches................. ";
-		print_coll<int> (cout, source.pitches, 25); 
-		cout << endl;
-		cout << "dynamics................ ";
-		print_coll<int> (cout, source.dynamics, 25);
-		cout << endl;
-		if (source.others.size ()) {
-	 		cout << "others.................. ";
-			print_coll<int> (cout, source.others, 25);
-			cout << endl;
-		}
+		source.dump (cout);
 
 		// target --------------------------------------------------------------
 		cout << "analysing target........ ";  cout.flush ();

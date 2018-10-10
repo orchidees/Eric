@@ -79,9 +79,9 @@ void insert_symbol (std::map<std::string, std::vector<int> >& coll,
 
 template <typename T>
 struct Source {
-	Source (Parameters<T>* params, bool load_db = true) {
+	Source (Parameters<T>* params) {
 		parameters = params;
-		if (load_db) load ();
+		load ();
 	}
 	void load () {
 		database.clear ();
@@ -169,37 +169,23 @@ struct Source {
 	std::map<std::string, std::vector <int> > others;
 
 	void dump (std::ostream& output) {
-		std::map<std::string, std::vector<int> >::iterator it;
-
-		output << "INSTRUMENTS" << std::endl;
-		for (it = tot_instruments.begin (); it != tot_instruments.end (); ++it) {
-			output << it->first << " ";
+		output << "instruments............. ";
+		print_coll<int> (output, tot_instruments, 25);
+		output << std::endl;
+		output << "styles.................. ";
+		print_coll<int> (output, styles, 25);
+		output << std::endl;
+		output << "pitches................. ";
+		print_coll<int> (output, pitches, 25); 
+		output << std::endl;
+		output << "dynamics................ ";
+		print_coll<int> (output, dynamics, 25);
+		output << std::endl;
+		if (others.size ()) {
+	 		output << "others.................. ";
+			print_coll<int> (output, others, 25);
+			output << std::endl;
 		}
-		output << std::endl << std::endl;
-		
-		output << "STYLES" << std::endl;
-		for (it = styles.begin (); it != styles.end (); ++it) {
-			output << it->first << " ";
-		}
-		output << std::endl << std::endl;
-
-		output << "PITCHES" << std::endl;
-		for (it = pitches.begin (); it != pitches.end (); ++it) {
-			output << it->first << " ";
-		}
-		output << std::endl << std::endl;
-
-		output << "DYNAMICS" << std::endl;
-		for (it = dynamics.begin (); it != dynamics.end (); ++it) {
-			output << it->first << " ";
-		}
-		output << std::endl << std::endl;
-
-		output << "OTHERS" << std::endl;
-		for (it = others.begin (); it != others.end (); ++it) {
-			output << it->first << " ";
-		}
-		output << std::endl << std::endl;
 	}
 };
 

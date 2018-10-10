@@ -39,6 +39,7 @@ extern "C" {
 
 	OrchideaHandle* orchidea_create ();
 	void orchidea_destroy (OrchideaHandle* h);
+
 	void orchidea_set_notifier (OrchideaHandle* h, orchidea_notifier notifier);
 
 	int orchidea_set_target (OrchideaHandle* h, const char* filename);
@@ -49,8 +50,8 @@ extern "C" {
 	int orchidea_set_param (OrchideaHandle* h, const char* param[], int size);
 	void orchidea_reset_filters (OrchideaHandle* h);
 
-	int orchidea_orchestrate (OrchideaHandle* h, int* nb_solutions);
-	int orchidea_export_solutions (OrchideaHandle* h, const char* export_path);
+	int orchidea_orchestrate (OrchideaHandle* h);
+	int orchidea_export_solutions (OrchideaHandle* h);
 
 	int orchidea_analyse_sounds (OrchideaHandle* h, const char* sound_folder, 
 		const char* db_name, int bsize, int hopsize, int ncoeff, const char* feature);

@@ -32,22 +32,22 @@ extern "C" {
 
 	struct OrchideaHandle {
 		OrchideaHandle () {
-			source = new Source<Real> (&params, false);
+			source = new Source<Real> (&params);
 			target = new SoundTarget<float, FluxSegmentation> (source, &params);
-			search = new GeneticOrchestra<Real, AdditiveForecast> (&params);
-			session = new Session<Real, ClosestSolutions> (source, &params, search);
+			session = new Session<Real, ClosestSolutions> (source, &params, 
+				new GeneticOrchestra<Real, AdditiveForecast> (&params));
+
+			source_loaded = false;
 		}
 		virtual ~OrchideaHandle () {
 			delete source;
 			delete target;
-			delete search;
 			delete session;
 		}
 
 		Parameters<Real> params;
 		Source<Real>* source;
 		SoundTarget<Real, FluxSegmentation>* target;
-		GeneticOrchestra<Real, AdditiveForecast>* search;
 
 		Session<Real, ClosestSolutions>* session;
 
@@ -57,6 +57,8 @@ extern "C" {
 		std::string error_details;
 		std::string last_solutions;
 		std::string db_status;
+
+		bool source_loaded;
 	};
 
 	OrchideaHandle* orchidea_create () {
@@ -68,17 +70,6 @@ extern "C" {
 	void orchidea_set_notifier (OrchideaHandle* h, orchidea_notifier notifier) {
 		h->params.notifier = notifier;
 	}
-	int orchidea_set_target (OrchideaHandle* h, 
-		const char* filename) {
-		try {
-			h->target->analyze (filename);
-
-		} catch (std::exception& e) {
-			h->error_details = e.what ();
-			return ORCHIDEA_TARGET_ERROR;
-		}
-		return ORCHIDEA_NO_ERROR;
-	}
 	int orchidea_set_source (OrchideaHandle* h, const char* db_paths[],
 		int size) {
         try {
@@ -89,6 +80,7 @@ extern "C" {
         	std::stringstream tmp;
 	        h->source->dump (tmp);
 	        h->db_status = tmp.str ();
+	        h->source_loaded = true;
 	    } catch (std::exception& e) {
 	    	h->error_details = e.what ();
 	    	return ORCHIDEA_DB_ERROR;
@@ -97,12 +89,26 @@ extern "C" {
 	}
 	const char* orchidea_dump_source (OrchideaHandle* h) {
 		return h->db_status.c_str ();
+	}	
+	int orchidea_set_target (OrchideaHandle* h, 
+		const char* filename) {
+		try {
+			if (!h->source_loaded) throw 
+				std::runtime_error ("source must be loaded before analyzing a target");
+
+			h->target->analyze (filename);
+
+		} catch (std::exception& e) {
+			h->error_details = e.what ();
+			return ORCHIDEA_TARGET_ERROR;
+		}
+		return ORCHIDEA_NO_ERROR;
 	}
 	int orchidea_set_search (OrchideaHandle* h, const char* algorithm) {
 		std::string alg = algorithm;
 		if (algorithm == (std::string) "genetic") {
-			delete h->search; // created in constructor
-			 h->search = new GeneticOrchestra<Real, AdditiveForecast>(&h->params);
+			delete h->session->optim; // created in constructor
+			h->session->optim = new GeneticOrchestra<Real, AdditiveForecast>(&h->params);
 			return ORCHIDEA_NO_ERROR;
 		} else {
 			return ORCHIDEA_INVALID_SEARCH_ALGORITHM;
@@ -130,7 +136,7 @@ extern "C" {
     	h->params.styles.clear ();
     	h->params.others.clear ();
 	}
-	int orchidea_orchestrate (OrchideaHandle* h, int* nb_solutions) {
+	int orchidea_orchestrate (OrchideaHandle* h) {
 		if (h->target->segments.size () == 0) {
 			h->error_details = "";
 			return ORCHIDEA_TARGET_NOT_DEFINED;
@@ -154,7 +160,7 @@ extern "C" {
 		}
 		return ORCHIDEA_NO_ERROR;
 	}
-	int orchidea_export_solutions (OrchideaHandle* h, const char* export_path) {
+	int orchidea_export_solutions (OrchideaHandle* h) {
 		if (h->params.sound_paths.size () == 0) {
 			h->error_details = "";
 			return ORCHIDEA_NO_SOUNDS;
@@ -168,10 +174,10 @@ extern "C" {
 				fit_name << prefix.str () << "fitness.txt";			
 				save_vector<float> (fit_name.str ().c_str (), h->orchestrations[i].fitness);
 		
-				int nsol = h->orchestrations[i].solutions.size ();
-				if (nsol) {
+				int norch = h->orchestrations.size ();
+				if (norch) {
 			        if (h->params.notifier != nullptr) {
-			        	h->params.notifier ("exporting solutions ", (((float)i + 1) / (float)nsol) * 100.);
+			        	h->params.notifier ("exporting solutions ", (((float)i + 1) / (float)norch) * 100.);
 			        }
 
 					std::stringstream tar_name;

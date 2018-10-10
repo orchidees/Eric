@@ -17,25 +17,32 @@
 template <typename T>
 struct Parameters {
 	Parameters () {
+		setup ();
+	}
+	Parameters (const char* config_file) {
+		setup ();
+		read (config_file);
+	}
+	void setup () {
 		pop_size = 100;
-		max_epochs = 50;
+		max_epochs = 100;
 		pursuit = 0;
 		xover_rate = .7;
 		mutation_rate = .01;
 		sparsity = 0.001;
 		positive_penalization = 1.;
-		negative_penalization = 1.;
-		onsets_threshold = .2;
+		negative_penalization = 10.;
+		onsets_threshold = 2;
 		onsets_timegate = .1;
 		partials_window = 4096;
 		partials_filtering = .2;
-		export_solutions = 30;
+		export_solutions = 10;
 		t60 = 2.6;
+		dry_wet.resize (2);
+
+		dry_wet[0] = .7;
+		dry_wet[1] = .3;	
 	}
-	Parameters (const char* config_file) {
-		read (config_file);
-	}
-	
 	void read (const char* config_file) {
 		std::ifstream config (config_file);
 		if (!config.good ()) {
@@ -132,9 +139,13 @@ struct Parameters {
         } else if (tokens[0] == "t60") {
         	t60 = atof (tokens[1].c_str ());
         }  else if (tokens[0] == "dry_wet") {
-        	for (unsigned i = 1; i < tokens.size (); ++i) {
-        		dry_wet.push_back (atof (tokens[i].c_str ()));
-        	};
+	        if (tokens.size () < 3) {
+	            std::stringstream err;
+	            err << "invalid syntax for dry_wet parameter";
+	            throw std::runtime_error (err.str ());
+	        }        	
+        	dry_wet[0] = atof (tokens[1].c_str ());
+        	dry_wet[1] = atof (tokens[2].c_str ());
         } else {
             std::stringstream err;
             err << "invalid parameter " << tokens[0];

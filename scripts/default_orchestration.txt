@@ -128,7 +128,7 @@ negative_penalization 10
 ; than pitch, and something between 0.1 < x < 0.3 if pitches are also important.
 
 partials_window		32768
-partials_filtering	0.3
+partials_filtering	0.1
 
 ; If, after the target analysis, there are still some pitches that are missing
 ; you can add them here in standard notation (ex. A4, B#3, ...)
@@ -145,8 +145,8 @@ partials_filtering	0.3
 ; no onsets and target is considered static. The values for timegates depend
 ; on the specific problem.
 
-onsets_threshold	2
-onsets_timegate		2
+onsets_threshold 	2
+onsets_timegate		.01
 
 ; brahms .01 2
 ; a_minor .1 .1
