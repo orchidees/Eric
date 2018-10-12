@@ -20,9 +20,6 @@ target_include_directories(makedb
     	${PROJECT_SOURCE_DIR}/../../src/
 )
 
-target_link_libraries(makedb
-    PRIVATE orchidea
-)
 
 # post-build steps are a bit clumsy; can we do this better?? Carmine
 add_custom_command(TARGET makedb POST_BUILD

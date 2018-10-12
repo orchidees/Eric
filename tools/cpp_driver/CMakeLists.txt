@@ -20,10 +20,6 @@ target_include_directories(cpp_driver
     	${PROJECT_SOURCE_DIR}/../../src/
 )
 
-target_link_libraries(cpp_driver
-    PRIVATE orchidea 
-)
-
 # post-build steps are a bit clumsy; can we do this better?? Carmine
 add_custom_command(TARGET cpp_driver POST_BUILD
 	COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/../../build/bin/

@@ -21,10 +21,8 @@ file(GLOB library_SOURCES
 #Generate the static library from the library sources
 add_library(orchidea STATIC ${library_SOURCES})
 
-
 #Generate the static library from the library sources
 add_library(orchidea_shared SHARED ${library_SOURCES})
-
 
 target_include_directories(orchidea
     PUBLIC
