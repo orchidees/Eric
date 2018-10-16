@@ -34,7 +34,7 @@ struct Parameters {
 		negative_penalization = 10.;
 		onsets_threshold = 2;
 		onsets_timegate = .1;
-		partials_window = 4096;
+		partials_window = 32768;
 		partials_filtering = .2;
 		export_solutions = 10;
 		t60 = 2.6;

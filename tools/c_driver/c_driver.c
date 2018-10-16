@@ -31,6 +31,14 @@ int main (int argc, char* argv[]) {
 		argv[2]
 	};	
 	orchidea_throw(h,orchidea_set_source (h, paths, 1));
+
+	const char* paths1[] = {
+		"bang"
+	};
+
+
+	orchidea_set_source (h, paths1, 1);
+	orchidea_throw(h,orchidea_set_source (h, paths, 1));
 	printf("%s\n", orchidea_dump_source (h));
 
 	

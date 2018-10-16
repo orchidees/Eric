@@ -84,6 +84,8 @@ struct Source {
 		load ();
 	}
 	void load () {
+		if (parameters->db_files.size () == 0) return;
+
 		database.clear ();
 		tot_instruments.clear ();
 		styles.clear ();
@@ -91,10 +93,17 @@ struct Source {
 		dynamics.clear ();
 		others.clear ();
 
+		std::ofstream tmp ("debug_source.txt");
 		for (unsigned i = 0; i < parameters->db_files.size (); ++i) {
 			std::ifstream db (parameters->db_files[i].c_str());
+			
+			tmp << parameters->db_files[i].c_str() << std::endl;
+		
+
 			if (!db.good ()) {
-				throw std::runtime_error("cannot open db file");
+				std::stringstream msg;
+				msg << "cannot open db file [" << parameters->db_files[i].c_str() << "]";
+				throw std::runtime_error(msg.str ());
 			}
 
 			db >> type >> bsize >> hopsize >> ncoeff;
@@ -150,7 +159,9 @@ struct Source {
 			for (unsigned j = 4; j < database[i].symbols.size (); ++j) {
 				insert_symbol (others, database[i].symbols[j], i);
 			}
-		}			
+		}
+
+			tmp.close ();			
 	}
 
 	Parameters<T>* parameters;
@@ -169,21 +180,21 @@ struct Source {
 	std::map<std::string, std::vector <int> > others;
 
 	void dump (std::ostream& output) {
-		output << "instruments............. ";
-		print_coll<int> (output, tot_instruments, 25);
+		output << "[instruments]" << std::endl;
+		print_coll<int> (output, tot_instruments);
 		output << std::endl;
-		output << "styles.................. ";
-		print_coll<int> (output, styles, 25);
+		output << "[styles]" << std::endl;
+		print_coll<int> (output, styles);
 		output << std::endl;
-		output << "pitches................. ";
-		print_coll<int> (output, pitches, 25); 
+		output << "[pitches]" << std::endl;
+		print_coll<int> (output, pitches); 
 		output << std::endl;
-		output << "dynamics................ ";
-		print_coll<int> (output, dynamics, 25);
+		output << "[dynamics]" << std::endl;
+		print_coll<int> (output, dynamics);
 		output << std::endl;
 		if (others.size ()) {
-	 		output << "others.................. ";
-			print_coll<int> (output, others, 25);
+	 		output << "[others]" << std::endl;
+			print_coll<int> (output, others);
 			output << std::endl;
 		}
 	}

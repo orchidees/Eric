@@ -92,7 +92,7 @@ int main (int argc, char* argv[]) {
 			cout << endl << "[SEGMENT " << i << "]" << endl;
 
 			cout << "detected notes.......... ";
-			print_coll<int> (cout, orchestrations[i].segment->notes, 25);
+			print_coll<int> (cout, orchestrations[i].segment->notes);
 			cout << endl;
 
 			stringstream prefix;
@@ -118,7 +118,7 @@ int main (int argc, char* argv[]) {
 				best_name << prefix.str () << "best_forecast.txt";							
 				save_vector(best_name.str ().c_str (), orchestrations[i].best_forecast);
 				cout << "best solution........... ";
-				orchestrations[i].solutions[0].dump (cout, orchestrations[i].database, 25); // ranked first
+				orchestrations[i].solutions[0].dump (cout, orchestrations[i].database); // ranked first
 				cout << endl;
 			}
 

@@ -73,6 +73,7 @@ extern "C" {
 	int orchidea_set_source (OrchideaHandle* h, const char* db_paths[],
 		int size) {
         try {
+        	h->params.db_files.clear ();
         	for (unsigned i = 0; i < size; ++i) {
         		h->params.db_files.push_back (db_paths[i]);
         	}
