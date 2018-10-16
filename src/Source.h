@@ -93,12 +93,8 @@ struct Source {
 		dynamics.clear ();
 		others.clear ();
 
-		std::ofstream tmp ("debug_source.txt");
 		for (unsigned i = 0; i < parameters->db_files.size (); ++i) {
 			std::ifstream db (parameters->db_files[i].c_str());
-			
-			tmp << parameters->db_files[i].c_str() << std::endl;
-		
 
 			if (!db.good ()) {
 				std::stringstream msg;
@@ -160,8 +156,6 @@ struct Source {
 				insert_symbol (others, database[i].symbols[j], i);
 			}
 		}
-
-			tmp.close ();			
 	}
 
 	Parameters<T>* parameters;

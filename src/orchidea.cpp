@@ -137,7 +137,7 @@ extern "C" {
     	h->params.styles.clear ();
     	h->params.others.clear ();
 	}
-	int orchidea_orchestrate (OrchideaHandle* h) {
+	int orchidea_orchestrate (OrchideaHandle* h, int* segments) {
 		if (h->target->segments.size () == 0) {
 			h->error_details = "";
 			return ORCHIDEA_TARGET_NOT_DEFINED;
@@ -155,13 +155,14 @@ extern "C" {
 		try {
 			h->session->orchestrate (*h->target, h->orchestrations);
 			h->session->connect (h->orchestrations, h->connection);
+			*segments = h->orchestrations.size ();
 		} catch (std::exception& e) {
 			h->error_details = e.what ();
 			return ORCHIDEA_ORCHESTRATION_ERROR; 
 		}
 		return ORCHIDEA_NO_ERROR;
 	}
-	int orchidea_export_solutions (OrchideaHandle* h) {
+	int orchidea_export_solutions (OrchideaHandle* h, const char* out_path) {
 		if (h->params.sound_paths.size () == 0) {
 			h->error_details = "";
 			return ORCHIDEA_NO_SOUNDS;
@@ -170,7 +171,7 @@ extern "C" {
 		try {
 			for (unsigned i = 0; i < h->orchestrations.size (); ++i) {
 				std::stringstream prefix;
-				prefix << "target_" << std::setw (3) << std::setfill('0') << i << "_";
+				prefix << out_path << "/target_" << std::setw (3) << std::setfill('0') << i << "_";
 				std::stringstream fit_name;
 				fit_name << prefix.str () << "fitness.txt";			
 				save_vector<float> (fit_name.str ().c_str (), h->orchestrations[i].fitness);
@@ -206,7 +207,7 @@ extern "C" {
 	        if (h->params.notifier != nullptr) {
 	        	h->params.notifier ("exporting connection ", 100.);
 	        }
-			h->connection.export_solutions("");
+			h->connection.export_solutions(out_path);
 		}
 		catch (std::exception& e) {
 			h->error_details = e.what ();

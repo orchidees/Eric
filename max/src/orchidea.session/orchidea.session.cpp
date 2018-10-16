@@ -77,33 +77,33 @@ void* orchidea_dispatcher (void* d) {
     object_post((t_object*) x, "current thread n. %d", x->running_threads);
 
     t_symbol* argument = 0;
-//
-//    t_object *patcher, *parent, *tmp;
-//    object_obex_lookup(x, gensym("#P"), &patcher);
-//    parent = patcher;
-//    do {
-//        tmp = jpatcher_get_parentpatcher(parent);
-//        if (tmp) {
-//            parent = tmp;
-//        }
-//     } while (tmp != NULL);
-//
-//    t_symbol *path = object_attr_getsym(parent, gensym("filepath"));
-//    object_post((t_object*) x, "path: %s", path->s_name);
-//
-//    char outname[1024];
-//    char* location = 0;
-//    if (path != NULL) {
-//        path_nameconform(path->s_name, outname, PATH_STYLE_MAX, PATH_TYPE_BOOT);
-//        location = dirname (outname);
-//    } else {
-//        location = (char*) malloc(1024);
-//        location = (char*) ".";
-//    }
-//
-//    //post ("setting current location to: %s", location);
-//    chdir(location);
-//
+
+    t_object *patcher, *parent, *tmp;
+    object_obex_lookup(x, gensym("#P"), &patcher);
+    parent = patcher;
+    do {
+        tmp = jpatcher_get_parentpatcher(parent);
+        if (tmp) {
+            parent = tmp;
+        }
+     } while (tmp != NULL);
+
+    t_symbol *path = object_attr_getsym(parent, gensym("filepath"));
+    object_post((t_object*) x, "path: %s", path->s_name);
+
+    char outname[1024];
+    char* location = 0;
+    if (path != NULL) {
+        path_nameconform(path->s_name, outname, PATH_STYLE_MAX, PATH_TYPE_BOOT);
+        location = dirname (outname);
+    } else {
+        location = (char*) malloc(1024);
+        location = (char*) ".";
+    }
+
+    //post ("setting current location to: %s", location);
+    chdir(location);
+
     if (s == gensym("target")) {
         argument = atom_getsym(av);
         object_post((t_object *)x, "setting target to %s...", argument->s_name);
@@ -133,7 +133,7 @@ void* orchidea_dispatcher (void* d) {
             post ("%s", ss.str ().c_str ());
 //            while (!ss.eof ()) {
 //                std::string line;
-//                std::getline(ss, line);  
+//                std::getline(ss, line);
                 atom_setsym(&val, gensym(ss.str ().c_str ()));
                 outlet_anything(x->out_1, gensym ("source"), 1, &val);
 //            }
@@ -142,23 +142,24 @@ void* orchidea_dispatcher (void* d) {
         }
         free (sl);
     }
-//        else if (s == gensym ("orchestrate")) {
-//        object_post((t_object*) x, "start orchestration");
-//        int n = 0;
-//        int r = orchidea_orchestrate(x->orc_hand, &n);
-//        if (r != ORCHIDEA_NO_ERROR) {
-//            object_post((t_object *)x, "error: %s (%s)", orchidea_decode_error(r), orchidea_get_error_details(x->orc_hand));
-//        } else {
+    
+    else if (s == gensym ("orchestrate")) {
+        object_post((t_object*) x, "start orchestration");
+        int n = 0;
+        int r = orchidea_orchestrate(x->orc_hand, &n);
+        if (r != ORCHIDEA_NO_ERROR) {
+            object_post((t_object *)x, "error: %s (%s)", orchidea_decode_error(r), orchidea_get_error_details(x->orc_hand));
+        } else {
 //            system ("rm -rf solutions"); // FIXME: any better idea??
-//            r = orchidea_export_solutions(x->orc_hand, "solutions", &notifier);
-//            object_post((t_object *)x, "%d solution(s) found", n);
-//            if (r != ORCHIDEA_NO_ERROR) {
-//                object_post((t_object *)x, "error: %s (%s)", orchidea_decode_error(r), orchidea_get_error_details(x->orc_hand));
-//            } else {
-//                t_atom vals;
-//                atom_setlong (&vals, n);
-//                outlet_anything(x->out_1, gensym("nb_solutions"),  1, &vals);
-//
+            r = orchidea_export_solutions(x->orc_hand, "solutions");
+            object_post((t_object *)x, "%d segments(s) found", n);
+            if (r != ORCHIDEA_NO_ERROR) {
+                object_post((t_object *)x, "error: %s (%s)", orchidea_decode_error(r), orchidea_get_error_details(x->orc_hand));
+            } else {
+                t_atom vals;
+                atom_setlong (&vals, 10); // FIXME!!!
+                outlet_anything(x->out_1, gensym("nb_solutions"),  1, &vals);
+
 //                std::string sols = orchidea_get_last_solutions(x->orc_hand);
 //                std::deque<std::string> sol_vector;
 //                tokenize(sols, sol_vector, ">");
@@ -167,9 +168,9 @@ void* orchidea_dispatcher (void* d) {
 //                    object_post((t_object*) x, "%s", sol_vector[i].c_str ());
 //                    outlet_anything(x->out_1, gensym("solution"),  1, &vals);
 //                }
-//            }
-//        }
-//    }
+            }
+        }
+    }
     atom_setlong(&busy, 0);
     outlet_anything(x->out_1, gensym("busy"), 1, &busy);
     x->running_threads--;
@@ -332,7 +333,7 @@ void orchmax_session_anything(t_session *x, t_symbol *s, long ac, t_atom *av) {
         object_post((t_object *)x, "partials filter has been set correctly");
         free (sl);
     }
-    else if (s == gensym("sounds")) {
+    else if (s == gensym("sound_paths")) {
         argument = atom_getsym(av);
         char** sl  = (char**) malloc ((ac + 1) * sizeof (char*));
 

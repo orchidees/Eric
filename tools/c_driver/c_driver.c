@@ -31,16 +31,7 @@ int main (int argc, char* argv[]) {
 		argv[2]
 	};	
 	orchidea_throw(h,orchidea_set_source (h, paths, 1));
-
-	const char* paths1[] = {
-		"bang"
-	};
-
-
-	orchidea_set_source (h, paths1, 1);
-	orchidea_throw(h,orchidea_set_source (h, paths, 1));
 	printf("%s\n", orchidea_dump_source (h));
-
 	
 	orchidea_throw(h, orchidea_set_target (h, argv[1]));	
 	
@@ -85,7 +76,8 @@ int main (int argc, char* argv[]) {
 	orchidea_set_param (h, dynamics, 8);
 	
 	printf("orchestrating...");
-	orchidea_throw(h, orchidea_orchestrate (h));
+	int segments = 0;
+	orchidea_throw(h, orchidea_orchestrate (h, &segments));
 	printf ("done\n");
 	
 
@@ -96,7 +88,7 @@ int main (int argc, char* argv[]) {
 	orchidea_set_param (h, sound_paths, 2);
 
 	printf("exporting...");
-	orchidea_throw(h, orchidea_export_solutions (h));
+	orchidea_throw(h, orchidea_export_solutions (h, "."));
 	printf ("done\n");
 
 	orchidea_destroy (h);
