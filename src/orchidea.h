@@ -24,6 +24,7 @@ extern "C" {
 		ORCHIDEA_SOURCE_NOT_DEFINED,
 		ORCHIDEA_SEARCH_NOT_DEFINED,
 		ORCHIDEA_INVALID_SEARCH_ALGORITHM,
+		ORCHIDEA_INVALID_SEGMENT,
 		ORCHIDEA_NO_SOUNDS,
 		ORCHIDEA_EXPORT_ERROR,
 		ORCHIDEA_ORCHESTRATION_ERROR,
@@ -50,7 +51,11 @@ extern "C" {
 	int orchidea_set_param (OrchideaHandle* h, const char* param[], int size);
 	void orchidea_reset_filters (OrchideaHandle* h);
 
-	int orchidea_orchestrate (OrchideaHandle* h, int* segments);
+	int orchidea_orchestrate (OrchideaHandle* h);
+	void orchidea_num_segments (OrchideaHandle* h, int* segments);
+	int orchidea_solutions_per_segment (OrchideaHandle* h, int segment_number, 
+		int* solutions);
+
 	int orchidea_export_solutions (OrchideaHandle* h, const char* out_path);
 
 	int orchidea_analyse_sounds (OrchideaHandle* h, const char* sound_folder, 

@@ -131,7 +131,7 @@ int main (int argc, char* argv[]) {
 
 
 		cout << "saving connection....... "; cout.flush ();
-		connection.export_solutions("");
+		connection.export_solutions(".");
 		cout << "done" << endl;
 
     } catch (exception& e) {

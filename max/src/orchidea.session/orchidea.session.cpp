@@ -62,7 +62,6 @@ void notifier (const char* action, float status) {
 }
 
 void* orchidea_dispatcher (void* d) {
-    
     thread_data* data = (thread_data*) d;
     t_session* x = data->x;
     t_symbol* s = data->s;
@@ -145,19 +144,21 @@ void* orchidea_dispatcher (void* d) {
     
     else if (s == gensym ("orchestrate")) {
         object_post((t_object*) x, "start orchestration");
-        int n = 0;
-        int r = orchidea_orchestrate(x->orc_hand, &n);
+        int r = orchidea_orchestrate(x->orc_hand);
         if (r != ORCHIDEA_NO_ERROR) {
             object_post((t_object *)x, "error: %s (%s)", orchidea_decode_error(r), orchidea_get_error_details(x->orc_hand));
         } else {
 //            system ("rm -rf solutions"); // FIXME: any better idea??
-            r = orchidea_export_solutions(x->orc_hand, "solutions");
+            int n = 0;
+            orchidea_num_segments(x->orc_hand, &n);
+            
+            r = orchidea_export_solutions(x->orc_hand, ".");
             object_post((t_object *)x, "%d segments(s) found", n);
             if (r != ORCHIDEA_NO_ERROR) {
                 object_post((t_object *)x, "error: %s (%s)", orchidea_decode_error(r), orchidea_get_error_details(x->orc_hand));
             } else {
                 t_atom vals;
-                atom_setlong (&vals, 10); // FIXME!!!
+                atom_setlong (&vals, n); // FIXME!!!
                 outlet_anything(x->out_1, gensym("nb_solutions"),  1, &vals);
 
 //                std::string sols = orchidea_get_last_solutions(x->orc_hand);

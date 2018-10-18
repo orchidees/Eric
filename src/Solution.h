@@ -48,7 +48,7 @@ struct Solution {
 
 			DB_entry<float>* d = database[indices[j]];
 			files.push_back(d->file);
-			if ( parameters->partials_filtering > 0) {
+			if (parameters->partials_filtering > 0) {
 				T r = cents_to_ratio<T> (segment->notes[d->symbols[2]]);
 				ratios.push_back (r);
 			} else ratios.push_back (1.);
@@ -75,7 +75,7 @@ struct Solution {
 			for (unsigned z = 0; z < d->symbols.size (); ++z) {
 				summary << d->symbols[z] << " ";	
 			}
-			summary << d->file << std::endl;
+			summary << d->file << " " << segment->notes[d->symbols[2]] << std::endl;
 		}
 
 		create_sound_mix(files, parameters->sound_paths, ratios, pans,

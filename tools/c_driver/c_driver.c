@@ -76,9 +76,19 @@ int main (int argc, char* argv[]) {
 	orchidea_set_param (h, dynamics, 8);
 	
 	printf("orchestrating...");
-	int segments = 0;
-	orchidea_throw(h, orchidea_orchestrate (h, &segments));
+	
+	orchidea_throw(h, orchidea_orchestrate (h));
 	printf ("done\n");
+		orchidea_throw(h, orchidea_orchestrate (h));
+	printf ("drrrrone\n");
+	
+	int orchestrations = 0;
+	orchidea_num_segments(h, &orchestrations);
+	for (int i = 0; i < orchestrations; ++i) {
+		int solutions = 0;
+		orchidea_throw(h, orchidea_solutions_per_segment(h, i, &solutions));
+		printf ("segment %d: %d solution(s)\n", i, solutions);
+	}
 	
 
 	const char* sound_paths[] = {

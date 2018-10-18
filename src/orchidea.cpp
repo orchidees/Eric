@@ -137,7 +137,7 @@ extern "C" {
     	h->params.styles.clear ();
     	h->params.others.clear ();
 	}
-	int orchidea_orchestrate (OrchideaHandle* h, int* segments) {
+	int orchidea_orchestrate (OrchideaHandle* h) {
 		if (h->target->segments.size () == 0) {
 			h->error_details = "";
 			return ORCHIDEA_TARGET_NOT_DEFINED;
@@ -153,15 +153,27 @@ extern "C" {
 		}
 
 		try {
+			h->orchestrations.clear ();
 			h->session->orchestrate (*h->target, h->orchestrations);
 			h->session->connect (h->orchestrations, h->connection);
-			*segments = h->orchestrations.size ();
 		} catch (std::exception& e) {
 			h->error_details = e.what ();
 			return ORCHIDEA_ORCHESTRATION_ERROR; 
 		}
 		return ORCHIDEA_NO_ERROR;
 	}
+	void orchidea_num_segments (OrchideaHandle* h, int* segments) {
+		*segments = h->orchestrations.size ();
+	}
+	int orchidea_solutions_per_segment (OrchideaHandle* h, int segment_number, int* solutions) {
+		if (segment_number < 0 || segment_number >= h->orchestrations.size ()) {
+			h->error_details = "";
+			return ORCHIDEA_INVALID_SEGMENT;
+		}
+		*solutions = h->orchestrations.at (segment_number).solutions.size ();
+		return ORCHIDEA_NO_ERROR;
+	}
+
 	int orchidea_export_solutions (OrchideaHandle* h, const char* out_path) {
 		if (h->params.sound_paths.size () == 0) {
 			h->error_details = "";
@@ -262,6 +274,9 @@ extern "C" {
 			case ORCHIDEA_INVALID_SEARCH_ALGORITHM:
 				return "orchidea: invalid search algorithm requested";
 			break;						
+			case ORCHIDEA_INVALID_SEGMENT:
+				return "orchidea: invalid search algorithm requested";
+			break;				
 			case ORCHIDEA_NO_SOUNDS:
 				return "orchidea: no sound folders defined";
 			break;			
