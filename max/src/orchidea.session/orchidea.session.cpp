@@ -148,10 +148,15 @@ void* orchidea_dispatcher (void* d) {
         if (r != ORCHIDEA_NO_ERROR) {
             object_post((t_object *)x, "error: %s (%s)", orchidea_decode_error(r), orchidea_get_error_details(x->orc_hand));
         } else {
-//            system ("rm -rf solutions"); // FIXME: any better idea??
+            system ("rm target*"); // FIXME: any better idea??
+            system ("rm connection*"); // FIXME: any better idea??
             int n = 0;
             orchidea_num_segments(x->orc_hand, &n);
-            
+            for (unsigned i = 0; i < n; ++i) {
+                int sols = 0;
+                orchidea_solutions_per_segment(x->orc_hand, i, &sols);
+                post ("seg %d, sols %d", i, sols);
+            }
             r = orchidea_export_solutions(x->orc_hand, ".");
             object_post((t_object *)x, "%d segments(s) found", n);
             if (r != ORCHIDEA_NO_ERROR) {
@@ -193,8 +198,8 @@ void ext_main(void *r) {
     class_addmethod(c, (method)orchmax_session_anything,        "xover_rate", A_GIMME, 0);
     class_addmethod(c, (method)orchmax_session_anything,        "mutatioin_rate", A_GIMME, 0);
     class_addmethod(c, (method)orchmax_session_anything,        "sparsity", A_GIMME, 0);
-    class_addmethod(c, (method)orchmax_session_anything,        "onset_threshold", A_GIMME, 0);
-    class_addmethod(c, (method)orchmax_session_anything,        "onset_timegate", A_GIMME, 0);
+    class_addmethod(c, (method)orchmax_session_anything,        "onsets_threshold", A_GIMME, 0);
+    class_addmethod(c, (method)orchmax_session_anything,        "onsets_timegate", A_GIMME, 0);
     class_addmethod(c, (method)orchmax_session_anything,        "positive_penalization", A_GIMME, 0);
     class_addmethod(c, (method)orchmax_session_anything,        "negative_penalization", A_GIMME, 0);
     class_addmethod(c, (method)orchmax_session_anything,        "partials_window", A_GIMME, 0);
@@ -314,6 +319,24 @@ void orchmax_session_anything(t_session *x, t_symbol *s, long ac, t_atom *av) {
         sl[1] = (char*) atom_getsym(av + 1)->s_name;
         orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
         object_post((t_object *)x, "positive penalization has been set correctly");
+        free (sl);
+    }
+    else if (s == gensym("onsets_threshold")) {
+        argument = atom_getsym(av);
+        char** sl  = (char**) malloc (2 * sizeof (char*));
+        sl[0] = (char*) "onsets_threshold";
+        sl[1] = (char*) atom_getsym(av + 1)->s_name;
+        orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
+        object_post((t_object *)x, "onsets threshold has been set correctly");
+        free (sl);
+    }
+    else if (s == gensym("onsets_timegate")) {
+        argument = atom_getsym(av);
+        char** sl  = (char**) malloc (2 * sizeof (char*));
+        sl[0] = (char*) "onsets_timegate";
+        sl[1] = (char*) atom_getsym(av + 1)->s_name;
+        orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
+        object_post((t_object *)x, "onsets timegate has been set correctly");
         free (sl);
     }
     else if (s == gensym("partials_window")) {

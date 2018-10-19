@@ -84,14 +84,16 @@ void save_vector (const char* file, const std::vector<T>& v) {
 }
 // -----------------------------------------------------------------------------
 template <typename T>
-std::ostream& print_coll (std::ostream& out, std::map<std::string, std::vector<T> >& coll) {
+std::ostream& print_coll (std::ostream& out, std::map<std::string, std::vector<T> >& coll, 
+	int offset) {
 	int nl = 0;
 	for (typename std::map<std::string, std::vector<T> >::iterator it = coll.begin ();
 		it != coll.end (); ++it) {
 		out << it->first << " ";
 		++nl;
-		if (nl == 15 ) {
+		if (nl == 5) {
 			out << std::endl;
+			for (unsigned j = 0; j < offset; ++j) out << " ";
 			nl = 0;
 		}
 	}
@@ -99,7 +101,8 @@ std::ostream& print_coll (std::ostream& out, std::map<std::string, std::vector<T
 }
 
 template <typename T>
-std::ostream& print_coll (std::ostream& out, std::map<std::string, T >& coll) {
+std::ostream& print_coll (std::ostream& out, std::map<std::string, T >& coll, 
+	int offset) {
 
 	std::map<std::string, std::vector<int> > remap;
 	for (std::map<std::string, int>::iterator it = coll.begin ();
@@ -108,9 +111,8 @@ std::ostream& print_coll (std::ostream& out, std::map<std::string, T >& coll) {
 		p.push_back(it->second);
 		remap[it->first] = p;
 	}
-	return print_coll<T>(out, remap);
+	return print_coll<T>(out, remap, offset);
 }
-
 // -------------------------------------------------------------------------- //
 void listdir (const char *name, const char* trailing_path, std::vector<std::string>& list) {
     DIR *dir;

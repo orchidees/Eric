@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#define TEST_ITER 1
+
 void notif (const char* action, float status) {
 	printf ("%s: %g\n", action, status);
 }
@@ -24,7 +26,7 @@ int main (int argc, char* argv[]) {
 	OrchideaHandle* h = orchidea_create ();
 	int err = ORCHIDEA_NO_ERROR;
 
-	orchidea_set_notifier (h, notif);
+	// orchidea_set_notifier (h, notif);
 	orchidea_reset_filters(h);
 
 	const char* paths[] = {
@@ -33,6 +35,7 @@ int main (int argc, char* argv[]) {
 	orchidea_throw(h,orchidea_set_source (h, paths, 1));
 	printf("%s\n", orchidea_dump_source (h));
 	
+
 	orchidea_throw(h, orchidea_set_target (h, argv[1]));	
 	
 	orchidea_throw (h, orchidea_set_search (h, "genetic"));
@@ -48,7 +51,7 @@ int main (int argc, char* argv[]) {
 		"300"
 	};	
 	orchidea_throw (h, orchidea_set_param (h, population, 2));
-	
+
 	const char* orchestra[] = {
 		"orchestra",
 		"Ob",
@@ -74,22 +77,6 @@ int main (int argc, char* argv[]) {
 		"fff"
 	};
 	orchidea_set_param (h, dynamics, 8);
-	
-	printf("orchestrating...");
-	
-	orchidea_throw(h, orchidea_orchestrate (h));
-	printf ("done\n");
-		orchidea_throw(h, orchidea_orchestrate (h));
-	printf ("drrrrone\n");
-	
-	int orchestrations = 0;
-	orchidea_num_segments(h, &orchestrations);
-	for (int i = 0; i < orchestrations; ++i) {
-		int solutions = 0;
-		orchidea_throw(h, orchidea_solutions_per_segment(h, i, &solutions));
-		printf ("segment %d: %d solution(s)\n", i, solutions);
-	}
-	
 
 	const char* sound_paths[] = {
 		"sound_paths",
@@ -97,9 +84,26 @@ int main (int argc, char* argv[]) {
 	};
 	orchidea_set_param (h, sound_paths, 2);
 
-	printf("exporting...");
-	orchidea_throw(h, orchidea_export_solutions (h, "."));
-	printf ("done\n");
+
+	for (unsigned i = 0; i < TEST_ITER; ++i) {	
+		printf("orchestrating...");
+		
+		orchidea_throw(h, orchidea_orchestrate (h));
+		printf ("done\n");
+
+		int orchestrations = 0;
+		orchidea_num_segments(h, &orchestrations);
+		for (int i = 0; i < orchestrations; ++i) {
+			int solutions = 0;
+			orchidea_throw(h, orchidea_solutions_per_segment(h, i, &solutions));
+			printf ("segment %d: %d solution(s)\n", i, solutions);
+		}
+		printf("exporting...");
+		orchidea_throw(h, orchidea_export_solutions (h, "."));
+		printf ("done\n");
+
+	}
+	
 
 	orchidea_destroy (h);
 

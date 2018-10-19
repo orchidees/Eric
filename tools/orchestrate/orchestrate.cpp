@@ -68,7 +68,7 @@ int main (int argc, char* argv[]) {
 		cout << "done (" << source.database.size () << " entries)" << endl;
 		
 		// symbols -------------------------------------------------------------
-		source.dump (cout);
+		source.dump (cout, 25);
 
 		// target --------------------------------------------------------------
 		cout << "analysing target........ ";  cout.flush ();
@@ -92,7 +92,7 @@ int main (int argc, char* argv[]) {
 			cout << endl << "[SEGMENT " << i << "]" << endl;
 
 			cout << "detected notes.......... ";
-			print_coll<int> (cout, orchestrations[i].segment->notes);
+			print_coll<int> (cout, orchestrations[i].segment->notes, 25);
 			cout << endl;
 
 			stringstream prefix;
@@ -118,7 +118,7 @@ int main (int argc, char* argv[]) {
 				best_name << prefix.str () << "best_forecast.txt";							
 				save_vector(best_name.str ().c_str (), orchestrations[i].best_forecast);
 				cout << "best solution........... ";
-				orchestrations[i].solutions[0].dump (cout, orchestrations[i].database); // ranked first
+				orchestrations[i].solutions[0].dump (cout, orchestrations[i].database, 25); // ranked first
 				cout << endl;
 			}
 

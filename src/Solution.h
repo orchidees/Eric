@@ -86,10 +86,11 @@ struct Solution {
 
 
 	std::ostream& dump (std::ostream& out, 
-		const std::vector<DB_entry<T>* >& database) {
+		const std::vector<DB_entry<T>* >& database,
+		int offset) {
 		unsigned n_instruments = indices.size ();
 		for (unsigned i = 0; i < n_instruments; ++i) {
-			// if (i != 0) for (unsigned i = 0; i < offset; ++i) out << " ";
+			if (i != 0) for (unsigned i = 0; i < offset; ++i) out << " ";
 			if (indices[i] == -1) {
 				out << "-" << std::endl;
 				continue;

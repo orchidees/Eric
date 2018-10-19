@@ -30,6 +30,8 @@ struct Session {
 
 	void orchestrate (TargetI<T>& target, 
 		std::vector<OrchestrationModel<T> >& orchestrations) {
+		orchestrations.clear (); // FIXME: why crashes if not cleared?		
+		
 		for (unsigned i = 0; i < target.segments.size (); ++i) {
 			OrchestrationModel<T> model(parameters);
 			make_model (target.segments[i], model);
@@ -46,6 +48,9 @@ struct Session {
 	}
 	void connect (std::vector<OrchestrationModel<T> >& orchestrations,
 		ConnectionModel<T>& connection) {
+		connection.models.clear ();
+		connection.indices.clear ();
+
 		ConnectionPolicy<T>::connect (orchestrations, connection);
 
 		// continuity model

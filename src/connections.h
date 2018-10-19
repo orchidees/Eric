@@ -26,7 +26,7 @@ template <typename T>
 struct ClosestSolutions {
 	static void connect (std::vector<OrchestrationModel<T> >& orchestrations,
 		ConnectionModel<T>& connection) {
-
+		
 		connection.indices.push_back(0); // start from best solution
 		connection.models.push_back(&orchestrations[0]);
 		Segment<T>* current = orchestrations[0].segment;

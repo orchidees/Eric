@@ -14,6 +14,7 @@
 #include <sstream>
 #include <fstream>
 #include <stdexcept>
+#include <iomanip>
 
 template<typename T>
 struct DB_entry {
@@ -173,22 +174,22 @@ struct Source {
 	std::map<std::string, std::vector <int> > dynamics;
 	std::map<std::string, std::vector <int> > others;
 
-	void dump (std::ostream& output) {
-		output << "[instruments]" << std::endl;
-		print_coll<int> (output, tot_instruments);
+	void dump (std::ostream& output, int offset) {
+		output << std::setw(offset) <<  "[instruments] " ;
+		print_coll<int> (output, tot_instruments, offset);
 		output << std::endl;
-		output << "[styles]" << std::endl;
-		print_coll<int> (output, styles);
+		output << std::setw(offset) << "[styles] ";
+		print_coll<int> (output, styles, offset);
 		output << std::endl;
-		output << "[pitches]" << std::endl;
-		print_coll<int> (output, pitches); 
+		output << std::setw(offset) << "[pitches] ";
+		print_coll<int> (output, pitches, offset); 
 		output << std::endl;
-		output << "[dynamics]" << std::endl;
-		print_coll<int> (output, dynamics);
+		output << std::setw(offset) << "[dynamics] ";
+		print_coll<int> (output, dynamics, offset);
 		output << std::endl;
 		if (others.size ()) {
-	 		output << "[others]" << std::endl;
-			print_coll<int> (output, others);
+	 		output << std::setw(offset) << "[others] ";
+			print_coll<int> (output, others, offset);
 			output << std::endl;
 		}
 	}

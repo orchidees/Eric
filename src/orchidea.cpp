@@ -79,7 +79,7 @@ extern "C" {
         	}
         	h->source->load ();
         	std::stringstream tmp;
-	        h->source->dump (tmp);
+	        h->source->dump (tmp, 25);
 	        h->db_status = tmp.str ();
 	        h->source_loaded = true;
 	    } catch (std::exception& e) {
@@ -153,14 +153,13 @@ extern "C" {
 		}
 
 		try {
-			h->orchestrations.clear ();
 			h->session->orchestrate (*h->target, h->orchestrations);
 			h->session->connect (h->orchestrations, h->connection);
 		} catch (std::exception& e) {
 			h->error_details = e.what ();
 			return ORCHIDEA_ORCHESTRATION_ERROR; 
 		}
-		return ORCHIDEA_NO_ERROR;
+ 		return ORCHIDEA_NO_ERROR;
 	}
 	void orchidea_num_segments (OrchideaHandle* h, int* segments) {
 		*segments = h->orchestrations.size ();
