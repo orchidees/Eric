@@ -113,8 +113,7 @@ void* orchidea_dispatcher (void* d) {
     }
     else if (s == gensym("db_files")) {
         argument = atom_getsym(av);
-        char** sl  = (char**) malloc (ac * sizeof (char*));
-        
+        char** sl  = (char**) malloc ((ac) * sizeof (char*));
         for (int i = 0; i < ac; ++i) {
             sl[i] = atom_getsym(av + i)->s_name;
             object_post((t_object*) x, "adding db file %s", sl[i]);
@@ -123,8 +122,10 @@ void* orchidea_dispatcher (void* d) {
         int r = orchidea_set_source(x->orc_hand, (const char**) sl, (int) ac);
         
         if (r != ORCHIDEA_NO_ERROR) {
-            object_post((t_object *)x, "error: %s (%s)", orchidea_decode_error(r), orchidea_get_error_details(x->orc_hand));
+            object_post((t_object *)x, "error: %s (%s)", orchidea_decode_error(r),
+                        orchidea_get_error_details(x->orc_hand));
         }
+        
         else {
             t_atom val;
             std::stringstream ss;
@@ -141,7 +142,6 @@ void* orchidea_dispatcher (void* d) {
         }
         free (sl);
     }
-    
     else if (s == gensym ("orchestrate")) {
         object_post((t_object*) x, "start orchestration");
         int r = orchidea_orchestrate(x->orc_hand);
@@ -246,14 +246,15 @@ void orchmax_session_anything(t_session *x, t_symbol *s, long ac, t_atom *av) {
         object_post((t_object *)x, "setting search to %s", argument->s_name);
         int r = orchidea_set_search(x->orc_hand, argument->s_name);
         if (r != ORCHIDEA_NO_ERROR) {
-            object_post((t_object *)x, "error: %s (%s)", orchidea_decode_error(r), orchidea_get_error_details(x->orc_hand));
+            object_post((t_object *)x, "error: %s (%s)", orchidea_decode_error(r),
+                        orchidea_get_error_details(x->orc_hand));
         } else object_post((t_object *)x, "search has been set correctly");
     }
     else if (s == gensym("pop_size")) {
         argument = atom_getsym(av);
         char** sl  = (char**) malloc (2 * sizeof (char*));
         sl[0] = (char*) "pop_size";
-        sl[1] = (char*) atom_getsym(av + 1)->s_name;
+        sl[1] = (char*) argument->s_name;
         orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
         object_post((t_object *)x, "population size has been set correctly");
         free (sl);
@@ -262,7 +263,7 @@ void orchmax_session_anything(t_session *x, t_symbol *s, long ac, t_atom *av) {
         argument = atom_getsym(av);
         char** sl  = (char**) malloc (2 * sizeof (char*));
         sl[0] = (char*) "max_epochs";
-        sl[1] = (char*) atom_getsym(av + 1)->s_name;
+        sl[1] = (char*) argument->s_name;
         orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
         object_post((t_object *)x, "max number of epochs has been set correctly");
         free (sl);
@@ -271,7 +272,7 @@ void orchmax_session_anything(t_session *x, t_symbol *s, long ac, t_atom *av) {
         argument = atom_getsym(av);
         char** sl  = (char**) malloc (2 * sizeof (char*));
         sl[0] = (char*) "xover_rate";
-        sl[1] = (char*) atom_getsym(av + 1)->s_name;
+        sl[1] = (char*) argument->s_name;
         orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
         object_post((t_object *)x, "cross-over rate has been set correctly");
         free (sl);
@@ -280,7 +281,7 @@ void orchmax_session_anything(t_session *x, t_symbol *s, long ac, t_atom *av) {
         argument = atom_getsym(av);
         char** sl  = (char**) malloc (2 * sizeof (char*));
         sl[0] = (char*) "mutation_rate";
-        sl[1] = (char*) atom_getsym(av + 1)->s_name;
+        sl[1] = (char*) argument->s_name;
         orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
         object_post((t_object *)x, "mutation rate has been set correctly");
         free (sl);
@@ -289,7 +290,7 @@ void orchmax_session_anything(t_session *x, t_symbol *s, long ac, t_atom *av) {
         argument = atom_getsym(av);
         char** sl  = (char**) malloc (2 * sizeof (char*));
         sl[0] = (char*) "pursuit";
-        sl[1] = (char*) atom_getsym(av + 1)->s_name;
+        sl[1] = (char*) argument->s_name;
         orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
         object_post((t_object *)x, "relaxed pursuit has been set correctly");
         free (sl);
@@ -298,7 +299,7 @@ void orchmax_session_anything(t_session *x, t_symbol *s, long ac, t_atom *av) {
         argument = atom_getsym(av);
         char** sl  = (char**) malloc (2 * sizeof (char*));
         sl[0] = (char*) "sparsity";
-        sl[1] = (char*) atom_getsym(av + 1)->s_name;
+        sl[1] = (char*) argument->s_name;
         orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
         object_post((t_object *)x, "sparsity has been set correctly");
         free (sl);
@@ -307,7 +308,7 @@ void orchmax_session_anything(t_session *x, t_symbol *s, long ac, t_atom *av) {
         argument = atom_getsym(av);
         char** sl  = (char**) malloc (2 * sizeof (char*));
         sl[0] = (char*) "negative_penalization";
-        sl[1] = (char*) atom_getsym(av + 1)->s_name;
+        sl[1] = (char*) argument->s_name;
         orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
         object_post((t_object *)x, "negative penalization has been set correctly");
         free (sl);
@@ -316,7 +317,7 @@ void orchmax_session_anything(t_session *x, t_symbol *s, long ac, t_atom *av) {
         argument = atom_getsym(av);
         char** sl  = (char**) malloc (2 * sizeof (char*));
         sl[0] = (char*) "positive_penalization";
-        sl[1] = (char*) atom_getsym(av + 1)->s_name;
+        sl[1] = (char*) argument->s_name;
         orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
         object_post((t_object *)x, "positive penalization has been set correctly");
         free (sl);
@@ -325,7 +326,9 @@ void orchmax_session_anything(t_session *x, t_symbol *s, long ac, t_atom *av) {
         argument = atom_getsym(av);
         char** sl  = (char**) malloc (2 * sizeof (char*));
         sl[0] = (char*) "onsets_threshold";
-        sl[1] = (char*) atom_getsym(av + 1)->s_name;
+        sl[1] = (char*) argument->s_name;
+        post ("%s, %g, %s, %s", sl[1], atof (sl[1]), argument->s_name,
+              atom_getsym(av)->s_name);
         orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
         object_post((t_object *)x, "onsets threshold has been set correctly");
         free (sl);
@@ -334,7 +337,9 @@ void orchmax_session_anything(t_session *x, t_symbol *s, long ac, t_atom *av) {
         argument = atom_getsym(av);
         char** sl  = (char**) malloc (2 * sizeof (char*));
         sl[0] = (char*) "onsets_timegate";
-        sl[1] = (char*) atom_getsym(av + 1)->s_name;
+        sl[1] = (char*) argument->s_name;
+        post ("%s, %g, %s, %s", sl[1], atof (sl[1]), argument->s_name,
+              atom_getsym(av)->s_name);
         orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
         object_post((t_object *)x, "onsets timegate has been set correctly");
         free (sl);
@@ -343,7 +348,7 @@ void orchmax_session_anything(t_session *x, t_symbol *s, long ac, t_atom *av) {
         argument = atom_getsym(av);
         char** sl  = (char**) malloc (2 * sizeof (char*));
         sl[0] = (char*) "partials_window";
-        sl[1] = (char*) atom_getsym(av + 1)->s_name;
+        sl[1] = (char*) argument->s_name;
         orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
         object_post((t_object *)x, "partials window has been set correctly");
         free (sl);
@@ -352,7 +357,7 @@ void orchmax_session_anything(t_session *x, t_symbol *s, long ac, t_atom *av) {
         argument = atom_getsym(av);
         char** sl  = (char**) malloc (2 * sizeof (char*));
         sl[0] = (char*) "partials_filter";
-        sl[1] = (char*) atom_getsym(av + 1)->s_name;
+        sl[1] = (char*) argument->s_name;
         orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
         object_post((t_object *)x, "partials filter has been set correctly");
         free (sl);
@@ -364,7 +369,7 @@ void orchmax_session_anything(t_session *x, t_symbol *s, long ac, t_atom *av) {
         sl[0] = (char*) "sound_paths";
         for (int i = 0; i < ac; ++i) {
             sl[i + 1] = atom_getsym(av + i)->s_name;
-            object_post((t_object*) x, "setting sound folder %s", sl[i + 1]);
+            object_post((t_object*) x, "adding sound folder %s", sl[i + 1]);
         }
 
         orchidea_set_param(x->orc_hand, (const char**) sl, (int) ac + 1);
@@ -456,7 +461,8 @@ void orchmax_session_anything(t_session *x, t_symbol *s, long ac, t_atom *av) {
         thread_data d; // delete after thread call - I think it works since thare are no modif during thread
         d.x = x; d.s = s; d.ac =  ac; d.av = av;
 
-        pthread_create(&x->thread_pool[x->running_threads], NULL, orchidea_dispatcher, (void*) &d);
+        pthread_create(&x->thread_pool[x->running_threads], NULL,
+                       orchidea_dispatcher, (void*) &d);
     }
 }
 

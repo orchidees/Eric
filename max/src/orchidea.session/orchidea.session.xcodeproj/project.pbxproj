@@ -31,7 +31,6 @@
 		22CF10220EE984600054F513 /* maxmspsdk.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = maxmspsdk.xcconfig; path = ../../maxmspsdk.xcconfig; sourceTree = SOURCE_ROOT; };
 		22CF122A0EE9AAAD0054F513 /* orchidea.session.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = orchidea.session.cpp; sourceTree = "<group>"; };
 		2BE44D9820349C37006E42EC /* orchidea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = orchidea.h; path = ../../../src/orchidea.h; sourceTree = "<group>"; };
-		2BFD0E452058370900CB11B0 /* libsdif-3.11.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsdif-3.11.4.dylib"; path = "../../../build/bin/libsdif-3.11.4.dylib"; sourceTree = "<group>"; };
 		2FBBEAE508F335360078DB84 /* orchidea.session.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = orchidea.session.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB419179203B974E00237F10 /* tokenizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tokenizer.h; sourceTree = "<group>"; };
 		DB526AB420582CF0006BE8BC /* liborchidea_shared.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liborchidea_shared.dylib; path = ../../../build/bin/liborchidea_shared.dylib; sourceTree = "<group>"; };
@@ -73,7 +72,6 @@
 		2BE44D9320349A02006E42EC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2BFD0E452058370900CB11B0 /* libsdif-3.11.4.dylib */,
 				DB526AB420582CF0006BE8BC /* liborchidea_shared.dylib */,
 			);
 			name = Frameworks;

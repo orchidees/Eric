@@ -99,7 +99,7 @@ int main (int argc, char* argv[]) {
 			printf ("segment %d: %d solution(s)\n", i, solutions);
 		}
 		printf("exporting...");
-		orchidea_throw(h, orchidea_export_solutions (h, "."));
+		orchidea_throw(h, orchidea_export_solutions (h, ""));
 		printf ("done\n");
 
 	}

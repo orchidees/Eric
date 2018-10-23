@@ -12,7 +12,7 @@ template <typename T>
 struct ConnectionModel {
 	void export_solutions (const std::string& prefix = "") {
 		std::stringstream nn;
-		nn << prefix << "/connection.txt";
+		nn << prefix << "connection.txt";
 		std::ofstream solutions_summary (nn.str ());
 
 		std::vector<T> outleft;
@@ -32,7 +32,7 @@ struct ConnectionModel {
 		scale<T>(&mix[0], &mix[0], outleft.size () * 2, 2.);
 
 		std::stringstream mm;
-		mm << prefix << "/connection.wav";
+		mm << prefix << "connection.wav";
 		WavOutFile outfile (mm.str ().c_str (), DEFAULT_SR, 16, 2);
 		outfile.write(&mix[0], outleft.size () * 2);
 		

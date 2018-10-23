@@ -96,7 +96,7 @@ int main (int argc, char* argv[]) {
 			cout << endl;
 
 			stringstream prefix;
-			prefix << "target_" << setw (3) << setfill('0') << i << "_";
+			prefix << "segment_" << setw (3) << setfill('0') << i + 1 << "_";
 			std::stringstream fit_name;
 			fit_name << prefix.str () << "fitness.txt";			
 			save_vector<float> (fit_name.str ().c_str (), orchestrations[i].fitness);
@@ -131,7 +131,7 @@ int main (int argc, char* argv[]) {
 
 
 		cout << "saving connection....... "; cout.flush ();
-		connection.export_solutions(".");
+		connection.export_solutions("");
 		cout << "done" << endl;
 
     } catch (exception& e) {

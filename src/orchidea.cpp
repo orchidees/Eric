@@ -182,7 +182,7 @@ extern "C" {
 		try {
 			for (unsigned i = 0; i < h->orchestrations.size (); ++i) {
 				std::stringstream prefix;
-				prefix << out_path << "/target_" << std::setw (3) << std::setfill('0') << i << "_";
+				prefix << out_path << "segment_" << std::setw (3) << std::setfill('0') << i << "_";
 				std::stringstream fit_name;
 				fit_name << prefix.str () << "fitness.txt";			
 				save_vector<float> (fit_name.str ().c_str (), h->orchestrations[i].fitness);
