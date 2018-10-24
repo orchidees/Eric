@@ -25,16 +25,23 @@ struct OrchestrationModel {
 		nn << prefix << "summary.txt";
 		std::ofstream solutions_summary (nn.str ());
 		
+		solutions_summary << "[orchestra ";
+		for (unsigned i = 0; i < parameters->orchestra.size (); ++i) {
+			solutions_summary << parameters->orchestra.at (i) << " ";
+		}
+		solutions_summary << "]" << std::endl;
+
 		unsigned max_sols =  parameters->export_solutions < solutions.size () ? 
 			 parameters->export_solutions : solutions.size ();
 
-		for (unsigned i = 0; i < max_sols; ++i) {
-			solutions_summary << ">" << i << " " << segment->start << std::endl;
+		solutions_summary << "[segment " 
+			<< ((float) segment->start / DEFAULT_SR 	* 1000.) << std::endl;
 
+		for (unsigned i = 0; i < max_sols; ++i) {
 			std::vector<T> outleft;
 			std::vector<T> outright;
 			solutions[i].generate (outleft, outright, solutions_summary,
-				segment, parameters, database);
+				segment, parameters, database, i);
 
 			std::vector<T> mix (outleft.size () * 2);
 			interleave(&mix[0], &outleft[0], &outright[0], outleft.size ());
@@ -46,7 +53,7 @@ struct OrchestrationModel {
 			WavOutFile outfile (wav_name.str ().c_str(), DEFAULT_SR, 16, 2);
 			outfile.write(&mix[0], outleft.size () * 2);
 		}
-
+		solutions_summary << "]" << std::endl;
 		solutions_summary.close ();
 	}
 	

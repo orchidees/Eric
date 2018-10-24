@@ -6,7 +6,6 @@
 #include "Parameters.h"
 #include "GeneticOrchestra.h"
 #include "Session.h" 
-#include "forecasts.h"
 #include "analysis.h"
 #include "utilities.h"
 #include "constants.h"
@@ -68,7 +67,9 @@ int main (int argc, char* argv[]) {
 		cout << "done (" << source.database.size () << " entries)" << endl;
 		
 		// symbols -------------------------------------------------------------
-		source.dump (cout, 25);
+		ofstream dd ("source_dump.txt");
+		source.dump (dd);
+		dd.close ();
 
 		// target --------------------------------------------------------------
 		cout << "analysing target........ ";  cout.flush ();
@@ -88,52 +89,9 @@ int main (int argc, char* argv[]) {
 		cout << "done" << endl;		
 
 		// export -----------------------------------------------------------
-		for (unsigned i = 0; i < orchestrations.size (); ++i) {
-			cout << endl << "[SEGMENT " << i << "]" << endl;
-
-			cout << "detected notes.......... ";
-			print_coll<int> (cout, orchestrations[i].segment->notes, 25);
-			cout << endl;
-
-			stringstream prefix;
-			prefix << "segment_" << setw (3) << setfill('0') << i + 1 << "_";
-			std::stringstream fit_name;
-			fit_name << prefix.str () << "fitness.txt";			
-			save_vector<float> (fit_name.str ().c_str (), orchestrations[i].fitness);
-	
-			if (orchestrations[i].solutions.size ()) {
-				std::stringstream tar_name;
-				tar_name << prefix.str () << "features.txt";
-				save_vector(tar_name.str ().c_str (), orchestrations[i].segment->features);
-
-				AdditiveForecast<float>::compute(orchestrations[i].solutions[0], 
-					orchestrations[i].database, 
-					orchestrations[i].best_forecast, orchestrations[i].segment->features,
-					&params);
-				normalize2(&orchestrations[i].best_forecast[0], 
-					&orchestrations[i].best_forecast[0], 
-					orchestrations[i].best_forecast.size());
-
-				std::stringstream best_name;
-				best_name << prefix.str () << "best_forecast.txt";							
-				save_vector(best_name.str ().c_str (), orchestrations[i].best_forecast);
-				cout << "best solution........... ";
-				orchestrations[i].solutions[0].dump (cout, orchestrations[i].database, 25); // ranked first
-				cout << endl;
-			}
-
-			if (params.export_solutions > 0) {		
-				cout << "saving best solutions... "; cout.flush ();
-				orchestrations[i].export_solutions(prefix.str ());
-				cout << "done" << endl;
-			}
-		}
-
-
-		cout << "saving connection....... "; cout.flush ();
-		connection.export_solutions("");
-		cout << "done" << endl;
-
+		cout << "exporting solutions..... "; cout.flush ();
+		session.export_solutions ("", orchestrations, connection);
+		cout << "done" << endl;		
     } catch (exception& e) {
         cout << "Error: " << e.what () << endl;
     } catch (...) {

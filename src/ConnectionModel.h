@@ -15,16 +15,26 @@ struct ConnectionModel {
 		nn << prefix << "connection.txt";
 		std::ofstream solutions_summary (nn.str ());
 
+		if (!models.size ()) return;
+
+		solutions_summary << "[orchestra ";
+		for (unsigned i = 0; i < models[0]->parameters->orchestra.size (); ++i) {
+			solutions_summary << models[0]->parameters->orchestra.at (i) << " ";
+		}
+		solutions_summary << "]" << std::endl;
+		
 		std::vector<T> outleft;
 		std::vector<T> outright;		
 		for (unsigned i = 0; i < models.size (); ++i) {
-			solutions_summary << ">" << i << " " 
-				<< ((float) models[i]->segment->start / DEFAULT_SR) * 1000. << std::endl;
+			solutions_summary << "[segment " 
+				<< ((float) models[i]->segment->start / DEFAULT_SR 	* 1000.) << std::endl;
 
 			models[i]->solutions[indices[i]].generate (outleft, outright, 
 				solutions_summary,
-				models[i]->segment, models[i]->parameters, models[i]->database);
+				models[i]->segment, models[i]->parameters, models[i]->database, indices[i]);
+			solutions_summary << "]" << std::endl;
 		}
+		
 		solutions_summary.close ();
 
 		std::vector<T> mix (outleft.size () * 2);
@@ -35,7 +45,6 @@ struct ConnectionModel {
 		mm << prefix << "connection.wav";
 		WavOutFile outfile (mm.str ().c_str (), DEFAULT_SR, 16, 2);
 		outfile.write(&mix[0], outleft.size () * 2);
-		
 	}
 
 	std::vector<OrchestrationModel<T>* > models;

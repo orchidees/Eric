@@ -11,6 +11,7 @@
 #include "OptimizerI.h"
 #include "OrchestrationModel.h"
 #include "ConnectionModel.h"
+#include "forecasts.h"
 
 #include <vector>
 #include <map>
@@ -76,6 +77,47 @@ struct Session {
 			}
 
 		}		
+	}
+	void export_solutions (const std::string& prefix,
+		std::vector<OrchestrationModel<T> >& orchestrations,
+		ConnectionModel<T>& connection) {
+		for (unsigned i = 0; i < orchestrations.size (); ++i) {
+			if (orchestrations[i].solutions.size () && 
+				parameters->export_solutions > 0) {
+		        if (parameters->notifier != nullptr) {
+			        	parameters->notifier ("exporting segment ", i + 1);
+		        }				
+				std::stringstream full_prefix;
+				full_prefix << prefix << "segment_" << std::setw (3) 
+					<< std::setfill('0') << i + 1 << "_";
+				std::stringstream fit_name;
+				fit_name << full_prefix.str () << "fitness.txt";			
+				save_vector<T> (fit_name.str ().c_str (), orchestrations[i].fitness);
+		
+				std::stringstream tar_name;
+				tar_name << full_prefix.str () << "features.txt";
+				save_vector(tar_name.str ().c_str (), orchestrations[i].segment->features);
+
+				AdditiveForecast<T>::compute(orchestrations[i].solutions[0], 
+					orchestrations[i].database, 
+					orchestrations[i].best_forecast, orchestrations[i].segment->features,
+					parameters);
+				normalize2(&orchestrations[i].best_forecast[0], 
+					&orchestrations[i].best_forecast[0], 
+					orchestrations[i].best_forecast.size());
+
+				std::stringstream best_name;
+				best_name << full_prefix.str () << "best_forecast.txt";							
+				save_vector(best_name.str ().c_str (), orchestrations[i].best_forecast);
+			
+				orchestrations[i].export_solutions(full_prefix.str ());
+			}
+		}
+        
+        if (parameters->notifier != nullptr) {
+	        	parameters->notifier ("exporting connection", 1);
+        }
+		connection.export_solutions(prefix);
 	}
 	void make_model (Segment<T>& segment, OrchestrationModel<T>& model) {
 		model.database.clear ();

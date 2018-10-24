@@ -174,23 +174,23 @@ struct Source {
 	std::map<std::string, std::vector <int> > dynamics;
 	std::map<std::string, std::vector <int> > others;
 
-	void dump (std::ostream& output, int offset) {
-		output << std::setw(offset) <<  "[instruments] " ;
-		print_coll<int> (output, tot_instruments, offset);
-		output << std::endl;
-		output << std::setw(offset) << "[styles] ";
-		print_coll<int> (output, styles, offset);
-		output << std::endl;
-		output << std::setw(offset) << "[pitches] ";
-		print_coll<int> (output, pitches, offset); 
-		output << std::endl;
-		output << std::setw(offset) << "[dynamics] ";
-		print_coll<int> (output, dynamics, offset);
-		output << std::endl;
+	void dump (std::ostream& output, int offset = 0, int columns = 0) {
+		output << std::setw(offset + 13) <<  "[instruments " ;
+		print_coll<int> (output, tot_instruments, offset, columns);
+		output << "]" << std::endl;
+		output << std::setw(offset + 8) << "[styles ";
+		print_coll<int> (output, styles, offset, columns);
+		output << "]" << std::endl;
+		output << std::setw(offset + 9) << "[pitches ";
+		print_coll<int> (output, pitches, offset, columns); 
+		output << "]" << std::endl;
+		output << std::setw(offset + 10) << "[dynamics ";
+		print_coll<int> (output, dynamics, offset, columns);
+		output << "]" << std::endl;
 		if (others.size ()) {
-	 		output << std::setw(offset) << "[others] ";
-			print_coll<int> (output, others, offset);
-			output << std::endl;
+	 		output << std::setw(offset + 8) << "[others ";
+			print_coll<int> (output, others, offset, columns);
+			output << "]" << std::endl;
 		}
 	}
 };

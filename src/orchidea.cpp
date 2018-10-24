@@ -79,7 +79,7 @@ extern "C" {
         	}
         	h->source->load ();
         	std::stringstream tmp;
-	        h->source->dump (tmp, 25);
+	        h->source->dump (tmp);
 	        h->db_status = tmp.str ();
 	        h->source_loaded = true;
 	    } catch (std::exception& e) {
@@ -173,52 +173,15 @@ extern "C" {
 		return ORCHIDEA_NO_ERROR;
 	}
 
-	int orchidea_export_solutions (OrchideaHandle* h, const char* out_path) {
+	int orchidea_export_solutions (OrchideaHandle* h, const char* out_prefix) {
 		if (h->params.sound_paths.size () == 0) {
 			h->error_details = "";
 			return ORCHIDEA_NO_SOUNDS;
 		}
 
 		try {
-			for (unsigned i = 0; i < h->orchestrations.size (); ++i) {
-				std::stringstream prefix;
-				prefix << out_path << "segment_" << std::setw (3) << std::setfill('0') << i << "_";
-				std::stringstream fit_name;
-				fit_name << prefix.str () << "fitness.txt";			
-				save_vector<float> (fit_name.str ().c_str (), h->orchestrations[i].fitness);
-		
-				int norch = h->orchestrations.size ();
-				if (norch) {
-			        if (h->params.notifier != nullptr) {
-			        	h->params.notifier ("exporting solutions ", (((float)i + 1) / (float)norch) * 100.);
-			        }
-
-					std::stringstream tar_name;
-					tar_name << prefix.str () << "features.txt";
-					save_vector(tar_name.str ().c_str (), h->orchestrations[i].segment->features);
-
-					AdditiveForecast<float>::compute(h->orchestrations[i].solutions[0], 
-						h->orchestrations[i].database, 
-						h->orchestrations[i].best_forecast, h->orchestrations[i].segment->features,
-						&h->params);
-					normalize2(&h->orchestrations[i].best_forecast[0], 
-						&h->orchestrations[i].best_forecast[0], 
-						h->orchestrations[i].best_forecast.size());
-
-					std::stringstream best_name;
-					best_name << prefix.str () << "best_forecast.txt";							
-					save_vector(best_name.str ().c_str (), h->orchestrations[i].best_forecast);
-				}
-
-				if (h->params.export_solutions > 0) {		
-					h->orchestrations[i].export_solutions(prefix.str ());
-				}
-			}
-
-	        if (h->params.notifier != nullptr) {
-	        	h->params.notifier ("exporting connection ", 100.);
-	        }
-			h->connection.export_solutions(out_path);
+			h->session->export_solutions (out_prefix, h->orchestrations, 
+				h->connection);
 		}
 		catch (std::exception& e) {
 			h->error_details = e.what ();

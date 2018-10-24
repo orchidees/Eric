@@ -35,18 +35,30 @@ struct Solution {
 		std::ostream& summary, 
 		Segment<T>* segment,
 		Parameters<T>* parameters,
-		const std::vector<DB_entry<T>* >& database) {
+		const std::vector<DB_entry<T>* >& database,
+		int num_solution) {
 		std::vector<T> ratios;
 		std::vector<std::string> files;
 		std::vector<T> pans;
 
+		summary << "\t[solution " << num_solution + 1 << std::endl;
+
 		for (unsigned j = 0; j < indices.size (); ++j) {
 			if (indices[j] == -1) {
-				summary << "-" << std::endl;
+				// summary << "-" << std::endl;
 				continue; // silent instrument
 			}	
 
+			summary << "\t\t[note ";
 			DB_entry<float>* d = database[indices[j]];
+
+			summary << ((float) durations[j] / DEFAULT_SR) * 1000. << " ";
+			for (unsigned z = 0; z < d->symbols.size (); ++z) {
+				summary << d->symbols[z] << " ";	
+			}
+			summary << d->file << " " << segment->notes[d->symbols[2]] <<
+				"]" << std::endl;
+
 			files.push_back(d->file);
 			if (parameters->partials_filtering > 0) {
 				T r = cents_to_ratio<T> (segment->notes[d->symbols[2]]);
@@ -70,40 +82,14 @@ struct Solution {
 			else if (d->symbols[0].find ("Vc") != std::string::npos) pans.push_back(.8);
 			else if (d->symbols[0].find ("Cb") != std::string::npos) pans.push_back(.7);
 			else pans.push_back(.5);
-
-			summary << ((float) durations[j] / DEFAULT_SR) * 1000.  << " ";
-			for (unsigned z = 0; z < d->symbols.size (); ++z) {
-				summary << d->symbols[z] << " ";	
-			}
-			summary << d->file << " " << segment->notes[d->symbols[2]] << std::endl;
 		}
+
+		summary << "\t]" << std::endl;
 
 		create_sound_mix(files, parameters->sound_paths, ratios, pans,
 			parameters->t60,  parameters->dry_wet,
 			segment->start, durations, outleft, outright);
-		summary << std::endl;
 	}	
-
-
-	std::ostream& dump (std::ostream& out, 
-		const std::vector<DB_entry<T>* >& database,
-		int offset) {
-		unsigned n_instruments = indices.size ();
-		for (unsigned i = 0; i < n_instruments; ++i) {
-			if (i != 0) for (unsigned i = 0; i < offset; ++i) out << " ";
-			if (indices[i] == -1) {
-				out << "-" << std::endl;
-				continue;
-			}
-			for (unsigned h = 0; h < database[indices[i]]->symbols.size (); ++h) {
-				out << database[indices[i]]->symbols[h] << "\t";
-			}	
-			out << std::endl;
-		}
-
-		return out;
-	}	
-	
 };
 
 template <typename T>
