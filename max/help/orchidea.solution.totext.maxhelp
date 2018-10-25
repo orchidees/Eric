@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 100.0, 100.0, 689.0, 622.0 ],
+		"rect" : [ 185.0, 115.0, 655.0, 493.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -76,7 +76,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 100.0, 126.0, 689.0, 596.0 ],
+						"rect" : [ 185.0, 141.0, 655.0, 467.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -106,79 +106,109 @@
 						"showontab" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 13.0,
-									"id" : "obj-35",
+									"bubble" : 1,
+									"id" : "obj-23",
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 10.0, 59.567627, 224.0, 21.0 ],
+									"patching_rect" : [ 62.859528, 407.0, 179.0, 25.0 ],
+									"presentation_rect" : [ 74.859528, 363.567627, 0.0, 0.0 ],
 									"style" : "",
-									"text" : "Import Orchidea solution into a buffer"
+									"text" : "Doubleclick to see the text"
 								}
 
 							}
 , 							{
 								"box" : 								{
-									"id" : "obj-10",
-									"maxclass" : "ezdac~",
-									"numinlets" : 2,
-									"numoutlets" : 0,
-									"patching_rect" : [ 501.859528, 524.0, 45.0, 45.0 ],
-									"style" : ""
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-9",
+									"id" : "obj-21",
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 501.859528, 463.0, 36.0, 23.0 ],
+									"patching_rect" : [ 52.0, 245.0, 172.0, 23.0 ],
 									"style" : "",
-									"text" : "start"
+									"text" : "/tmp pippo 5 10 10 10 10 10"
 								}
 
 							}
 , 							{
 								"box" : 								{
-									"id" : "obj-1",
+									"id" : "obj-19",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 3,
-									"outlettype" : [ "signal", "signal", "bang" ],
-									"patching_rect" : [ 501.859528, 494.0, 121.0, 23.0 ],
+									"outlettype" : [ "", "bang", "int" ],
+									"patching_rect" : [ 15.359528, 407.0, 40.0, 23.0 ],
 									"style" : "",
-									"text" : "play~ somebuffer 2"
+									"text" : "text"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-17",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "bang", "int" ],
+									"patching_rect" : [ 369.359528, 288.0, 31.0, 23.0 ],
+									"style" : "",
+									"text" : "t b i"
 								}
 
 							}
 , 							{
 								"box" : 								{
 									"bubble" : 1,
-									"id" : "obj-29",
-									"linecount" : 3,
+									"id" : "obj-16",
+									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 433.5, 398.0, 146.0, 54.0 ],
+									"patching_rect" : [ 459.0, 243.5, 163.0, 40.0 ],
+									"presentation_rect" : [ 485.859528, 257.5, 0.0, 0.0 ],
 									"style" : "",
-									"text" : "Automatically import 1st segment of 1st solution only"
+									"text" : "Import solution for N-th segment"
 								}
 
 							}
 , 							{
 								"box" : 								{
-									"id" : "obj-28",
+									"id" : "obj-15",
+									"maxclass" : "number",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "", "bang" ],
+									"parameter_enable" : 0,
+									"patching_rect" : [ 404.640472, 252.0, 50.0, 23.0 ],
+									"style" : ""
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-7",
 									"maxclass" : "newobj",
-									"numinlets" : 0,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 175.0, 379.0, 111.0, 23.0 ],
+									"numinlets" : 2,
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
+									"patching_rect" : [ 15.359528, 288.0, 42.0, 23.0 ],
 									"style" : "",
-									"text" : "r current_solution"
+									"text" : "zl.reg"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"id" : "obj-35",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 10.0, 59.5, 250.0, 21.0 ],
+									"style" : "",
+									"text" : "Import Orchidea solution into a text object"
 								}
 
 							}
@@ -187,26 +217,13 @@
 									"fontname" : "Arial",
 									"fontsize" : 13.0,
 									"id" : "obj-27",
-									"linecount" : 4,
+									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 405.359528, 316.567627, 224.0, 65.0 ],
+									"patching_rect" : [ 405.359528, 332.5, 224.0, 36.0 ],
 									"style" : "",
-									"text" : "Arguments are: \n• buffer name (required)\n• segment number (optional)\n• solution number (optional)"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"bubble" : 1,
-									"id" : "obj-26",
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 141.859528, 267.0, 110.0, 25.0 ],
-									"style" : "",
-									"text" : "Change buffer"
+									"text" : "Arguments is: \nsegment number (0 = connection)"
 								}
 
 							}
@@ -214,11 +231,11 @@
 								"box" : 								{
 									"bubble" : 1,
 									"id" : "obj-25",
-									"linecount" : 4,
+									"linecount" : 3,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 132.859528, 162.0, 175.0, 69.0 ],
+									"patching_rect" : [ 129.859528, 165.567627, 195.0, 54.0 ],
 									"style" : "",
 									"text" : "connect the left inlet of orchidea.solution.tobuffer to the outlet of orchidea.search"
 								}
@@ -226,122 +243,14 @@
 							}
 , 							{
 								"box" : 								{
-									"id" : "obj-23",
-									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 2,
-									"outlettype" : [ "float", "bang" ],
-									"patching_rect" : [ 246.359528, 482.0, 125.0, 23.0 ],
-									"style" : "",
-									"text" : "buffer~ nutherbuffer"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"buffername" : "nutherbuffer",
-									"chanoffset" : 0,
-									"id" : "obj-24",
-									"maxclass" : "waveform~",
-									"numinlets" : 5,
-									"numoutlets" : 6,
-									"outlettype" : [ "float", "float", "float", "float", "list", "" ],
-									"patching_rect" : [ 246.359528, 511.0, 173.0, 58.0 ],
-									"style" : ""
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-22",
-									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 2,
-									"outlettype" : [ "float", "bang" ],
-									"patching_rect" : [ 21.0, 482.0, 120.0, 23.0 ],
-									"style" : "",
-									"text" : "buffer~ somebuffer"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"buffername" : "somebuffer",
-									"chanoffset" : 0,
-									"id" : "obj-21",
-									"maxclass" : "waveform~",
-									"numinlets" : 5,
-									"numoutlets" : 6,
-									"outlettype" : [ "float", "float", "float", "float", "list", "" ],
-									"patching_rect" : [ 21.0, 511.0, 173.0, 58.0 ],
-									"style" : ""
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-20",
-									"maxclass" : "message",
-									"numinlets" : 2,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 35.0, 268.0, 101.0, 23.0 ],
-									"style" : "",
-									"text" : "set nutherbuffer"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-18",
-									"maxclass" : "newobj",
-									"numinlets" : 2,
-									"numoutlets" : 1,
-									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 175.0, 413.5, 251.0, 23.0 ],
-									"style" : "",
-									"text" : "orchidea.solution.tobuffer nutherbuffer 1 1"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"bubble" : 1,
-									"id" : "obj-15",
-									"linecount" : 2,
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 462.859528, 238.5, 160.0, 40.0 ],
-									"style" : "",
-									"text" : "Import 1st solution found for 2nd segment"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-16",
-									"maxclass" : "message",
-									"numinlets" : 2,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 426.359528, 252.0, 29.5, 23.0 ],
-									"style" : "",
-									"text" : "2 1"
-								}
-
-							}
-, 							{
-								"box" : 								{
 									"bubble" : 1,
 									"id" : "obj-14",
-									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 445.859528, 193.5, 168.0, 40.0 ],
+									"patching_rect" : [ 426.5, 202.5, 206.0, 25.0 ],
 									"style" : "",
-									"text" : "Import 4th solution found for 1st segment"
+									"text" : "Import solution for 3rd segment"
 								}
 
 							}
@@ -352,9 +261,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 405.359528, 202.0, 29.5, 23.0 ],
+									"patching_rect" : [ 386.0, 211.0, 29.5, 23.0 ],
 									"style" : "",
-									"text" : "1 4"
+									"text" : "3"
 								}
 
 							}
@@ -365,7 +274,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 414.859528, 162.0, 150.0, 25.0 ],
+									"patching_rect" : [ 395.5, 171.0, 150.0, 25.0 ],
 									"style" : "",
 									"text" : "Import connection"
 								}
@@ -378,7 +287,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 381.359528, 162.0, 29.5, 23.0 ],
+									"patching_rect" : [ 362.0, 171.0, 29.5, 23.0 ],
 									"style" : "",
 									"text" : "0"
 								}
@@ -390,10 +299,10 @@
 									"maxclass" : "newobj",
 									"numinlets" : 2,
 									"numoutlets" : 1,
-									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 15.359528, 330.0, 385.0, 23.0 ],
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 15.359528, 339.0, 385.0, 23.0 ],
 									"style" : "",
-									"text" : "orchidea.solution.tobuffer somebuffer"
+									"text" : "orchidea.solution.totext"
 								}
 
 							}
@@ -405,9 +314,9 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 10.0, 82.567627, 506.0, 21.0 ],
+									"patching_rect" : [ 10.0, 83.567627, 538.0, 21.0 ],
 									"style" : "",
-									"text" : "Imports a specific Orchidea solution, or the global connection, into the specified buffer.",
+									"text" : "Imports a specific Orchidea solution, or the global connection, into the connected text object",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
 								}
 
@@ -419,7 +328,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 15.359528, 185.5, 111.0, 23.0 ],
+									"patching_rect" : [ 15.359528, 181.067627, 111.0, 23.0 ],
 									"style" : "",
 									"text" : "r current_solution"
 								}
@@ -434,9 +343,9 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 10.0, 110.567627, 581.0, 36.0 ],
+									"patching_rect" : [ 10.0, 109.567627, 612.0, 36.0 ],
 									"style" : "",
-									"text" : "The orchidea.solution.tobuffer module receives the output of orchidea.search and fills the specified buffer with the audio solution.",
+									"text" : "The orchidea.solution.totext module receives the output of orchidea.search and fills the connected text object with the textual solution.",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
 								}
 
@@ -447,7 +356,7 @@
 									"filename" : "helpdetails.js",
 									"id" : "obj-2",
 									"ignoreclick" : 1,
-									"jsarguments" : [ "orchidea.solution.tobuffer", 80 ],
+									"jsarguments" : [ "orchidea.solution.totext", 80 ],
 									"maxclass" : "jsui",
 									"numinlets" : 1,
 									"numoutlets" : 1,
@@ -460,64 +369,64 @@
  ],
 						"lines" : [ 							{
 								"patchline" : 								{
-									"destination" : [ "obj-10", 1 ],
-									"source" : [ "obj-1", 1 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-10", 0 ],
-									"source" : [ "obj-1", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-6", 1 ],
+									"destination" : [ "obj-17", 0 ],
 									"source" : [ "obj-13", 0 ]
 								}
 
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-17", 0 ],
+									"source" : [ "obj-15", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-6", 1 ],
-									"source" : [ "obj-16", 0 ]
+									"source" : [ "obj-17", 1 ]
 								}
 
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-6", 0 ],
-									"source" : [ "obj-20", 0 ]
+									"destination" : [ "obj-7", 0 ],
+									"source" : [ "obj-17", 0 ]
 								}
 
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-18", 0 ],
-									"source" : [ "obj-28", 0 ]
+									"destination" : [ "obj-7", 0 ],
+									"source" : [ "obj-21", 0 ]
 								}
 
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-6", 0 ],
+									"destination" : [ "obj-7", 0 ],
 									"source" : [ "obj-4", 0 ]
 								}
 
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-6", 1 ],
-									"source" : [ "obj-8", 0 ]
+									"destination" : [ "obj-19", 0 ],
+									"source" : [ "obj-6", 0 ]
 								}
 
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-1", 0 ],
-									"source" : [ "obj-9", 0 ]
+									"destination" : [ "obj-6", 0 ],
+									"source" : [ "obj-7", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-17", 0 ],
+									"source" : [ "obj-8", 0 ]
 								}
 
 							}
@@ -574,7 +483,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 689.0, 596.0 ],
+						"rect" : [ 0.0, 26.0, 655.0, 467.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -637,7 +546,7 @@
 				"implicit" : 1
 			}
 , 			{
-				"name" : "orchidea.solution.tobuffer.maxpat",
+				"name" : "orchidea.solution.totext.maxpat",
 				"bootpath" : "~/MusicaMia/_RICERCA/orchidea/max/patches",
 				"patcherrelativepath" : "../patches",
 				"type" : "JSON",

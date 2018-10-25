@@ -38,45 +38,6 @@
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
-					"id" : "obj-18",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 331.0, 240.0, 70.0, 22.0 ],
-					"presentation_rect" : [ 389.0, 281.0, 0.0, 0.0 ],
-					"style" : "",
-					"text" : "vexpr $i1-1"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-22",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 403.0, 241.0, 144.0, 20.0 ],
-					"style" : "",
-					"text" : "User interface is 1-based"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-14",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 345.0, 472.0, 70.0, 22.0 ],
-					"style" : "",
-					"text" : "vexpr $i1-1"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"id" : "obj-43",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -377,7 +338,7 @@
 				"box" : 				{
 					"comment" : "bang when Import Completed",
 					"id" : "obj-17",
-					"index" : 1,
+					"index" : 0,
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
@@ -1090,7 +1051,7 @@
 				"box" : 				{
 					"comment" : "Solution index (0 = connection)",
 					"id" : "obj-8",
-					"index" : 2,
+					"index" : 0,
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
@@ -1195,7 +1156,7 @@
 				"box" : 				{
 					"comment" : "Connect to the first outlet of orchidea.session",
 					"id" : "obj-1",
-					"index" : 1,
+					"index" : 0,
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
@@ -1222,7 +1183,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-18", 0 ],
+					"destination" : [ "obj-10", 1 ],
 					"source" : [ "obj-11", 0 ]
 				}
 
@@ -1271,13 +1232,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-10", 1 ],
-					"source" : [ "obj-18", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-16", 0 ],
 					"source" : [ "obj-2", 1 ]
 				}
@@ -1321,7 +1275,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-3", 0 ],
-					"midpoints" : [ 486.5, 193.0, 31.5, 193.0 ],
+					"midpoints" : [ 486.5, 201.0, 31.5, 201.0 ],
 					"source" : [ "obj-43", 0 ]
 				}
 
@@ -1369,7 +1323,9 @@
 				}
 
 			}
- ]
+ ],
+		"dependency_cache" : [  ],
+		"autosave" : 0
 	}
 
 }
