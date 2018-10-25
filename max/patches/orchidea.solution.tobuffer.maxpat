@@ -2,13 +2,14 @@
 	"patcher" : 	{
 		"fileversion" : 1,
 		"appversion" : 		{
-			"major" : 7,
-			"minor" : 3,
-			"revision" : 4,
+			"major" : 8,
+			"minor" : 0,
+			"revision" : 1,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
+		"classnamespace" : "box",
 		"rect" : [ 462.0, 79.0, 735.0, 662.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
@@ -44,7 +45,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 477.0, 163.0, 43.0, 22.0 ],
-					"style" : "",
 					"text" : "set $1"
 				}
 
@@ -59,13 +59,14 @@
 					"patcher" : 					{
 						"fileversion" : 1,
 						"appversion" : 						{
-							"major" : 7,
-							"minor" : 3,
-							"revision" : 4,
+							"major" : 8,
+							"minor" : 0,
+							"revision" : 1,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
 ,
+						"classnamespace" : "box",
 						"rect" : [ 84.0, 129.0, 640.0, 480.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
@@ -101,8 +102,7 @@
 									"maxclass" : "outlet",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 145.5, 373.0, 30.0, 30.0 ],
-									"style" : ""
+									"patching_rect" : [ 145.5, 373.0, 30.0, 30.0 ]
 								}
 
 							}
@@ -114,7 +114,6 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 50.0, 296.0, 57.0, 22.0 ],
-									"style" : "",
 									"text" : "zl.slice 1"
 								}
 
@@ -127,7 +126,6 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 25.0, 261.0, 44.0, 22.0 ],
-									"style" : "",
 									"text" : "gate 2"
 								}
 
@@ -140,7 +138,6 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "int" ],
 									"patching_rect" : [ 50.0, 100.0, 91.0, 22.0 ],
-									"style" : "",
 									"text" : "t l l 0"
 								}
 
@@ -154,8 +151,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 50.0, 40.0, 30.0, 30.0 ],
-									"style" : ""
+									"patching_rect" : [ 50.0, 40.0, 30.0, 30.0 ]
 								}
 
 							}
@@ -167,8 +163,7 @@
 									"maxclass" : "outlet",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 31.5, 373.0, 30.0, 30.0 ],
-									"style" : ""
+									"patching_rect" : [ 31.5, 373.0, 30.0, 30.0 ]
 								}
 
 							}
@@ -180,7 +175,6 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 146.0, 213.0, 29.5, 22.0 ],
-									"style" : "",
 									"text" : "2"
 								}
 
@@ -193,7 +187,6 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 86.0, 213.0, 29.5, 22.0 ],
-									"style" : "",
 									"text" : "1"
 								}
 
@@ -206,7 +199,6 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 86.0, 144.0, 49.0, 22.0 ],
-									"style" : "",
 									"text" : "zl.nth 1"
 								}
 
@@ -219,7 +211,6 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 86.0, 179.0, 79.0, 22.0 ],
-									"style" : "",
 									"text" : "routepass int"
 								}
 
@@ -325,11 +316,9 @@
 						"description" : "",
 						"digest" : "",
 						"globalpatchername" : "",
-						"style" : "",
 						"tags" : ""
 					}
 ,
-					"style" : "",
 					"text" : "p parse_buffer_name"
 				}
 
@@ -338,12 +327,11 @@
 				"box" : 				{
 					"comment" : "bang when Import Completed",
 					"id" : "obj-17",
-					"index" : 0,
+					"index" : 1,
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 51.0, 561.0, 30.0, 30.0 ],
-					"style" : ""
+					"patching_rect" : [ 51.0, 561.0, 30.0, 30.0 ]
 				}
 
 			}
@@ -355,7 +343,6 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 22.0, 64.0, 83.0, 22.0 ],
-					"style" : "",
 					"text" : "routepass set"
 				}
 
@@ -370,13 +357,14 @@
 					"patcher" : 					{
 						"fileversion" : 1,
 						"appversion" : 						{
-							"major" : 7,
-							"minor" : 3,
-							"revision" : 4,
+							"major" : 8,
+							"minor" : 0,
+							"revision" : 1,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
 ,
+						"classnamespace" : "box",
 						"rect" : [ 583.0, 148.0, 640.0, 480.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
@@ -412,7 +400,6 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "int" ],
 									"patching_rect" : [ 35.0, 66.0, 40.0, 22.0 ],
-									"style" : "",
 									"text" : "t l l 1"
 								}
 
@@ -425,7 +412,6 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 57.0, 312.0, 34.0, 22.0 ],
-									"style" : "",
 									"text" : "gate"
 								}
 
@@ -438,7 +424,6 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 238.0, 312.0, 29.5, 22.0 ],
-									"style" : "",
 									"text" : "0"
 								}
 
@@ -451,7 +436,6 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 171.0, 209.0, 58.0, 22.0 ],
-									"style" : "",
 									"text" : "zl.lookup"
 								}
 
@@ -464,7 +448,6 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 171.0, 249.0, 241.0, 22.0 ],
-									"style" : "",
 									"text" : "if $i2 <= 0 || $i2 > $i1 then out2 bang else 1"
 								}
 
@@ -478,7 +461,6 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 341.5, 362.0, 232.0, 35.0 ],
-									"style" : "",
 									"text" : "\"Error: solution number does not exist for the specified segment.\""
 								}
 
@@ -491,7 +473,6 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 171.0, 166.0, 250.0, 22.0 ],
-									"style" : "",
 									"text" : "if $i1 <= 0 || $i1 > $i2 then out2 bang else $i1"
 								}
 
@@ -504,7 +485,6 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 408.0, 93.0, 57.0, 22.0 ],
-									"style" : "",
 									"text" : "zl.slice 1"
 								}
 
@@ -517,7 +497,6 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "int", "int" ],
 									"patching_rect" : [ 171.0, 128.0, 94.0, 22.0 ],
-									"style" : "",
 									"text" : "unpack i i"
 								}
 
@@ -531,8 +510,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 409.0, 42.0, 30.0, 30.0 ],
-									"style" : ""
+									"patching_rect" : [ 409.0, 42.0, 30.0, 30.0 ]
 								}
 
 							}
@@ -544,7 +522,6 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 288.5, 321.0, 223.0, 22.0 ],
-									"style" : "",
 									"text" : "\"Error: segment number does not exist.\""
 								}
 
@@ -556,7 +533,6 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 288.5, 419.0, 34.0, 22.0 ],
-									"style" : "",
 									"text" : "print"
 								}
 
@@ -569,7 +545,6 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 133.0, 93.0, 57.0, 22.0 ],
-									"style" : "",
 									"text" : "zl.ecils 2"
 								}
 
@@ -582,8 +557,7 @@
 									"maxclass" : "outlet",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 57.0, 362.0, 30.0, 30.0 ],
-									"style" : ""
+									"patching_rect" : [ 57.0, 362.0, 30.0, 30.0 ]
 								}
 
 							}
@@ -596,8 +570,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 35.0, 27.0, 30.0, 30.0 ],
-									"style" : ""
+									"patching_rect" : [ 35.0, 27.0, 30.0, 30.0 ]
 								}
 
 							}
@@ -763,11 +736,9 @@
 						"description" : "",
 						"digest" : "",
 						"globalpatchername" : "",
-						"style" : "",
 						"tags" : ""
 					}
 ,
-					"style" : "",
 					"text" : "p check_solution_exists"
 				}
 
@@ -782,13 +753,14 @@
 					"patcher" : 					{
 						"fileversion" : 1,
 						"appversion" : 						{
-							"major" : 7,
-							"minor" : 3,
-							"revision" : 4,
+							"major" : 8,
+							"minor" : 0,
+							"revision" : 1,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
 ,
+						"classnamespace" : "box",
 						"rect" : [ 583.0, 148.0, 640.0, 480.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
@@ -825,7 +797,6 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 269.5, 249.0, 348.0, 35.0 ],
-									"style" : "",
 									"text" : "\"Error: not enough parameters. Perhaps you forgot to enter the segment number or solution number?\""
 								}
 
@@ -837,7 +808,6 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 269.5, 300.0, 34.0, 22.0 ],
-									"style" : "",
 									"text" : "print"
 								}
 
@@ -850,7 +820,6 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 208.0, 202.0, 44.0, 22.0 ],
-									"style" : "",
 									"text" : "gate 2"
 								}
 
@@ -863,7 +832,6 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 284.5, 146.0, 135.0, 22.0 ],
-									"style" : "",
 									"text" : "if $i1 >= 4 then 1 else 2"
 								}
 
@@ -876,7 +844,6 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 284.5, 108.0, 39.0, 22.0 ],
-									"style" : "",
 									"text" : "zl.len"
 								}
 
@@ -889,7 +856,6 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 195.0, 76.0, 108.5, 22.0 ],
-									"style" : "",
 									"text" : "t l l"
 								}
 
@@ -902,8 +868,7 @@
 									"maxclass" : "outlet",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 208.0, 284.0, 30.0, 30.0 ],
-									"style" : ""
+									"patching_rect" : [ 208.0, 284.0, 30.0, 30.0 ]
 								}
 
 							}
@@ -916,8 +881,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 195.0, 34.0, 30.0, 30.0 ],
-									"style" : ""
+									"patching_rect" : [ 195.0, 34.0, 30.0, 30.0 ]
 								}
 
 							}
@@ -986,11 +950,9 @@
 						"description" : "",
 						"digest" : "",
 						"globalpatchername" : "",
-						"style" : "",
 						"tags" : ""
 					}
 ,
-					"style" : "",
 					"text" : "p check_length_4"
 				}
 
@@ -1003,7 +965,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 68.0, 486.0, 67.0, 22.0 ],
-					"style" : "",
 					"text" : "replace $1"
 				}
 
@@ -1016,7 +977,6 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 331.0, 172.0, 37.5, 22.0 ],
-					"style" : "",
 					"text" : "t l l"
 				}
 
@@ -1029,7 +989,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 349.5, 208.0, 135.0, 22.0 ],
-					"style" : "",
 					"text" : "if $i1 == 0 then 1 else 2"
 				}
 
@@ -1042,7 +1001,6 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 305.0, 276.0, 45.0, 22.0 ],
-					"style" : "",
 					"text" : "zl.join"
 				}
 
@@ -1051,13 +1009,12 @@
 				"box" : 				{
 					"comment" : "Solution index (0 = connection)",
 					"id" : "obj-8",
-					"index" : 0,
+					"index" : 2,
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 331.0, 87.0, 30.0, 30.0 ],
-					"style" : ""
+					"patching_rect" : [ 331.0, 87.0, 30.0, 30.0 ]
 				}
 
 			}
@@ -1069,7 +1026,6 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 372.0, 91.0, 74.0, 22.0 ],
-					"style" : "",
 					"text" : "patcherargs"
 				}
 
@@ -1082,7 +1038,6 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 86.0, 104.0, 57.0, 22.0 ],
-					"style" : "",
 					"text" : "zl.slice 2"
 				}
 
@@ -1095,7 +1050,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 68.0, 425.0, 211.0, 22.0 ],
-					"style" : "",
 					"text" : "sprintf symout %s/%s.connection.wav"
 				}
 
@@ -1108,7 +1062,6 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 68.0, 308.0, 256.0, 22.0 ],
-					"style" : "",
 					"text" : "gate 2 1"
 				}
 
@@ -1120,9 +1073,8 @@
 					"numinlets" : 4,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 305.0, 425.0, 302.0, 22.0 ],
-					"style" : "",
-					"text" : "sprintf symout %s/%s.segment%.3d.solution%.3d.wav"
+					"patching_rect" : [ 305.0, 425.0, 297.0, 22.0 ],
+					"text" : "sprintf symout %s/%s.segment%.4d.solution%.4d.wav"
 				}
 
 			}
@@ -1134,7 +1086,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 65.5, 25.0, 537.0, 33.0 ],
-					"style" : "",
 					"text" : "arguments are:\n<dossier name> <prefix> <# output segments> <# solutions segment 1> <# solutions segment 2>..."
 				}
 
@@ -1147,7 +1098,6 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
 					"patching_rect" : [ 22.0, 523.0, 48.0, 22.0 ],
-					"style" : "",
 					"text" : "buffer~"
 				}
 
@@ -1156,13 +1106,12 @@
 				"box" : 				{
 					"comment" : "Connect to the first outlet of orchidea.session",
 					"id" : "obj-1",
-					"index" : 0,
+					"index" : 1,
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 22.0, 25.0, 30.0, 30.0 ],
-					"style" : ""
+					"patching_rect" : [ 22.0, 25.0, 30.0, 30.0 ]
 				}
 
 			}
@@ -1323,9 +1272,7 @@
 				}
 
 			}
- ],
-		"dependency_cache" : [  ],
-		"autosave" : 0
+ ]
 	}
 
 }
