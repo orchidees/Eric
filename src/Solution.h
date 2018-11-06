@@ -41,7 +41,7 @@ struct Solution {
 		std::vector<std::string> files;
 		std::vector<T> pans;
 
-		summary << "\t[solution " << num_solution + 1 << std::endl;
+		summary << "\t(solution " << num_solution + 1 << std::endl;
 
 		for (unsigned j = 0; j < indices.size (); ++j) {
 			if (indices[j] == -1) {
@@ -49,7 +49,7 @@ struct Solution {
 				continue; // silent instrument
 			}	
 
-			summary << "\t\t[note ";
+			summary << "\t\t(note ";
 			DB_entry<float>* d = database[indices[j]];
 
 			summary << ((float) durations[j] / DEFAULT_SR) * 1000. << " ";
@@ -57,7 +57,7 @@ struct Solution {
 				summary << d->symbols[z] << " ";	
 			}
 			summary << d->file << " " << segment->notes[d->symbols[2]] <<
-				"]" << std::endl;
+				")" << std::endl;
 
 			files.push_back(d->file);
 			if (parameters->partials_filtering > 0) {
@@ -84,7 +84,7 @@ struct Solution {
 			else pans.push_back(.5);
 		}
 
-		summary << "\t]" << std::endl;
+		summary << "\t)" << std::endl;
 
 		create_sound_mix(files, parameters->sound_paths, ratios, pans,
 			parameters->t60,  parameters->dry_wet,

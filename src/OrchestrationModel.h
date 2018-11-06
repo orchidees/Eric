@@ -25,17 +25,17 @@ struct OrchestrationModel {
 		nn << prefix << "summary.txt";
 		std::ofstream solutions_summary (nn.str ());
 		
-		solutions_summary << "[orchestra ";
+		solutions_summary << "(orchestra ";
 		for (unsigned i = 0; i < parameters->orchestra.size (); ++i) {
 			solutions_summary << parameters->orchestra.at (i) << " ";
 		}
-		solutions_summary << "]" << std::endl;
+		solutions_summary << ")" << std::endl;
 
 		unsigned max_sols =  parameters->export_solutions < solutions.size () ? 
 			 parameters->export_solutions : solutions.size ();
 
-		solutions_summary << "[segment " 
-			<< ((float) segment->start / DEFAULT_SR 	* 1000.) << std::endl;
+		solutions_summary << "(segment " 
+			<< ((float) segment->start / DEFAULT_SR * 1000.) << std::endl;
 
 		for (unsigned i = 0; i < max_sols; ++i) {
 			std::vector<T> outleft;
@@ -48,12 +48,12 @@ struct OrchestrationModel {
 			scale<T>(&mix[0], &mix[0], outleft.size () * 2, 2.);
 
 			std::stringstream wav_name;
-			wav_name << prefix << "solution_" << std::setw(3) << std::setfill('0') 
+			wav_name << prefix << "solution_" << std::setw(4) << std::setfill('0') 
 				<< i + 1 << ".wav";			
 			WavOutFile outfile (wav_name.str ().c_str(), DEFAULT_SR, 16, 2);
 			outfile.write(&mix[0], outleft.size () * 2);
 		}
-		solutions_summary << "]" << std::endl;
+		solutions_summary << ")" << std::endl;
 		solutions_summary.close ();
 	}
 	

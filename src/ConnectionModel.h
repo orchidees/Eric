@@ -17,22 +17,22 @@ struct ConnectionModel {
 
 		if (!models.size ()) return;
 
-		solutions_summary << "[orchestra ";
+		solutions_summary << "(orchestra ";
 		for (unsigned i = 0; i < models[0]->parameters->orchestra.size (); ++i) {
 			solutions_summary << models[0]->parameters->orchestra.at (i) << " ";
 		}
-		solutions_summary << "]" << std::endl;
+		solutions_summary << ")" << std::endl;
 		
 		std::vector<T> outleft;
 		std::vector<T> outright;		
 		for (unsigned i = 0; i < models.size (); ++i) {
-			solutions_summary << "[segment " 
+			solutions_summary << "(segment " 
 				<< ((float) models[i]->segment->start / DEFAULT_SR 	* 1000.) << std::endl;
 
 			models[i]->solutions[indices[i]].generate (outleft, outright, 
 				solutions_summary,
 				models[i]->segment, models[i]->parameters, models[i]->database, indices[i]);
-			solutions_summary << "]" << std::endl;
+			solutions_summary << ")" << std::endl;
 		}
 		
 		solutions_summary.close ();

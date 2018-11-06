@@ -88,7 +88,7 @@ struct Session {
 			        	parameters->notifier ("exporting segment ", i + 1);
 		        }				
 				std::stringstream full_prefix;
-				full_prefix << prefix << "segment_" << std::setw (3) 
+				full_prefix << prefix << "segment_" << std::setw (4) 
 					<< std::setfill('0') << i + 1 << "_";
 				std::stringstream fit_name;
 				fit_name << full_prefix.str () << "fitness.txt";			
