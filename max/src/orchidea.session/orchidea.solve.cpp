@@ -1,6 +1,6 @@
 /**
 	@file
-	orchidea.session - main external for orchidea
+	orchidea.solve - main external for orchidea
 */
 
 #include "orchidea.h"
@@ -23,6 +23,10 @@ typedef struct _session {
     t_object	ob;
 
     t_symbol	*name;
+    t_symbol    *segmentation;
+    t_symbol    *connection;
+    t_symbol    *search;
+    
     void		*out_1;
 
     OrchideaHandle* orc_hand;
@@ -185,7 +189,7 @@ void* orchidea_dispatcher (void* d) {
 void ext_main(void *r) {
     t_class *c;
 
-    c = class_new("orchidea.session", (method)orchmax_session_new, (method)orchmax_session_free, (long)sizeof(t_session),
+    c = class_new("orchidea.solve", (method)orchmax_session_new, (method)orchmax_session_free, (long)sizeof(t_session),
                   0L /* leave NULL!! */, A_GIMME, 0);
 
     class_addmethod(c, (method)orchmax_session_anything,        "db_files",    A_GIMME, 0);
@@ -214,6 +218,10 @@ void ext_main(void *r) {
     
     CLASS_ATTR_SYM(c, "name", 0, t_session, name);
 
+    CLASS_ATTR_SYM(c, "segmentation", 0, t_session, segmentation);
+    CLASS_ATTR_SYM(c, "connection", 0, t_session, connection);
+    CLASS_ATTR_SYM(c, "search", 0, t_session, search);
+    
     class_register(CLASS_BOX, c);
     orchmax_session_class = c;
 }
@@ -478,7 +486,7 @@ void *orchmax_session_new(t_symbol *s, long argc, t_atom *argv) {
             x->name = symbol_unique();
 
         x->running_threads = 0;
-        x->orc_hand = orchidea_create();
+        x->orc_hand = orchidea_create("flux", "closest", "ga");
         orchidea_set_notifier(x->orc_hand, notifier);
         
         x->out_1 = outlet_new(x, NULL);

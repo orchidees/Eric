@@ -13,7 +13,7 @@ struct TargetI {
 	TargetI (Source<T>* s, Parameters<T>* p) : source (s), parameters (p) {}
 	virtual ~TargetI () {}
 
-	std::vector<Segment<T> > segments;
+	std::vector<Segment<T> > segments; // segments are the only information in target
 	Source<T>* source;	
 	Parameters<T>* parameters;
 };

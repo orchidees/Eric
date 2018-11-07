@@ -17,7 +17,7 @@
                BlueprintIdentifier = "2FBBEAD608F335360078DB84"
                BuildableName = "orchidea.session.mxo"
                BlueprintName = "max-external"
-               ReferencedContainer = "container:orchidea.session.xcodeproj">
+               ReferencedContainer = "container:orchidea.solve.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -50,7 +50,7 @@
             BlueprintIdentifier = "2FBBEAD608F335360078DB84"
             BuildableName = "orchidea.session.mxo"
             BlueprintName = "max-external"
-            ReferencedContainer = "container:orchidea.session.xcodeproj">
+            ReferencedContainer = "container:orchidea.solve.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -68,7 +68,7 @@
             BlueprintIdentifier = "2FBBEAD608F335360078DB84"
             BuildableName = "orchidea.session.mxo"
             BlueprintName = "max-external"
-            ReferencedContainer = "container:orchidea.session.xcodeproj">
+            ReferencedContainer = "container:orchidea.solve.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

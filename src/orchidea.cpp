@@ -7,6 +7,7 @@
 #include "Source.h"
 #include "Parameters.h"
 #include "GeneticOrchestra.h"
+#include "SessionI.h" 
 #include "Session.h" 
 #include "forecasts.h"
 #include "analysis.h"
@@ -31,11 +32,28 @@ extern "C" {
 	typedef float Real;
 
 	struct OrchideaHandle {
-		OrchideaHandle () {
+		OrchideaHandle (const char* segmentation, const char* connection, 
+			const char* search) {
+
 			source = new Source<Real> (&params);
-			target = new SoundTarget<float, FluxSegmentation> (source, &params);
-			session = new Session<Real, ClosestSolutions> (source, &params, 
-				new GeneticOrchestra<Real, AdditiveForecast> (&params));
+			if (strcmp (segmentation, "flux") == 0) {
+				target = new SoundTarget<float, FluxSegmentation> (source, &params);
+			} else {
+				throw std::runtime_error ("invalid segmentation algorithm");
+			}
+		
+			OptimizerI<Real>* optim = nullptr;
+			if (strcmp (search, "ga") == 0) {
+				optim = new GeneticOrchestra<Real, AdditiveForecast> (&params);
+			} else {
+				throw std::runtime_error ("invalid search algorithm");
+			}
+
+			if (strcmp (connection, "closest") == 0) {
+				session = new Session<Real, ClosestSolutions> (source, &params, optim);
+			} else {
+				throw std::runtime_error ("invalid connection algorithm");
+			}
 
 			source_loaded = false;
 		}
@@ -49,7 +67,7 @@ extern "C" {
 		Source<Real>* source;
 		SoundTarget<Real, FluxSegmentation>* target;
 
-		Session<Real, ClosestSolutions>* session;
+		SessionI<Real>* session;
 
 		std::vector<OrchestrationModel<Real> > orchestrations;	
 		ConnectionModel<Real> connection;
@@ -61,8 +79,13 @@ extern "C" {
 		bool source_loaded;
 	};
 
-	OrchideaHandle* orchidea_create () {
-		return new OrchideaHandle ();
+	OrchideaHandle* orchidea_create (const char* segmentation, const char* connection,
+		const char* search) {
+		try {
+			return new OrchideaHandle (segmentation, connection, search);
+		} catch (std::exception& e) {
+			return new OrchideaHandle ("flux", "closest", "ga");
+		}
 	}
 	void orchidea_destroy (OrchideaHandle* h) {
 		delete h;
