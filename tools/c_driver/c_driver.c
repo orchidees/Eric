@@ -23,7 +23,7 @@ int main (int argc, char* argv[]) {
 		return -1;
 	}
 
-	OrchideaHandle* h = orchidea_create ("flux", "closest", "ga");
+	OrchideaHandle* h = orchidea_create ("flux", "closest");
 	int err = ORCHIDEA_NO_ERROR;
 
 	// orchidea_set_notifier (h, notif);

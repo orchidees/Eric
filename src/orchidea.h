@@ -38,8 +38,7 @@ extern "C" {
 	typedef void (*orchidea_notifier) (const char* action, float status);
 	#endif
 
-	OrchideaHandle* orchidea_create (const char* segmentation, const char* connection,
-		const char* search);
+	OrchideaHandle* orchidea_create (const char* segmentation, const char* connection);
 	void orchidea_destroy (OrchideaHandle* h);
 
 	void orchidea_set_notifier (OrchideaHandle* h, orchidea_notifier notifier);

@@ -32,25 +32,30 @@ extern "C" {
 	typedef float Real;
 
 	struct OrchideaHandle {
-		OrchideaHandle (const char* segmentation, const char* connection, 
-			const char* search) {
+		OrchideaHandle () {
+			source = new Source<Real> (&params);
+			target = new SoundTarget<float, FluxSegmentation> (source, &params);
+			session = new Session<Real, ClosestSolutions> (source, &params,
+				new GeneticOrchestra<Real, AdditiveForecast> (&params));
+			source_loaded = false;
+		}
+		OrchideaHandle (const char* segmentation, const char* connection) {
 
 			source = new Source<Real> (&params);
 			if (strcmp (segmentation, "flux") == 0) {
 				target = new SoundTarget<float, FluxSegmentation> (source, &params);
+			} else if (strcmp (segmentation, "frames") == 0) {
+				target = new SoundTarget<float, Frames> (source, &params);
 			} else {
 				throw std::runtime_error ("invalid segmentation algorithm");
 			}
-		
-			OptimizerI<Real>* optim = nullptr;
-			if (strcmp (search, "ga") == 0) {
-				optim = new GeneticOrchestra<Real, AdditiveForecast> (&params);
-			} else {
-				throw std::runtime_error ("invalid search algorithm");
-			}
 
 			if (strcmp (connection, "closest") == 0) {
-				session = new Session<Real, ClosestSolutions> (source, &params, optim);
+				session = new Session<Real, ClosestSolutions> (source, &params,
+					new GeneticOrchestra<Real, AdditiveForecast> (&params));
+			} else if (strcmp (connection, "best") == 0) {
+				session = new Session<Real, BestSolutions> (source, &params,
+					new GeneticOrchestra<Real, AdditiveForecast> (&params));
 			} else {
 				throw std::runtime_error ("invalid connection algorithm");
 			}
@@ -65,7 +70,7 @@ extern "C" {
 
 		Parameters<Real> params;
 		Source<Real>* source;
-		SoundTarget<Real, FluxSegmentation>* target;
+		TargetI<Real>* target;
 
 		SessionI<Real>* session;
 
@@ -79,12 +84,12 @@ extern "C" {
 		bool source_loaded;
 	};
 
-	OrchideaHandle* orchidea_create (const char* segmentation, const char* connection,
-		const char* search) {
+	// returns default setup if cannot create the opaque object
+	OrchideaHandle* orchidea_create (const char* segmentation, const char* connection) {
 		try {
-			return new OrchideaHandle (segmentation, connection, search);
+			return new OrchideaHandle (segmentation, connection);
 		} catch (std::exception& e) {
-			return new OrchideaHandle ("flux", "closest", "ga");
+        	return new OrchideaHandle ();
 		}
 	}
 	void orchidea_destroy (OrchideaHandle* h) {
@@ -187,7 +192,8 @@ extern "C" {
 	void orchidea_num_segments (OrchideaHandle* h, int* segments) {
 		*segments = h->orchestrations.size ();
 	}
-	int orchidea_solutions_per_segment (OrchideaHandle* h, int segment_number, int* solutions) {
+	int orchidea_solutions_per_segment (OrchideaHandle* h, int segment_number, 
+		int* solutions) {
 		if (segment_number < 0 || segment_number >= h->orchestrations.size ()) {
 			h->error_details = "";
 			return ORCHIDEA_INVALID_SEGMENT;
