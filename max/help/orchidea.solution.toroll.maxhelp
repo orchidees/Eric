@@ -144,7 +144,6 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 460.640472, 244.5, 200.359528, 40.0 ],
-									"presentation_rect" : [ 458.0, 246.0, 0.0, 0.0 ],
 									"style" : "",
 									"text" : "Import solutions 5 through 10 for 3rd segment"
 								}
@@ -158,7 +157,6 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 391.5, 253.0, 64.0, 23.0 ],
-									"presentation_rect" : [ 391.5, 248.5, 0.0, 0.0 ],
 									"style" : "",
 									"text" : "3 ((5 10))"
 								}
@@ -173,7 +171,6 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 445.0, 211.0, 200.359528, 40.0 ],
-									"presentation_rect" : [ 442.0, 236.0, 0.0, 0.0 ],
 									"style" : "",
 									"text" : "Import 4th, 5th and 7th solution for 3rd segment"
 								}
@@ -187,7 +184,6 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 376.5, 219.5, 59.0, 23.0 ],
-									"presentation_rect" : [ 369.5, 230.0, 0.0, 0.0 ],
 									"style" : "",
 									"text" : "3 (4 5 7)"
 								}

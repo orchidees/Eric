@@ -1,13 +1,13 @@
 /**
-	@file
-	orchidea.dbgen - main external for orchidea
-*/
+ @file
+ orchidea.dbgen - main external for orchidea
+ */
 
 #include "orchidea.h"
 #include "tokenizer.h"
 
-#include "ext.h"							// standard Max include, always required
-#include "ext_obex.h"						// required for new style Max object
+#include "ext.h"                            // standard Max include, always required
+#include "ext_obex.h"                        // required for new style Max object
 
 #include <deque>
 #include <string>
@@ -22,11 +22,11 @@
 
 ////////////////////////// object struct
 typedef struct _session {
-    t_object	ob;
-
-    t_symbol	*name;
-    void		*out_1;
-
+    t_object    ob;
+    
+    t_symbol    *name;
+    void        *out_1;
+    
     OrchideaHandle* orc_hand;
     pthread_t thread_pool[MAX_THREADS];
     int running_threads;
@@ -71,11 +71,11 @@ void* orchidea_dispatcher (void* d) {
     thread_data* data = (thread_data*) d;
     t_session* x = data->x;
     t_symbol* s = data->s;
-
+    
     t_atom busy;
     atom_setlong(&busy, 1);
     outlet_anything(x->out_1, gensym("busy"), 1, &busy);
- 
+    
     x->running_threads++;
     object_post((t_object*) x, "current thread n. %d", x->running_threads);
     
@@ -87,7 +87,7 @@ void* orchidea_dispatcher (void* d) {
         if (tmp) {
             parent = tmp;
         }
-     } while (tmp != NULL);
+    } while (tmp != NULL);
     
     t_symbol *path = object_attr_getsym(parent, gensym("filepath"));
     object_post((t_object*) x, "path: %s", path->s_name);
@@ -107,7 +107,7 @@ void* orchidea_dispatcher (void* d) {
     
     if (s == gensym ("analyse")) {
         object_post((t_object*) x, "start analysis");
-
+        
         if (x->sounds.size () == 0 || strlen(x->db_folder->s_name) == 0) {
             object_post((t_object*) x, "error: sound folders or db folder not set");
             
@@ -134,22 +134,22 @@ void* orchidea_dispatcher (void* d) {
 }
 void ext_main(void *r) {
     t_class *c;
-
+    
     c = class_new("orchidea.dbgen", (method)  orchmax_dbgen_new, (method)orchmax_dbgen_free, (long)sizeof(t_session),
                   0L /* leave NULL!! */, A_GIMME, 0);
-
+    
     class_addmethod(c, (method)orchmax_dbgen_anything,        "database",    A_GIMME, 0);
     class_addmethod(c, (method)orchmax_dbgen_anything,        "sounds",    A_GIMME, 0);
     class_addmethod(c, (method)orchmax_dbgen_anything,        "analyse",    A_GIMME, 0);
     CLASS_ATTR_SYM(c, "name", 0, t_session, name);
-
+    
     class_register(CLASS_BOX, c);
     orchmax_dbgen_class = c;
 }
 
 void orchmax_dbgen_free(t_session *x) {
     orchidea_destroy(x->orc_hand);
-} 
+}
 
 void orchmax_dbgen_anything(t_session *x, t_symbol *s, long ac, t_atom *av) {
     t_symbol* argument = 0;
@@ -172,16 +172,16 @@ void orchmax_dbgen_anything(t_session *x, t_symbol *s, long ac, t_atom *av) {
     
     if (s == gensym("sounds")) {
         argument = atom_getsym(av);
-
+        
         x->sounds.clear ();
         for (int i = 0; i < ac; ++i) {
             x->sounds.push_back (atom_getsym(av + i)->s_name);
             object_post((t_object*) x, "adding sound folder %s", atom_getsym(av + i)->s_name);
         }
         object_post((t_object *)x, "sounds have been added correctly");
-
+        
     } if (s == gensym("database")) {
-         x->db_folder = atom_getsym(av);
+        x->db_folder = atom_getsym(av);
         object_post((t_object *)x, "setting database to %s",  x->db_folder->s_name);
         object_post((t_object *)x, "database has been set correctly");
     }  else {
@@ -200,7 +200,7 @@ void orchmax_dbgen_anything(t_session *x, t_symbol *s, long ac, t_atom *av) {
 
 void *orchmax_dbgen_new(t_symbol *s, long argc, t_atom *argv) {
     t_session *x = NULL;
-
+    
     if ((x = (t_session *)object_alloc((t_class*)orchmax_dbgen_class))) {
         x->name = gensym("");
         if (argc && argv) {
@@ -208,7 +208,7 @@ void *orchmax_dbgen_new(t_symbol *s, long argc, t_atom *argv) {
         }
         if (!x->name || x->name == gensym(""))
             x->name = symbol_unique();
-
+        
         x->running_threads = 0;
         x->orc_hand = orchidea_create();
         
@@ -217,3 +217,4 @@ void *orchmax_dbgen_new(t_symbol *s, long argc, t_atom *argv) {
     g_x = x;
     return (x);
 }
+

@@ -23,11 +23,11 @@ struct Parameters {
 		setup ();
 		read (config_file);
 	}
-	void setup () {
-		pop_size = 100;
-		max_epochs = 100;
+	void setup () { // default parameters
+		pop_size = 300;
+		max_epochs = 300;
 		pursuit = 0;
-		xover_rate = .7;
+		xover_rate = .8;
 		mutation_rate = .01;
 		sparsity = 0.001;
 		positive_penalization = 1.;

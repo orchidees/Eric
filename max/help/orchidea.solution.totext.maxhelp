@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 185.0, 115.0, 655.0, 493.0 ],
+		"rect" : [ 100.0, 100.0, 655.0, 493.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -76,7 +76,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 185.0, 141.0, 655.0, 467.0 ],
+						"rect" : [ 100.0, 126.0, 655.0, 467.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -112,7 +112,6 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 62.859528, 407.0, 179.0, 25.0 ],
-									"presentation_rect" : [ 74.859528, 363.567627, 0.0, 0.0 ],
 									"style" : "",
 									"text" : "Doubleclick to see the text"
 								}
@@ -125,9 +124,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 52.0, 245.0, 172.0, 23.0 ],
+									"patching_rect" : [ 52.0, 245.0, 176.0, 23.0 ],
 									"style" : "",
-									"text" : "/tmp pippo 5 10 10 10 10 10"
+									"text" : "/tmp/pippo. 5 10 10 10 10 10"
 								}
 
 							}
@@ -166,7 +165,6 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 459.0, 243.5, 163.0, 40.0 ],
-									"presentation_rect" : [ 485.859528, 257.5, 0.0, 0.0 ],
 									"style" : "",
 									"text" : "Import solution for N-th segment"
 								}

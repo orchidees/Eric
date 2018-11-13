@@ -31,11 +31,13 @@ typedef struct _solver {
     // Dynamic attributes
     t_symbol*   soundpaths[MAX_SOUND_PATHS];
     long        soundpaths_size;
-    
-    
+    t_symbol*   prefix;
+    long        popsize;
+    long        maxepochs;
     
     void		*out_1;
-    
+    void        *out_2;
+
     char        must_rerun_analysis;
     t_symbol*   current_target;
 
@@ -75,10 +77,59 @@ void notifier (const char* action, float status) {
     t_atom a[2];
     atom_setsym(a, gensym(action));
     atom_setlong(a + 1, status);
-    outlet_anything(g_x->out_1, gensym("status"), 2, a);
+    outlet_anything(g_x->out_2, gensym("status"), 2, a);
 }
 
 
+t_symbol *conform_path(t_symbol *path)
+{
+    if (!path) {
+        return NULL;
+    }
+    
+    char outpath[MAX_PATH_CHARS];
+    path_nameconform(path->s_name, outpath, PATH_STYLE_MAX, PATH_TYPE_BOOT);
+    return gensym(outpath);
+}
+
+t_symbol *get_patch_path(t_solver *x)
+{
+    t_object *patcher, *parent, *tmp;
+    object_obex_lookup(x, gensym("#P"), &patcher);
+    parent = patcher;
+    do {
+        tmp = jpatcher_get_parentpatcher(parent);
+        if (tmp) {
+            parent = tmp;
+        }
+    } while (tmp != NULL);
+    
+    t_symbol *path = object_attr_getsym(parent, gensym("filepath"));
+    
+    return conform_path(path);
+}
+
+// TO DO: IMPROVE THIS :)
+t_symbol *strip_extension(t_symbol *s)
+{
+    if (!s) {
+        return NULL;
+    }
+    
+    char out[MAX_PATH_CHARS];
+    snprintf_zero(out, MAX_PATH_CHARS, "%s", s->s_name);
+    long l = strlen(out);
+    
+    // TO DO: support WINDOWS
+    for (long i = l-2; i>=0; i--) {
+        if (out[i] == '.') {
+            out[i+1] = 0;
+            break;
+        }
+    }
+
+    return gensym(out);
+}
 
 // will take care of freeing data->av after usage, if not NULL
 void* orchidea_dispatcher (void* d) {
@@ -90,27 +141,17 @@ void* orchidea_dispatcher (void* d) {
 
     t_atom busy;
     atom_setlong(&busy, 1);
-    outlet_anything(x->out_1, gensym("busy"), 1, &busy);
+    outlet_anything(x->out_2, gensym("busy"), 1, &busy);
 
     x->running_threads++;
     object_post((t_object*) x, "current thread n. %d", x->running_threads);
 
     t_symbol* argument = 0;
 
-    t_object *patcher, *parent, *tmp;
-    object_obex_lookup(x, gensym("#P"), &patcher);
-    parent = patcher;
-    do {
-        tmp = jpatcher_get_parentpatcher(parent);
-        if (tmp) {
-            parent = tmp;
-        }
-     } while (tmp != NULL);
-
-    t_symbol *path = object_attr_getsym(parent, gensym("filepath"));
+    t_symbol *path = get_patch_path(x);
     object_post((t_object*) x, "path: %s", path->s_name);
 
-    char outname[1024];
+/*    char outname[1024];
     char* location = 0;
     if (path != NULL) {
         path_nameconform(path->s_name, outname, PATH_STYLE_MAX, PATH_TYPE_BOOT);
@@ -121,14 +162,19 @@ void* orchidea_dispatcher (void* d) {
     }
 
     //post ("setting current location to: %s", location);
-    chdir(location);
+    chdir(location); */
 
     if (s == gensym("dbfiles")) {
         argument = atom_getsym(av);
         char** sl  = (char**) malloc ((ac) * sizeof (char*));
         for (int i = 0; i < ac; ++i) {
-            sl[i] = atom_getsym(av + i)->s_name;
-            object_post((t_object*) x, "adding db file %s", sl[i]);
+            t_symbol *this_dbfile = conform_path(atom_getsym(av + i));
+            if (this_dbfile) {
+                sl[i] = this_dbfile->s_name;
+                object_post((t_object*) x, "adding db file %s", sl[i]);
+            } else {
+                object_error((t_object *)x, "can't add db file %s", sl[i]);
+            }
         }
         
         int r = orchidea_set_source(x->orc_hand, (const char**) sl, (int) ac);
@@ -142,12 +188,12 @@ void* orchidea_dispatcher (void* d) {
             t_atom val;
             std::stringstream ss;
             ss << (std::string) orchidea_dump_source(x->orc_hand);
-            post ("%s", ss.str ().c_str ());
+//            post ("%s", ss.str ().c_str ());
 //            while (!ss.eof ()) {
 //                std::string line;
 //                std::getline(ss, line);
                 atom_setsym(&val, gensym(ss.str ().c_str ()));
-                outlet_anything(x->out_1, gensym ("source"), 1, &val);
+                outlet_anything(x->out_2, gensym ("source"), 1, &val);
 //            }
 
             object_post((t_object *)x, "db files have been set correctly");
@@ -158,7 +204,7 @@ void* orchidea_dispatcher (void* d) {
         
         // DIRTY STUFF BY DANIELE, SORRY GUYS!
         if (s == gensym("target")) {
-            argument = atom_getsym(av);
+            argument = conform_path(atom_getsym(av));
             if (x->current_target != argument) { // filename has changed
                 // first analysis of target
                 x->current_target = argument;
@@ -180,13 +226,19 @@ void* orchidea_dispatcher (void* d) {
             x->must_rerun_analysis = false;
         }
         
+        // debug stuff
+        int numseg = 0;
+        orchidea_num_segments(x->orc_hand, &numseg);
+        object_post((t_object *)x, "Debug: numsegments: %d", numseg);
+        
         object_post((t_object*) x, "start orchestration");
         int r = orchidea_orchestrate(x->orc_hand);
         if (r != ORCHIDEA_NO_ERROR) {
             object_post((t_object *)x, "error: %s (%s)", orchidea_decode_error(r), orchidea_get_error_details(x->orc_hand));
         } else {
-            system ("rm target*"); // FIXME: any better idea??
-            system ("rm connection*"); // FIXME: any better idea??
+            // TODO: clearing files automatically???
+//            if (x->autoclear) {
+//            }
             int n = 0;
             orchidea_num_segments(x->orc_hand, &n);
             for (unsigned i = 0; i < n; ++i) {
@@ -194,32 +246,48 @@ void* orchidea_dispatcher (void* d) {
                 orchidea_solutions_per_segment(x->orc_hand, i, &sols);
                 post ("seg %d, sols %d", i, sols);
             }
-            r = orchidea_export_solutions(x->orc_hand, ".");
-            object_post((t_object *)x, "%d segments(s) found", n);
-            if (r != ORCHIDEA_NO_ERROR) {
-                object_post((t_object *)x, "error: %s (%s)", orchidea_decode_error(r), orchidea_get_error_details(x->orc_hand));
+            std::stringstream outprefix;
+            if (x->prefix) {
+                outprefix << x->prefix->s_name;
             } else {
-                t_atom vals;
-                atom_setlong (&vals, n); // FIXME!!!
-                outlet_anything(x->out_1, gensym("nb_solutions"),  1, &vals);
-
-//                std::string sols = orchidea_get_last_solutions(x->orc_hand);
-//                std::deque<std::string> sol_vector;
-//                tokenize(sols, sol_vector, ">");
-//                for (unsigned i = 0; i < sol_vector.size (); ++i) {
-//                    atom_setsym (&vals, gensym(sol_vector[i].c_str ()));
-//                    object_post((t_object*) x, "%s", sol_vector[i].c_str ());
-//                    outlet_anything(x->out_1, gensym("solution"),  1, &vals);
-//                }
+                t_symbol *default_path = strip_extension(x->current_target);
+                outprefix << (default_path ? default_path->s_name : ""); // patch_path should NEVER be null
             }
+            r = orchidea_export_solutions(x->orc_hand, outprefix.str().c_str());
+            object_post((t_object *)x, "%d segments(s) found", n);
+            
+            if (r != ORCHIDEA_NO_ERROR) {
+                if (r == ORCHIDEA_NO_SOUNDS)
+                    object_warn((t_object *)x, "error: %s (%s)", orchidea_decode_error(r), orchidea_get_error_details(x->orc_hand));
+                else
+                    object_error((t_object *)x, "error: %s (%s)", orchidea_decode_error(r), orchidea_get_error_details(x->orc_hand));
+            }
+            
+            int num_seg = 0;
+            orchidea_num_segments(x->orc_hand, &num_seg);
+            
+            long ac = num_seg + 2;
+            t_atom *av = (t_atom *)sysmem_newptr(ac * sizeof(t_atom));
+            atom_setsym(av, gensym(outprefix.str().c_str()));
+            atom_setlong(av + 1, num_seg);
+            for (int i = 0; i < num_seg; i++) {
+                int sols = 0;
+                orchidea_solutions_per_segment(x->orc_hand, i, &sols);
+                atom_setlong(av + 2 + i, sols);
+            }
+            outlet_anything(x->out_1, gensym("list"), ac, av);
+            sysmem_freeptr(av);
         }
     }
     atom_setlong(&busy, 0);
-    outlet_anything(x->out_1, gensym("busy"), 1, &busy);
+    
+    // TODO: are we sure that we should output stuff from this custom thread?
+    outlet_anything(x->out_2, gensym("busy"), 1, &busy);
     x->running_threads--;
     
     if (data->av)
         sysmem_freeptr(data->av);
+    sysmem_freeptr(data);
     
     return NULL;
 }
@@ -271,8 +339,14 @@ void ext_main(void *r) {
 //    class_addmethod(c, (method)orchmax_solve_notify, "notify", A_CANT, 0);
     CLASS_ATTR_SYM(c, "segmentation", 0, t_solver, segmentation);
     CLASS_ATTR_SYM(c, "connection", 0, t_solver, connection);
-    CLASS_ATTR_SYM_VARSIZE(c, "soundpaths", 0, t_solver, soundpaths, soundpaths_size, MAX_SOUND_PATHS);
+
+    CLASS_ATTR_SYM(c, "prefix", 0, t_solver, prefix);
+
     
+    CLASS_ATTR_SYM_VARSIZE(c, "soundpaths", 0, t_solver, soundpaths, soundpaths_size, MAX_SOUND_PATHS);
+
+    
+//    CLASS_ATTR_LONG(c, "popsize", 0, t_solver, popsize);
 //    CLASS_ATTR_SYM(c, "name", 0, t_solver, name);
 
     class_register(CLASS_BOX, c);
@@ -293,15 +367,15 @@ void orchmax_solve_bang(t_solver *x) {
         return;
     }
     
-    thread_data d; // delete after thread call - I think it works since thare are no modif during thread
-    d.x = x;
-    d.s = gensym("orchestrate");
-    d.ac = 0;
-    d.av = NULL;
+    thread_data *d = (thread_data *)sysmem_newptr(sizeof(thread_data)); // delete after thread call - I think it works since thare are no modif during thread
+    d->x = x;
+    d->s = gensym("orchestrate");
+    d->ac = 0;
+    d->av = NULL;
     
-    atom_setsym(d.av, gensym("orchestrate"));
+    atom_setsym(d->av, gensym("orchestrate"));
     
-    pthread_create(&x->thread_pool[x->running_threads], NULL, orchidea_dispatcher, (void*) &d);
+    pthread_create(&x->thread_pool[x->running_threads], NULL, orchidea_dispatcher, (void*) d);
 }
 
 
@@ -556,37 +630,37 @@ void orchmax_solve_anything(t_solver *x, t_symbol *s, long ac, t_atom *av) {
             return;
         }
 
-        thread_data d; // delete after thread call - I think it works since thare are no modif during thread
-        d.x = x;
+        thread_data *d = (thread_data *)sysmem_newptr(sizeof(thread_data)); // delete after thread call - I think it works since thare are no modif during thread
+        d->x = x;
         
         if (inlet == 0) {
             // set target and orchestrate
-            d.s = gensym("target");
-            d.ac = 1;
-            d.av = (t_atom *)sysmem_newptr(sizeof(t_atom));
-            atom_setsym(d.av, s ? s : (ac ? atom_getsym(av) : gensym("none") /*should never happen*/));
+            d->s = gensym("target");
+            d->ac = 1;
+            d->av = (t_atom *)sysmem_newptr(sizeof(t_atom));
+            atom_setsym(d->av, s ? s : (ac ? atom_getsym(av) : gensym("none") /*should never happen*/));
         } else {
             // set database
             long j = 0;
-            d.s = gensym("dbfiles");
-            d.ac = (s && s != gensym("list") ? ac + 1 : ac);
-            d.av = (t_atom *)sysmem_newptr(d.ac * sizeof(t_atom));
+            d->s = gensym("dbfiles");
+            d->ac = (s && s != gensym("list") ? ac + 1 : ac);
+            d->av = (t_atom *)sysmem_newptr(d->ac * sizeof(t_atom));
             if (s && s != gensym("list")) {
-                atom_setsym(d.av, s);
+                atom_setsym(d->av, s);
                 j++;
             }
             for (long i = 0; i < ac; i++)
-                d.av[j++] = av[i];
+                d->av[j++] = av[i];
             
             // setting sound paths properly, if soundpaths is default
-            char** sl  = (char**)sysmem_newptr((ac + 1) * sizeof (char*));
+            char** sl  = (char**)sysmem_newptr((d->ac + 1) * sizeof (char*));
             sl[0] = (char*) "sound_paths";
-            for (long i = 1; i < ac + 1; i++) {
+            for (long i = 1; i < d->ac + 1; i++) {
                 sl[i] = (char *)sysmem_newptr(MAX_PATH_CHARS * sizeof(char));
             }
-            for (long i = 0; i < d.ac; i++) { // cycle on each of the db file names
+            for (long i = 0; i < d->ac; i++) { // cycle on each of the db file names
                 if (i >= x->soundpaths_size || x->soundpaths[i] == gensym("default")) { // if the soundpath attribute is "default"
-                    t_symbol *this_path = atom_getsym(d.av+i); // take the current db filename
+                    t_symbol *this_path = conform_path(atom_getsym(d->av+i)); // take the current db filename
                     if (this_path) {
                         dbpath_to_soundpath(this_path->s_name, sl[i+1]); // if it exists (should ALWAYS be the case), strip it
                     } else {
@@ -596,15 +670,15 @@ void orchmax_solve_anything(t_solver *x, t_symbol *s, long ac, t_atom *av) {
                     snprintf_zero(sl[i+1], MAX_PATH_CHARS, "%s", x->soundpaths[i]->s_name);
                 }
             }
-            orchidea_set_param(x->orc_hand, (const char**) sl, (int) ac + 1);
+            orchidea_set_param(x->orc_hand, (const char**) sl, (int) d->ac + 1);
             object_post((t_object *)x, "sounds have been set correctly");
-            for (long i = 1; i < ac + 1; i++) {
+            for (long i = 1; i < d->ac + 1; i++) {
                 sysmem_freeptr(sl[i]);
             }
             sysmem_freeptr(sl);
             
         }
-        pthread_create(&x->thread_pool[x->running_threads], NULL, orchidea_dispatcher, (void*) &d);
+        pthread_create(&x->thread_pool[x->running_threads], NULL, orchidea_dispatcher, (void*) d);
     }
 }
 
@@ -638,6 +712,7 @@ void *orchmax_solve_new(t_symbol *s, long argc, t_atom *argv) {
         
         orchidea_set_notifier(x->orc_hand, notifier);
         
+        x->out_2 = outlet_new(x, NULL);
         x->out_1 = outlet_new(x, NULL);
         
     }

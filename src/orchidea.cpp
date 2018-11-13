@@ -190,7 +190,7 @@ extern "C" {
  		return ORCHIDEA_NO_ERROR;
 	}
 	void orchidea_num_segments (OrchideaHandle* h, int* segments) {
-		*segments = h->orchestrations.size ();
+        *segments = h->target->segments.size(); // h->orchestrations.size ();
 	}
 	int orchidea_solutions_per_segment (OrchideaHandle* h, int segment_number, 
 		int* solutions) {

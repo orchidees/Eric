@@ -48,7 +48,7 @@ struct OrchestrationModel {
 			scale<T>(&mix[0], &mix[0], outleft.size () * 2, 2.);
 
 			std::stringstream wav_name;
-			wav_name << prefix << "solution_" << std::setw(4) << std::setfill('0') 
+			wav_name << prefix << "solution." << std::setw(4) << std::setfill('0')
 				<< i + 1 << ".wav";			
 			WavOutFile outfile (wav_name.str ().c_str(), DEFAULT_SR, 16, 2);
 			outfile.write(&mix[0], outleft.size () * 2);
