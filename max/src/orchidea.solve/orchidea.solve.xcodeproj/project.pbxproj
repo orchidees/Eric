@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1ED89EF8219B1835008B9C9D /* utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED89EF7219B1835008B9C9D /* utilities.h */; };
 		22CF122B0EE9AAAD0054F513 /* orchidea.solve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22CF122A0EE9AAAD0054F513 /* orchidea.solve.cpp */; };
 		2BE44D8C203495F6006E42EC /* orchidea.solve.mxo in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2FBBEAE508F335360078DB84 /* orchidea.solve.mxo */; };
 		2BE44D9920349C37006E42EC /* orchidea.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BE44D9820349C37006E42EC /* orchidea.h */; };
@@ -28,6 +29,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1ED89EF7219B1835008B9C9D /* utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = utilities.h; path = ../../../src/utilities.h; sourceTree = "<group>"; };
 		22CF10220EE984600054F513 /* maxmspsdk.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = maxmspsdk.xcconfig; path = ../../maxmspsdk.xcconfig; sourceTree = SOURCE_ROOT; };
 		22CF122A0EE9AAAD0054F513 /* orchidea.solve.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = orchidea.solve.cpp; sourceTree = "<group>"; };
 		2BE44D9820349C37006E42EC /* orchidea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = orchidea.h; path = ../../../src/orchidea.h; sourceTree = "<group>"; };
@@ -52,6 +54,7 @@
 			isa = PBXGroup;
 			children = (
 				2BE44D9820349C37006E42EC /* orchidea.h */,
+				1ED89EF7219B1835008B9C9D /* utilities.h */,
 				22CF10220EE984600054F513 /* maxmspsdk.xcconfig */,
 				22CF122A0EE9AAAD0054F513 /* orchidea.solve.cpp */,
 				DB419179203B974E00237F10 /* tokenizer.h */,
@@ -84,6 +87,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1ED89EF8219B1835008B9C9D /* utilities.h in Headers */,
 				DB41917A203B974E00237F10 /* tokenizer.h in Headers */,
 				2BE44D9920349C37006E42EC /* orchidea.h in Headers */,
 			);
@@ -292,6 +296,7 @@
 					"\"$(C74SUPPORT)/msp-includes\"",
 					"\"$(C74SUPPORT)/jit-includes\"",
 					../../../build/src/,
+					../../src,
 				);
 				OTHER_LDFLAGS = "$(C74_SYM_LINKER_FLAGS)";
 				PRODUCT_NAME = orchidea.solve;
@@ -308,6 +313,7 @@
 					"\"$(C74SUPPORT)/msp-includes\"",
 					"\"$(C74SUPPORT)/jit-includes\"",
 					../../../build/src/,
+					../../src,
 				);
 				OTHER_LDFLAGS = "$(C74_SYM_LINKER_FLAGS)";
 				PRODUCT_NAME = orchidea.solve;
