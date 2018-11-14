@@ -1096,7 +1096,7 @@
 					}
 ,
 					"style" : "",
-					"text" : "bach.n2mc"
+					"text" : "bach.p2mc"
 				}
 
 			}

@@ -3,6 +3,12 @@
 	orchidea.solve - main external for orchidea
 */
 
+// TO DO DANIELE:
+// - Mess -> attributi
+// - segmentation/connection -> only hard codable
+// - output da outlet max da altri thread?
+// - errorchecking
+
 #include "orchidea.h"
 #include "tokenizer.h"
 #include "utilities.h"
@@ -17,8 +23,13 @@
 #include <libgen.h>
 #include <pthread.h>
 
-#define MAX_THREADS 1
-#define MAX_SOUND_PATHS 256
+#define ORCHIDEA_SOLVE_MAX_THREADS 1
+#define ORCHIDEA_SOLVE_MAX_SOUND_PATHS 256
+#define ORCHIDEA_SOLVE_MAX_ORCHESTRA 4096
+#define ORCHIDEA_SOLVE_MAX_STYLES 4096
+#define ORCHIDEA_SOLVE_MAX_DYNAMICS 256
+#define ORCHIDEA_SOLVE_MAX_OTHERS 2048
+#define ORCHIDEA_SOLVE_MAX_EXTRAPITCHES 1024
 
 ////////////////////////// object struct
 typedef struct _solver {
@@ -29,12 +40,36 @@ typedef struct _solver {
     t_symbol*   connection;
     
     // Dynamic attributes
-    t_symbol*   soundpaths[MAX_SOUND_PATHS];
+    t_symbol*   soundpaths[ORCHIDEA_SOLVE_MAX_SOUND_PATHS];
     long        soundpaths_size;
     t_symbol*   prefix;
+    t_symbol*   search;
     long        popsize;
     long        maxepochs;
-    
+    long        pursuit;
+    double      xoverrate;
+    double      mutationrate;
+    double      sparsity;
+    double      negativepenalization;
+    double      positivepenalization;
+    double      onsetthreshold;
+    double      onsettimegate;
+    long        partialswindow;
+    double      partialsfilter;
+    t_symbol    *orchestra[ORCHIDEA_SOLVE_MAX_ORCHESTRA];
+    long        orchestra_size;
+    t_symbol    *styles[ORCHIDEA_SOLVE_MAX_STYLES];
+    long        styles_size;
+    t_symbol    *dynamics[ORCHIDEA_SOLVE_MAX_DYNAMICS];
+    long        dynamics_size;
+    t_symbol    *others[ORCHIDEA_SOLVE_MAX_OTHERS];
+    long        others_size;
+    t_symbol    *extrapitches[ORCHIDEA_SOLVE_MAX_EXTRAPITCHES];
+    long        extrapitches_size;
+
+
+    char        verbose;
+
     void		*out_1;
     void        *out_2;
 
@@ -42,7 +77,7 @@ typedef struct _solver {
     t_symbol*   current_target;
 
     OrchideaHandle* orc_hand;
-    pthread_t thread_pool[MAX_THREADS];
+    pthread_t thread_pool[ORCHIDEA_SOLVE_MAX_THREADS];
     int running_threads;
     
     void*       n_proxy[2];
@@ -71,6 +106,265 @@ void *orchmax_solve_class;
 
 
 t_solver* g_x; // global variable - any better idea?
+
+//// SETTERS
+
+void orchidea_set_param_long(OrchideaHandle *orc_hand, t_symbol *param, long val)
+{
+    char** sl  = (char**)sysmem_newptr(2 * sizeof (char*));
+    sl[0] = sysmem_newptr(256 * sizeof(char));
+    sl[1] = sysmem_newptr(2048 * sizeof(char));
+    snprintf_zero(sl[0], 256, "%s", param->s_name);
+    snprintf_zero(sl[1], 2048, "%ld", val);
+    orchidea_set_param(orc_hand, (const char**) sl, (int) 2);
+    sysmem_freeptr(sl[0]);
+    sysmem_freeptr(sl[1]);
+    sysmem_freeptr(sl);
+}
+
+void orchidea_set_param_double(OrchideaHandle *orc_hand, t_symbol *param, double val)
+{
+    char** sl  = (char**)sysmem_newptr(2 * sizeof (char*));
+    sl[0] = sysmem_newptr(256 * sizeof(char));
+    sl[1] = sysmem_newptr(2048 * sizeof(char));
+    snprintf_zero(sl[0], 256, "%s", param->s_name);
+    snprintf_zero(sl[1], 2048, "%.4f", val);
+    orchidea_set_param(orc_hand, (const char**) sl, (int) 2);
+    sysmem_freeptr(sl[0]);
+    sysmem_freeptr(sl[1]);
+    sysmem_freeptr(sl);
+}
+
+void orchidea_set_param_symarray(OrchideaHandle *orc_hand, t_symbol *param, long size, t_symbol **array)
+{
+    char** sl  = (char**)sysmem_newptr((size + 1) * sizeof (char*));
+    sl[0] = sysmem_newptr(256 * sizeof(char));
+    snprintf_zero(sl[0], 256, "%s", param->s_name);
+    for (long i = 1; i < size + 1; i++) {
+        sl[i] = sysmem_newptr(2048 * sizeof(char));
+        snprintf_zero(sl[i], 2048, "%s", array[i-1]->s_name);
+    }
+    orchidea_set_param(orc_hand, (const char**) sl, (int) size + 1);
+    for (long i = 0; i < size + 1; i++)
+        sysmem_freeptr(sl[i]);
+    sysmem_freeptr(sl);
+}
+
+
+t_max_err orchmax_solve_setattr_search(t_solver *x, void *attr, long ac, t_atom *av)
+{
+    if (ac && av) {
+        t_symbol *s = atom_getsym(av);
+        x->search = s;
+        if (x->verbose) object_post((t_object *)x, "setting search to %s", s->s_name);
+        int r = orchidea_set_search(x->orc_hand, s->s_name);
+        if (r != ORCHIDEA_NO_ERROR) {
+            object_error((t_object *)x, "error: %s (%s)", orchidea_decode_error(r),
+                        orchidea_get_error_details(x->orc_hand));
+        } else {
+            if (x->verbose) object_post((t_object *)x, "search has been set correctly");
+        }
+    }
+    return MAX_ERR_NONE;
+}
+
+
+t_max_err orchmax_solve_setattr_popsize(t_solver *x, void *attr, long ac, t_atom *av)
+{
+    if (ac && av) {
+        orchidea_set_param_long(x->orc_hand, gensym("pop_size"), x->popsize = atom_getlong(av));
+        if (x->verbose) object_post((t_object *)x, "population size has been set correctly");
+    }
+    return MAX_ERR_NONE;
+}
+
+t_max_err orchmax_solve_setattr_maxepochs(t_solver *x, void *attr, long ac, t_atom *av)
+{
+    if (ac && av) {
+        orchidea_set_param_long(x->orc_hand, gensym("max_epochs"), x->maxepochs = atom_getlong(av));
+        if (x->verbose) object_post((t_object *)x, "max number of epochs has been set correctly");
+    }
+    return MAX_ERR_NONE;
+}
+
+
+t_max_err orchmax_solve_setattr_pursuit(t_solver *x, void *attr, long ac, t_atom *av)
+{
+    if (ac && av) {
+        orchidea_set_param_long(x->orc_hand, gensym("pursuit"), x->pursuit = atom_getlong(av));
+        if (x->verbose) object_post((t_object *)x, "relaxed pursuit has been set correctly");
+    }
+    return MAX_ERR_NONE;
+}
+
+
+t_max_err orchmax_solve_setattr_xoverrate(t_solver *x, void *attr, long ac, t_atom *av)
+{
+    if (ac && av) {
+        orchidea_set_param_double(x->orc_hand, gensym("xover_rate"), x->xoverrate = atom_getfloat(av));
+        if (x->verbose) object_post((t_object *)x, "cross-over rate has been set correctly");
+    }
+    return MAX_ERR_NONE;
+}
+
+t_max_err orchmax_solve_setattr_mutationrate(t_solver *x, void *attr, long ac, t_atom *av)
+{
+    if (ac && av) {
+        orchidea_set_param_double(x->orc_hand, gensym("mutation_rate"), x->mutationrate = atom_getfloat(av));
+        if (x->verbose) object_post((t_object *)x, "mutation rate has been set correctly");
+    }
+    return MAX_ERR_NONE;
+}
+
+t_max_err orchmax_solve_setattr_sparsity(t_solver *x, void *attr, long ac, t_atom *av)
+{
+    if (ac && av) {
+        orchidea_set_param_double(x->orc_hand, gensym("sparsity"), x->sparsity = atom_getfloat(av));
+        if (x->verbose) object_post((t_object *)x, "sparsity has been set correctly");
+    }
+    return MAX_ERR_NONE;
+}
+
+t_max_err orchmax_solve_setattr_negativepenalization(t_solver *x, void *attr, long ac, t_atom *av)
+{
+    if (ac && av) {
+        orchidea_set_param_double(x->orc_hand, gensym("negative_penalization"), x->negativepenalization = atom_getfloat(av));
+        if (x->verbose) object_post((t_object *)x, "negative penalization has been set correctly");
+    }
+    return MAX_ERR_NONE;
+}
+
+t_max_err orchmax_solve_setattr_positivepenalization(t_solver *x, void *attr, long ac, t_atom *av)
+{
+    if (ac && av) {
+        orchidea_set_param_double(x->orc_hand, gensym("positive_penalization"), x->positivepenalization = atom_getfloat(av));
+        if (x->verbose) object_post((t_object *)x, "positive penalization has been set correctly");
+    }
+    return MAX_ERR_NONE;
+}
+
+t_max_err orchmax_solve_setattr_onsetthreshold(t_solver *x, void *attr, long ac, t_atom *av)
+{
+    if (ac && av) {
+        orchidea_set_param_double(x->orc_hand, gensym("onsets_threshold"), x->onsetthreshold = atom_getfloat(av));
+        x->must_rerun_analysis = true;
+        if (x->verbose) object_post((t_object *)x, "onset threshold has been set correctly");
+    }
+    return MAX_ERR_NONE;
+}
+
+t_max_err orchmax_solve_setattr_onsettimegate(t_solver *x, void *attr, long ac, t_atom *av)
+{
+    if (ac && av) {
+        orchidea_set_param_double(x->orc_hand, gensym("onsets_timegate"), x->onsettimegate = atom_getfloat(av));
+        x->must_rerun_analysis = true;
+        if (x->verbose) object_post((t_object *)x, "onset timegate has been set correctly");
+    }
+    return MAX_ERR_NONE;
+}
+
+t_max_err orchmax_solve_setattr_partialswindow(t_solver *x, void *attr, long ac, t_atom *av)
+{
+    if (ac && av) {
+        orchidea_set_param_long(x->orc_hand, gensym("partials_window"), x->partialswindow = atom_getlong(av));
+        x->must_rerun_analysis = true;
+        if (x->verbose) object_post((t_object *)x, "partials window has been set correctly");
+    }
+    return MAX_ERR_NONE;
+}
+
+t_max_err orchmax_solve_setattr_partialsfilter(t_solver *x, void *attr, long ac, t_atom *av)
+{
+    if (ac && av) {
+        orchidea_set_param_double(x->orc_hand, gensym("partials_filter"), x->partialsfilter = atom_getfloat(av));
+        x->must_rerun_analysis = true;
+        if (x->verbose) object_post((t_object *)x, "partials filter has been set correctly");
+    }
+    return MAX_ERR_NONE;
+}
+
+t_max_err orchmax_solve_setattr_orchestra(t_solver *x, void *attr, long ac, t_atom *av)
+{
+    if (ac && av) {
+        for (long i = 0; i < ac && i < ORCHIDEA_SOLVE_MAX_ORCHESTRA; i++) {
+            x->orchestra[i] = atom_getsym(av+i);
+        }
+        x->orchestra_size = ac;
+        orchidea_set_param_symarray(x->orc_hand, gensym("orchestra"), x->orchestra_size, x->orchestra);
+        if (x->verbose) object_post((t_object *)x, "orchestra has been set correctly");
+    }
+    return MAX_ERR_NONE;
+}
+
+t_max_err orchmax_solve_setattr_styles(t_solver *x, void *attr, long ac, t_atom *av)
+{
+    if (ac && av) {
+        for (long i = 0; i < ac && i < ORCHIDEA_SOLVE_MAX_STYLES; i++) {
+            x->styles[i] = atom_getsym(av+i);
+        }
+        x->styles_size = ac;
+        orchidea_set_param_symarray(x->orc_hand, gensym("styles"), x->styles_size, x->styles);
+        if (x->verbose) object_post((t_object *)x, "styles have been set correctly");
+    }
+    return MAX_ERR_NONE;
+}
+
+
+t_max_err orchmax_solve_setattr_dynamics(t_solver *x, void *attr, long ac, t_atom *av)
+{
+    if (ac && av) {
+        for (long i = 0; i < ac && i < ORCHIDEA_SOLVE_MAX_DYNAMICS; i++) {
+            x->dynamics[i] = atom_getsym(av+i);
+        }
+        x->dynamics_size = ac;
+        orchidea_set_param_symarray(x->orc_hand, gensym("dynamics"), x->dynamics_size, x->dynamics);
+        if (x->verbose) object_post((t_object *)x, "dynamics have been set correctly");
+    }
+    return MAX_ERR_NONE;
+}
+
+
+t_max_err orchmax_solve_setattr_others(t_solver *x, void *attr, long ac, t_atom *av)
+{
+    if (ac && av) {
+        for (long i = 0; i < ac && i < ORCHIDEA_SOLVE_MAX_OTHERS; i++) {
+            x->others[i] = atom_getsym(av+i);
+        }
+        x->others_size = ac;
+        orchidea_set_param_symarray(x->orc_hand, gensym("others"), x->others_size, x->others);
+        if (x->verbose) object_post((t_object *)x, "other filters have been set correctly");
+    }
+    return MAX_ERR_NONE;
+}
+
+t_max_err orchmax_solve_setattr_extrapitches(t_solver *x, void *attr, long ac, t_atom *av)
+{
+    if (ac && av) {
+        for (long i = 0; i < ac && i < ORCHIDEA_SOLVE_MAX_EXTRAPITCHES; i++) {
+            x->extrapitches[i] = atom_getsym(av+i);
+        }
+        x->extrapitches_size = ac;
+        orchidea_set_param_symarray(x->orc_hand, gensym("extra_pitches"), x->extrapitches_size, x->extrapitches);
+        if (x->verbose) object_post((t_object *)x, "extra pitches have been set correctly");
+    }
+    return MAX_ERR_NONE;
+}
+
+t_max_err orchmax_solve_setattr_soundpaths(t_solver *x, void *attr, long ac, t_atom *av)
+{
+    if (ac && av) {
+        for (long i = 0; i < ac && i < ORCHIDEA_SOLVE_MAX_SOUND_PATHS; i++) {
+            x->soundpaths[i] = atom_getsym(av+i);
+        }
+        x->soundpaths_size = ac;
+        orchidea_set_param_symarray(x->orc_hand, gensym("sound_paths"), x->soundpaths_size, x->soundpaths);
+        if (x->verbose) object_post((t_object *)x, "sound paths have been set correctly");
+    }
+    return MAX_ERR_NONE;
+}
+
+
+
 
 
 void notifier (const char* action, float status) {
@@ -144,12 +438,12 @@ void* orchidea_dispatcher (void* d) {
     outlet_anything(x->out_2, gensym("busy"), 1, &busy);
 
     x->running_threads++;
-    object_post((t_object*) x, "current thread n. %d", x->running_threads);
+    if (x->verbose) object_post((t_object*) x, "current thread n. %d", x->running_threads);
 
     t_symbol* argument = 0;
 
     t_symbol *path = get_patch_path(x);
-    object_post((t_object*) x, "path: %s", path->s_name);
+    if (x->verbose) object_post((t_object*) x, "path: %s", path->s_name);
 
 /*    char outname[1024];
     char* location = 0;
@@ -171,7 +465,7 @@ void* orchidea_dispatcher (void* d) {
             t_symbol *this_dbfile = conform_path(atom_getsym(av + i));
             if (this_dbfile) {
                 sl[i] = this_dbfile->s_name;
-                object_post((t_object*) x, "adding db file %s", sl[i]);
+                if (x->verbose) object_post((t_object*) x, "adding db file %s", sl[i]);
             } else {
                 object_error((t_object *)x, "can't add db file %s", sl[i]);
             }
@@ -180,7 +474,7 @@ void* orchidea_dispatcher (void* d) {
         int r = orchidea_set_source(x->orc_hand, (const char**) sl, (int) ac);
         
         if (r != ORCHIDEA_NO_ERROR) {
-            object_post((t_object *)x, "error: %s (%s)", orchidea_decode_error(r),
+            object_error((t_object *)x, "error: %s (%s)", orchidea_decode_error(r),
                         orchidea_get_error_details(x->orc_hand));
         }
         
@@ -196,7 +490,7 @@ void* orchidea_dispatcher (void* d) {
                 outlet_anything(x->out_2, gensym ("source"), 1, &val);
 //            }
 
-            object_post((t_object *)x, "db files have been set correctly");
+            if (x->verbose) object_post((t_object *)x, "db files have been set correctly");
         }
         free (sl);
     }
@@ -208,11 +502,13 @@ void* orchidea_dispatcher (void* d) {
             if (x->current_target != argument) { // filename has changed
                 // first analysis of target
                 x->current_target = argument;
-                object_post((t_object *)x, "setting target to %s...", argument->s_name);
+                if (x->verbose) object_post((t_object *)x, "setting target to %s...", argument->s_name);
                 int r = orchidea_set_target(x->orc_hand, argument->s_name);
                 if (r != ORCHIDEA_NO_ERROR) {
-                    object_post((t_object *)x, "error: %s (%s)", orchidea_decode_error(r), orchidea_get_error_details(x->orc_hand));
-                } else object_post((t_object *)x, "target has been set correctly");
+                    object_error((t_object *)x, "error: %s (%s)", orchidea_decode_error(r), orchidea_get_error_details(x->orc_hand));
+                } else {
+                    if (x->verbose) object_post((t_object *)x, "target has been set correctly");
+                }
                 x->must_rerun_analysis = false;
             }
         }
@@ -221,20 +517,18 @@ void* orchidea_dispatcher (void* d) {
             // reanalysis of target
             int r = orchidea_set_target(x->orc_hand, x->current_target->s_name);
             if (r != ORCHIDEA_NO_ERROR) {
-                object_post((t_object *)x, "error: %s (%s)", orchidea_decode_error(r), orchidea_get_error_details(x->orc_hand));
-            } else object_post((t_object *)x, "target has been reanalysed correctly");
+                object_error((t_object *)x, "error: %s (%s)", orchidea_decode_error(r), orchidea_get_error_details(x->orc_hand));
+            } else {
+                if (x->verbose) object_post((t_object *)x, "target has been reanalysed correctly");
+            }
             x->must_rerun_analysis = false;
         }
         
-        // debug stuff
-        int numseg = 0;
-        orchidea_num_segments(x->orc_hand, &numseg);
-        object_post((t_object *)x, "Debug: numsegments: %d", numseg);
         
-        object_post((t_object*) x, "start orchestration");
+        if (x->verbose) object_post((t_object*) x, "start orchestration");
         int r = orchidea_orchestrate(x->orc_hand);
         if (r != ORCHIDEA_NO_ERROR) {
-            object_post((t_object *)x, "error: %s (%s)", orchidea_decode_error(r), orchidea_get_error_details(x->orc_hand));
+            object_error((t_object *)x, "error: %s (%s)", orchidea_decode_error(r), orchidea_get_error_details(x->orc_hand));
         } else {
             // TODO: clearing files automatically???
 //            if (x->autoclear) {
@@ -247,14 +541,14 @@ void* orchidea_dispatcher (void* d) {
                 post ("seg %d, sols %d", i, sols);
             }
             std::stringstream outprefix;
-            if (x->prefix) {
+            if (x->prefix && strlen(x->prefix->s_name) > 0) {
                 outprefix << x->prefix->s_name;
             } else {
                 t_symbol *default_path = strip_extension(x->current_target);
                 outprefix << (default_path ? default_path->s_name : ""); // patch_path should NEVER be null
             }
             r = orchidea_export_solutions(x->orc_hand, outprefix.str().c_str());
-            object_post((t_object *)x, "%d segments(s) found", n);
+            if (x->verbose) object_post((t_object *)x, "%d segments(s) found", n);
             
             if (r != ORCHIDEA_NO_ERROR) {
                 if (r == ORCHIDEA_NO_SOUNDS)
@@ -316,38 +610,161 @@ void ext_main(void *r) {
     class_addmethod(c, (method)orchmax_solve_bang,            "bang",            0);
     class_addmethod(c, (method)orchmax_solve_anything,        "anything",    A_GIMME, 0);
 
-    class_addmethod(c, (method)orchmax_solve_anything,        "search",    A_GIMME, 0);             // -> symbol
-    class_addmethod(c, (method)orchmax_solve_anything,        "popsize", A_GIMME, 0);               // -> intero
-    class_addmethod(c, (method)orchmax_solve_anything,        "maxepochs", A_GIMME, 0);             // -> intero
-    class_addmethod(c, (method)orchmax_solve_anything,        "pursuit", A_GIMME, 0);               // -> intero
-    class_addmethod(c, (method)orchmax_solve_anything,        "xoverrate", A_GIMME, 0);             // -> float (0-1)
-    class_addmethod(c, (method)orchmax_solve_anything,        "mutatioinrate", A_GIMME, 0);         // -> float (0-1)
-    class_addmethod(c, (method)orchmax_solve_anything,        "sparsity", A_GIMME, 0);              // -> float (0-1)
-    class_addmethod(c, (method)orchmax_solve_anything,        "onsetsthreshold", A_GIMME, 0);       // -> float (anche > 1)
-    class_addmethod(c, (method)orchmax_solve_anything,        "onsetstimegate", A_GIMME, 0);        // -> intero (in ms)
-    class_addmethod(c, (method)orchmax_solve_anything,        "positivepenalization", A_GIMME, 0);  // -> float
-    class_addmethod(c, (method)orchmax_solve_anything,        "negativepenalization", A_GIMME, 0);  // -> float
-    class_addmethod(c, (method)orchmax_solve_anything,        "partialswindow", A_GIMME, 0);        // -> intero
-    class_addmethod(c, (method)orchmax_solve_anything,        "partialsfilter", A_GIMME, 0);        // -> float (0-1)
-    class_addmethod(c, (method)orchmax_solve_anything,        "orchestra",    A_GIMME, 0);          // -> sym_array (max 4096)
-    class_addmethod(c, (method)orchmax_solve_anything,        "styles",    A_GIMME, 0);             // -> sym_array (max 4096)
-    class_addmethod(c, (method)orchmax_solve_anything,        "dynamics",    A_GIMME, 0);           // -> sym_array (max 4096)
-    class_addmethod(c, (method)orchmax_solve_anything,        "others",    A_GIMME, 0);             // -> sym_array (max 4096)
-    class_addmethod(c, (method)orchmax_solve_anything,        "extrapitches",    A_GIMME, 0);       // -> sym_array (max 4096)
-    class_addmethod(c, (method)orchmax_solve_anything,        "resetfilters",    A_GIMME, 0);  //-> messaggio
+    class_addmethod(c, (method)orchmax_solve_anything,        "resetfilters",    A_GIMME, 0);
     
 //    class_addmethod(c, (method)orchmax_solve_notify, "notify", A_CANT, 0);
     CLASS_ATTR_SYM(c, "segmentation", 0, t_solver, segmentation);
+    CLASS_ATTR_STYLE(c, "segmentation", 0, "enum");
+    CLASS_ATTR_ENUM(c,"segmentation", 0, "flux frames");
+    CLASS_ATTR_LABEL(c, "segmentation", 0, "Segmentation Type");
+    CLASS_ATTR_BASIC(c, "segmentation", 0);
+    // @description Sets the segmentation type: either "flux" or "frames". <br />
+    // This is a static attribute which can only be set by typing it in the object box.
+
     CLASS_ATTR_SYM(c, "connection", 0, t_solver, connection);
+    CLASS_ATTR_STYLE(c, "connection", 0, "enum");
+    CLASS_ATTR_ENUM(c,"connection", 0, "closest best");
+    CLASS_ATTR_LABEL(c, "connection", 0, "Connection Type");
+    CLASS_ATTR_BASIC(c, "connection", 0);
+    // @description Sets the connection type: either "closest" or "best". <br />
+    // This is a static attribute which can only be set by typing it in the object box.
 
+    CLASS_ATTR_SYM(c, "search", 0, t_solver, search);
+    CLASS_ATTR_STYLE(c, "search", 0, "enum");
+    CLASS_ATTR_ENUM(c,"search", 0, "genetic");
+    CLASS_ATTR_LABEL(c, "search", 0, "Search Type");
+    CLASS_ATTR_ACCESSORS(c, "search", (method)NULL, (method)orchmax_solve_setattr_search);
+    // @description Sets the search type.
+
+    
+    
+    
+    CLASS_ATTR_SYM_VARSIZE(c, "soundpaths", 0, t_solver, soundpaths, soundpaths_size, ORCHIDEA_SOLVE_MAX_SOUND_PATHS);
+    CLASS_ATTR_STYLE(c, "soundpaths", 0, "text");
+    CLASS_ATTR_LABEL(c, "soundpaths", 0, "Paths to Sound Files");
+    CLASS_ATTR_ACCESSORS(c, "soundpaths", (method)NULL, (method)orchmax_solve_setattr_soundpaths);
+    // @description If needed, sets the paths to the root folders containing the audio files, one path for each database file.
+    // The default value is the <m>default</m> symbol, maning that the program expects the sound folder to be at the same level
+    // of the database file, and with the same name.
+    // In this case, there's no need to define any soundpath.
+
+    
     CLASS_ATTR_SYM(c, "prefix", 0, t_solver, prefix);
+    CLASS_ATTR_STYLE(c, "prefix", 0, "text");
+    CLASS_ATTR_LABEL(c, "prefix", 0, "Output Prefix");
+    // @description Sets the prefix path to be added to the output files.
+    // By default output files will be put in the same folder of the target file.
+
+    CLASS_ATTR_LONG(c, "popsize", 0, t_solver, popsize);
+    CLASS_ATTR_STYLE(c, "popsize", 0, "text");
+    CLASS_ATTR_LABEL(c, "popsize", 0, "Population Size");
+    CLASS_ATTR_ACCESSORS(c, "popsize", (method)NULL, (method)orchmax_solve_setattr_popsize);
+    // @description Sets the population size.
+
+    CLASS_ATTR_LONG(c, "maxepochs", 0, t_solver, maxepochs);
+    CLASS_ATTR_STYLE(c, "maxepochs", 0, "text");
+    CLASS_ATTR_LABEL(c, "maxepochs", 0, "Maximum Number of Epochs");
+    CLASS_ATTR_ACCESSORS(c, "maxepochs", (method)NULL, (method)orchmax_solve_setattr_maxepochs);
+    // @description Sets the maximum number of epochs.
+
+    CLASS_ATTR_LONG(c, "pursuit", 0, t_solver, pursuit);
+    CLASS_ATTR_STYLE(c, "pursuit", 0, "text");
+    CLASS_ATTR_LABEL(c, "pursuit", 0, "Pursuit");
+    CLASS_ATTR_ACCESSORS(c, "pursuit", (method)NULL, (method)orchmax_solve_setattr_pursuit);
+    // @description Pursuit.
 
     
-    CLASS_ATTR_SYM_VARSIZE(c, "soundpaths", 0, t_solver, soundpaths, soundpaths_size, MAX_SOUND_PATHS);
+    CLASS_ATTR_DOUBLE(c, "xoverrate", 0, t_solver, xoverrate);
+    CLASS_ATTR_STYLE(c, "xoverrate", 0, "text");
+    CLASS_ATTR_LABEL(c, "xoverrate", 0, "Cross-Over Rate");
+    CLASS_ATTR_ACCESSORS(c, "xoverrate", (method)NULL, (method)orchmax_solve_setattr_xoverrate);
+    // @description Sets the cross-over rate.
+
+    CLASS_ATTR_DOUBLE(c, "mutationrate", 0, t_solver, mutationrate);
+    CLASS_ATTR_STYLE(c, "mutationrate", 0, "text");
+    CLASS_ATTR_LABEL(c, "mutationrate", 0, "Mutation Rate");
+    CLASS_ATTR_ACCESSORS(c, "mutationrate", (method)NULL, (method)orchmax_solve_setattr_mutationrate);
+    // @description Sets the mutation rate.
+
+    CLASS_ATTR_DOUBLE(c, "sparsity", 0, t_solver, sparsity);
+    CLASS_ATTR_STYLE(c, "sparsity", 0, "text");
+    CLASS_ATTR_LABEL(c, "sparsity", 0, "Sparsity");
+    CLASS_ATTR_ACCESSORS(c, "sparsity", (method)NULL, (method)orchmax_solve_setattr_sparsity);
+    // @description Sets the sparsity.
+
+    CLASS_ATTR_DOUBLE(c, "negativepenalization", 0, t_solver, negativepenalization);
+    CLASS_ATTR_STYLE(c, "negativepenalization", 0, "text");
+    CLASS_ATTR_LABEL(c, "negativepenalization", 0, "Negative Penalization");
+    CLASS_ATTR_ACCESSORS(c, "negativepenalization", (method)NULL, (method)orchmax_solve_setattr_negativepenalization);
+    // @description Sets the negative penalization.
+
+    CLASS_ATTR_DOUBLE(c, "positivepenalization", 0, t_solver, positivepenalization);
+    CLASS_ATTR_STYLE(c, "positivepenalization", 0, "text");
+    CLASS_ATTR_LABEL(c, "positivepenalization", 0, "Positive Penalization");
+    CLASS_ATTR_ACCESSORS(c, "positivepenalization", (method)NULL, (method)orchmax_solve_setattr_positivepenalization);
+    // @description Sets the positive penalization.
+
+    CLASS_ATTR_DOUBLE(c, "onsetthreshold", 0, t_solver, onsetthreshold);
+    CLASS_ATTR_STYLE(c, "onsetthreshold", 0, "text");
+    CLASS_ATTR_LABEL(c, "onsetthreshold", 0, "Onset Threshold");
+    CLASS_ATTR_ACCESSORS(c, "onsetthreshold", (method)NULL, (method)orchmax_solve_setattr_onsetthreshold);
+    // @description Sets the onset threshold
+
+    CLASS_ATTR_DOUBLE(c, "onsettimegate", 0, t_solver, onsettimegate);
+    CLASS_ATTR_STYLE(c, "onsettimegate", 0, "text");
+    CLASS_ATTR_LABEL(c, "onsettimegate", 0, "Onset Time Gate");
+    CLASS_ATTR_ACCESSORS(c, "onsettimegate", (method)NULL, (method)orchmax_solve_setattr_onsettimegate);
+    // @description Sets the onset timegate
+
+    CLASS_ATTR_LONG(c, "partialswindow", 0, t_solver, partialswindow);
+    CLASS_ATTR_STYLE(c, "partialswindow", 0, "text");
+    CLASS_ATTR_LABEL(c, "partialswindow", 0, "Partials Window Size");
+    CLASS_ATTR_ACCESSORS(c, "partialswindow", (method)NULL, (method)orchmax_solve_setattr_partialswindow);
+    // @description Sets the onset timegate
+
+    CLASS_ATTR_DOUBLE(c, "partialsfilter", 0, t_solver, partialsfilter);
+    CLASS_ATTR_STYLE(c, "partialsfilter", 0, "text");
+    CLASS_ATTR_LABEL(c, "partialsfilter", 0, "Partials Filter");
+    CLASS_ATTR_ACCESSORS(c, "partialsfilter", (method)NULL, (method)orchmax_solve_setattr_partialsfilter);
+    // @description Sets the partials filter
 
     
-//    CLASS_ATTR_LONG(c, "popsize", 0, t_solver, popsize);
-//    CLASS_ATTR_SYM(c, "name", 0, t_solver, name);
+    CLASS_ATTR_SYM_VARSIZE(c, "orchestra", 0, t_solver, orchestra, orchestra_size, ORCHIDEA_SOLVE_MAX_ORCHESTRA);
+    CLASS_ATTR_STYLE(c, "orchestra", 0, "text");
+    CLASS_ATTR_LABEL(c, "orchestra", 0, "Orchestra");
+    CLASS_ATTR_ACCESSORS(c, "orchestra", (method)NULL, (method)orchmax_solve_setattr_orchestra);
+    CLASS_ATTR_BASIC(c, "orchestra", 0);
+    // @description Sets the orchestra.
+
+    CLASS_ATTR_SYM_VARSIZE(c, "styles", 0, t_solver, styles, styles_size, ORCHIDEA_SOLVE_MAX_STYLES);
+    CLASS_ATTR_STYLE(c, "styles", 0, "text");
+    CLASS_ATTR_LABEL(c, "styles", 0, "Styles");
+    CLASS_ATTR_ACCESSORS(c, "styles", (method)NULL, (method)orchmax_solve_setattr_styles);
+    // @description Sets the allowed styles.
+
+    CLASS_ATTR_SYM_VARSIZE(c, "others", 0, t_solver, others, others_size, ORCHIDEA_SOLVE_MAX_OTHERS);
+    CLASS_ATTR_STYLE(c, "others", 0, "text");
+    CLASS_ATTR_LABEL(c, "others", 0, "Others");
+    CLASS_ATTR_ACCESSORS(c, "others", (method)NULL, (method)orchmax_solve_setattr_others);
+    // @description Sets other filters.
+    
+    CLASS_ATTR_SYM_VARSIZE(c, "extrapitches", 0, t_solver, extrapitches, extrapitches_size, ORCHIDEA_SOLVE_MAX_EXTRAPITCHES);
+    CLASS_ATTR_STYLE(c, "extrapitches", 0, "text");
+    CLASS_ATTR_LABEL(c, "extrapitches", 0, "Extra Pitches");
+    CLASS_ATTR_ACCESSORS(c, "extrapitches", (method)NULL, (method)orchmax_solve_setattr_extrapitches);
+    // @description Sets extra pitches.
+    
+    CLASS_ATTR_SYM_VARSIZE(c, "dynamics", 0, t_solver, dynamics, dynamics_size, ORCHIDEA_SOLVE_MAX_DYNAMICS);
+    CLASS_ATTR_STYLE(c, "dynamics", 0, "text");
+    CLASS_ATTR_LABEL(c, "dynamics", 0, "Dynamics");
+    CLASS_ATTR_ACCESSORS(c, "dynamics", (method)NULL, (method)orchmax_solve_setattr_dynamics);
+    // @description Sets the allowed dynamics.
+
+    CLASS_ATTR_CHAR(c, "verbose", 0, t_solver, verbose);
+    CLASS_ATTR_STYLE(c, "verbose", 0, "onoff");
+    CLASS_ATTR_LABEL(c, "verbose", 0, "Verbose");
+    // @description Toggles the verbose mode
+
 
     class_register(CLASS_BOX, c);
     orchmax_solve_class = c;
@@ -362,8 +779,8 @@ void orchmax_solve_free(t_solver *x) {
 }
 
 void orchmax_solve_bang(t_solver *x) {
-    if (x->running_threads >= MAX_THREADS) {
-        object_post((t_object*) x, "pending actions; please retry later...");
+    if (x->running_threads >= ORCHIDEA_SOLVE_MAX_THREADS) {
+        object_warn((t_object*) x, "pending actions; please retry later...");
         return;
     }
     
@@ -406,218 +823,9 @@ void orchmax_solve_anything(t_solver *x, t_symbol *s, long ac, t_atom *av) {
 //    //post ("setting current location to: %s", location);
 //    chdir(location);
 //
-    if (s == gensym("search")) {
-        argument = atom_getsym(av);
-        object_post((t_object *)x, "setting search to %s", argument->s_name);
-        int r = orchidea_set_search(x->orc_hand, argument->s_name);
-        if (r != ORCHIDEA_NO_ERROR) {
-            object_post((t_object *)x, "error: %s (%s)", orchidea_decode_error(r),
-                        orchidea_get_error_details(x->orc_hand));
-        } else object_post((t_object *)x, "search has been set correctly");
-    } else if (s == gensym("popsize")) {
-        argument = atom_getsym(av);
-        char** sl  = (char**)sysmem_newptr(2 * sizeof (char*));
-        sl[0] = (char*) "pop_size";
-        sl[1] = (char*) argument->s_name;
-        orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
-        object_post((t_object *)x, "population size has been set correctly");
-        sysmem_freeptr(sl);
-    }
-    else if (s == gensym("maxepochs")) {
-        argument = atom_getsym(av);
-        char** sl  = (char**) malloc (2 * sizeof (char*));
-        sl[0] = (char*) "max_epochs";
-        sl[1] = (char*) argument->s_name;
-        orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
-        object_post((t_object *)x, "max number of epochs has been set correctly");
-        free (sl);
-    }
-    else if (s == gensym("xoverrate")) {
-        argument = atom_getsym(av);
-        char** sl  = (char**) malloc (2 * sizeof (char*));
-        sl[0] = (char*) "xover_rate";
-        sl[1] = (char*) argument->s_name;
-        orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
-        object_post((t_object *)x, "cross-over rate has been set correctly");
-        free (sl);
-    }
-    else if (s == gensym("mutationrate")) {
-        argument = atom_getsym(av);
-        char** sl  = (char**) malloc (2 * sizeof (char*));
-        sl[0] = (char*) "mutation_rate";
-        sl[1] = (char*) argument->s_name;
-        orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
-        object_post((t_object *)x, "mutation rate has been set correctly");
-        free (sl);
-    }
-    else if (s == gensym("pursuit")) {
-        argument = atom_getsym(av);
-        char** sl  = (char**) malloc (2 * sizeof (char*));
-        sl[0] = (char*) "pursuit";
-        sl[1] = (char*) argument->s_name;
-        orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
-        object_post((t_object *)x, "relaxed pursuit has been set correctly");
-        free (sl);
-    }
-    else if (s == gensym("sparsity")) {
-        argument = atom_getsym(av);
-        char** sl  = (char**) malloc (2 * sizeof (char*));
-        sl[0] = (char*) "sparsity";
-        sl[1] = (char*) argument->s_name;
-        orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
-        object_post((t_object *)x, "sparsity has been set correctly");
-        free (sl);
-    }
-    else if (s == gensym("negativepenalization")) {
-        argument = atom_getsym(av);
-        char** sl  = (char**) malloc (2 * sizeof (char*));
-        sl[0] = (char*) "negative_penalization";
-        sl[1] = (char*) argument->s_name;
-        orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
-        object_post((t_object *)x, "negative penalization has been set correctly");
-        free (sl);
-    }
-    else if (s == gensym("positivepenalization")) {
-        argument = atom_getsym(av);
-        char** sl  = (char**) malloc (2 * sizeof (char*));
-        sl[0] = (char*) "positive_penalization";
-        sl[1] = (char*) argument->s_name;
-        orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
-        object_post((t_object *)x, "positive penalization has been set correctly");
-        free (sl);
-    }
-    else if (s == gensym("onsetsthreshold")) {
-        argument = atom_getsym(av);
-        char** sl  = (char**) malloc (2 * sizeof (char*));
-        sl[0] = (char*) "onsets_threshold";
-        sl[1] = (char*) argument->s_name;
-        post ("%s, %g, %s, %s", sl[1], atof (sl[1]), argument->s_name,
-              atom_getsym(av)->s_name);
-        x->must_rerun_analysis = true;
-        orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
-        object_post((t_object *)x, "onsets threshold has been set correctly");
-        free (sl);
-    }
-    else if (s == gensym("onsetstimegate")) {
-        argument = atom_getsym(av);
-        char** sl  = (char**) malloc (2 * sizeof (char*));
-        sl[0] = (char*) "onsets_timegate";
-        sl[1] = (char*) argument->s_name;
-        post ("%s, %g, %s, %s", sl[1], atof (sl[1]), argument->s_name,
-              atom_getsym(av)->s_name);
-        x->must_rerun_analysis = true;
-        orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
-        object_post((t_object *)x, "onsets timegate has been set correctly");
-        free (sl);
-    }
-    else if (s == gensym("partialswindow")) {
-        argument = atom_getsym(av);
-        char** sl  = (char**) malloc (2 * sizeof (char*));
-        sl[0] = (char*) "partials_window";
-        sl[1] = (char*) argument->s_name;
-        orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
-        object_post((t_object *)x, "partials window has been set correctly");
-        free (sl);
-    }
-    else if (s == gensym("partialsfilter")) {
-        argument = atom_getsym(av);
-        char** sl  = (char**) malloc (2 * sizeof (char*));
-        sl[0] = (char*) "partials_filter";
-        sl[1] = (char*) argument->s_name;
-        orchidea_set_param(x->orc_hand, (const char**) sl, (int) 2);
-        object_post((t_object *)x, "partials filter has been set correctly");
-        free (sl);
-    }
-    else if (s == gensym("soundpaths")) {
-        argument = atom_getsym(av);
-        char** sl  = (char**) malloc ((ac + 1) * sizeof (char*));
-
-        sl[0] = (char*) "sound_paths";
-        for (int i = 0; i < ac; ++i) {
-            t_symbol *this_path = atom_getsym(av + i);
-            sl[i + 1] = this_path->s_name;
-            x->soundpaths[i] = this_path;
-            object_post((t_object*) x, "adding sound folder %s", sl[i + 1]);
-        }
-        x->soundpaths_size = ac;
-
-
-        orchidea_set_param(x->orc_hand, (const char**) sl, (int) ac + 1);
-        object_post((t_object *)x, "sounds have been set correctly");
-        free (sl);
-    }
-    else if (s == gensym("orchestra")) {
-        argument = atom_getsym(av);
-        char** sl  = (char**) malloc ((ac + 1) * sizeof (char*));
-
-        sl[0] = (char*) "orchestra";
-        for (int i = 0; i < ac; ++i) {
-            sl[i + 1] = atom_getsym(av + i)->s_name;
-            object_post((t_object*) x, "setting instrument %s", sl[i + 1]);
-        }
-
-        orchidea_set_param(x->orc_hand, (const char**) sl, (int) ac + 1);
-        object_post((t_object *)x, "orchestra has been set correctly");
-        free (sl);
-    }
-    else if (s == gensym("styles")) {
-        argument = atom_getsym(av);
-        char** sl  = (char**) malloc ((ac + 1) * sizeof (char*));
-
-        sl[0] = (char*) "styles";
-        for (int i = 0; i < ac; ++i) {
-            sl[i + 1] = atom_getsym(av + i)->s_name;
-            object_post((t_object*) x, "setting style %s", sl[i + 1]);
-        }
-
-        orchidea_set_param(x->orc_hand, (const char**) sl, (int) ac + 1);
-        object_post((t_object *)x, "styles have been set correctly");
-        free (sl);
-    }
-    else if (s == gensym("dynamics")) {
-        argument = atom_getsym(av);
-        char** sl  = (char**) malloc ((ac + 1) * sizeof (char*));
-
-        sl[0] = (char*) "dynamics";
-        for (int i = 0; i < ac; ++i) {
-            sl[i + 1] = atom_getsym(av + i)->s_name;
-            object_post((t_object*) x, "setting dynamics %s", sl[i + 1]);
-        }
-
-        orchidea_set_param(x->orc_hand, (const char**) sl, (int) ac + 1);
-        object_post((t_object *)x, "dynamics have been set correctly");
-        free (sl);
-    }
-    else if (s == gensym("others")) {
-        argument = atom_getsym(av);
-        char** sl  = (char**) malloc ((ac + 1) * sizeof (char*));
-        
-        sl[0] = (char*) "others";
-        for (int i = 0; i < ac; ++i) {
-            sl[i + 1] = atom_getsym(av + i)->s_name;
-            object_post((t_object*) x, "setting other filter %s", sl[i + 1]);
-        }
-        
-        orchidea_set_param(x->orc_hand, (const char**) sl, (int) ac + 1);
-        object_post((t_object *)x, "other filters have been set correctly");
-        free (sl);
-    }
-    else if (s == gensym("extrapitches")) {
-        argument = atom_getsym(av);
-        char** sl  = (char**) malloc ((ac + 1) * sizeof (char*));
-        
-        sl[0] = (char*) "extra_pitches";
-        for (int i = 0; i < ac; ++i) {
-            sl[i + 1] = atom_getsym(av + i)->s_name;
-            object_post((t_object*) x, "adding extra pitch %s", sl[i + 1]);
-        }
-        
-        orchidea_set_param(x->orc_hand, (const char**) sl, (int) ac + 1);
-        object_post((t_object *)x, "extra pitches have been set correctly");
-        free (sl);
-    }
-    else if (s == gensym("resetfilters")) {
-        object_post((t_object*) x, "resetting all filters");
+    
+    if (s == gensym("resetfilters")) {
+        if (x->verbose) object_post((t_object*) x, "resetting all filters");
 
         orchidea_reset_filters(x->orc_hand);
         
@@ -625,8 +833,8 @@ void orchmax_solve_anything(t_solver *x, t_symbol *s, long ac, t_atom *av) {
         long inlet = proxy_getinlet((t_object *) x);
 
         // heavy actions are executed in a separated thread (or pool)
-        if (x->running_threads >= MAX_THREADS) {
-            object_post((t_object*) x, "pending actions; please retry later...");
+        if (x->running_threads >= ORCHIDEA_SOLVE_MAX_THREADS) {
+            object_warn((t_object*) x, "pending actions; please retry later...");
             return;
         }
 
@@ -671,7 +879,7 @@ void orchmax_solve_anything(t_solver *x, t_symbol *s, long ac, t_atom *av) {
                 }
             }
             orchidea_set_param(x->orc_hand, (const char**) sl, (int) d->ac + 1);
-            object_post((t_object *)x, "sounds have been set correctly");
+            if (x->verbose) object_post((t_object *)x, "sounds have been set correctly");
             for (long i = 1; i < d->ac + 1; i++) {
                 sysmem_freeptr(sl[i]);
             }
@@ -698,14 +906,32 @@ void *orchmax_solve_new(t_symbol *s, long argc, t_atom *argv) {
         x->segmentation = gensym("flux");
         x->connection = gensym("closest");
         
-        // initializing attributes:
+        // initializing attributes to default values
         x->soundpaths[0] = gensym("default");
         x->soundpaths_size = 1;
+        x->prefix = gensym("");
+        x->search = gensym("genetic");
+        x->popsize = 300;
+        x->maxepochs = 300;
+        x->pursuit = 0;
+        x->xoverrate = .8;
+        x->mutationrate = .01;
+        x->sparsity = 0.001;
+        x->positivepenalization = 1.;
+        x->negativepenalization = 10.;
+        x->onsetthreshold = 2;
+        x->onsettimegate = .1;
+        x->partialswindow = 32768;
+        x->partialsfilter = .2;
+        x->verbose = true; // just for now?
 
         x->n_proxy[1] = proxy_new((t_object *) x, 1, &x->n_in);
         
         attr_args_process(x, argc, argv);
         
+        object_attr_setdisabled((t_object *)x, gensym("connection"), true);
+        object_attr_setdisabled((t_object *)x, gensym("segmentation"), true);
+
         x->running_threads = 0;
         x->orc_hand = orchidea_create (x->segmentation->s_name, x->connection->s_name);
 //        x->orc_hand = orchidea_create ("flux", "closest");
