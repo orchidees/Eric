@@ -379,7 +379,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# hack the reference to the orchidea shared library:\ninstall_name_tool -change @rpath/liborchidea_shared.dylib @loader_path/../Frameworks/liborchidea_shared.dylib orchidea.solve.mxo/Contents/MacOS/orchidea.solve\nmkdir -p orchidea.solve.mxo/Contents/Frameworks\ncp ../../../build/bin/*.dylib  orchidea.solve.mxo/Contents/Frameworks\n";
+			shellScript = "# hack the reference to the orchidea shared library:\ninstall_name_tool -change @rpath/liborchidea_shared.dylib @loader_path/../Frameworks/liborchidea_shared.dylib orchidea.db.gen.mxo/Contents/MacOS/orchidea.db.gen\nmkdir -p orchidea.db.gen.mxo/Contents/Frameworks\ncp ../../../build/bin/*.dylib  orchidea.db.gen.mxo/Contents/Frameworks\ncp -R orchidea.db.gen.mxo/ ../../../build/bin/orchidea.db.gen.mxo\n";
 			showEnvVarsInLog = 0;
 		};
 		1ED89F1C219B445B008B9C9D /* ShellScript */ = {
@@ -407,7 +407,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# hack the reference to the orchidea shared library:\ninstall_name_tool -change @rpath/liborchidea_shared.dylib @loader_path/../Frameworks/liborchidea_shared.dylib orchidea.solve.mxo/Contents/MacOS/orchidea.solve\nmkdir -p orchidea.solve.mxo/Contents/Frameworks\ncp ../../../build/bin/*.dylib  orchidea.solve.mxo/Contents/Frameworks\n";
+			shellScript = "# hack the reference to the orchidea shared library:\ninstall_name_tool -change @rpath/liborchidea_shared.dylib @loader_path/../Frameworks/liborchidea_shared.dylib orchidea.solve.mxo/Contents/MacOS/orchidea.solve\nmkdir -p orchidea.solve.mxo/Contents/Frameworks\ncp ../../../build/bin/*.dylib  orchidea.solve.mxo/Contents/Frameworks\ncp -R orchidea.solve.mxo/ ../../../build/bin/orchidea.solve.mxo\n                      \n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

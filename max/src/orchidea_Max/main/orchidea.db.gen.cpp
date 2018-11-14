@@ -116,9 +116,10 @@ void* orchidea_dispatcher (void* d) {
             int r = 0;
             for (unsigned i = 0; i < x->sounds.size (); ++i) {
                 object_post((t_object*) x, "analysing %s...", x->sounds.at(i).c_str ());
-                r = orchidea_analyse_sounds(x->orc_hand, x->sounds.at(i).c_str (),
-                                            x->db_folder->s_name, "SOL",
-                                            location, notifier);
+
+                r = orchidea_analyse_sounds (x->orc_hand, x->db_folder->s_name, x->name->s_name,
+                                                 4096, 2048, 1024, "spectrum");
+                
                 if (r != ORCHIDEA_NO_ERROR) {
                     object_post((t_object *)x, "error: %s (%s)", orchidea_decode_error(r), orchidea_get_error_details(x->orc_hand));
                 } else {
@@ -135,7 +136,7 @@ void* orchidea_dispatcher (void* d) {
 void ext_main(void *r) {
     t_class *c;
     
-    c = class_new("orchidea.dbgen", (method)  orchmax_dbgen_new, (method)orchmax_dbgen_free, (long)sizeof(t_session),
+    c = class_new("orchidea.db.gen", (method)  orchmax_dbgen_new, (method)orchmax_dbgen_free, (long)sizeof(t_session),
                   0L /* leave NULL!! */, A_GIMME, 0);
     
     class_addmethod(c, (method)orchmax_dbgen_anything,        "database",    A_GIMME, 0);
@@ -210,7 +211,7 @@ void *orchmax_dbgen_new(t_symbol *s, long argc, t_atom *argv) {
             x->name = symbol_unique();
         
         x->running_threads = 0;
-        x->orc_hand = orchidea_create();
+        x->orc_hand = orchidea_create("flux", "closest");
         
         x->out_1 = outlet_new(x, NULL);
     }
