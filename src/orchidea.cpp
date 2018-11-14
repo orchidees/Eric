@@ -165,6 +165,8 @@ extern "C" {
     	h->params.styles.clear ();
     	h->params.others.clear ();
 	}
+
+    
 	int orchidea_orchestrate (OrchideaHandle* h) {
 		if (h->target->segments.size () == 0) {
 			h->error_details = "";

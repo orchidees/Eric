@@ -80,8 +80,9 @@ typedef struct _solver {
     pthread_t thread_pool[ORCHIDEA_SOLVE_MAX_THREADS];
     int running_threads;
     
-    void*       n_proxy[2];
+    void*       n_proxy[3];
     long        n_in;
+
 } t_solver;
 
 typedef struct _thread_data {
@@ -242,7 +243,7 @@ t_max_err orchmax_solve_setattr_onsetthreshold(t_solver *x, void *attr, long ac,
 
 t_max_err orchmax_solve_setattr_onsettimegate(t_solver *x, void *attr, long ac, t_atom *av) {
     if (ac && av) {
-        orchidea_set_param_double(x->orc_hand, gensym("onsets_timegate"), x->onsettimegate = atom_getfloat(av));
+        orchidea_set_param_double(x->orc_hand, gensym("onsets_timegate"), (x->onsettimegate = atom_getfloat(av))/1000.);
         x->must_rerun_analysis = true;
         if (x->verbose) object_post((t_object *)x, "onset timegate has been set correctly");
     }
@@ -337,13 +338,6 @@ t_max_err orchmax_solve_setattr_soundpaths(t_solver *x, void *attr, long ac, t_a
         if (x->verbose) object_post((t_object *)x, "sound paths have been set correctly");
     }
     return MAX_ERR_NONE;
-}
-
-void notifier (const char* action, float status) {
-    t_atom a[2];
-    atom_setsym(a, gensym(action));
-    atom_setlong(a + 1, status);
-    outlet_anything(g_x->out_2, gensym("status"), 2, a);
 }
 
 
@@ -469,7 +463,7 @@ void* orchidea_dispatcher (void* d) {
         
         if (x->must_rerun_analysis) {
             // reanalysis of target
-            int r = orchidea_set_target(x->orc_hand, x->current_target->s_name);
+            int r = orchidea_set_target(x->orc_hand, x->current_target ? "" : x->current_target->s_name);
             if (r != ORCHIDEA_NO_ERROR) {
                 object_error((t_object *)x, "error: %s (%s)", orchidea_decode_error(r), orchidea_get_error_details(x->orc_hand));
             } else {
@@ -553,12 +547,14 @@ void ext_main(void *r) {
 
     class_addmethod(c, (method)orchmax_solve_anything,        "resetfilters",    A_GIMME, 0);
     
+    
 //    class_addmethod(c, (method)orchmax_solve_notify, "notify", A_CANT, 0);
     CLASS_ATTR_SYM(c, "segmentation", 0, t_solver, segmentation);
     CLASS_ATTR_STYLE(c, "segmentation", 0, "enum");
     CLASS_ATTR_ENUM(c,"segmentation", 0, "flux frames");
     CLASS_ATTR_LABEL(c, "segmentation", 0, "Segmentation Type");
     CLASS_ATTR_BASIC(c, "segmentation", 0);
+    CLASS_ATTR_CATEGORY(c, "segmentation", 0, "Dynamic Orchestration");
     // @description Sets the segmentation type: either "flux" or "frames". <br />
     // This is a static attribute which can only be set by typing it in the object box.
 
@@ -567,23 +563,26 @@ void ext_main(void *r) {
     CLASS_ATTR_ENUM(c,"connection", 0, "closest best");
     CLASS_ATTR_LABEL(c, "connection", 0, "Connection Type");
     CLASS_ATTR_BASIC(c, "connection", 0);
+    CLASS_ATTR_CATEGORY(c, "connection", 0, "Dynamic Orchestration");
     // @description Sets the connection type: either "closest" or "best". <br />
     // This is a static attribute which can only be set by typing it in the object box.
 
+    
     CLASS_ATTR_SYM(c, "search", 0, t_solver, search);
     CLASS_ATTR_STYLE(c, "search", 0, "enum");
     CLASS_ATTR_ENUM(c,"search", 0, "genetic");
     CLASS_ATTR_LABEL(c, "search", 0, "Search Type");
     CLASS_ATTR_ACCESSORS(c, "search", (method)NULL, (method)orchmax_solve_setattr_search);
+    CLASS_ATTR_CATEGORY(c, "search", 0, "Search");
     // @description Sets the search type.
 
-    
     
     
     CLASS_ATTR_SYM_VARSIZE(c, "soundpaths", 0, t_solver, soundpaths, soundpaths_size, ORCHIDEA_SOLVE_MAX_SOUND_PATHS);
     CLASS_ATTR_STYLE(c, "soundpaths", 0, "text");
     CLASS_ATTR_LABEL(c, "soundpaths", 0, "Paths to Sound Files");
     CLASS_ATTR_ACCESSORS(c, "soundpaths", (method)NULL, (method)orchmax_solve_setattr_soundpaths);
+    CLASS_ATTR_CATEGORY(c, "soundpaths", 0, "Paths");
     // @description If needed, sets the paths to the root folders containing the audio files, one path for each database file.
     // The default value is the <m>default</m> symbol, maning that the program expects the sound folder to be at the same level
     // of the database file, and with the same name.
@@ -593,6 +592,7 @@ void ext_main(void *r) {
     CLASS_ATTR_SYM(c, "prefix", 0, t_solver, prefix);
     CLASS_ATTR_STYLE(c, "prefix", 0, "text");
     CLASS_ATTR_LABEL(c, "prefix", 0, "Output Prefix");
+    CLASS_ATTR_CATEGORY(c, "prefix", 0, "Paths");
     // @description Sets the prefix path to be added to the output files.
     // By default output files will be put in the same folder of the target file.
 
@@ -600,73 +600,86 @@ void ext_main(void *r) {
     CLASS_ATTR_STYLE(c, "popsize", 0, "text");
     CLASS_ATTR_LABEL(c, "popsize", 0, "Population Size");
     CLASS_ATTR_ACCESSORS(c, "popsize", (method)NULL, (method)orchmax_solve_setattr_popsize);
+    CLASS_ATTR_CATEGORY(c, "popsize", 0, "Search");
     // @description Sets the population size.
 
     CLASS_ATTR_LONG(c, "maxepochs", 0, t_solver, maxepochs);
     CLASS_ATTR_STYLE(c, "maxepochs", 0, "text");
     CLASS_ATTR_LABEL(c, "maxepochs", 0, "Maximum Number of Epochs");
     CLASS_ATTR_ACCESSORS(c, "maxepochs", (method)NULL, (method)orchmax_solve_setattr_maxepochs);
+    CLASS_ATTR_CATEGORY(c, "maxepochs", 0, "Search");
     // @description Sets the maximum number of epochs.
 
+    
     CLASS_ATTR_LONG(c, "pursuit", 0, t_solver, pursuit);
     CLASS_ATTR_STYLE(c, "pursuit", 0, "text");
     CLASS_ATTR_LABEL(c, "pursuit", 0, "Pursuit");
     CLASS_ATTR_ACCESSORS(c, "pursuit", (method)NULL, (method)orchmax_solve_setattr_pursuit);
-    // @description Pursuit.
+    CLASS_ATTR_CATEGORY(c, "pursuit", 0, "Search");
+    // @description Sets the pursuit.
 
     
     CLASS_ATTR_DOUBLE(c, "xoverrate", 0, t_solver, xoverrate);
     CLASS_ATTR_STYLE(c, "xoverrate", 0, "text");
     CLASS_ATTR_LABEL(c, "xoverrate", 0, "Cross-Over Rate");
     CLASS_ATTR_ACCESSORS(c, "xoverrate", (method)NULL, (method)orchmax_solve_setattr_xoverrate);
+    CLASS_ATTR_CATEGORY(c, "xoverrate", 0, "Search");
     // @description Sets the cross-over rate.
 
     CLASS_ATTR_DOUBLE(c, "mutationrate", 0, t_solver, mutationrate);
     CLASS_ATTR_STYLE(c, "mutationrate", 0, "text");
     CLASS_ATTR_LABEL(c, "mutationrate", 0, "Mutation Rate");
     CLASS_ATTR_ACCESSORS(c, "mutationrate", (method)NULL, (method)orchmax_solve_setattr_mutationrate);
+    CLASS_ATTR_CATEGORY(c, "mutationrate", 0, "Search");
     // @description Sets the mutation rate.
 
     CLASS_ATTR_DOUBLE(c, "sparsity", 0, t_solver, sparsity);
     CLASS_ATTR_STYLE(c, "sparsity", 0, "text");
     CLASS_ATTR_LABEL(c, "sparsity", 0, "Sparsity");
     CLASS_ATTR_ACCESSORS(c, "sparsity", (method)NULL, (method)orchmax_solve_setattr_sparsity);
+    CLASS_ATTR_CATEGORY(c, "sparsity", 0, "Search");
     // @description Sets the sparsity.
 
     CLASS_ATTR_DOUBLE(c, "negativepenalization", 0, t_solver, negativepenalization);
     CLASS_ATTR_STYLE(c, "negativepenalization", 0, "text");
     CLASS_ATTR_LABEL(c, "negativepenalization", 0, "Negative Penalization");
     CLASS_ATTR_ACCESSORS(c, "negativepenalization", (method)NULL, (method)orchmax_solve_setattr_negativepenalization);
+    CLASS_ATTR_CATEGORY(c, "negativepenalization", 0, "Search");
     // @description Sets the negative penalization.
 
     CLASS_ATTR_DOUBLE(c, "positivepenalization", 0, t_solver, positivepenalization);
     CLASS_ATTR_STYLE(c, "positivepenalization", 0, "text");
     CLASS_ATTR_LABEL(c, "positivepenalization", 0, "Positive Penalization");
     CLASS_ATTR_ACCESSORS(c, "positivepenalization", (method)NULL, (method)orchmax_solve_setattr_positivepenalization);
+    CLASS_ATTR_CATEGORY(c, "positivepenalization", 0, "Search");
     // @description Sets the positive penalization.
 
     CLASS_ATTR_DOUBLE(c, "onsetthreshold", 0, t_solver, onsetthreshold);
     CLASS_ATTR_STYLE(c, "onsetthreshold", 0, "text");
     CLASS_ATTR_LABEL(c, "onsetthreshold", 0, "Onset Threshold");
     CLASS_ATTR_ACCESSORS(c, "onsetthreshold", (method)NULL, (method)orchmax_solve_setattr_onsetthreshold);
+    CLASS_ATTR_CATEGORY(c, "onsetthreshold", 0, "Dynamic Orchestration");
     // @description Sets the onset threshold
 
     CLASS_ATTR_DOUBLE(c, "onsettimegate", 0, t_solver, onsettimegate);
     CLASS_ATTR_STYLE(c, "onsettimegate", 0, "text");
     CLASS_ATTR_LABEL(c, "onsettimegate", 0, "Onset Time Gate");
     CLASS_ATTR_ACCESSORS(c, "onsettimegate", (method)NULL, (method)orchmax_solve_setattr_onsettimegate);
-    // @description Sets the onset timegate
+    CLASS_ATTR_CATEGORY(c, "onsettimegate", 0, "Dynamic Orchestration");
+    // @description Sets the onset time gate in milliseconds.
 
     CLASS_ATTR_LONG(c, "partialswindow", 0, t_solver, partialswindow);
     CLASS_ATTR_STYLE(c, "partialswindow", 0, "text");
     CLASS_ATTR_LABEL(c, "partialswindow", 0, "Partials Window Size");
     CLASS_ATTR_ACCESSORS(c, "partialswindow", (method)NULL, (method)orchmax_solve_setattr_partialswindow);
+    CLASS_ATTR_CATEGORY(c, "partialswindow", 0, "Target");
     // @description Sets the size of the analysis window for partials
 
     CLASS_ATTR_DOUBLE(c, "partialsfilter", 0, t_solver, partialsfilter);
     CLASS_ATTR_STYLE(c, "partialsfilter", 0, "text");
     CLASS_ATTR_LABEL(c, "partialsfilter", 0, "Partials Filter");
     CLASS_ATTR_ACCESSORS(c, "partialsfilter", (method)NULL, (method)orchmax_solve_setattr_partialsfilter);
+    CLASS_ATTR_CATEGORY(c, "partialsfilter", 0, "Target");
     // @description Sets the partials filter
 
     
@@ -675,30 +688,35 @@ void ext_main(void *r) {
     CLASS_ATTR_LABEL(c, "orchestra", 0, "Orchestra");
     CLASS_ATTR_ACCESSORS(c, "orchestra", (method)NULL, (method)orchmax_solve_setattr_orchestra);
     CLASS_ATTR_BASIC(c, "orchestra", 0);
+    CLASS_ATTR_CATEGORY(c, "orchestra", 0, "Orchestra");
     // @description Sets the orchestra.
 
     CLASS_ATTR_SYM_VARSIZE(c, "styles", 0, t_solver, styles, styles_size, ORCHIDEA_SOLVE_MAX_STYLES);
     CLASS_ATTR_STYLE(c, "styles", 0, "text");
     CLASS_ATTR_LABEL(c, "styles", 0, "Styles");
     CLASS_ATTR_ACCESSORS(c, "styles", (method)NULL, (method)orchmax_solve_setattr_styles);
+    CLASS_ATTR_CATEGORY(c, "styles", 0, "Filters");
     // @description Sets the allowed styles.
 
     CLASS_ATTR_SYM_VARSIZE(c, "others", 0, t_solver, others, others_size, ORCHIDEA_SOLVE_MAX_OTHERS);
     CLASS_ATTR_STYLE(c, "others", 0, "text");
     CLASS_ATTR_LABEL(c, "others", 0, "Others");
     CLASS_ATTR_ACCESSORS(c, "others", (method)NULL, (method)orchmax_solve_setattr_others);
+    CLASS_ATTR_CATEGORY(c, "others", 0, "Filters");
     // @description Sets other filters.
     
     CLASS_ATTR_SYM_VARSIZE(c, "extrapitches", 0, t_solver, extrapitches, extrapitches_size, ORCHIDEA_SOLVE_MAX_EXTRAPITCHES);
     CLASS_ATTR_STYLE(c, "extrapitches", 0, "text");
     CLASS_ATTR_LABEL(c, "extrapitches", 0, "Extra Pitches");
     CLASS_ATTR_ACCESSORS(c, "extrapitches", (method)NULL, (method)orchmax_solve_setattr_extrapitches);
+    CLASS_ATTR_CATEGORY(c, "extrapitches", 0, "Target");
     // @description Sets extra pitches.
     
     CLASS_ATTR_SYM_VARSIZE(c, "dynamics", 0, t_solver, dynamics, dynamics_size, ORCHIDEA_SOLVE_MAX_DYNAMICS);
     CLASS_ATTR_STYLE(c, "dynamics", 0, "text");
     CLASS_ATTR_LABEL(c, "dynamics", 0, "Dynamics");
     CLASS_ATTR_ACCESSORS(c, "dynamics", (method)NULL, (method)orchmax_solve_setattr_dynamics);
+    CLASS_ATTR_CATEGORY(c, "dynamics", 0, "Filters");
     // @description Sets the allowed dynamics.
 
     CLASS_ATTR_CHAR(c, "verbose", 0, t_solver, verbose);
@@ -706,14 +724,13 @@ void ext_main(void *r) {
     CLASS_ATTR_LABEL(c, "verbose", 0, "Verbose");
     // @description Toggles the verbose mode
 
-
     class_register(CLASS_BOX, c);
     orchmax_solve_class = c;
 }
 
 void orchmax_solve_free(t_solver *x) {
     long i;
-    for (i = 1; i < 2; i++)
+    for (i = 1; i < 3; i++)
         object_free(x->n_proxy[i]);
 
     orchidea_destroy(x->orc_hand);
@@ -733,7 +750,11 @@ void orchmax_solve_bang (t_solver *x) {
     
     atom_setsym(d->av, gensym("orchestrate"));
     
-    pthread_create(&x->thread_pool[x->running_threads], NULL, orchidea_dispatcher, (void*) d);
+    if (x->current_target) {
+        pthread_create(&x->thread_pool[x->running_threads], NULL, orchidea_dispatcher, (void*) d);
+    } else {
+        object_error((t_object *)x, "target not defined: cannot orchestrate");
+    }
 }
 
 
@@ -744,6 +765,7 @@ void dbpath_to_soundpath(char *dbpath, char *soundpath) {
     snprintf(soundpath, MAX_PATH_CHARS, "%s", out.c_str());
 }
 
+// TO DO: anything and bang methods should be deferred to the main thread
 void orchmax_solve_anything(t_solver *x, t_symbol *s, long ac, t_atom *av) {
     if (s == gensym("resetfilters")) {
         if (x->verbose) object_post((t_object*) x, "resetting all filters");
@@ -753,22 +775,45 @@ void orchmax_solve_anything(t_solver *x, t_symbol *s, long ac, t_atom *av) {
     } else {
         long inlet = proxy_getinlet((t_object *) x);
 
-        // heavy actions are executed in a separated thread (or pool)
-        if (x->running_threads >= ORCHIDEA_SOLVE_MAX_THREADS) {
-            object_warn((t_object*) x, "pending actions; please retry later...");
-            return;
-        }
-
         thread_data *d = (thread_data *)sysmem_newptr(sizeof(thread_data)); // delete after thread call - I think it works since thare are no modif during thread
         d->x = x;
         
         if (inlet == 0) {
+            // heavy actions are executed in a separated thread (or pool)
+            if (x->running_threads >= ORCHIDEA_SOLVE_MAX_THREADS) {
+                object_warn((t_object*) x, "pending actions; please retry later...");
+                return;
+            }
+            
             // set target and orchestrate
             d->s = gensym("target");
             d->ac = 1;
             d->av = (t_atom *)sysmem_newptr(sizeof(t_atom));
             atom_setsym(d->av, s ? s : (ac ? atom_getsym(av) : gensym("none") /*should never happen*/));
+            
+        } else if (inlet == 1) {
+            // set orchestra
+            long j = 0;
+            d->s = gensym("orchestra");
+            d->ac = (s && s != gensym("list") ? ac + 1 : ac);
+            d->av = (t_atom *)sysmem_newptr(d->ac * sizeof(t_atom));
+            if (s && s != gensym("list")) {
+                atom_setsym(d->av, s);
+                j++;
+            }
+            for (long i = 0; i < ac; i++)
+                d->av[j++] = av[i];
+            
+            object_attr_setvalueof((t_object *)x, gensym("orchestra"), d->ac, d->av);
+            sysmem_freeptr(d->av);
+            return;
         } else {
+            // heavy actions are executed in a separated thread (or pool)
+            if (x->running_threads >= ORCHIDEA_SOLVE_MAX_THREADS) {
+                object_warn((t_object*) x, "pending actions; please retry later...");
+                return;
+            }
+            
             // set database
             long j = 0;
             d->s = gensym("dbfiles");
@@ -805,11 +850,20 @@ void orchmax_solve_anything(t_solver *x, t_symbol *s, long ac, t_atom *av) {
                 sysmem_freeptr(sl[i]);
             }
             sysmem_freeptr(sl);
-            
         }
         pthread_create(&x->thread_pool[x->running_threads], NULL, orchidea_dispatcher, (void*) d);
     }
 }
+
+// TO DO: notifier must be local, not global!
+static void notifier (const char* action, float status) {
+    t_atom a[2];
+    atom_setsym(a, gensym(action));
+    atom_setlong(a + 1, status);
+    outlet_anything(g_x->out_2, gensym("status"), 2, a); // g_x must be changed, this is always the LAST created instance
+}
+
+
 
 void *orchmax_solve_new(t_symbol *s, long argc, t_atom *argv) {
     t_solver *x = NULL;
@@ -834,20 +888,27 @@ void *orchmax_solve_new(t_symbol *s, long argc, t_atom *argv) {
         x->positivepenalization = 1.;
         x->negativepenalization = 10.;
         x->onsetthreshold = 2;
-        x->onsettimegate = .1;
+        x->onsettimegate = 100;
         x->partialswindow = 32768;
         x->partialsfilter = .2;
         x->verbose = true; // just for now?
 
+        x->n_proxy[2] = proxy_new((t_object *) x, 2, &x->n_in);
         x->n_proxy[1] = proxy_new((t_object *) x, 1, &x->n_in);
+
+        x->running_threads = 0;
+        x->orc_hand = orchidea_create(x->segmentation->s_name, x->connection->s_name);
+        
+        if (!x->orc_hand) {
+            // should never happen!
+            error("Cannot create orchidea.solve with these parameters.");
+            return NULL;
+        }
         
         attr_args_process(x, argc, argv);
         
         object_attr_setdisabled((t_object *)x, gensym("connection"), true);
         object_attr_setdisabled((t_object *)x, gensym("segmentation"), true);
-
-        x->running_threads = 0;
-        x->orc_hand = orchidea_create (x->segmentation->s_name, x->connection->s_name);
         
         orchidea_set_notifier(x->orc_hand, notifier);
         

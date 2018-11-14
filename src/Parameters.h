@@ -83,26 +83,32 @@ struct Parameters {
 
 	void set_parameter (std::deque<std::string>& tokens) {
         if (tokens[0] == "db_files") {
+            db_files.clear();
         	for (unsigned i = 1; i < tokens.size (); ++i) {
         		db_files.push_back (tokens[i]);
         	}        	
         } else if (tokens[0] == "sound_paths") {
+            sound_paths.clear();
         	for (unsigned i = 1; i < tokens.size (); ++i) {
         		sound_paths.push_back (tokens[i]);
         	}
         } else if (tokens[0] == "orchestra") {
+            orchestra.clear();
         	for (unsigned i = 1; i < tokens.size (); ++i) {
         		orchestra.push_back (tokens[i]);
         	}
         } else if (tokens[0] == "styles") {
+            styles.clear();
         	for (unsigned i = 1; i < tokens.size (); ++i) {
         		styles.push_back (tokens[i]);
         	}
         } else if (tokens[0] == "dynamics") {
+            dynamics.clear();
         	for (unsigned i = 1; i < tokens.size (); ++i) {
         		dynamics.push_back (tokens[i]);
         	}
         } else if (tokens[0] == "others") {
+            others.clear();
         	for (unsigned i = 1; i < tokens.size (); ++i) {
         		others.push_back (tokens[i]);
         	}
@@ -131,6 +137,7 @@ struct Parameters {
         } else if (tokens[0] == "partials_filtering") {
         	partials_filtering = atof (tokens[1].c_str ());
         } else if (tokens[0] == "extra_pitches") {
+            extra_pitches.clear();
         	for (unsigned i = 1; i < tokens.size (); ++i) {
         	 	extra_pitches.push_back (tokens[i]);
         	}

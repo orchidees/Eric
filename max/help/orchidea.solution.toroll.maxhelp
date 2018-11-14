@@ -788,7 +788,7 @@
 				"type" : "iLaX"
 			}
 , 			{
-				"name" : "bach.n2mc.mxo",
+				"name" : "bach.p2mc.mxo",
 				"type" : "iLaX"
 			}
 , 			{

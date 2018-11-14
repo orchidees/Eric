@@ -24,7 +24,7 @@
 typedef struct _session {
     t_object    ob;
     
-    t_symbol* db_folder;
+    t_symbol*   db_folder;
     long        win_size;
     long        hop_size;
     long        num_dimensions;
@@ -105,9 +105,6 @@ void* orchidea_dispatcher (void* d) {
     outlet_anything(x->out_1, gensym("busy"), 1, &busy);
     x->running_threads--;
     
-    if (data->av) {
-        sysmem_freeptr(data->av);
-    }
     return NULL;
 }
 void ext_main(void *r) {
@@ -179,7 +176,7 @@ void orchmax_dbgen_anything(t_dbgen *x, t_symbol *s, long ac, t_atom *av) {
         return;
     }
 
-    x->db_folder = conform_path (atom_getsym(av));
+    x->db_folder = conform_path (ac == 0 ? s : atom_getsym(av));
 
     thread_data *d = (thread_data *)sysmem_newptr(sizeof(thread_data)); // delete after thread call - I think it works since thare are no modif during thread
     d->x = x;
