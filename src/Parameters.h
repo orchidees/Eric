@@ -6,6 +6,7 @@
 #define PARAMETERS_H 
 
 #include "utilities.h"
+#include "Callback.h"
 
 #include <vector>
 #include <string>
@@ -42,6 +43,8 @@ struct Parameters {
 
 		dry_wet[0] = .7;
 		dry_wet[1] = .3;	
+
+		callback = nullptr;
 	}
 	void read (const char* config_file) {
 		std::ifstream config (config_file);
@@ -226,7 +229,7 @@ struct Parameters {
 	std::vector<T> dry_wet;
 
 	// internal
-	orchidea_notifier notifier;
+	Callback* callback;
 };
 
 

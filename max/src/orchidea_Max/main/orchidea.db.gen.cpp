@@ -25,18 +25,21 @@ typedef struct _session {
     t_object    ob;
     
     t_symbol*   db_folder;
+    t_symbol*   db_name;
     long        win_size;
     long        hop_size;
     long        num_dimensions;
     t_symbol*   feature_name;
     
     void        *out_1;
+    void        *out_2;
 
     OrchideaHandle* orc_hand;
     pthread_t thread_pool[ORCHIDEA_DBGEN_MAX_THREADS];
     int running_threads;
     std::vector<std::string> sounds;
-    
+
+    Callback*  callback;
     
 } t_dbgen;
 
@@ -60,13 +63,12 @@ void orchmax_dbgen_bang(t_dbgen *x);
 //////////////////////// global class pointer variable
 void *orchmax_dbgen_class;
 
-t_dbgen* g_x; // global variable - any better idea?
 
-void notifier (const char* action, float status) {
-    t_atom a[2];
-    atom_setsym(a, gensym(action));
-    atom_setlong(a + 1, status);
-    outlet_anything(g_x->out_1, gensym("status"), 2, a);
+void notifier (const char* action, void* user_data) {
+    t_atom a;
+    atom_setsym(&a, gensym(action));
+    t_dbgen* instance = (t_dbgen*) user_data;
+    outlet_anything(instance->out_2, gensym("status"), 1, &a);
 }
 
 void* orchidea_dispatcher (void* d) {
@@ -76,7 +78,7 @@ void* orchidea_dispatcher (void* d) {
     
     t_atom busy;
     atom_setlong(&busy, 1);
-    outlet_anything(x->out_1, gensym("busy"), 1, &busy);
+    outlet_anything(x->out_2, gensym("busy"), 1, &busy);
     
     x->running_threads++;
     object_post((t_object*) x, "current thread n. %d", x->running_threads);    
@@ -85,24 +87,39 @@ void* orchidea_dispatcher (void* d) {
         object_post((t_object*) x, "error: feature name or db folder not set");
     }
     else {
+        std::stringstream outname;
+        if (x->db_name== gensym("default")) { // if the db_name attribute is "default"
+            std::string tmp (x->db_folder->s_name);
+            if (tmp.size () < 2) error ("invalid name for sound folder");
+            if (tmp[tmp.size () - 1] == '/' || tmp[tmp.size () - 1] == '\\') {
+                tmp = tmp.substr(0, tmp.size () - 1);
+            }
+            outname << tmp.c_str () << "." << x->feature_name->s_name << ".db";
+        } else {
+            outname << x->db_name->s_name;
+        }
+    
+        post ("%s", outname.str ().c_str ());
         int r = 0;
         
-        r = orchidea_analyse_sounds (x->orc_hand, x->db_folder->s_name, "/tmp/test.db",
+        r = orchidea_analyse_sounds (x->orc_hand, x->db_folder->s_name, outname.str().c_str(),
                                          (int) x->win_size, (int) x->hop_size,
                                          (int) x->num_dimensions,
                                          x->feature_name->s_name);
-        post ("MOTHERFUCKER");
         if (r != ORCHIDEA_NO_ERROR) {
             object_post((t_object *)x, "error: %s (%s)", orchidea_decode_error(r),
                         orchidea_get_error_details(x->orc_hand));
         } else {
+            t_atom out;
+            atom_setsym(&out, gensym(outname.str ().c_str ()));
+            outlet_anything(x->out_1, gensym("dbname"), 1, &out);
             object_post((t_object *)x, "analysis has been done correctly");
         }
 
     }
 
     atom_setlong(&busy, 0);
-    outlet_anything(x->out_1, gensym("busy"), 1, &busy);
+    outlet_anything(x->out_2, gensym("busy"), 1, &busy);
     x->running_threads--;
     
     return NULL;
@@ -120,23 +137,34 @@ void ext_main(void *r) {
     CLASS_ATTR_LONG(c, "windowsize", 0, t_dbgen, win_size);
     CLASS_ATTR_STYLE(c, "windowsize", 0, "text");
     CLASS_ATTR_LABEL(c, "widowsize", 0, "Analysis Window Size");
+    CLASS_ATTR_CATEGORY(c, "windowsize", 0, "Analysis");
     // @description Sets the size of the analysis window
 
     CLASS_ATTR_LONG(c, "hopsize", 0, t_dbgen, hop_size);
     CLASS_ATTR_STYLE(c, "hopsize", 0, "text");
     CLASS_ATTR_LABEL(c, "hopsize", 0, "Analysis Hop Size");
+    CLASS_ATTR_CATEGORY(c, "hopsize", 0, "Analysis");
     // @description Sets the hop size of the analysis
 
     CLASS_ATTR_LONG(c, "numdimensions", 0, t_dbgen, num_dimensions);
     CLASS_ATTR_STYLE(c, "numdimensions", 0, "text");
     CLASS_ATTR_LABEL(c, "numdimensions", 0, "Number Of Dimensions To Store");
+    CLASS_ATTR_CATEGORY(c, "numdimensions", 0, "Analysis");
     // @description Sets the hop size of the analysis
-
+    
     
     CLASS_ATTR_SYM(c, "feature", 0, t_dbgen, feature_name);
-    CLASS_ATTR_STYLE(c, "feature", 0, "text");
-    CLASS_ATTR_LABEL(c, "feature", 0, "Name Of Feature");
-    // @description Sets the name of the feature to be used for analysis
+    CLASS_ATTR_ENUM(c,"feature",0,"spectrum logspec specpeaks specenv mfcc moments");
+    CLASS_ATTR_LABEL(c, "feature", 0, "Feature");
+    CLASS_ATTR_CATEGORY(c, "feature", 0, "Analysis");
+    // @description Sets the search type.
+    
+    CLASS_ATTR_SYM(c, "dbname", 0, t_dbgen, db_name);
+    CLASS_ATTR_STYLE(c, "dbname", 0, "text");
+    CLASS_ATTR_LABEL(c, "dbname", 0, "Output Name for DB");
+    CLASS_ATTR_CATEGORY(c, "dbname", 0, "Paths");
+    // @description Sets the name of the DB
+    // By default output files will be put in the same folder of the sounds.
     
     class_register(CLASS_BOX, c);
     orchmax_dbgen_class = c;
@@ -193,19 +221,25 @@ void *orchmax_dbgen_new(t_symbol *s, long argc, t_atom *argv) {
         x->running_threads = 0;
         x->orc_hand = orchidea_create("flux", "closest");
         
-        orchidea_set_notifier(x->orc_hand, notifier);
+        x->callback = new Callback ();
+        x->callback->notifier = notifier;
+        x->callback->user_data = x;
+        
+        orchidea_set_callback(x->orc_hand, x->callback);
         
         x->win_size = 4096;
         x->hop_size = 2048;
         x->num_dimensions = 1024;
         x->feature_name = gensym ("spectrum");
         x->db_folder = gensym ("");
+        x->db_name = gensym ("default");
         
         attr_args_process(x, argc, argv);
         
+        x->out_2 = outlet_new(x, NULL);
         x->out_1 = outlet_new(x, NULL);
     }
-    g_x = x;
+
     return (x);
 }
 

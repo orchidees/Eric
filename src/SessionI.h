@@ -21,7 +21,6 @@
 #include <sstream>
 #include <stdexcept>
 
-
 template <typename T>
 struct SessionI {
 	SessionI (Source<T>* s, Parameters<T>* p, OptimizerI<T>* o) {
@@ -59,8 +58,11 @@ struct SessionI {
 		for (unsigned i = 0; i < orchestrations.size (); ++i) {
 			if (orchestrations[i].solutions.size () && 
 				SessionI<T>::parameters->export_solutions > 0) {
-		        if (SessionI<T>::parameters->notifier != nullptr) {
-			        	SessionI<T>::parameters->notifier ("exporting segment ", i + 1);
+		        if (SessionI<T>::parameters->callback != nullptr) {
+		        	std::stringstream msg;
+		        	msg << "exporting segment " << i + 1;
+			        SessionI<T>::parameters->callback->notifier (msg.str ().c_str (),
+			        	SessionI<T>::parameters->callback->user_data);
 		        }				
 				std::stringstream full_prefix;
 				full_prefix << prefix << "segment." << std::setw (4) 
@@ -89,8 +91,9 @@ struct SessionI {
 			}
 		}
         
-        if (SessionI<T>::parameters->notifier != nullptr) {
-	        	SessionI<T>::parameters->notifier ("exporting connection", 1);
+        if (SessionI<T>::parameters->callback != nullptr) {
+	        	SessionI<T>::parameters->callback->notifier ("exporting connection",
+	        		SessionI<T>::parameters->callback->user_data);
         }
 		connection.export_solutions(prefix);
 	}

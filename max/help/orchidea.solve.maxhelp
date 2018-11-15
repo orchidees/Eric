@@ -4,12 +4,12 @@
 		"appversion" : 		{
 			"major" : 7,
 			"minor" : 3,
-			"revision" : 4,
+			"revision" : 5,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 68.0, 79.0, 970.0, 700.0 ],
+		"rect" : [ 279.0, 327.0, 970.0, 700.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -51,7 +51,7 @@
 						"appversion" : 						{
 							"major" : 7,
 							"minor" : 3,
-							"revision" : 4,
+							"revision" : 5,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -459,7 +459,7 @@
 						"appversion" : 						{
 							"major" : 7,
 							"minor" : 3,
-							"revision" : 4,
+							"revision" : 5,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -683,7 +683,7 @@
 						"appversion" : 						{
 							"major" : 7,
 							"minor" : 3,
-							"revision" : 4,
+							"revision" : 5,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -717,6 +717,109 @@
 						"subpatcher_template" : "",
 						"showontab" : 1,
 						"boxes" : [ 							{
+								"box" : 								{
+									"id" : "obj-23",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 771.0, 440.0, 150.0, 36.0 ],
+									"style" : "",
+									"text" : "fixme: exportsolutions non è stato esposto"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-40",
+									"linecount" : 3,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 777.199951, 259.5, 97.0, 50.0 ],
+									"style" : "helpfile_label",
+									"text" : "Drop database(s) here..."
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-44",
+									"maxclass" : "dropfile",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
+									"patching_rect" : [ 764.699951, 248.432373, 122.0, 79.5 ],
+									"types" : [ "WAVE" ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-22",
+									"linecount" : 5,
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 725.5, 510.5, 142.0, 81.0 ],
+									"style" : "",
+									"text" : "set Fl Fl Ob Ob ClBb ClBb Bn Bn TpC TpC Hn Hn Tbn Tbn Vn Vn Vn Vn Va Va Vc Cb, bang"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-16",
+									"linecount" : 8,
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 48.0, 406.0, 50.0, 125.0 ],
+									"style" : "",
+									"text" : "\"Macintosh HD:/Users/cella/Desktop/Brahms_4.wav\""
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-8",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 125.300049, 281.5, 81.0, 36.0 ],
+									"style" : "helpfile_label",
+									"text" : "Drop target \nfile here..."
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-39",
+									"maxclass" : "dropfile",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
+									"patching_rect" : [ 109.5, 259.5, 106.0, 91.0 ],
+									"types" : [ "WAVE" ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-25",
+									"maxclass" : "button",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "bang" ],
+									"patching_rect" : [ 698.0, 347.0, 24.0, 24.0 ],
+									"style" : ""
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"id" : "obj-13",
 									"maxclass" : "message",
@@ -949,6 +1052,7 @@
 , 							{
 								"box" : 								{
 									"id" : "obj-7",
+									"linecount" : 5,
 									"maxclass" : "textedit",
 									"numinlets" : 1,
 									"numoutlets" : 4,
@@ -956,7 +1060,7 @@
 									"parameter_enable" : 0,
 									"patching_rect" : [ 439.0, 294.5, 129.0, 49.0 ],
 									"style" : "",
-									"text" : "Fl ClBb Ob TpC Vn"
+									"text" : "Fl Fl Ob Ob ClBb ClBb Bn Bn TpC TpC Hn Hn Tbn Tbn Vn Vn Vn Vn Va Va Vc Cb"
 								}
 
 							}
@@ -1082,7 +1186,7 @@
 										"appversion" : 										{
 											"major" : 7,
 											"minor" : 3,
-											"revision" : 4,
+											"revision" : 5,
 											"architecture" : "x64",
 											"modernui" : 1
 										}
@@ -1275,31 +1379,6 @@
 							}
 , 							{
 								"box" : 								{
-									"decodemode" : 1,
-									"id" : "obj-24",
-									"legend" : "Drop database(s) here!",
-									"maxclass" : "live.drop",
-									"numinlets" : 1,
-									"numoutlets" : 2,
-									"outlettype" : [ "", "" ],
-									"parameter_enable" : 1,
-									"patching_rect" : [ 765.5, 270.0, 148.0, 55.0 ],
-									"saved_attribute_attributes" : 									{
-										"valueof" : 										{
-											"parameter_longname" : "live.drop[3]",
-											"parameter_shortname" : "live.drop",
-											"parameter_type" : 4,
-											"parameter_invisible" : 1
-										}
-
-									}
-,
-									"varname" : "live.drop[1]"
-								}
-
-							}
-, 							{
-								"box" : 								{
 									"id" : "obj-27",
 									"maxclass" : "button",
 									"numinlets" : 1,
@@ -1307,31 +1386,6 @@
 									"outlettype" : [ "bang" ],
 									"patching_rect" : [ 153.800049, 357.0, 24.0, 24.0 ],
 									"style" : ""
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"decodemode" : 1,
-									"id" : "obj-8",
-									"legend" : "Drop target here!",
-									"maxclass" : "live.drop",
-									"numinlets" : 1,
-									"numoutlets" : 2,
-									"outlettype" : [ "", "" ],
-									"parameter_enable" : 1,
-									"patching_rect" : [ 109.5, 270.0, 140.0, 49.0 ],
-									"saved_attribute_attributes" : 									{
-										"valueof" : 										{
-											"parameter_longname" : "live.drop[2]",
-											"parameter_shortname" : "live.drop",
-											"parameter_type" : 4,
-											"parameter_invisible" : 1
-										}
-
-									}
-,
-									"varname" : "live.drop"
 								}
 
 							}
@@ -1471,8 +1525,15 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-45", 0 ],
-									"source" : [ "obj-24", 0 ]
+									"destination" : [ "obj-7", 0 ],
+									"source" : [ "obj-22", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-7", 0 ],
+									"source" : [ "obj-25", 0 ]
 								}
 
 							}
@@ -1545,6 +1606,22 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-16", 1 ],
+									"order" : 1,
+									"source" : [ "obj-39", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-9", 0 ],
+									"order" : 0,
+									"source" : [ "obj-39", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-41", 1 ],
 									"order" : 0,
 									"source" : [ "obj-42", 0 ]
@@ -1577,6 +1654,13 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-45", 0 ],
+									"source" : [ "obj-44", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-9", 2 ],
 									"source" : [ "obj-45", 0 ]
 								}
@@ -1600,23 +1684,6 @@
 								"patchline" : 								{
 									"destination" : [ "obj-10", 0 ],
 									"source" : [ "obj-7", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-26", 0 ],
-									"midpoints" : [ 119.0, 370.0, 97.0, 370.0, 97.0, 438.0, 367.5, 438.0 ],
-									"order" : 0,
-									"source" : [ "obj-8", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-9", 0 ],
-									"order" : 1,
-									"source" : [ "obj-8", 0 ]
 								}
 
 							}
@@ -1675,7 +1742,7 @@
 						"appversion" : 						{
 							"major" : 7,
 							"minor" : 3,
-							"revision" : 4,
+							"revision" : 5,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -1779,7 +1846,7 @@
 						"appversion" : 						{
 							"major" : 7,
 							"minor" : 3,
-							"revision" : 4,
+							"revision" : 5,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -2074,12 +2141,12 @@
 						"appversion" : 						{
 							"major" : 7,
 							"minor" : 3,
-							"revision" : 4,
+							"revision" : 5,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 68.0, 105.0, 970.0, 674.0 ],
+						"rect" : [ 279.0, 353.0, 970.0, 674.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -2109,6 +2176,55 @@
 						"showontab" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
+									"id" : "obj-40",
+									"linecount" : 3,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 738.199951, 121.067627, 97.0, 50.0 ],
+									"style" : "helpfile_label",
+									"text" : "Drop database(s) here..."
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-44",
+									"maxclass" : "dropfile",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
+									"patching_rect" : [ 725.699951, 110.0, 122.0, 79.5 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-3",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 29.0, 204.5, 81.0, 36.0 ],
+									"style" : "helpfile_label",
+									"text" : "Drop target \nfile here..."
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-39",
+									"maxclass" : "dropfile",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
+									"patching_rect" : [ 18.5, 180.0, 106.0, 91.0 ],
+									"types" : [ "WAVE" ]
+								}
+
+							}
+, 							{
+								"box" : 								{
 									"hidden" : 1,
 									"id" : "obj-5",
 									"maxclass" : "newobj",
@@ -2131,7 +2247,7 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 767.0, 486.0, 143.0, 21.0 ],
 									"style" : "",
-									"text" : "exporting connection 1",
+									"text" : "exporting connection",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
 								}
 
@@ -2250,7 +2366,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 596.5, 560.0, 326.0, 36.0 ],
+									"patching_rect" : [ 602.5, 560.0, 326.0, 36.0 ],
 									"style" : "",
 									"text" : "Also see orchidea.solution.toroll to display the solution as a symbolic score",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
@@ -2302,7 +2418,7 @@
 , 							{
 								"box" : 								{
 									"id" : "obj-30",
-									"linecount" : 3,
+									"linecount" : 2,
 									"maxclass" : "textedit",
 									"numinlets" : 1,
 									"numoutlets" : 4,
@@ -2310,7 +2426,7 @@
 									"parameter_enable" : 0,
 									"patching_rect" : [ 612.5, 242.5, 238.0, 67.0 ],
 									"style" : "",
-									"text" : "/Users/danieleghisi/Downloads/CSOL_ordinario_0.3/CSOL_ordinario.spectrum.txt"
+									"text" : "/Users/cella/Desktop/Datasets/CSOL_ordinario.mfcc.txt"
 								}
 
 							}
@@ -2536,7 +2652,7 @@
 										"appversion" : 										{
 											"major" : 7,
 											"minor" : 3,
-											"revision" : 4,
+											"revision" : 5,
 											"architecture" : "x64",
 											"modernui" : 1
 										}
@@ -2757,31 +2873,6 @@
 							}
 , 							{
 								"box" : 								{
-									"decodemode" : 1,
-									"id" : "obj-24",
-									"legend" : "Drop database(s) here!",
-									"maxclass" : "live.drop",
-									"numinlets" : 1,
-									"numoutlets" : 2,
-									"outlettype" : [ "", "" ],
-									"parameter_enable" : 1,
-									"patching_rect" : [ 612.5, 128.5, 148.0, 61.0 ],
-									"saved_attribute_attributes" : 									{
-										"valueof" : 										{
-											"parameter_longname" : "live.drop[1]",
-											"parameter_shortname" : "live.drop",
-											"parameter_type" : 4,
-											"parameter_invisible" : 1
-										}
-
-									}
-,
-									"varname" : "live.drop[1]"
-								}
-
-							}
-, 							{
-								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 13.0,
 									"id" : "obj-23",
@@ -2789,9 +2880,9 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 676.5, 195.0, 174.0, 36.0 ],
+									"patching_rect" : [ 680.5, 198.0, 170.0, 36.0 ],
 									"style" : "",
-									"text" : "The database can be created via orchidea.db.gen",
+									"text" : "A database can be created via orchidea.db.gen",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
 								}
 
@@ -2821,31 +2912,6 @@
 									"patching_rect" : [ 89.5, 293.0, 115.0, 40.0 ],
 									"style" : "",
 									"text" : "Re-trigger orchestration"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"decodemode" : 1,
-									"id" : "obj-8",
-									"legend" : "Drop target here!",
-									"maxclass" : "live.drop",
-									"numinlets" : 1,
-									"numoutlets" : 2,
-									"outlettype" : [ "", "" ],
-									"parameter_enable" : 1,
-									"patching_rect" : [ 18.5, 217.5, 140.0, 60.0 ],
-									"saved_attribute_attributes" : 									{
-										"valueof" : 										{
-											"parameter_longname" : "live.drop",
-											"parameter_shortname" : "live.drop",
-											"parameter_type" : 4,
-											"parameter_invisible" : 1
-										}
-
-									}
-,
-									"varname" : "live.drop"
 								}
 
 							}
@@ -2922,7 +2988,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "int" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 132.56543, 219.5, 20.0, 20.0 ],
+									"patching_rect" : [ 104.5, 180.0, 20.0, 20.0 ],
 									"rounded" : 60.0,
 									"style" : "",
 									"text" : "3",
@@ -2944,7 +3010,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "int" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 735.0, 133.0, 20.0, 20.0 ],
+									"patching_rect" : [ 827.699951, 113.0, 20.0, 20.0 ],
 									"rounded" : 60.0,
 									"style" : "",
 									"text" : "1",
@@ -3000,13 +3066,6 @@
 								"patchline" : 								{
 									"destination" : [ "obj-33", 0 ],
 									"source" : [ "obj-22", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-45", 0 ],
-									"source" : [ "obj-24", 0 ]
 								}
 
 							}
@@ -3082,6 +3141,23 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-26", 0 ],
+									"midpoints" : [ 28.0, 342.0, 3.0, 342.0, 3.0, 402.0, 276.5, 402.0 ],
+									"order" : 0,
+									"source" : [ "obj-39", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-9", 0 ],
+									"order" : 1,
+									"source" : [ "obj-39", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-30", 0 ],
 									"hidden" : 1,
 									"order" : 0,
@@ -3123,6 +3199,14 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-45", 0 ],
+									"midpoints" : [ 735.199951, 192.0, 624.0, 192.0, 624.0, 198.0, 622.0, 198.0 ],
+									"source" : [ "obj-44", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-30", 0 ],
 									"source" : [ "obj-45", 0 ]
 								}
@@ -3147,23 +3231,6 @@
 								"patchline" : 								{
 									"destination" : [ "obj-10", 0 ],
 									"source" : [ "obj-7", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-26", 0 ],
-									"midpoints" : [ 28.0, 336.0, 6.0, 336.0, 6.0, 404.0, 276.5, 404.0 ],
-									"order" : 0,
-									"source" : [ "obj-8", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-9", 0 ],
-									"order" : 1,
-									"source" : [ "obj-8", 0 ]
 								}
 
 							}
@@ -3249,7 +3316,7 @@
 						"appversion" : 						{
 							"major" : 7,
 							"minor" : 3,
-							"revision" : 4,
+							"revision" : 5,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -3305,13 +3372,9 @@
  ],
 		"lines" : [  ],
 		"parameters" : 		{
-			"obj-5::obj-8" : [ "live.drop[2]", "live.drop", 0 ],
-			"obj-2::obj-8" : [ "live.drop", "live.drop", 0 ],
-			"obj-5::obj-24" : [ "live.drop[3]", "live.drop", 0 ],
-			"obj-5::obj-34" : [ "target", "target", 0 ],
-			"obj-5::obj-42" : [ "solution", "solution", 0 ],
 			"obj-2::obj-42" : [ "gain", "gain", 0 ],
-			"obj-2::obj-24" : [ "live.drop[1]", "live.drop", 0 ]
+			"obj-5::obj-34" : [ "target", "target", 0 ],
+			"obj-5::obj-42" : [ "solution", "solution", 0 ]
 		}
 ,
 		"dependency_cache" : [ 			{
@@ -3328,14 +3391,14 @@
 			}
 , 			{
 				"name" : "orchidea.solution.totext.maxpat",
-				"bootpath" : "~/MusicaMia/_RICERCA/orchidea/max/patches",
+				"bootpath" : "~/Desktop/orchidea/max/patches",
 				"patcherrelativepath" : "../patches",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "orchidea.solution.tobuffer.maxpat",
-				"bootpath" : "~/MusicaMia/_RICERCA/orchidea/max/patches",
+				"bootpath" : "~/Desktop/orchidea/max/patches",
 				"patcherrelativepath" : "../patches",
 				"type" : "JSON",
 				"implicit" : 1

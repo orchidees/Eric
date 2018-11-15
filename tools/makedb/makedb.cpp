@@ -4,6 +4,7 @@
 #include "utilities.h"
 #include "analysis.h"
 #include "config.h"
+#include "Callback.h"
 
 #include <stdexcept>
 #include <iostream>
@@ -12,6 +13,12 @@
 using namespace std;
 
 // (0. read all files of a folder, compute features and save a text file)
+
+
+void notifier (const char* msg, void* data) {
+    cout << msg << endl;
+    cout.flush ();
+}
 
 int main (int argc, char* argv[]) {
     srand (time (NULL));
@@ -54,9 +61,18 @@ int main (int argc, char* argv[]) {
     	cout << "done" << endl << endl;
 
     	clock_t tic = clock ();
-        make_db<float>(argv[1], files, out, cout, bsize, hopsize, ncoeff, argv[3], 
-            nullptr);
+        vector<string> err_files;
+        Callback c;
+        c.notifier = notifier;
+        c.user_data = nullptr;
+        make_db<float>(argv[1], files, out, bsize, hopsize, ncoeff, argv[3], 
+            err_files, &c);
     	clock_t toc = clock (); 
+
+        if (err_files.size ()) {
+            std::stringstream errors;
+            cout << endl << "** warning: " << err_files.size () << " file(s) could not be analysed ** " << endl;
+        }
 
     	cout << endl << "analysis performed in " << ((float) toc - tic) / CLOCKS_PER_SEC << " sec." << endl;
 
