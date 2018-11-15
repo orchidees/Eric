@@ -11,8 +11,6 @@
 
 ; The lines starting with ';' are comments and are not evaluated; in the following 
 ; lines, some comments will explain each specific parameter.
-; NB: some parameters are cumulative, meaning that if you specify twice the parameter
-; (ex. orchestra) the information will be collected between all the calls.
 
 ; DATABASE AND ORCHESTRA -------------------------------------------------------
 
