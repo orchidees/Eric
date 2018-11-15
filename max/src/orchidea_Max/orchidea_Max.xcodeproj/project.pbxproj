@@ -28,16 +28,13 @@
 		1ED89EFE219B43BD008B9C9D /* tokenizer.h in Headers */ = {isa = PBXBuildFile; fileRef = DB419179203B974E00237F10 /* tokenizer.h */; };
 		1ED89EFF219B43BD008B9C9D /* orchidea.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BE44D9820349C37006E42EC /* orchidea.h */; };
 		1ED89F04219B43BD008B9C9D /* liborchidea_shared.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DB526AB420582CF0006BE8BC /* liborchidea_shared.dylib */; };
-		1ED89F08219B43BD008B9C9D /* orchidea.solve.mxo in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2FBBEAE508F335360078DB84 /* orchidea.solve.mxo */; };
 		1ED89F10219B4445008B9C9D /* orchidea.db.gen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ED89F0F219B4445008B9C9D /* orchidea.db.gen.cpp */; };
 		1ED89F13219B445B008B9C9D /* utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED89EF7219B1835008B9C9D /* utilities.h */; };
 		1ED89F14219B445B008B9C9D /* tokenizer.h in Headers */ = {isa = PBXBuildFile; fileRef = DB419179203B974E00237F10 /* tokenizer.h */; };
 		1ED89F15219B445B008B9C9D /* orchidea.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BE44D9820349C37006E42EC /* orchidea.h */; };
 		1ED89F1A219B445B008B9C9D /* liborchidea_shared.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DB526AB420582CF0006BE8BC /* liborchidea_shared.dylib */; };
-		1ED89F1E219B445B008B9C9D /* orchidea.solve.mxo in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2FBBEAE508F335360078DB84 /* orchidea.solve.mxo */; };
 		1ED89F25219B4478008B9C9D /* orchidea.features~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ED89F24219B4478008B9C9D /* orchidea.features~.cpp */; };
 		22CF122B0EE9AAAD0054F513 /* orchidea.solve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22CF122A0EE9AAAD0054F513 /* orchidea.solve.cpp */; };
-		2BE44D8C203495F6006E42EC /* orchidea.solve.mxo in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2FBBEAE508F335360078DB84 /* orchidea.solve.mxo */; };
 		2BE44D9920349C37006E42EC /* orchidea.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BE44D9820349C37006E42EC /* orchidea.h */; };
 		DB41917A203B974E00237F10 /* tokenizer.h in Headers */ = {isa = PBXBuildFile; fileRef = DB419179203B974E00237F10 /* tokenizer.h */; };
 		DBCD368D2078113300210916 /* liborchidea_shared.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DB526AB420582CF0006BE8BC /* liborchidea_shared.dylib */; };
@@ -66,39 +63,6 @@
 			remoteInfo = "orchidea.features~";
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		1ED89F07219B43BD008B9C9D /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = ../../../build/bin;
-			dstSubfolderSpec = 0;
-			files = (
-				1ED89F08219B43BD008B9C9D /* orchidea.solve.mxo in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1ED89F1D219B445B008B9C9D /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = ../../../build/bin;
-			dstSubfolderSpec = 0;
-			files = (
-				1ED89F1E219B445B008B9C9D /* orchidea.solve.mxo in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2BE44D8B203495DC006E42EC /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = ../../../build/bin;
-			dstSubfolderSpec = 0;
-			files = (
-				2BE44D8C203495F6006E42EC /* orchidea.solve.mxo in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1ED89EF7219B1835008B9C9D /* utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = utilities.h; path = ../../../src/utilities.h; sourceTree = "<group>"; };
@@ -230,7 +194,6 @@
 				1ED89F03219B43BD008B9C9D /* Frameworks */,
 				1ED89F05219B43BD008B9C9D /* Rez */,
 				1ED89F06219B43BD008B9C9D /* ShellScript */,
-				1ED89F07219B43BD008B9C9D /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -251,7 +214,6 @@
 				1ED89F19219B445B008B9C9D /* Frameworks */,
 				1ED89F1B219B445B008B9C9D /* Rez */,
 				1ED89F1C219B445B008B9C9D /* ShellScript */,
-				1ED89F1D219B445B008B9C9D /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -272,7 +234,6 @@
 				2FBBEADC08F335360078DB84 /* Frameworks */,
 				2FBBEADF08F335360078DB84 /* Rez */,
 				2BE44D9E2034B0D6006E42EC /* ShellScript */,
-				2BE44D8B203495DC006E42EC /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -379,7 +340,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# hack the reference to the orchidea shared library:\ninstall_name_tool -change @rpath/liborchidea_shared.dylib @loader_path/../Frameworks/liborchidea_shared.dylib orchidea.db.gen.mxo/Contents/MacOS/orchidea.db.gen\nmkdir -p orchidea.db.gen.mxo/Contents/Frameworks\ncp ../../../build/bin/*.dylib  orchidea.db.gen.mxo/Contents/Frameworks\ncp -R orchidea.db.gen.mxo/ ../../../build/bin/orchidea.db.gen.mxo\n";
+			shellScript = "# hack the reference to the orchidea shared library:\ninstall_name_tool -change @rpath/liborchidea_shared.dylib @loader_path/../Frameworks/liborchidea_shared.dylib ../../externals/orchidea.db.gen.mxo/Contents/MacOS/orchidea.db.gen\nmkdir -p ../../externals/orchidea.db.gen.mxo/Contents/Frameworks\ncp ../../../build/bin/*.dylib  ../../externals/orchidea.db.gen.mxo/Contents/Frameworks\ncp -R ../../externals/orchidea.db.gen.mxo/ ../../../build/bin/orchidea.db.gen.mxo";
 			showEnvVarsInLog = 0;
 		};
 		1ED89F1C219B445B008B9C9D /* ShellScript */ = {
@@ -393,7 +354,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# hack the reference to the orchidea shared library:\ninstall_name_tool -change @rpath/liborchidea_shared.dylib @loader_path/../Frameworks/liborchidea_shared.dylib orchidea.solve.mxo/Contents/MacOS/orchidea.solve\nmkdir -p orchidea.solve.mxo/Contents/Frameworks\ncp ../../../build/bin/*.dylib  orchidea.solve.mxo/Contents/Frameworks\n";
+			shellScript = "# hack the reference to the orchidea shared library:\ninstall_name_tool -change @rpath/liborchidea_shared.dylib @loader_path/../Frameworks/liborchidea_shared.dylib ../../externals/orchidea.features~.mxo/Contents/MacOS/orchidea.features~\nmkdir -p ../../externals/orchidea.features~.mxo/Contents/Frameworks\ncp ../../../build/bin/*.dylib  ../../externals/orchidea.features~.mxo/Contents/Frameworks\ncp -R ../../externals/orchidea.features~.mxo/ ../../../build/bin/orchidea.features~.mxo";
 			showEnvVarsInLog = 0;
 		};
 		2BE44D9E2034B0D6006E42EC /* ShellScript */ = {
@@ -407,7 +368,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# hack the reference to the orchidea shared library:\ninstall_name_tool -change @rpath/liborchidea_shared.dylib @loader_path/../Frameworks/liborchidea_shared.dylib orchidea.solve.mxo/Contents/MacOS/orchidea.solve\nmkdir -p orchidea.solve.mxo/Contents/Frameworks\ncp ../../../build/bin/*.dylib  orchidea.solve.mxo/Contents/Frameworks\ncp -R orchidea.solve.mxo/ ../../../build/bin/orchidea.solve.mxo\n                      \n";
+			shellScript = "# hack the reference to the orchidea shared library:\ninstall_name_tool -change @rpath/liborchidea_shared.dylib @loader_path/../Frameworks/liborchidea_shared.dylib ../../externals/orchidea.solve.mxo/Contents/MacOS/orchidea.solve\nmkdir -p ../../externals/orchidea.solve.mxo/Contents/Frameworks\ncp ../../../build/bin/*.dylib  ../../externals/orchidea.solve.mxo/Contents/Frameworks\ncp -R ../../externals/orchidea.solve.mxo/ ../../../build/bin/orchidea.solve.mxo";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -463,6 +424,7 @@
 			baseConfigurationReference = 22CF10220EE984600054F513 /* maxmspsdk.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				DSTROOT = "$(SRCROOT)/../../";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				HEADER_SEARCH_PATHS = (
 					"\"$(C74SUPPORT)/max-includes\"",
@@ -471,6 +433,7 @@
 					../../../build/src/,
 					../../src,
 				);
+				INSTALL_PATH = /externals;
 				OTHER_LDFLAGS = "$(C74_SYM_LINKER_FLAGS)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -481,6 +444,7 @@
 			baseConfigurationReference = 22CF10220EE984600054F513 /* maxmspsdk.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
+				DSTROOT = "$(SRCROOT)/../../";
 				HEADER_SEARCH_PATHS = (
 					"\"$(C74SUPPORT)/max-includes\"",
 					"\"$(C74SUPPORT)/msp-includes\"",
@@ -488,6 +452,7 @@
 					../../../build/src/,
 					../../src,
 				);
+				INSTALL_PATH = /externals;
 				OTHER_LDFLAGS = "$(C74_SYM_LINKER_FLAGS)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -498,6 +463,7 @@
 			baseConfigurationReference = 22CF10220EE984600054F513 /* maxmspsdk.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				DSTROOT = "$(SRCROOT)/../../";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				HEADER_SEARCH_PATHS = (
 					"\"$(C74SUPPORT)/max-includes\"",
@@ -506,6 +472,7 @@
 					../../../build/src/,
 					../../src,
 				);
+				INSTALL_PATH = /externals;
 				OTHER_LDFLAGS = "$(C74_SYM_LINKER_FLAGS)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -516,6 +483,7 @@
 			baseConfigurationReference = 22CF10220EE984600054F513 /* maxmspsdk.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
+				DSTROOT = "$(SRCROOT)/../../";
 				HEADER_SEARCH_PATHS = (
 					"\"$(C74SUPPORT)/max-includes\"",
 					"\"$(C74SUPPORT)/msp-includes\"",
@@ -523,6 +491,7 @@
 					../../../build/src/,
 					../../src,
 				);
+				INSTALL_PATH = /externals;
 				OTHER_LDFLAGS = "$(C74_SYM_LINKER_FLAGS)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -643,6 +612,7 @@
 			baseConfigurationReference = 22CF10220EE984600054F513 /* maxmspsdk.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				DSTROOT = "$(SRCROOT)/../../";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				HEADER_SEARCH_PATHS = (
 					"\"$(C74SUPPORT)/max-includes\"",
@@ -651,6 +621,7 @@
 					../../../build/src/,
 					../../src,
 				);
+				INSTALL_PATH = /externals;
 				OTHER_LDFLAGS = "$(C74_SYM_LINKER_FLAGS)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -661,6 +632,7 @@
 			baseConfigurationReference = 22CF10220EE984600054F513 /* maxmspsdk.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
+				DSTROOT = "$(SRCROOT)/../../";
 				HEADER_SEARCH_PATHS = (
 					"\"$(C74SUPPORT)/max-includes\"",
 					"\"$(C74SUPPORT)/msp-includes\"",
@@ -668,6 +640,7 @@
 					../../../build/src/,
 					../../src,
 				);
+				INSTALL_PATH = /externals;
 				OTHER_LDFLAGS = "$(C74_SYM_LINKER_FLAGS)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
