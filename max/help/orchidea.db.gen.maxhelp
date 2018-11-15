@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 1339.0, 319.0, 677.0, 599.0 ],
+		"rect" : [ 1339.0, 319.0, 610.0, 590.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -56,7 +56,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 1339.0, 345.0, 677.0, 573.0 ],
+						"rect" : [ 0.0, 26.0, 610.0, 564.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -86,13 +86,27 @@
 						"showontab" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
-									"id" : "obj-4",
+									"id" : "obj-14",
+									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 264.0, 317.799988, 61.0, 21.0 ],
+									"patching_rect" : [ 287.0, 480.0, 150.0, 36.0 ],
 									"style" : "",
-									"text" : "fixme -->"
+									"text" : "fixme: non funziona se cambi non - non crea db"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-12",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 336.0, 433.0, 109.0, 23.0 ],
+									"style" : "",
+									"text" : "prepend dbname"
 								}
 
 							}
@@ -109,7 +123,7 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 336.0, 151.932373, 192.0, 156.0 ],
 									"style" : "",
-									"text" : "Change the attribute db_name to control where to store the analysis data. If db_name = default the analysis is stored in the same folder.\nNB: remember to use this convention to name your database:\nwhatever.feature.db"
+									"text" : "Change the attribute dbname to control where to store the analysis data. If dbname = default the analysis is stored in the same folder.\nNB: remember to use this convention to name your database:\nwhatever.feature.db"
 								}
 
 							}
@@ -142,19 +156,6 @@
 							}
 , 							{
 								"box" : 								{
-									"id" : "obj-16",
-									"maxclass" : "message",
-									"numinlets" : 2,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 336.0, 421.799988, 76.0, 23.0 ],
-									"style" : "",
-									"text" : "db_name $"
-								}
-
-							}
-, 							{
-								"box" : 								{
 									"id" : "obj-9",
 									"maxclass" : "textedit",
 									"numinlets" : 1,
@@ -162,7 +163,8 @@
 									"outlettype" : [ "", "int", "", "" ],
 									"parameter_enable" : 0,
 									"patching_rect" : [ 336.0, 317.799988, 192.0, 51.0 ],
-									"style" : ""
+									"style" : "",
+									"text" : "/tmp/serg.spectrum.dbr\n"
 								}
 
 							}
@@ -172,7 +174,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 95.0, 394.0, 110.0, 23.0 ],
+									"patching_rect" : [ 201.0, 398.0, 110.0, 23.0 ],
 									"style" : "",
 									"text" : "print Notifications"
 								}
@@ -222,9 +224,9 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 10.0, 331.799988, 104.0, 23.0 ],
+									"patching_rect" : [ 10.0, 331.799988, 210.0, 23.0 ],
 									"style" : "",
-									"text" : "orchidea.db.gen"
+									"text" : "orchidea.db.gen @dbname default"
 								}
 
 							}
@@ -278,14 +280,14 @@
 						"lines" : [ 							{
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
-									"midpoints" : [ 345.5, 447.0, 216.0, 447.0, 216.0, 318.0, 19.5, 318.0 ],
-									"source" : [ "obj-16", 0 ]
+									"midpoints" : [ 345.5, 459.0, 321.0, 459.0, 321.0, 318.0, 19.5, 318.0 ],
+									"source" : [ "obj-12", 0 ]
 								}
 
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-16", 0 ],
+									"destination" : [ "obj-12", 0 ],
 									"source" : [ "obj-17", 0 ]
 								}
 
@@ -362,7 +364,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 677.0, 573.0 ],
+						"rect" : [ 0.0, 26.0, 610.0, 564.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -631,7 +633,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 677.0, 573.0 ],
+						"rect" : [ 1339.0, 345.0, 610.0, 564.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -1293,7 +1295,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 677.0, 573.0 ],
+						"rect" : [ 0.0, 26.0, 610.0, 564.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,

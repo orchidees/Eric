@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 279.0, 327.0, 970.0, 700.0 ],
+		"rect" : [ 221.0, 529.0, 970.0, 700.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -2146,7 +2146,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 279.0, 353.0, 970.0, 674.0 ],
+						"rect" : [ 221.0, 555.0, 970.0, 674.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -2247,7 +2247,6 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 767.0, 486.0, 143.0, 21.0 ],
 									"style" : "",
-									"text" : "exporting connection",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
 								}
 
@@ -2418,15 +2417,13 @@
 , 							{
 								"box" : 								{
 									"id" : "obj-30",
-									"linecount" : 2,
 									"maxclass" : "textedit",
 									"numinlets" : 1,
 									"numoutlets" : 4,
 									"outlettype" : [ "", "int", "", "" ],
 									"parameter_enable" : 0,
 									"patching_rect" : [ 612.5, 242.5, 238.0, 67.0 ],
-									"style" : "",
-									"text" : "/Users/cella/Desktop/Datasets/CSOL_ordinario.mfcc.txt"
+									"style" : ""
 								}
 
 							}
@@ -2497,8 +2494,7 @@
 									"outlettype" : [ "", "int", "", "" ],
 									"parameter_enable" : 0,
 									"patching_rect" : [ 315.5, 189.0, 129.0, 49.0 ],
-									"style" : "",
-									"text" : "Fl ClBb Ob TpC Vn"
+									"style" : ""
 								}
 
 							}
@@ -3372,9 +3368,9 @@
  ],
 		"lines" : [  ],
 		"parameters" : 		{
+			"obj-5::obj-42" : [ "solution", "solution", 0 ],
 			"obj-2::obj-42" : [ "gain", "gain", 0 ],
-			"obj-5::obj-34" : [ "target", "target", 0 ],
-			"obj-5::obj-42" : [ "solution", "solution", 0 ]
+			"obj-5::obj-34" : [ "target", "target", 0 ]
 		}
 ,
 		"dependency_cache" : [ 			{
