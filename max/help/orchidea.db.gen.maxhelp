@@ -56,7 +56,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 584.0, 236.0, 610.0, 564.0 ],
+						"rect" : [ 0.0, 26.0, 610.0, 564.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -150,8 +150,7 @@
 									"outlettype" : [ "", "int", "", "" ],
 									"parameter_enable" : 0,
 									"patching_rect" : [ 336.0, 317.799988, 192.0, 51.0 ],
-									"style" : "",
-									"text" : "/tmp/test.pspsp.db\n"
+									"style" : ""
 								}
 
 							}
@@ -365,7 +364,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 610.0, 564.0 ],
+						"rect" : [ 584.0, 236.0, 610.0, 564.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -497,7 +496,7 @@
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 10.0, 331.799988, 440.0, 23.0 ],
 									"style" : "",
-									"text" : "orchidea.db.gen @windowsize 8192 @hopsize 1024 @numdimensions 20"
+									"text" : "orchidea.db.gen @windowsize 4096 @hopsize 1024 @numdimensions 20"
 								}
 
 							}

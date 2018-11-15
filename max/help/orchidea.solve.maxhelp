@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 39.0, 79.0, 1055.0, 700.0 ],
+		"rect" : [ 59.0, 79.0, 1055.0, 700.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -2240,7 +2240,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 39.0, 105.0, 1055.0, 674.0 ],
+						"rect" : [ 59.0, 105.0, 1055.0, 674.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -2341,7 +2341,6 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 767.0, 486.0, 143.0, 21.0 ],
 									"style" : "",
-									"text" : "exporting connection",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
 								}
 
@@ -2520,7 +2519,7 @@
 									"parameter_enable" : 0,
 									"patching_rect" : [ 612.5, 242.5, 238.0, 67.0 ],
 									"style" : "",
-									"text" : "/Users/Carmine/Elementi/Datasets/OrchDB_flat.spectrum.db"
+									"text" : "/Users/Carmine/Elementi/Datasets/TinySOL.mfcc.db"
 								}
 
 							}
@@ -2585,15 +2584,13 @@
 , 							{
 								"box" : 								{
 									"id" : "obj-7",
-									"linecount" : 7,
 									"maxclass" : "textedit",
 									"numinlets" : 1,
 									"numoutlets" : 4,
 									"outlettype" : [ "", "int", "", "" ],
 									"parameter_enable" : 0,
 									"patching_rect" : [ 315.5, 189.0, 129.0, 49.0 ],
-									"style" : "",
-									"text" : "Picc Fl Fl Ob Ob EH ClBb ClBb BClBb Bn Bn CBn Hn Hn Hn Hn TpC TpC TpC TpC TTbn TTbn TTbn BTb Vns Vns Vas Vcs Cb Cb"
+									"style" : ""
 								}
 
 							}
@@ -3528,9 +3525,9 @@
  ],
 		"lines" : [  ],
 		"parameters" : 		{
+			"obj-2::obj-42" : [ "gain", "gain", 0 ],
 			"obj-5::obj-34" : [ "target", "target", 0 ],
-			"obj-5::obj-42" : [ "solution", "solution", 0 ],
-			"obj-2::obj-42" : [ "gain", "gain", 0 ]
+			"obj-5::obj-42" : [ "solution", "solution", 0 ]
 		}
 ,
 		"dependency_cache" : [ 			{
@@ -3547,13 +3544,13 @@
 			}
 , 			{
 				"name" : "orchidea.solution.totext.maxpat",
-				"bootpath" : "~/Elementi/Dati/Elettronica/Lavori/IRCAM_17_18/Orchids/orchidea/max/patches",
+				"bootpath" : "~/Elementi/Dati/Elettronica/Lavori/IRCAM_17_18/Orchids/orchidea/max/patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "orchidea.solution.tobuffer.maxpat",
-				"bootpath" : "~/Elementi/Dati/Elettronica/Lavori/IRCAM_17_18/Orchids/orchidea/max/patches",
+				"bootpath" : "~/Elementi/Dati/Elettronica/Lavori/IRCAM_17_18/Orchids/orchidea/max/patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
