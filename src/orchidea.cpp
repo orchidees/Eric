@@ -95,8 +95,8 @@ extern "C" {
 	void orchidea_destroy (OrchideaHandle* h) {
 		delete h;
 	}
-	void orchidea_set_notifier (OrchideaHandle* h, orchidea_notifier notifier) {
-		h->params.notifier = notifier;
+	void orchidea_set_callback (OrchideaHandle* h, Callback* c) {
+		h->params.callback = c;
 	}
 	int orchidea_set_source (OrchideaHandle* h, const char* db_paths[],
 		int size) {
@@ -226,8 +226,8 @@ extern "C" {
 
 		try {
 	    	std::vector<std::string> files;
-	        if (h->params.notifier != nullptr) {
-	        	h->params.notifier ("listing files", 100.);
+	        if (h->params.callback != nullptr) {
+	        	h->params.callback->notifier ("listing files", h->params.callback->user_data);
 	        }
 	    	listdir (sound_folder, sound_folder, files); 
 
@@ -235,8 +235,20 @@ extern "C" {
 	    	if (!out.good ()) {
 	    		throw std::runtime_error ("cannot create database");
 	    	}
-	        make_db<Real>(sound_folder, files, out, std::cout, 
-	        	bsize, hopsize, ncoeff, feature, h->params.notifier);
+	    	std::vector<std::string> err_files;
+	        make_db<Real>(sound_folder, files, out, 
+	        	bsize, hopsize, ncoeff, feature, err_files, h->params.callback);
+
+	        if (err_files.size ()) {
+	        	std::stringstream errors;
+	        	errors << "invalid file(s) ";
+	        	for (unsigned i = 0; i < err_files.size (); ++i) {
+	        		errors << err_files[i] << " ";
+	        	}
+
+	        	h->error_details = errors.str ();
+	        	return ORCHIDEA_ANALYSIS_ERROR;
+	        }
 		} catch (std::exception& e) {
 			h->error_details = e.what ();
 			return ORCHIDEA_ANALYSIS_ERROR;

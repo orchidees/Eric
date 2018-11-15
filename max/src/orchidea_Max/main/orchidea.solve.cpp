@@ -4,8 +4,6 @@
 */
 
 // TO DO DANIELE:
-// - Mess -> attributi
-// - segmentation/connection -> only hard codable
 // - output da outlet max da altri thread?
 // - errorchecking
 
@@ -83,6 +81,7 @@ typedef struct _solver {
     void*       n_proxy[3];
     long        n_in;
 
+    Callback*   callback;
 } t_solver;
 
 typedef struct _thread_data {
@@ -104,9 +103,6 @@ void orchmax_solve_bang(t_solver *x);
 
 //////////////////////// global class pointer variable
 void *orchmax_solve_class;
-
-
-t_solver* g_x; // global variable - any better idea?
 
 //// SETTERS
 
@@ -855,19 +851,18 @@ void orchmax_solve_anything(t_solver *x, t_symbol *s, long ac, t_atom *av) {
     }
 }
 
-// TO DO: notifier must be local, not global!
-static void notifier (const char* action, float status) {
-    t_atom a[2];
-    atom_setsym(a, gensym(action));
-    atom_setlong(a + 1, status);
-    outlet_anything(g_x->out_2, gensym("status"), 2, a); // g_x must be changed, this is always the LAST created instance
+
+void notifier (const char* action, void* user_data) {
+    t_atom a;
+    atom_setsym(&a, gensym(action));
+    t_solver* instance = (t_solver*) user_data;
+    outlet_anything(instance->out_2, gensym("status"), 1, &a);
 }
 
 
 
 void *orchmax_solve_new(t_symbol *s, long argc, t_atom *argv) {
     t_solver *x = NULL;
-    g_x = x;
     
     if ((x = (t_solver *)object_alloc((t_class*)orchmax_solve_class))) {
         // flux and closest are only hard-codable in the max object. Initializing hard-coded attributes:
@@ -910,12 +905,15 @@ void *orchmax_solve_new(t_symbol *s, long argc, t_atom *argv) {
         object_attr_setdisabled((t_object *)x, gensym("connection"), true);
         object_attr_setdisabled((t_object *)x, gensym("segmentation"), true);
         
-        orchidea_set_notifier(x->orc_hand, notifier);
+        x->callback = new Callback ();
+        x->callback->notifier = notifier;
+        x->callback->user_data = x;
         
+        orchidea_set_callback(x->orc_hand, x->callback);
         x->out_2 = outlet_new(x, NULL);
         x->out_1 = outlet_new(x, NULL);
         
     }
-    g_x = x;
+
     return (x);
 }

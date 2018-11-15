@@ -5,6 +5,7 @@
 #define ORCHIDEA_H 
 
 #include "config.h"
+#include "Callback.h"
 
 struct OrchideaHandle; // An opaque type that we'll use as a handle
 typedef struct OrchideaHandle OrchideaHandle;
@@ -31,17 +32,11 @@ extern "C" {
 		ORCHIDEA_NO_INSTRUMENTS,
 		ORCHIDEA_ANALYSIS_ERROR
 	};
-	
-
-	#ifndef NOTIFIER_TYPE
-	#define NOTIFIER_TYPE
-	typedef void (*orchidea_notifier) (const char* action, float status);
-	#endif
 
 	OrchideaHandle* orchidea_create (const char* segmentation, const char* connection);
 	void orchidea_destroy (OrchideaHandle* h);
 
-	void orchidea_set_notifier (OrchideaHandle* h, orchidea_notifier notifier);
+	void orchidea_set_callback (OrchideaHandle* h, Callback* c);
 
 	int orchidea_set_target (OrchideaHandle* h, const char* filename);
 	int orchidea_set_source (OrchideaHandle* h, const char* db_path[], int size);
