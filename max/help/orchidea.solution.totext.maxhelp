@@ -4,7 +4,7 @@
 		"appversion" : 		{
 			"major" : 7,
 			"minor" : 3,
-			"revision" : 4,
+			"revision" : 1,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
@@ -71,7 +71,7 @@
 						"appversion" : 						{
 							"major" : 7,
 							"minor" : 3,
-							"revision" : 4,
+							"revision" : 1,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -341,9 +341,9 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 10.0, 109.567627, 612.0, 36.0 ],
+									"patching_rect" : [ 10.0, 109.567627, 616.0, 36.0 ],
 									"style" : "",
-									"text" : "The orchidea.solution.totext module receives the output of orchidea.search and fills the connected text object with the textual solution.",
+									"text" : "The orchidea.solution.totext module receives the output of orchidea.solve and fills the connected text object with the textual solution.",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
 								}
 
@@ -368,6 +368,8 @@
 						"lines" : [ 							{
 								"patchline" : 								{
 									"destination" : [ "obj-17", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
 									"source" : [ "obj-13", 0 ]
 								}
 
@@ -375,6 +377,8 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-17", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
 									"source" : [ "obj-15", 0 ]
 								}
 
@@ -382,6 +386,8 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-6", 1 ],
+									"disabled" : 0,
+									"hidden" : 0,
 									"source" : [ "obj-17", 1 ]
 								}
 
@@ -389,6 +395,8 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-7", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
 									"source" : [ "obj-17", 0 ]
 								}
 
@@ -396,6 +404,8 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-7", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
 									"source" : [ "obj-21", 0 ]
 								}
 
@@ -403,6 +413,8 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-7", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
 									"source" : [ "obj-4", 0 ]
 								}
 
@@ -410,6 +422,8 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-19", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
 									"source" : [ "obj-6", 0 ]
 								}
 
@@ -417,6 +431,8 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-6", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
 									"source" : [ "obj-7", 0 ]
 								}
 
@@ -424,6 +440,8 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-17", 0 ],
+									"disabled" : 0,
+									"hidden" : 0,
 									"source" : [ "obj-8", 0 ]
 								}
 
@@ -476,7 +494,7 @@
 						"appversion" : 						{
 							"major" : 7,
 							"minor" : 3,
-							"revision" : 4,
+							"revision" : 1,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -545,8 +563,7 @@
 			}
 , 			{
 				"name" : "orchidea.solution.totext.maxpat",
-				"bootpath" : "~/MusicaMia/_RICERCA/orchidea/max/patches",
-				"patcherrelativepath" : "../patches",
+				"bootpath" : "~/Elementi/Dati/Elettronica/Lavori/IRCAM_17_18/Orchids/orchidea/max/patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}

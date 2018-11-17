@@ -109,15 +109,16 @@ struct Source {
 					throw std::runtime_error ("incompatible feature size among databases");
 				}
 			}
+			if (db.fail ()) throw std::runtime_error ("cannot process db file");
 
 			int lineno = 1;
-			while (!db.eof ()) {
+			while (!db.eof () ) {
 				std::string line;
-				std::getline(db, line);
+				std::getline(db, line, '\n');
 				line = trim (line);
-				
+				++lineno;
 				if (line.size () == 0) continue;
-
+				
 				std::stringstream linestream;
 				linestream << line;
 				
@@ -144,7 +145,6 @@ struct Source {
 				}
 
 				database.push_back(e);
-				++lineno;
 			}
 		}
 

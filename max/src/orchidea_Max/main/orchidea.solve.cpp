@@ -773,7 +773,6 @@ void ext_main(void *r) {
     class_register(CLASS_BOX, c);
     orchmax_solve_class = c;
 }
-
 void orchmax_solve_assist(t_solver *x, void *b, long m, long a, char *s)
 {
     if (m == ASSIST_INLET) {
