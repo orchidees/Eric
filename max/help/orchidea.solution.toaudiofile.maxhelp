@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 100.0, 100.0, 689.0, 622.0 ],
+		"rect" : [ 100.0, 100.0, 738.0, 668.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -76,7 +76,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 100.0, 126.0, 689.0, 596.0 ],
+						"rect" : [ 100.0, 126.0, 738.0, 642.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -112,46 +112,9 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 10.0, 59.567627, 224.0, 21.0 ],
+									"patching_rect" : [ 10.0, 59.567627, 245.0, 21.0 ],
 									"style" : "",
-									"text" : "Import Orchidea solution into a buffer"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-10",
-									"maxclass" : "ezdac~",
-									"numinlets" : 2,
-									"numoutlets" : 0,
-									"patching_rect" : [ 501.859528, 524.0, 45.0, 45.0 ],
-									"style" : ""
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-9",
-									"maxclass" : "message",
-									"numinlets" : 2,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 501.859528, 463.0, 36.0, 23.0 ],
-									"style" : "",
-									"text" : "start"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-1",
-									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 3,
-									"outlettype" : [ "signal", "signal", "bang" ],
-									"patching_rect" : [ 501.859528, 494.0, 121.0, 23.0 ],
-									"style" : "",
-									"text" : "play~ somebuffer 2"
+									"text" : "Output name of audio file from a solution"
 								}
 
 							}
@@ -163,9 +126,9 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 433.5, 398.0, 146.0, 54.0 ],
+									"patching_rect" : [ 392.5, 398.0, 152.0, 54.0 ],
 									"style" : "",
-									"text" : "Automatically import 1st segment of 1st solution only"
+									"text" : "Automatically output 1st segment and 1st solution only"
 								}
 
 							}
@@ -187,26 +150,13 @@
 									"fontname" : "Arial",
 									"fontsize" : 13.0,
 									"id" : "obj-27",
-									"linecount" : 4,
+									"linecount" : 3,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 405.359528, 316.567627, 224.0, 65.0 ],
+									"patching_rect" : [ 392.5, 334.567627, 224.0, 50.0 ],
 									"style" : "",
-									"text" : "Arguments are: \n• buffer name (required)\n• segment number (optional)\n• solution number (optional)"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"bubble" : 1,
-									"id" : "obj-26",
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 141.859528, 267.0, 110.0, 25.0 ],
-									"style" : "",
-									"text" : "Change buffer"
+									"text" : "Arguments are: \n• segment number (optional)\n• solution number (optional)"
 								}
 
 							}
@@ -214,80 +164,13 @@
 								"box" : 								{
 									"bubble" : 1,
 									"id" : "obj-25",
-									"linecount" : 4,
+									"linecount" : 3,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 132.859528, 162.0, 175.0, 69.0 ],
+									"patching_rect" : [ 132.859528, 162.0, 208.0, 54.0 ],
 									"style" : "",
-									"text" : "connect the left inlet of orchidea.solution.tobuffer to the outlet of orchidea.search"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-23",
-									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 2,
-									"outlettype" : [ "float", "bang" ],
-									"patching_rect" : [ 246.359528, 482.0, 125.0, 23.0 ],
-									"style" : "",
-									"text" : "buffer~ nutherbuffer"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"buffername" : "nutherbuffer",
-									"chanoffset" : 0,
-									"id" : "obj-24",
-									"maxclass" : "waveform~",
-									"numinlets" : 5,
-									"numoutlets" : 6,
-									"outlettype" : [ "float", "float", "float", "float", "list", "" ],
-									"patching_rect" : [ 246.359528, 511.0, 173.0, 58.0 ],
-									"style" : ""
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-22",
-									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 2,
-									"outlettype" : [ "float", "bang" ],
-									"patching_rect" : [ 21.0, 482.0, 120.0, 23.0 ],
-									"style" : "",
-									"text" : "buffer~ somebuffer"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"buffername" : "somebuffer",
-									"chanoffset" : 0,
-									"id" : "obj-21",
-									"maxclass" : "waveform~",
-									"numinlets" : 5,
-									"numoutlets" : 6,
-									"outlettype" : [ "float", "float", "float", "float", "list", "" ],
-									"patching_rect" : [ 21.0, 511.0, 173.0, 58.0 ],
-									"style" : ""
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-20",
-									"maxclass" : "message",
-									"numinlets" : 2,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 35.0, 268.0, 101.0, 23.0 ],
-									"style" : "",
-									"text" : "set nutherbuffer"
+									"text" : "connect the left inlet of orchidea.solution.toaudiofile to the outlet of orchidea.solve"
 								}
 
 							}
@@ -297,10 +180,10 @@
 									"maxclass" : "newobj",
 									"numinlets" : 2,
 									"numoutlets" : 1,
-									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 175.0, 413.5, 251.0, 23.0 ],
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 175.0, 413.5, 193.0, 23.0 ],
 									"style" : "",
-									"text" : "orchidea.solution.tobuffer nutherbuffer 1 1"
+									"text" : "orchidea.solution.toaudiofile 1 1"
 								}
 
 							}
@@ -312,9 +195,9 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 462.859528, 238.5, 160.0, 40.0 ],
+									"patching_rect" : [ 462.859528, 238.5, 177.0, 40.0 ],
 									"style" : "",
-									"text" : "Import 1st solution found for 2nd segment"
+									"text" : "Output 1st solution found for 2nd segment"
 								}
 
 							}
@@ -339,9 +222,9 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 445.859528, 193.5, 168.0, 40.0 ],
+									"patching_rect" : [ 444.859528, 193.5, 178.0, 40.0 ],
 									"style" : "",
-									"text" : "Import 4th solution found for 1st segment"
+									"text" : "Output 4th solution found for 1st segment"
 								}
 
 							}
@@ -365,9 +248,9 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 414.859528, 162.0, 150.0, 25.0 ],
+									"patching_rect" : [ 412.859528, 162.0, 150.0, 25.0 ],
 									"style" : "",
-									"text" : "Import connection"
+									"text" : "Output connection"
 								}
 
 							}
@@ -390,10 +273,10 @@
 									"maxclass" : "newobj",
 									"numinlets" : 2,
 									"numoutlets" : 1,
-									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 15.359528, 330.0, 385.0, 23.0 ],
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 15.359528, 330.0, 172.0, 23.0 ],
 									"style" : "",
-									"text" : "orchidea.solution.tobuffer somebuffer"
+									"text" : "orchidea.solution.toaudiofile"
 								}
 
 							}
@@ -405,9 +288,9 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 10.0, 82.567627, 506.0, 21.0 ],
+									"patching_rect" : [ 10.0, 82.567627, 576.0, 21.0 ],
 									"style" : "",
-									"text" : "Imports a specific Orchidea solution, or the global connection, into the specified buffer.",
+									"text" : "Imports a specific Orchidea solution and output a specific file name following the input parameters.",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
 								}
 
@@ -427,28 +310,13 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 13.0,
-									"id" : "obj-5",
-									"linecount" : 2,
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 10.0, 110.567627, 593.0, 36.0 ],
-									"style" : "",
-									"text" : "The orchidea.solution.tobuffer module receives the output of orchidea.solve and fills the specified buffer with the audio solution.",
-									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
-								}
-
-							}
-, 							{
-								"box" : 								{
 									"border" : 0,
 									"filename" : "helpdetails.js",
 									"id" : "obj-2",
 									"ignoreclick" : 1,
-									"jsarguments" : [ "orchidea.solution.tobuffer", 80 ],
+									"jsarguments" : [ "orchidea.solution.toaudiofile", 80 ],
 									"maxclass" : "jsui",
+									"nofsaa" : 1,
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
@@ -459,24 +327,6 @@
 							}
  ],
 						"lines" : [ 							{
-								"patchline" : 								{
-									"destination" : [ "obj-10", 1 ],
-									"disabled" : 0,
-									"hidden" : 0,
-									"source" : [ "obj-1", 1 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-10", 0 ],
-									"disabled" : 0,
-									"hidden" : 0,
-									"source" : [ "obj-1", 0 ]
-								}
-
-							}
-, 							{
 								"patchline" : 								{
 									"destination" : [ "obj-6", 1 ],
 									"disabled" : 0,
@@ -491,15 +341,6 @@
 									"disabled" : 0,
 									"hidden" : 0,
 									"source" : [ "obj-16", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-6", 0 ],
-									"disabled" : 0,
-									"hidden" : 0,
-									"source" : [ "obj-20", 0 ]
 								}
 
 							}
@@ -527,15 +368,6 @@
 									"disabled" : 0,
 									"hidden" : 0,
 									"source" : [ "obj-8", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-1", 0 ],
-									"disabled" : 0,
-									"hidden" : 0,
-									"source" : [ "obj-9", 0 ]
 								}
 
 							}
@@ -592,7 +424,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 689.0, 596.0 ],
+						"rect" : [ 0.0, 26.0, 738.0, 642.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -655,7 +487,7 @@
 				"implicit" : 1
 			}
 , 			{
-				"name" : "orchidea.solution.tobuffer.maxpat",
+				"name" : "orchidea.solution.toaudiofile.maxpat",
 				"bootpath" : "~/Elementi/Dati/Elettronica/Lavori/IRCAM_17_18/Orchids/orchidea/max/patchers",
 				"type" : "JSON",
 				"implicit" : 1
