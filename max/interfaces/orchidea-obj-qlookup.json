@@ -1,0 +1,14 @@
+{
+  "orchidea.solve": {
+    "digest": "Orchestrate an audio sample",
+    "module": "orchidea",
+    "category": [
+      "@keywords"
+    ],
+    "keywords": [
+    ],
+    "seealso": [
+      "orchidea.db.gen"
+    ]
+  }
+}
