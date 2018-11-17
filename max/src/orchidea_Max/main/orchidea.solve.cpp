@@ -1,7 +1,41 @@
 /**
-	@file
-	orchidea.solve - main external for orchidea
-*/
+ @file
+ orchidea.solve.cpp
+ 
+ @name
+ orchidea.solve
+ 
+ @realname
+ orchidea.solve
+ 
+ @type
+ object
+ 
+ @module
+ orchidea
+ 
+ @author
+ Carmine Emanuele 
+ 
+ @digest
+ Orchestrate an audio sample
+ 
+ @description
+ Approximates an audio target via a combination of audio samples, in static or dynamic for
+ 
+ @discussion
+ 
+ @category
+ 
+ @keywords
+ orchestration, instrumentation, approximation
+ 
+ @seealso
+ orchidea.db.gen
+ 
+ @owner
+ Carmine Emanuele Cella
+ */
 
 // TO DO DANIELE:
 // - output da outlet max da altri thread?
@@ -65,7 +99,7 @@ typedef struct _solver {
     t_symbol    *extrapitches[ORCHIDEA_SOLVE_MAX_EXTRAPITCHES];
     long        extrapitches_size;
 
-
+    char        parallel;
     char        verbose;
 
     void		*out_1;
@@ -364,7 +398,7 @@ t_symbol *get_patch_path(t_solver *x) {
 }
 
 // TO DO: IMPROVE THIS :)
-t_symbol *strip_extension(t_symbol *s) {
+t_symbol *strip_extension(t_symbol *s, char keep_dot) {
     if (!s) {
         return NULL;
     }
@@ -376,7 +410,7 @@ t_symbol *strip_extension(t_symbol *s) {
     // TO DO: support WINDOWS
     for (long i = l-2; i>=0; i--) {
         if (out[i] == '.') {
-            out[i+1] = 0;
+            if (keep_dot) out[i+1] = 0; else out[i] = 0;
             break;
         }
     }
@@ -385,7 +419,7 @@ t_symbol *strip_extension(t_symbol *s) {
 }
 
 // will take care of freeing data->av after usage, if not NULL
-void* orchidea_dispatcher (void* d) {
+void* orchidea_solve_dispatcher (void* d) {
     thread_data* data = (thread_data*) d;
     t_solver* x = data->x;
     t_symbol* s = data->s;
@@ -396,8 +430,10 @@ void* orchidea_dispatcher (void* d) {
     atom_setlong(&busy, 1);
     outlet_anything(x->out_2, gensym("busy"), 1, &busy);
 
-    x->running_threads++;
-    if (x->verbose) object_post((t_object*) x, "current thread n. %d", x->running_threads);
+    if (x->parallel) {
+        x->running_threads++;
+        if (x->verbose) object_post((t_object*) x, "current thread n. %d", x->running_threads);
+    }
 
     t_symbol* argument = 0;
 
@@ -482,16 +518,22 @@ void* orchidea_dispatcher (void* d) {
             for (unsigned i = 0; i < n; ++i) {
                 int sols = 0;
                 orchidea_solutions_per_segment(x->orc_hand, i, &sols);
-                post ("seg %d, sols %d", i, sols);
             }
-            std::stringstream outprefix;
+            
+            char outprefix[MAX_PATH_CHARS];
             if (x->prefix && strlen(x->prefix->s_name) > 0) {
-                outprefix << x->prefix->s_name;
+                snprintf_zero(outprefix, MAX_PATH_CHARS, "%s", x->prefix->s_name);
             } else {
-                t_symbol *default_path = strip_extension(x->current_target);
-                outprefix << (default_path ? default_path->s_name : ""); // patch_path should NEVER be null
+                // default case
+                short path = 0, newpath = 0;
+                char filename[MAX_PATH_CHARS];
+                t_symbol *default_path = strip_extension(x->current_target, false);
+                std::string foldername = removePath(default_path->s_name) + "_orchidea";
+                path_frompathname(x->current_target->s_name, &path, filename);
+                path_createfolder(path, foldername.c_str(), &newpath);
+                snprintf_zero(outprefix, MAX_PATH_CHARS, "%s_orchidea/%s.", default_path->s_name, foldername.c_str());
             }
-            r = orchidea_export_solutions(x->orc_hand, outprefix.str().c_str());
+            r = orchidea_export_solutions(x->orc_hand, outprefix);
             if (x->verbose) object_post((t_object *)x, "%d segments(s) found", n);
             
             if (r != ORCHIDEA_NO_ERROR) {
@@ -506,7 +548,7 @@ void* orchidea_dispatcher (void* d) {
             
             long ac = num_seg + 2;
             t_atom *av = (t_atom *)sysmem_newptr(ac * sizeof(t_atom));
-            atom_setsym(av, gensym(outprefix.str().c_str()));
+            atom_setsym(av, gensym(outprefix));
             atom_setlong(av + 1, num_seg);
             for (int i = 0; i < num_seg; i++) {
                 int sols = 0;
@@ -521,7 +563,10 @@ void* orchidea_dispatcher (void* d) {
     
     // TODO: are we sure that we should output stuff from this custom thread?
     outlet_anything(x->out_2, gensym("busy"), 1, &busy);
-    x->running_threads--;
+    
+    if (x->parallel) {
+        x->running_threads--;
+    }
     
     if (data->av)
         sysmem_freeptr(data->av);
@@ -720,8 +765,32 @@ void ext_main(void *r) {
     CLASS_ATTR_LABEL(c, "verbose", 0, "Verbose");
     // @description Toggles the verbose mode
 
+    CLASS_ATTR_CHAR(c, "parallel", 0, t_solver, parallel);
+    CLASS_ATTR_STYLE(c, "parallel", 0, "onoff");
+    CLASS_ATTR_LABEL(c, "parallel", 0, "Parallel");
+    // @description When this attribute is 1, the computations are performed in a separate thread.
+
     class_register(CLASS_BOX, c);
     orchmax_solve_class = c;
+}
+
+void orchmax_solve_assist(t_solver *x, void *b, long m, long a, char *s)
+{
+    if (m == ASSIST_INLET) {
+        if (a == 0) {
+            sprintf(s, "symbol: Target Audio File"); // @in 0 @type symbol @digest Target audio file
+        } else if (a == 1) {
+            sprintf(s, "list: Orchestra"); // @in 1 @type list @digest List of orchestral instruments to be used
+        } else {
+            sprintf(s, "symbol/list: Database File(s)"); // @in 2 @type symbol/list @digest File or files containing the database (usually ending with .db)
+        }
+    } else {
+        if (a == 0)
+            sprintf(s, "list: Output Files Prefix, Number of Segments and Number of Solutions for each Segment");
+            // @out 0 @type symbol/list @digest Output prefix, number of found segments and number of found solutions for each segment
+        else
+            sprintf(s, "list: Notifications"); // @out 1 @type list @digest Notifications
+    }
 }
 
 void orchmax_solve_free(t_solver *x) {
@@ -732,7 +801,7 @@ void orchmax_solve_free(t_solver *x) {
     orchidea_destroy(x->orc_hand);
 }
 
-void orchmax_solve_bang (t_solver *x) {
+void orchmax_solve_bang_do(t_solver *x, t_symbol *s, long ac, t_atom *av) {
     if (x->running_threads >= ORCHIDEA_SOLVE_MAX_THREADS) {
         object_warn((t_object*) x, "pending actions; please retry later...");
         return;
@@ -747,12 +816,19 @@ void orchmax_solve_bang (t_solver *x) {
     atom_setsym(d->av, gensym("orchestrate"));
     
     if (x->current_target) {
-        pthread_create(&x->thread_pool[x->running_threads], NULL, orchidea_dispatcher, (void*) d);
+        if (x->parallel) {
+            pthread_create(&x->thread_pool[x->running_threads], NULL, orchidea_solve_dispatcher, (void*) d);
+        } else {
+            orchidea_solve_dispatcher(d);
+        }
     } else {
         object_error((t_object *)x, "target not defined: cannot orchestrate");
     }
 }
 
+void orchmax_solve_bang(t_solver *x) {
+    defer(x, (method)orchmax_solve_bang_do, NULL, 0, NULL);
+}
 
 // suppose soundpath is allocated with
 void dbpath_to_soundpath(char *dbpath, char *soundpath) {
@@ -761,8 +837,7 @@ void dbpath_to_soundpath(char *dbpath, char *soundpath) {
     snprintf(soundpath, MAX_PATH_CHARS, "%s", out.c_str());
 }
 
-// TO DO: anything and bang methods should be deferred to the main thread
-void orchmax_solve_anything(t_solver *x, t_symbol *s, long ac, t_atom *av) {
+void orchmax_solve_anything_do(t_solver *x, t_symbol *s, long ac, t_atom *av) {
     if (s == gensym("resetfilters")) {
         if (x->verbose) object_post((t_object*) x, "resetting all filters");
 
@@ -847,10 +922,17 @@ void orchmax_solve_anything(t_solver *x, t_symbol *s, long ac, t_atom *av) {
             }
             sysmem_freeptr(sl);
         }
-        pthread_create(&x->thread_pool[x->running_threads], NULL, orchidea_dispatcher, (void*) d);
+        if (x->parallel) {
+            pthread_create(&x->thread_pool[x->running_threads], NULL, orchidea_solve_dispatcher, (void*) d);
+        } else {
+            orchidea_solve_dispatcher(d);
+        }
     }
 }
 
+void orchmax_solve_anything(t_solver *x, t_symbol *s, long ac, t_atom *av) {
+    defer(x, (method)orchmax_solve_anything_do, s, ac, av);
+}
 
 void notifier (const char* action, void* user_data) {
     t_atom a;
@@ -893,6 +975,7 @@ void *orchmax_solve_new(t_symbol *s, long argc, t_atom *argv) {
 
         x->running_threads = 0;
         x->orc_hand = orchidea_create(x->segmentation->s_name, x->connection->s_name);
+        x->parallel = 1; // DG: I'm not so sure this should be the default. I see the point, of course, but custom threading in Max is prone to crashes...
         
         if (!x->orc_hand) {
             // should never happen!

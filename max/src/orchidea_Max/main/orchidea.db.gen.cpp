@@ -31,6 +31,9 @@ typedef struct _session {
     long        num_dimensions;
     t_symbol*   feature_name;
     
+    char        parallel;
+    char        verbose;
+
     void        *out_1;
     void        *out_2;
 
@@ -71,7 +74,7 @@ void notifier (const char* action, void* user_data) {
     outlet_anything(instance->out_2, gensym("status"), 1, &a);
 }
 
-void* orchidea_dispatcher (void* d) {
+void* orchidea_dbgen_dispatcher (void* d) {
     
     thread_data* data = (thread_data*) d;
     t_dbgen* x = data->x;
@@ -81,10 +84,10 @@ void* orchidea_dispatcher (void* d) {
     outlet_anything(x->out_2, gensym("busy"), 1, &busy);
     
     x->running_threads++;
-    object_post((t_object*) x, "current thread n. %d", x->running_threads);    
+    if (x->verbose) object_post((t_object*) x, "current thread n. %d", x->running_threads);
 
     if (strlen(x->db_folder->s_name) == 0 || strlen (x->feature_name->s_name) == 0) {
-        object_post((t_object*) x, "error: feature name or db folder not set");
+        object_error((t_object*) x, "error: feature name or db folder not set");
     }
     else {
         std::stringstream outname;
@@ -107,13 +110,13 @@ void* orchidea_dispatcher (void* d) {
                                          (int) x->num_dimensions,
                                          x->feature_name->s_name);
         if (r != ORCHIDEA_NO_ERROR) {
-            object_post((t_object *)x, "error: %s (%s)", orchidea_decode_error(r),
+            object_error((t_object *)x, "error: %s (%s)", orchidea_decode_error(r),
                         orchidea_get_error_details(x->orc_hand));
         } else {
             t_atom out;
             atom_setsym(&out, gensym(outname.str ().c_str ()));
             outlet_anything(x->out_1, gensym("dbname"), 1, &out);
-            object_post((t_object *)x, "analysis has been done correctly");
+            if (x->verbose) object_post((t_object *)x, "analysis has been done correctly");
         }
 
     }
@@ -163,14 +166,25 @@ void ext_main(void *r) {
     CLASS_ATTR_STYLE(c, "dbname", 0, "text");
     CLASS_ATTR_LABEL(c, "dbname", 0, "Output Name for DB");
     CLASS_ATTR_CATEGORY(c, "dbname", 0, "Paths");
-    // @description Sets the name of the DB
+    // @description Sets the name of the DB.
     // By default output files will be put in the same folder of the sounds.
+    
+    CLASS_ATTR_CHAR(c, "verbose", 0, t_dbgen, verbose);
+    CLASS_ATTR_STYLE(c, "verbose", 0, "onoff");
+    CLASS_ATTR_LABEL(c, "verbose", 0, "Verbose");
+    // @description Toggles the verbose mode
+    
+    CLASS_ATTR_CHAR(c, "parallel", 0, t_dbgen, parallel);
+    CLASS_ATTR_STYLE(c, "parallel", 0, "onoff");
+    CLASS_ATTR_LABEL(c, "parallel", 0, "Parallel");
+    // @description When this attribute is 1, the computations are performed in a separate thread.
+
     
     class_register(CLASS_BOX, c);
     orchmax_dbgen_class = c;
 }
 
-void orchmax_dbgen_bang (t_dbgen *x) {
+void orchmax_dbgen_bang_do(t_dbgen *x, t_symbol *s, long ac, t_atom *av) {
     if (x->running_threads >= ORCHIDEA_DBGEN_MAX_THREADS) {
         object_warn((t_object*) x, "pending actions; please retry later...");
         return;
@@ -180,7 +194,15 @@ void orchmax_dbgen_bang (t_dbgen *x) {
     thread_data *d = (thread_data *)sysmem_newptr(sizeof(thread_data)); // delete after thread call - I think it works since thare are no modif during thread
     d->x = x;
     
-    pthread_create(&x->thread_pool[x->running_threads], NULL, orchidea_dispatcher, (void*) d);
+    if (x->parallel) {
+        pthread_create(&x->thread_pool[x->running_threads], NULL, orchidea_dbgen_dispatcher, (void*) d);
+    } else {
+        orchidea_dbgen_dispatcher(d);
+    }
+}
+
+void orchmax_dbgen_bang(t_dbgen *x) {
+    defer(x, (method)orchmax_dbgen_bang_do, NULL, 0, NULL);
 }
 
 void orchmax_dbgen_free(t_dbgen *x) {
@@ -197,10 +219,10 @@ t_symbol *conform_path(t_symbol *path) {
     return gensym(outpath);
 }
 
-void orchmax_dbgen_anything(t_dbgen *x, t_symbol *s, long ac, t_atom *av) {
+void orchmax_dbgen_anything_do(t_dbgen *x, t_symbol *s, long ac, t_atom *av) {
     // heavy actions are executed in a separated thread (or pool)
     if (x->running_threads >= ORCHIDEA_DBGEN_MAX_THREADS) {
-        object_post((t_object*) x, "pending actions; please retry later...");
+        object_warn((t_object*) x, "pending actions; please retry later...");
         return;
     }
 
@@ -209,8 +231,15 @@ void orchmax_dbgen_anything(t_dbgen *x, t_symbol *s, long ac, t_atom *av) {
     thread_data *d = (thread_data *)sysmem_newptr(sizeof(thread_data)); // delete after thread call - I think it works since thare are no modif during thread
     d->x = x;
     
+    if (x->parallel) {
+        pthread_create(&x->thread_pool[x->running_threads], NULL, orchidea_dbgen_dispatcher, (void*) d);
+    } else {
+        orchidea_dbgen_dispatcher(d);
+    }
+}
 
-    pthread_create(&x->thread_pool[x->running_threads], NULL, orchidea_dispatcher, (void*) d);
+void orchmax_dbgen_anything(t_dbgen *x, t_symbol *s, long ac, t_atom *av) {
+    defer(x, (method)orchmax_dbgen_anything_do, s, ac, av);
 }
 
 void *orchmax_dbgen_new(t_symbol *s, long argc, t_atom *argv) {
@@ -233,6 +262,9 @@ void *orchmax_dbgen_new(t_symbol *s, long argc, t_atom *argv) {
         x->feature_name = gensym ("spectrum");
         x->db_folder = gensym ("");
         x->db_name = gensym ("default");
+        
+        x->verbose = true;
+        x->parallel = true;
         
         attr_args_process(x, argc, argv);
         
