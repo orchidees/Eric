@@ -1,0 +1,26 @@
+(orchestra Fl Ob ClBb )
+(segment 0
+	(solution 1
+		(note 6193.97 Fl ord B3 ff /Winds/Fl/Fl-ord-B3-ff.wav 0)
+		(note 6193.97 ClBb ord B3 pp /Winds/ClBb/ClBb-ord-B3-pp.wav 0)
+	)
+	(solution 2
+		(note 6193.97 Fl ord B3 pp /Winds/Fl/Fl-ord-B3-pp.wav 0)
+		(note 6193.97 ClBb ord B3 pp /Winds/ClBb/ClBb-ord-B3-pp.wav 0)
+	)
+	(solution 3
+		(note 6193.97 Fl ord B3 mf /Winds/Fl/Fl-ord-B3-mf.wav 0)
+		(note 6193.97 ClBb ord B3 pp /Winds/ClBb/ClBb-ord-B3-pp.wav 0)
+	)
+	(solution 4
+		(note 6193.97 Fl ord B3 ff /Winds/Fl/Fl-ord-B3-ff.wav 0)
+		(note 6193.97 ClBb ord G#3 pp /Winds/ClBb/ClBb-ord-G#3-pp.wav -41)
+	)
+	(solution 5
+		(note 6193.97 Fl ord B3 ff /Winds/Fl/Fl-ord-B3-ff.wav 0)
+		(note 6193.97 ClBb ord B3 ff /Winds/ClBb/ClBb-ord-B3-ff.wav 0)
+	)
+	(solution 6
+		(note 6193.97 Fl ord B3 ff /Winds/Fl/Fl-ord-B3-ff.wav 0)
+	)
+)

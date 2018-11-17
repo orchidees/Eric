@@ -15,28 +15,31 @@
  orchidea
  
  @author
- Carmine Emanuele Cella
+ Carmine Emanuele 
  
  @digest
  Orchestrate an audio sample
  
  @description
- Given a database of analyzed audio samples, an orchestra and an audio target, it approximates the target via a combination of the database samples,
- either in a static or a dynamic form.
+ Approximates an audio target via a combination of audio samples, in static or dynamic for
  
  @discussion
  
  @category
  
  @keywords
- orchestration, instrumentation, approximation, solve, search, approximate
+ orchestration, instrumentation, approximation
  
  @seealso
- orchidea.db.gen, orchidea.solution.toroll, orchidea.solution.totext, orchidea.solution.tobuffer, orchidea.solution.tofile
+ orchidea.db.gen
  
  @owner
  Carmine Emanuele Cella
-*/
+ */
+
+// TO DO DANIELE:
+// - output da outlet max da altri thread?
+// - errorchecking
 
 #include "orchidea.h"
 #include "tokenizer.h"

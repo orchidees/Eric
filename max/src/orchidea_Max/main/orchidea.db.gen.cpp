@@ -1,6 +1,40 @@
 /**
  @file
- orchidea.db.gen - main external for orchidea
+ orchidea.db.gen.cpp
+ 
+ @name
+ orchidea.db.gen
+ 
+ @realname
+ orchidea.db.gen
+ 
+ @type
+ object
+ 
+ @module
+ orchidea
+ 
+ @author
+ Carmine Emanuele Cella
+ 
+ @digest
+ Generate database from samples
+ 
+ @description
+ Analyzes a set of audio samples to generate a database that can be used by orchidea.solve.
+ 
+ @discussion
+ 
+ @category
+ 
+ @keywords
+ orchestration, instrumentation, dataset, sample, generate, database
+ 
+ @seealso
+ orchidea.db.gen, orchidea.solution.toroll, orchidea.solution.totext, orchidea.solution.tobuffer, orchidea.solution.tofile
+ 
+ @owner
+ Carmine Emanuele Cella
  */
 
 #include "orchidea.h"
@@ -160,7 +194,7 @@ void ext_main(void *r) {
     CLASS_ATTR_ENUM(c,"feature",0,"spectrum logspec specpeaks specenv mfcc moments");
     CLASS_ATTR_LABEL(c, "feature", 0, "Feature");
     CLASS_ATTR_CATEGORY(c, "feature", 0, "Analysis");
-    // @description Sets the search type.
+    // @description Sets the search type. 
     
     CLASS_ATTR_SYM(c, "dbname", 0, t_dbgen, db_name);
     CLASS_ATTR_STYLE(c, "dbname", 0, "text");
@@ -172,7 +206,7 @@ void ext_main(void *r) {
     CLASS_ATTR_CHAR(c, "verbose", 0, t_dbgen, verbose);
     CLASS_ATTR_STYLE(c, "verbose", 0, "onoff");
     CLASS_ATTR_LABEL(c, "verbose", 0, "Verbose");
-    // @description Toggles the verbose mode
+    // @description Toggles the verbose mode.
     
     CLASS_ATTR_CHAR(c, "parallel", 0, t_dbgen, parallel);
     CLASS_ATTR_STYLE(c, "parallel", 0, "onoff");

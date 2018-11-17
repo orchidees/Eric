@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 252.0, 96.0, 1055.0, 700.0 ],
+		"rect" : [ 453.0, 176.0, 1055.0, 700.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -4224,7 +4224,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 574.0, 369.0, 24.0, 24.0 ],
+									"patching_rect" : [ 574.0, 374.0, 24.0, 24.0 ],
 									"style" : ""
 								}
 
@@ -4566,7 +4566,7 @@
  ]
 									}
 ,
-									"patching_rect" : [ 574.0, 403.0, 113.0, 23.0 ],
+									"patching_rect" : [ 574.0, 408.0, 113.0, 23.0 ],
 									"saved_object_attributes" : 									{
 										"description" : "",
 										"digest" : "",
@@ -4744,7 +4744,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 149.5, 443.0, 443.5, 23.0 ],
+									"patching_rect" : [ 149.5, 444.0, 443.5, 23.0 ],
 									"style" : "",
 									"text" : "orchidea.solve @parallel 0"
 								}
@@ -4984,7 +4984,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 252.0, 122.0, 1055.0, 674.0 ],
+						"rect" : [ 453.0, 202.0, 1055.0, 674.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -5144,6 +5144,18 @@
 										"style" : "",
 										"subpatcher_template" : "",
 										"boxes" : [ 											{
+												"box" : 												{
+													"id" : "obj-7",
+													"maxclass" : "comment",
+													"numinlets" : 1,
+													"numoutlets" : 0,
+													"patching_rect" : [ 297.5, 233.0, 150.0, 20.0 ],
+													"style" : "",
+													"text" : "To Do: windows version :-)"
+												}
+
+											}
+, 											{
 												"box" : 												{
 													"id" : "obj-17",
 													"maxclass" : "message",
@@ -6690,21 +6702,6 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 13.0,
-									"id" : "obj-35",
-									"linecount" : 2,
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 15.0, 68.567627, 461.0, 36.0 ],
-									"style" : "",
-									"text" : "written by Carmine-Emanuele Cella\n(c) 2017-2018 Ircam, HEM Geneve"
-								}
-
-							}
-, 							{
-								"box" : 								{
 									"id" : "obj-9",
 									"maxclass" : "newobj",
 									"numinlets" : 3,
@@ -6725,7 +6722,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 15.0, 108.567627, 915.0, 36.0 ],
+									"patching_rect" : [ 10.0, 126.0, 915.0, 36.0 ],
 									"style" : "",
 									"text" : "This is the solver object of the orchidea toolbox for assisted orchestration. \nGiven a database of analyzed audio samples, an orchestra and an audio target, it approximates the target via a combination of the database samples.",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
@@ -7134,11 +7131,11 @@
  ],
 		"lines" : [  ],
 		"parameters" : 		{
-			"obj-2::obj-42" : [ "gain", "gain", 0 ],
 			"obj-10::obj-42" : [ "solution[2]", "solution", 0 ],
 			"obj-9::obj-42" : [ "solution[1]", "solution", 0 ],
-			"obj-5::obj-42" : [ "solution", "solution", 0 ],
-			"obj-5::obj-34" : [ "target", "target", 0 ]
+			"obj-5::obj-34" : [ "target", "target", 0 ],
+			"obj-2::obj-42" : [ "gain", "gain", 0 ],
+			"obj-5::obj-42" : [ "solution", "solution", 0 ]
 		}
 ,
 		"dependency_cache" : [ 			{
