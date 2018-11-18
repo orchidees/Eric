@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 453.0, 176.0, 1055.0, 700.0 ],
+		"rect" : [ 303.0, 91.0, 1055.0, 696.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -56,7 +56,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 1055.0, 674.0 ],
+						"rect" : [ 0.0, 26.0, 1055.0, 670.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -86,6 +86,21 @@
 						"showontab" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"id" : "obj-10",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 10.0, 69.567627, 162.0, 21.0 ],
+									"style" : "",
+									"text" : "VERY IMPORTANT:",
+									"textcolor" : [ 0.792157, 0.0, 0.0, 1.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
 									"bubble" : 1,
 									"fontname" : "Arial",
 									"fontsize" : 13.0,
@@ -94,7 +109,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 348.75, 217.0, 146.0, 54.0 ],
+									"patching_rect" : [ 355.75, 239.0, 146.0, 54.0 ],
 									"style" : "",
 									"text" : "This only works because the parallel mode is set to 0"
 								}
@@ -107,7 +122,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 137.5, 353.0, 85.0, 23.0 ],
+									"patching_rect" : [ 144.5, 375.0, 85.0, 23.0 ],
 									"style" : "",
 									"text" : "absolutepath"
 								}
@@ -120,7 +135,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 176.300049, 450.0, 35.0, 23.0 ],
+									"patching_rect" : [ 183.300049, 472.0, 35.0, 23.0 ],
 									"style" : "",
 									"text" : "stop"
 								}
@@ -133,7 +148,7 @@
 									"maxclass" : "ezdac~",
 									"numinlets" : 2,
 									"numoutlets" : 0,
-									"patching_rect" : [ 137.5, 564.0, 44.0, 44.0 ],
+									"patching_rect" : [ 144.5, 586.0, 44.0, 44.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 550.0, 672.0, 36.0, 36.0 ],
 									"prototypename" : "helpfile",
@@ -151,7 +166,7 @@
 									"orientation" : 1,
 									"outlettype" : [ "signal", "", "float", "list" ],
 									"parameter_enable" : 1,
-									"patching_rect" : [ 137.5, 516.0, 151.0, 31.0 ],
+									"patching_rect" : [ 144.5, 538.0, 151.0, 31.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 550.0, 600.0, 210.0, 31.0 ],
 									"saved_attribute_attributes" : 									{
@@ -179,7 +194,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 137.5, 450.0, 36.0, 23.0 ],
+									"patching_rect" : [ 144.5, 472.0, 36.0, 23.0 ],
 									"style" : "",
 									"text" : "start"
 								}
@@ -192,7 +207,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "signal", "bang" ],
-									"patching_rect" : [ 137.5, 482.0, 132.0, 23.0 ],
+									"patching_rect" : [ 144.5, 504.0, 132.0, 23.0 ],
 									"style" : "",
 									"text" : "play~ solutionparallel"
 								}
@@ -205,7 +220,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 137.5, 419.0, 245.0, 23.0 ],
+									"patching_rect" : [ 144.5, 441.0, 245.0, 23.0 ],
 									"style" : "",
 									"text" : "orchidea.solution.tobuffer solutionparallel"
 								}
@@ -218,7 +233,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 311.5, 232.0, 24.0, 24.0 ],
+									"patching_rect" : [ 311.5, 254.0, 24.0, 24.0 ],
 									"style" : ""
 								}
 
@@ -230,7 +245,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 562.0, 314.0, 24.0, 24.0 ],
+									"patching_rect" : [ 569.0, 336.0, 24.0, 24.0 ],
 									"style" : ""
 								}
 
@@ -572,7 +587,7 @@
  ]
 									}
 ,
-									"patching_rect" : [ 562.0, 348.0, 113.0, 23.0 ],
+									"patching_rect" : [ 569.0, 370.0, 113.0, 23.0 ],
 									"saved_object_attributes" : 									{
 										"description" : "",
 										"digest" : "",
@@ -594,7 +609,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 349.75, 314.0, 144.0, 67.0 ],
+									"patching_rect" : [ 356.75, 336.0, 144.0, 67.0 ],
 									"style" : "",
 									"text" : "Fl Fl Ob Ob ClBb ClBb Bn Bn TpC TpC Hn Hn Tbn Tbn Vn Vn Vn Vn Va Va Vc Cb"
 								}
@@ -607,7 +622,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 137.5, 324.0, 124.0, 23.0 ],
+									"patching_rect" : [ 144.5, 346.0, 124.0, 23.0 ],
 									"style" : "",
 									"text" : "WinchesterBell.wav"
 								}
@@ -620,7 +635,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 137.5, 388.0, 443.5, 23.0 ],
+									"patching_rect" : [ 144.5, 410.0, 443.5, 23.0 ],
 									"style" : "",
 									"text" : "orchidea.solve @parallel 0"
 								}
@@ -631,14 +646,13 @@
 									"fontname" : "Arial",
 									"fontsize" : 13.0,
 									"id" : "obj-4",
-									"linecount" : 7,
+									"linecount" : 8,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 10.0, 75.614624, 951.0, 108.0 ],
+									"patching_rect" : [ 10.0, 92.567627, 998.0, 123.0 ],
 									"style" : "",
-									"text" : "By default orchidea.solve perform its computation in a dedicated thread.\nThis is handy, so that you can continue work in Max, however it has at least two drawbacks:\n1) it is a non-standard way to use threading in Max, which means that you should be extremely careful NOT to close the patch while running, or crash may happen.\n2) the computation is not synchronous; for instance, you cannot send the data in all the three inlets via a single bang.\n\nTo avoid this issues, you can set the \"parallel\" attribute to 0. In this way, orchidea will only work in the main thread, which could leave a spinwheel running for some time if you have long computations – but, on the other hand, you will be safe to send everything with a single bang!",
-									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
+									"text" : "By default orchidea.solve perform its computation in a dedicated thread.\nThis is handy, so that you can continue work in Max, however it has at least two drawbacks:\n1) it is a non-standard way to use threading in Max, which means that you should be extremely careful NOT to close the patch while running and NOT to modify the object while it is working, or otherwise crash  are more than likely to happen!\n2) the computation is not synchronous; for instance, you cannot send the data in all the three inlets via a single bang.\n\nTo avoid this issues, you can set the \"parallel\" attribute to 0. In this way, orchidea will only work in the main thread, which could leave a spinwheel running for some time if you have long computations – but, on the other hand, you will be safe to send everything with a single bang!"
 								}
 
 							}
@@ -812,7 +826,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 1055.0, 674.0 ],
+						"rect" : [ 0.0, 26.0, 1055.0, 670.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -845,12 +859,534 @@
 									"bubble" : 1,
 									"fontname" : "Arial",
 									"fontsize" : 13.0,
-									"id" : "obj-18",
-									"linecount" : 2,
+									"hidden" : 1,
+									"id" : "obj-20",
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 166.130829, 105.5, 146.0, 40.0 ],
+									"patching_rect" : [ 418.0, 360.0, 196.0, 25.0 ],
+									"style" : "",
+									"text" : "Sets the positive penalization"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"bubble" : 1,
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"hidden" : 1,
+									"id" : "obj-16",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 388.0, 324.0, 201.0, 25.0 ],
+									"style" : "",
+									"text" : "Sets the negative penalization"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"bubble" : 1,
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"hidden" : 1,
+									"id" : "obj-15",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 309.0, 287.0, 155.0, 25.0 ],
+									"style" : "",
+									"text" : "Sets the mutation rate"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"bubble" : 1,
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"hidden" : 1,
+									"id" : "obj-13",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 292.130829, 255.0, 161.0, 25.0 ],
+									"style" : "",
+									"text" : "Sets the crossover rate"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"bubble" : 1,
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"id" : "obj-11",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 238.130829, 209.5, 247.0, 25.0 ],
+									"style" : "",
+									"text" : "Sets the maximum number of epochs"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"bubble" : 1,
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"id" : "obj-9",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 210.130829, 176.0, 124.0, 25.0 ],
+									"style" : "",
+									"text" : "Sets the sparsity"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"bubble" : 1,
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"id" : "obj-7",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 188.130829, 144.0, 297.0, 25.0 ],
+									"style" : "",
+									"text" : "Sets the matching pursuit relaxation parameter"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-2",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 152.0, 517.0, 85.0, 23.0 ],
+									"style" : "",
+									"text" : "absolutepath"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-5",
+									"maxclass" : "button",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "bang" ],
+									"patching_rect" : [ 396.75, 420.0, 24.0, 24.0 ],
+									"style" : ""
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-47",
+									"maxclass" : "button",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "bang" ],
+									"patching_rect" : [ 512.0, 489.0, 24.0, 24.0 ],
+									"style" : ""
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-45",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patcher" : 									{
+										"fileversion" : 1,
+										"appversion" : 										{
+											"major" : 7,
+											"minor" : 3,
+											"revision" : 4,
+											"architecture" : "x64",
+											"modernui" : 1
+										}
+,
+										"rect" : [ 48.0, 96.0, 640.0, 480.0 ],
+										"bglocked" : 0,
+										"openinpresentation" : 0,
+										"default_fontsize" : 12.0,
+										"default_fontface" : 0,
+										"default_fontname" : "Arial",
+										"gridonopen" : 1,
+										"gridsize" : [ 15.0, 15.0 ],
+										"gridsnaponopen" : 1,
+										"objectsnaponopen" : 1,
+										"statusbarvisible" : 2,
+										"toolbarvisible" : 1,
+										"lefttoolbarpinned" : 0,
+										"toptoolbarpinned" : 0,
+										"righttoolbarpinned" : 0,
+										"bottomtoolbarpinned" : 0,
+										"toolbars_unpinned_last_save" : 0,
+										"tallnewobj" : 0,
+										"boxanimatetime" : 200,
+										"enablehscroll" : 1,
+										"enablevscroll" : 1,
+										"devicewidth" : 0.0,
+										"description" : "",
+										"digest" : "",
+										"tags" : "",
+										"style" : "",
+										"subpatcher_template" : "",
+										"boxes" : [ 											{
+												"box" : 												{
+													"id" : "obj-17",
+													"maxclass" : "message",
+													"numinlets" : 2,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 138.0, 118.0, 29.5, 22.0 ],
+													"style" : "",
+													"text" : "2"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"id" : "obj-16",
+													"maxclass" : "message",
+													"numinlets" : 2,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 73.0, 118.0, 29.5, 22.0 ],
+													"style" : "",
+													"text" : "1"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"id" : "obj-14",
+													"maxclass" : "newobj",
+													"numinlets" : 3,
+													"numoutlets" : 3,
+													"outlettype" : [ "bang", "bang", "" ],
+													"patching_rect" : [ 65.0, 85.0, 133.0, 22.0 ],
+													"style" : "",
+													"text" : "sel macintosh windows"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"id" : "obj-11",
+													"maxclass" : "newobj",
+													"numinlets" : 2,
+													"numoutlets" : 2,
+													"outlettype" : [ "", "" ],
+													"patching_rect" : [ 251.0, 204.0, 65.0, 22.0 ],
+													"style" : "",
+													"text" : "gate 2 1"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"comment" : "",
+													"id" : "obj-10",
+													"index" : 1,
+													"maxclass" : "outlet",
+													"numinlets" : 1,
+													"numoutlets" : 0,
+													"patching_rect" : [ 230.0, 418.0, 30.0, 30.0 ],
+													"style" : ""
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"id" : "obj-9",
+													"maxclass" : "message",
+													"numinlets" : 2,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 251.0, 375.0, 367.0, 22.0 ],
+													"style" : "",
+													"text" : "\"~/Documents/Max 8/Packages/orchidea/db/TinySOL.spectrum.db\""
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"id" : "obj-8",
+													"maxclass" : "message",
+													"numinlets" : 2,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 189.0, 334.0, 367.0, 22.0 ],
+													"style" : "",
+													"text" : "\"~/Documents/Max 7/Packages/orchidea/db/TinySOL.spectrum.db\""
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"id" : "obj-6",
+													"maxclass" : "newobj",
+													"numinlets" : 0,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 65.0, 53.5, 195.0, 22.0 ],
+													"style" : "",
+													"text" : "r orchidea_solve_help_maxsystem"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"comment" : "",
+													"id" : "obj-5",
+													"index" : 1,
+													"maxclass" : "inlet",
+													"numinlets" : 0,
+													"numoutlets" : 1,
+													"outlettype" : [ "bang" ],
+													"patching_rect" : [ 293.0, 7.0, 30.0, 30.0 ],
+													"style" : ""
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"id" : "obj-3",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 2,
+													"outlettype" : [ "bang", "bang" ],
+													"patching_rect" : [ 293.0, 46.0, 34.0, 22.0 ],
+													"style" : "",
+													"text" : "t b b"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"id" : "obj-2",
+													"maxclass" : "newobj",
+													"numinlets" : 2,
+													"numoutlets" : 2,
+													"outlettype" : [ "", "" ],
+													"patching_rect" : [ 189.0, 286.0, 81.0, 22.0 ],
+													"style" : "",
+													"text" : "gate 2"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"id" : "obj-1",
+													"maxclass" : "newobj",
+													"numinlets" : 1,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 38.0, 233.0, 148.0, 22.0 ],
+													"style" : "",
+													"text" : "if $i1 < 2000 then 1 else 2"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"id" : "obj-39",
+													"maxclass" : "newobj",
+													"numinlets" : 0,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 38.0, 190.5, 196.0, 22.0 ],
+													"style" : "",
+													"text" : "r orchidea_solve_help_maxversion"
+												}
+
+											}
+, 											{
+												"box" : 												{
+													"id" : "obj-37",
+													"linecount" : 3,
+													"maxclass" : "message",
+													"numinlets" : 2,
+													"numoutlets" : 1,
+													"outlettype" : [ "" ],
+													"patching_rect" : [ 308.0, 84.5, 280.0, 49.0 ],
+													"style" : "",
+													"text" : ";\rmax getsystem orchidea_solve_help_maxsystem;\rmax getversion orchidea_solve_help_maxversion;\r"
+												}
+
+											}
+ ],
+										"lines" : [ 											{
+												"patchline" : 												{
+													"destination" : [ "obj-2", 0 ],
+													"source" : [ "obj-1", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-2", 0 ],
+													"source" : [ "obj-11", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-16", 0 ],
+													"source" : [ "obj-14", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-17", 0 ],
+													"source" : [ "obj-14", 1 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-11", 0 ],
+													"source" : [ "obj-16", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-11", 0 ],
+													"source" : [ "obj-17", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-8", 0 ],
+													"source" : [ "obj-2", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-9", 0 ],
+													"source" : [ "obj-2", 1 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-11", 1 ],
+													"source" : [ "obj-3", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-37", 0 ],
+													"source" : [ "obj-3", 1 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-1", 0 ],
+													"source" : [ "obj-39", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-3", 0 ],
+													"source" : [ "obj-5", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-14", 0 ],
+													"source" : [ "obj-6", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-10", 0 ],
+													"source" : [ "obj-8", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-10", 0 ],
+													"source" : [ "obj-9", 0 ]
+												}
+
+											}
+ ]
+									}
+,
+									"patching_rect" : [ 512.0, 523.0, 113.0, 23.0 ],
+									"saved_object_attributes" : 									{
+										"description" : "",
+										"digest" : "",
+										"globalpatchername" : "",
+										"style" : "",
+										"tags" : ""
+									}
+,
+									"style" : "",
+									"text" : "p locate_TinySOL"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-28",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 309.0, 489.0, 180.0, 23.0 ],
+									"style" : "",
+									"text" : "Fl Fl ClBb ClBb Hn Hn Hn Hn"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-63",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 152.0, 488.0, 108.0, 23.0 ],
+									"style" : "",
+									"text" : "archeos-bell.wav"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"bubble" : 1,
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"id" : "obj-18",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 166.130829, 105.5, 199.0, 25.0 ],
 									"style" : "",
 									"text" : "Sets the initial population size"
 								}
@@ -964,91 +1500,12 @@
 							}
 , 							{
 								"box" : 								{
-									"id" : "obj-32",
-									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 2,
-									"outlettype" : [ "", "int" ],
-									"patching_rect" : [ 656.5, 308.5, 140.0, 23.0 ],
-									"style" : "",
-									"text" : "conformpath max boot"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-30",
-									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 656.5, 274.0, 161.0, 23.0 ],
-									"style" : "",
-									"text" : "sprintf symout %s../tinysol"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-23",
-									"maxclass" : "message",
-									"numinlets" : 2,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 601.5, 209.5, 36.0, 23.0 ],
-									"style" : "",
-									"text" : "path"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-16",
-									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 2,
-									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 601.5, 242.5, 74.0, 23.0 ],
-									"save" : [ "#N", "thispatcher", ";", "#Q", "end", ";" ],
-									"style" : "",
-									"text" : "thispatcher"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-40",
-									"maxclass" : "message",
-									"numinlets" : 2,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 166.130829, 479.0, 111.0, 23.0 ],
-									"style" : "",
-									"text" : "archeos_bell.wav"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-37",
-									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 166.130829, 504.5, 85.0, 23.0 ],
-									"style" : "",
-									"text" : "absolutepath"
-								}
-
-							}
-, 							{
-								"box" : 								{
 									"id" : "obj-26",
 									"maxclass" : "newobj",
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 34.065414, 550.0, 196.0, 23.0 ],
+									"patching_rect" : [ 41.0, 567.0, 490.0, 23.0 ],
 									"style" : "",
 									"text" : "orchidea.solve"
 								}
@@ -1064,7 +1521,7 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 10.0, 75.614624, 720.0, 21.0 ],
 									"style" : "",
-									"text" : "Spiegare gli attributi di ricerca, geeky stuff",
+									"text" : "Some attributes handle the search.",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
 								}
 
@@ -1109,13 +1566,6 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-30", 0 ],
-									"source" : [ "obj-16", 1 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
 									"destination" : [ "obj-26", 0 ],
 									"source" : [ "obj-17", 0 ]
 								}
@@ -1130,8 +1580,15 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-16", 0 ],
-									"source" : [ "obj-23", 0 ]
+									"destination" : [ "obj-26", 0 ],
+									"source" : [ "obj-2", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-26", 1 ],
+									"source" : [ "obj-28", 0 ]
 								}
 
 							}
@@ -1144,22 +1601,39 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-32", 0 ],
-									"source" : [ "obj-30", 0 ]
+									"destination" : [ "obj-26", 2 ],
+									"source" : [ "obj-45", 0 ]
 								}
 
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-26", 0 ],
-									"source" : [ "obj-37", 0 ]
+									"destination" : [ "obj-45", 0 ],
+									"source" : [ "obj-47", 0 ]
 								}
 
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-37", 0 ],
-									"source" : [ "obj-40", 0 ]
+									"destination" : [ "obj-28", 0 ],
+									"order" : 1,
+									"source" : [ "obj-5", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-47", 0 ],
+									"order" : 0,
+									"source" : [ "obj-5", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-63", 0 ],
+									"order" : 2,
+									"source" : [ "obj-5", 0 ]
 								}
 
 							}
@@ -1167,6 +1641,13 @@
 								"patchline" : 								{
 									"destination" : [ "obj-26", 0 ],
 									"source" : [ "obj-6", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-2", 0 ],
+									"source" : [ "obj-63", 0 ]
 								}
 
 							}
@@ -1220,7 +1701,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 1055.0, 674.0 ],
+						"rect" : [ 0.0, 26.0, 1055.0, 670.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -1444,7 +1925,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 1055.0, 674.0 ],
+						"rect" : [ 303.0, 117.0, 1055.0, 670.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -1474,6 +1955,22 @@
 						"showontab" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
+									"id" : "obj-8",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 767.0, 472.0, 105.0, 23.0 ],
+									"saved_object_attributes" : 									{
+										"versionnumber" : 80001
+									}
+,
+									"style" : "",
+									"text" : "bach.print Notifs"
+								}
+
+							}
+, 							{
+								"box" : 								{
 									"bubble" : 1,
 									"fontname" : "Arial",
 									"fontsize" : 13.0,
@@ -1481,7 +1978,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 80.5, 379.0, 84.0, 25.0 ],
+									"patching_rect" : [ 80.5, 375.0, 84.0, 25.0 ],
 									"style" : "",
 									"text" : "Relaunch"
 								}
@@ -1495,7 +1992,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 469.0, 375.5, 201.0, 18.0 ],
+									"patching_rect" : [ 469.0, 371.5, 201.0, 18.0 ],
 									"style" : "",
 									"text" : "...or write your own instruments here",
 									"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
@@ -1511,7 +2008,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 455.0, 251.0, 158.0, 67.0 ],
+									"patching_rect" : [ 455.0, 247.0, 158.0, 67.0 ],
 									"style" : "",
 									"text" : "set Fl Fl Ob Ob ClBb ClBb Bn Bn TpC TpC Hn Hn Tbn Tbn Vn Vn Vn Vn Va Va Vc Cb, bang"
 								}
@@ -1526,7 +2023,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 609.782715, 264.5, 103.0, 25.0 ],
+									"patching_rect" : [ 609.782715, 260.5, 103.0, 25.0 ],
 									"style" : "",
 									"text" : "Set orchestra"
 								}
@@ -1539,7 +2036,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 455.0, 403.0, 65.0, 23.0 ],
+									"patching_rect" : [ 455.0, 399.0, 65.0, 23.0 ],
 									"style" : "",
 									"text" : "route text"
 								}
@@ -1554,7 +2051,7 @@
 									"numoutlets" : 4,
 									"outlettype" : [ "", "int", "", "" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 455.0, 327.5, 215.0, 65.5 ],
+									"patching_rect" : [ 455.0, 323.5, 215.0, 65.5 ],
 									"style" : "",
 									"text" : "Fl Fl Ob Ob ClBb ClBb Bn Bn TpC TpC Hn Hn Tbn Tbn Vn Vn Vn Vn Va Va Vc Cb"
 								}
@@ -1567,7 +2064,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 120.5, 270.5, 85.0, 23.0 ],
+									"patching_rect" : [ 120.5, 266.5, 85.0, 23.0 ],
 									"style" : "",
 									"text" : "A_minor.wav"
 								}
@@ -1582,7 +2079,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 209.5, 270.5, 84.0, 25.0 ],
+									"patching_rect" : [ 209.5, 266.5, 84.0, 25.0 ],
 									"style" : "",
 									"text" : "Set target"
 								}
@@ -1597,7 +2094,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 793.0, 251.0, 104.0, 25.0 ],
+									"patching_rect" : [ 793.0, 247.0, 104.0, 25.0 ],
 									"style" : "",
 									"text" : "Set database"
 								}
@@ -1610,7 +2107,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 764.5, 251.0, 24.0, 24.0 ],
+									"patching_rect" : [ 764.5, 247.0, 24.0, 24.0 ],
 									"style" : ""
 								}
 
@@ -1952,7 +2449,7 @@
  ]
 									}
 ,
-									"patching_rect" : [ 764.5, 285.0, 113.0, 23.0 ],
+									"patching_rect" : [ 764.5, 281.0, 113.0, 23.0 ],
 									"saved_object_attributes" : 									{
 										"description" : "",
 										"digest" : "",
@@ -2058,6 +2555,7 @@
 													"numoutlets" : 0,
 													"patching_rect" : [ 2.0, 26.5, 209.0, 18.0 ],
 													"style" : "",
+													"text" : "TinySOL.spectrum.db",
 													"textjustification" : 1
 												}
 
@@ -2362,7 +2860,7 @@
  ]
 									}
 ,
-									"patching_rect" : [ 764.5, 331.0, 222.5, 67.0 ],
+									"patching_rect" : [ 764.5, 327.0, 222.5, 67.0 ],
 									"viewvisibility" : 1
 								}
 
@@ -2472,6 +2970,7 @@
 													"numoutlets" : 0,
 													"patching_rect" : [ 2.0, 26.5, 209.0, 18.0 ],
 													"style" : "",
+													"text" : "A_minor.wav",
 													"textjustification" : 1
 												}
 
@@ -2784,7 +3283,7 @@
  ]
 									}
 ,
-									"patching_rect" : [ 120.5, 299.0, 222.5, 67.0 ],
+									"patching_rect" : [ 120.5, 295.0, 222.5, 63.0 ],
 									"viewvisibility" : 1
 								}
 
@@ -2796,21 +3295,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 50.0, 379.0, 24.0, 24.0 ],
+									"patching_rect" : [ 50.0, 375.0, 24.0, 24.0 ],
 									"style" : ""
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-23",
-									"linecount" : 2,
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 772.5, 489.0, 150.0, 36.0 ],
-									"style" : "",
-									"text" : "fixme: exportsolutions non è stato esposto"
 								}
 
 							}
@@ -2824,7 +3310,7 @@
 									"orientation" : 1,
 									"outlettype" : [ "signal", "", "float", "list" ],
 									"parameter_enable" : 1,
-									"patching_rect" : [ 279.5, 573.0, 151.0, 31.0 ],
+									"patching_rect" : [ 279.5, 569.0, 151.0, 31.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 279.5, 560.0, 210.0, 31.0 ],
 									"saved_attribute_attributes" : 									{
@@ -2856,7 +3342,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 216.5, 374.5, 185.0, 69.0 ],
+									"patching_rect" : [ 216.5, 370.5, 185.0, 69.0 ],
 									"style" : "",
 									"text" : "The segmentation and connection modes can only  be typed in the object box"
 								}
@@ -2871,7 +3357,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 363.0, 151.5, 586.0, 36.0 ],
+									"patching_rect" : [ 363.0, 147.5, 586.0, 36.0 ],
 									"style" : "",
 									"text" : "This is a \"novelty\" threshold: for any number > 1., the orchestration will be static (= single segment).\nLower this number in order to allow for more segments.",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
@@ -2888,7 +3374,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 254.56543, 207.5, 184.0, 54.0 ],
+									"patching_rect" : [ 254.56543, 203.5, 184.0, 54.0 ],
 									"style" : "",
 									"text" : "Sets the time gate interval (in milliseconds) for the onset segmentation"
 								}
@@ -2904,7 +3390,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 215.0, 151.5, 146.0, 54.0 ],
+									"patching_rect" : [ 215.0, 147.5, 146.0, 54.0 ],
 									"style" : "",
 									"text" : "Sets the threshold for the onset segmentation"
 								}
@@ -2918,7 +3404,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 55.56543, 223.0, 197.0, 23.0 ],
+									"patching_rect" : [ 55.56543, 219.0, 197.0, 23.0 ],
 									"style" : "",
 									"text_width" : 130.0
 								}
@@ -2932,7 +3418,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 10.0, 167.0, 197.0, 23.0 ],
+									"patching_rect" : [ 10.0, 163.0, 197.0, 23.0 ],
 									"style" : "",
 									"text_width" : 132.0
 								}
@@ -2945,7 +3431,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "float", "bang" ],
-									"patching_rect" : [ 359.5, 507.0, 109.0, 23.0 ],
+									"patching_rect" : [ 359.5, 503.0, 109.0, 23.0 ],
 									"style" : "",
 									"text" : "buffer~ targetdyn"
 								}
@@ -2958,7 +3444,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 359.5, 476.0, 71.0, 23.0 ],
+									"patching_rect" : [ 359.5, 472.0, 71.0, 23.0 ],
 									"style" : "",
 									"text" : "replace $1"
 								}
@@ -2971,7 +3457,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "signal", "bang" ],
-									"patching_rect" : [ 279.5, 540.0, 100.0, 23.0 ],
+									"patching_rect" : [ 279.5, 536.0, 100.0, 23.0 ],
 									"style" : "",
 									"text" : "play~ targetdyn"
 								}
@@ -2984,7 +3470,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "bang", "int" ],
-									"patching_rect" : [ 493.5, 507.0, 40.0, 23.0 ],
+									"patching_rect" : [ 493.5, 503.0, 40.0, 23.0 ],
 									"style" : "",
 									"text" : "text"
 								}
@@ -2997,7 +3483,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 149.800049, 507.0, 35.0, 23.0 ],
+									"patching_rect" : [ 149.800049, 503.0, 35.0, 23.0 ],
 									"style" : "",
 									"text" : "stop"
 								}
@@ -3010,7 +3496,7 @@
 									"maxclass" : "ezdac~",
 									"numinlets" : 2,
 									"numoutlets" : 0,
-									"patching_rect" : [ 111.0, 621.0, 44.0, 44.0 ],
+									"patching_rect" : [ 111.0, 617.0, 44.0, 44.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 550.0, 672.0, 36.0, 36.0 ],
 									"prototypename" : "helpfile",
@@ -3028,7 +3514,7 @@
 									"orientation" : 1,
 									"outlettype" : [ "signal", "", "float", "list" ],
 									"parameter_enable" : 1,
-									"patching_rect" : [ 111.0, 573.0, 151.0, 31.0 ],
+									"patching_rect" : [ 111.0, 569.0, 151.0, 31.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 550.0, 600.0, 210.0, 31.0 ],
 									"saved_attribute_attributes" : 									{
@@ -3056,7 +3542,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 111.0, 507.0, 36.0, 23.0 ],
+									"patching_rect" : [ 111.0, 503.0, 36.0, 23.0 ],
 									"style" : "",
 									"text" : "start"
 								}
@@ -3069,7 +3555,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "signal", "bang" ],
-									"patching_rect" : [ 111.0, 540.0, 111.0, 23.0 ],
+									"patching_rect" : [ 111.0, 536.0, 111.0, 23.0 ],
 									"style" : "",
 									"text" : "play~ solutiondyn"
 								}
@@ -3082,7 +3568,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 111.0, 476.0, 226.0, 23.0 ],
+									"patching_rect" : [ 111.0, 472.0, 226.0, 23.0 ],
 									"style" : "",
 									"text" : "orchidea.solution.tobuffer solutiondyn"
 								}
@@ -3095,7 +3581,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 493.5, 476.0, 144.0, 23.0 ],
+									"patching_rect" : [ 493.5, 472.0, 144.0, 23.0 ],
 									"style" : "",
 									"text" : "orchidea.solution.totext"
 								}
@@ -3108,9 +3594,9 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 111.0, 440.0, 675.0, 23.0 ],
+									"patching_rect" : [ 111.0, 436.0, 675.0, 23.0 ],
 									"style" : "",
-									"text" : "orchidea.solve @segmentation flux @connection closest @verbose 0 @onsetthreshold 0.1 @onsettimegate 100"
+									"text" : "orchidea.solve @segmentation flux @connection closest @onsetthreshold 0.1 @onsettimegate 100"
 								}
 
 							}
@@ -3123,7 +3609,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 10.0, 65.614624, 912.0, 79.0 ],
+									"patching_rect" : [ 10.0, 61.614624, 912.0, 79.0 ],
 									"style" : "",
 									"text" : "orchidea.solve is able to perform both static and dynamic orchestrations. Dynamic orchestrations are achieved via a sequence of static orchestrations. Each new orchestration is triggered via an onset detector.  You can hence modify its parameters in order to control the number of segments.\nTwo segmentation policies are available: \"flux\" (default) or \"frames\". Another important parameter is the connection policy, which determines the way the segments are connected along time into a single multi-segmented solution (called \"connection\"); the connection policies are: \"closest\" (default), \"best\".\nBoth the segmenation and the connection policy are  static attributes and can only be typed inside the object box.",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
@@ -3160,7 +3646,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "int" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 300.5, 273.0, 20.0, 20.0 ],
+									"patching_rect" : [ 300.5, 269.0, 20.0, 20.0 ],
 									"rounded" : 60.0,
 									"style" : "",
 									"text" : "3",
@@ -3182,7 +3668,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "int" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 902.0, 251.0, 20.0, 20.0 ],
+									"patching_rect" : [ 902.0, 247.0, 20.0, 20.0 ],
 									"rounded" : 60.0,
 									"style" : "",
 									"text" : "1",
@@ -3204,7 +3690,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "int" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 717.630859, 267.0, 20.0, 20.0 ],
+									"patching_rect" : [ 717.630859, 263.0, 20.0, 20.0 ],
 									"rounded" : 60.0,
 									"style" : "",
 									"text" : "2",
@@ -3279,7 +3765,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-26", 0 ],
-									"midpoints" : [ 130.0, 368.5, 369.0, 368.5 ],
+									"midpoints" : [ 130.0, 364.5, 369.0, 364.5 ],
 									"order" : 0,
 									"source" : [ "obj-33", 0 ]
 								}
@@ -3402,7 +3888,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-19", 0 ],
-									"midpoints" : [ 120.5, 468.0, 503.0, 468.0 ],
+									"midpoints" : [ 120.5, 464.0, 503.0, 464.0 ],
 									"order" : 0,
 									"source" : [ "obj-9", 0 ]
 								}
@@ -3413,6 +3899,13 @@
 									"destination" : [ "obj-29", 0 ],
 									"order" : 1,
 									"source" : [ "obj-9", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-8", 0 ],
+									"source" : [ "obj-9", 1 ]
 								}
 
 							}
@@ -3459,7 +3952,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 1055.0, 674.0 ],
+						"rect" : [ 0.0, 26.0, 1055.0, 670.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -4066,7 +4559,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 1055.0, 674.0 ],
+						"rect" : [ 0.0, 26.0, 1055.0, 670.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -4984,7 +5477,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 453.0, 202.0, 1055.0, 674.0 ],
+						"rect" : [ 0.0, 26.0, 1055.0, 670.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -5019,7 +5512,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 18.5, 170.0, 124.0, 23.0 ],
+									"patching_rect" : [ 18.5, 145.0, 124.0, 23.0 ],
 									"style" : "",
 									"text" : "WinchesterBell.wav"
 								}
@@ -5034,7 +5527,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 146.5, 169.0, 84.0, 25.0 ],
+									"patching_rect" : [ 146.5, 144.0, 84.0, 25.0 ],
 									"style" : "",
 									"text" : "Set target"
 								}
@@ -5048,7 +5541,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 367.0, 282.5, 201.0, 18.0 ],
+									"patching_rect" : [ 367.0, 257.5, 201.0, 18.0 ],
 									"style" : "",
 									"text" : "...or write your own instruments here",
 									"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
@@ -5065,7 +5558,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 862.0, 162.0, 156.0, 79.0 ],
+									"patching_rect" : [ 862.0, 137.0, 156.0, 79.0 ],
 									"style" : "",
 									"text" : "orchidea comes with a bundled database called \"TinySOL\", but you can build your own datasets: see orchidea.db.gen",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
@@ -5081,7 +5574,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 716.0, 175.0, 104.0, 25.0 ],
+									"patching_rect" : [ 716.0, 150.0, 104.0, 25.0 ],
 									"style" : "",
 									"text" : "Set database"
 								}
@@ -5094,7 +5587,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 687.5, 175.0, 24.0, 24.0 ],
+									"patching_rect" : [ 687.5, 150.0, 24.0, 24.0 ],
 									"style" : ""
 								}
 
@@ -5448,7 +5941,7 @@
  ]
 									}
 ,
-									"patching_rect" : [ 687.5, 209.0, 113.0, 23.0 ],
+									"patching_rect" : [ 687.5, 184.0, 113.0, 23.0 ],
 									"saved_object_attributes" : 									{
 										"description" : "",
 										"digest" : "",
@@ -5554,6 +6047,7 @@
 													"numoutlets" : 0,
 													"patching_rect" : [ 2.0, 26.5, 209.0, 18.0 ],
 													"style" : "",
+													"text" : "TinySOL.spectrum.db",
 													"textjustification" : 1
 												}
 
@@ -5858,7 +6352,7 @@
  ]
 									}
 ,
-									"patching_rect" : [ 687.5, 255.0, 222.5, 67.0 ],
+									"patching_rect" : [ 687.5, 230.0, 222.5, 67.0 ],
 									"viewvisibility" : 1
 								}
 
@@ -5968,6 +6462,7 @@
 													"numoutlets" : 0,
 													"patching_rect" : [ 2.0, 26.5, 209.0, 18.0 ],
 													"style" : "",
+													"text" : "WinchesterBell.wav",
 													"textjustification" : 1
 												}
 
@@ -6280,7 +6775,7 @@
  ]
 									}
 ,
-									"patching_rect" : [ 18.5, 204.5, 222.5, 67.0 ],
+									"patching_rect" : [ 18.5, 179.5, 222.5, 67.0 ],
 									"viewvisibility" : 1
 								}
 
@@ -6293,7 +6788,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 797.5, 425.0, 87.0, 23.0 ],
+									"patching_rect" : [ 797.5, 400.0, 87.0, 23.0 ],
 									"style" : "",
 									"text" : "loadmess set"
 								}
@@ -6307,8 +6802,9 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 687.5, 463.0, 257.0, 21.0 ],
+									"patching_rect" : [ 687.5, 438.0, 257.0, 21.0 ],
 									"style" : "",
+									"text" : "exporting connection",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
 								}
 
@@ -6320,7 +6816,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 687.5, 430.0, 79.0, 23.0 ],
+									"patching_rect" : [ 687.5, 405.0, 79.0, 23.0 ],
 									"style" : "",
 									"text" : "prepend set"
 								}
@@ -6333,7 +6829,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 687.5, 399.0, 78.0, 23.0 ],
+									"patching_rect" : [ 687.5, 374.0, 78.0, 23.0 ],
 									"style" : "",
 									"text" : "route status"
 								}
@@ -6347,7 +6843,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 442.0, 393.5, 98.0, 23.0 ],
+									"patching_rect" : [ 442.0, 368.5, 98.0, 23.0 ],
 									"style" : "",
 									"text" : "loadmess clear"
 								}
@@ -6360,7 +6856,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 180.5, 453.0, 35.0, 23.0 ],
+									"patching_rect" : [ 180.5, 428.0, 35.0, 23.0 ],
 									"style" : "",
 									"text" : "stop"
 								}
@@ -6373,7 +6869,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "float", "bang" ],
-									"patching_rect" : [ 237.0, 453.0, 88.0, 23.0 ],
+									"patching_rect" : [ 237.0, 428.0, 88.0, 23.0 ],
 									"style" : "",
 									"text" : "buffer~ target"
 								}
@@ -6386,7 +6882,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 237.0, 417.0, 71.0, 23.0 ],
+									"patching_rect" : [ 237.0, 392.0, 71.0, 23.0 ],
 									"style" : "",
 									"text" : "replace $1"
 								}
@@ -6399,7 +6895,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 139.0, 453.0, 36.0, 23.0 ],
+									"patching_rect" : [ 139.0, 428.0, 36.0, 23.0 ],
 									"style" : "",
 									"text" : "start"
 								}
@@ -6412,7 +6908,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "signal", "bang" ],
-									"patching_rect" : [ 139.0, 486.0, 79.0, 23.0 ],
+									"patching_rect" : [ 139.0, 461.0, 79.0, 23.0 ],
 									"style" : "",
 									"text" : "play~ target"
 								}
@@ -6427,7 +6923,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 599.5, 505.0, 326.0, 36.0 ],
+									"patching_rect" : [ 599.5, 480.0, 326.0, 36.0 ],
 									"style" : "",
 									"text" : "Also see orchidea.solution.toroll to display the solution as a symbolic score",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
@@ -6444,7 +6940,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 451.5, 492.0, 134.56543, 54.0 ],
+									"patching_rect" : [ 451.5, 467.0, 134.56543, 54.0 ],
 									"style" : "",
 									"text" : "Double click to display solution in textual form"
 								}
@@ -6457,7 +6953,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "bang", "int" ],
-									"patching_rect" : [ 400.5, 505.0, 40.0, 23.0 ],
+									"patching_rect" : [ 400.5, 480.0, 40.0, 23.0 ],
 									"style" : "",
 									"text" : "text"
 								}
@@ -6471,7 +6967,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 353.0, 158.0, 158.0, 67.0 ],
+									"patching_rect" : [ 353.0, 133.0, 158.0, 67.0 ],
 									"style" : "",
 									"text" : "set Fl Fl Ob Ob ClBb ClBb Bn Bn TpC TpC Hn Hn Tbn Tbn Vn Vn Vn Vn Va Va Vc Cb, bang"
 								}
@@ -6486,7 +6982,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 425.5, 310.0, 200.0, 36.0 ],
+									"patching_rect" : [ 425.5, 285.0, 200.0, 36.0 ],
 									"style" : "",
 									"text" : "...be sure to use the instruments present in your databases!",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
@@ -6502,7 +6998,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 507.782715, 171.5, 103.0, 25.0 ],
+									"patching_rect" : [ 507.782715, 146.5, 103.0, 25.0 ],
 									"style" : "",
 									"text" : "Set orchestra"
 								}
@@ -6515,7 +7011,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 353.0, 310.0, 65.0, 23.0 ],
+									"patching_rect" : [ 353.0, 285.0, 65.0, 23.0 ],
 									"style" : "",
 									"text" : "route text"
 								}
@@ -6524,13 +7020,15 @@
 , 							{
 								"box" : 								{
 									"id" : "obj-7",
+									"linecount" : 3,
 									"maxclass" : "textedit",
 									"numinlets" : 1,
 									"numoutlets" : 4,
 									"outlettype" : [ "", "int", "", "" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 353.0, 234.5, 215.0, 65.5 ],
-									"style" : ""
+									"patching_rect" : [ 353.0, 209.5, 215.0, 65.5 ],
+									"style" : "",
+									"text" : "Fl Fl Ob Ob ClBb ClBb Bn Bn TpC TpC Hn Hn Tbn Tbn Vn Vn Vn Vn Va Va Vc Cb"
 								}
 
 							}
@@ -6539,13 +7037,13 @@
 									"fontname" : "Arial",
 									"fontsize" : 13.0,
 									"id" : "obj-55",
-									"linecount" : 3,
+									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 184.0, 601.0, 722.0, 50.0 ],
+									"patching_rect" : [ 184.0, 573.0, 722.0, 36.0 ],
 									"style" : "",
-									"text" : "orchidea.solve writes by default the solutions files in a folder with the same name of the target file, and the suffix _orchidea. You can change this behavior via the \"prefix\" attribute (see \"handling output files\"). In this tab, we are saving the files in the /tmp/ folder",
+									"text" : "orchidea.solve writes by default the solutions files in a folder with the same name of the target file, and the suffix _orchidea. You can change this behavior via the \"prefix\" attribute (see \"handling output files\").",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
 								}
 
@@ -6557,7 +7055,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 57.300049, 453.0, 35.0, 23.0 ],
+									"patching_rect" : [ 57.300049, 428.0, 35.0, 23.0 ],
 									"style" : "",
 									"text" : "stop"
 								}
@@ -6570,7 +7068,7 @@
 									"maxclass" : "ezdac~",
 									"numinlets" : 2,
 									"numoutlets" : 0,
-									"patching_rect" : [ 18.5, 601.0, 44.0, 44.0 ],
+									"patching_rect" : [ 18.5, 576.0, 44.0, 44.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 550.0, 672.0, 36.0, 36.0 ],
 									"prototypename" : "helpfile",
@@ -6588,7 +7086,7 @@
 									"orientation" : 1,
 									"outlettype" : [ "signal", "", "float", "list" ],
 									"parameter_enable" : 1,
-									"patching_rect" : [ 18.5, 542.0, 257.0, 41.0 ],
+									"patching_rect" : [ 18.5, 517.0, 257.0, 41.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 550.0, 600.0, 210.0, 41.0 ],
 									"saved_attribute_attributes" : 									{
@@ -6615,7 +7113,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 18.5, 453.0, 36.0, 23.0 ],
+									"patching_rect" : [ 18.5, 428.0, 36.0, 23.0 ],
 									"style" : "",
 									"text" : "start"
 								}
@@ -6628,7 +7126,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "signal", "bang" ],
-									"patching_rect" : [ 18.5, 486.0, 90.0, 23.0 ],
+									"patching_rect" : [ 18.5, 461.0, 90.0, 23.0 ],
 									"style" : "",
 									"text" : "play~ solution"
 								}
@@ -6641,7 +7139,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 18.5, 417.0, 205.0, 23.0 ],
+									"patching_rect" : [ 18.5, 392.0, 205.0, 23.0 ],
 									"style" : "",
 									"text" : "orchidea.solution.tobuffer solution"
 								}
@@ -6654,7 +7152,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 400.5, 463.0, 144.0, 23.0 ],
+									"patching_rect" : [ 400.5, 438.0, 144.0, 23.0 ],
 									"style" : "",
 									"text" : "orchidea.solution.totext"
 								}
@@ -6666,7 +7164,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 555.5, 422.0, 110.0, 23.0 ],
+									"patching_rect" : [ 555.5, 397.0, 110.0, 23.0 ],
 									"style" : "",
 									"text" : "print Notifications"
 								}
@@ -6679,7 +7177,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 57.5, 301.0, 24.0, 24.0 ],
+									"patching_rect" : [ 57.5, 276.0, 24.0, 24.0 ],
 									"style" : ""
 								}
 
@@ -6694,7 +7192,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 89.5, 293.0, 115.0, 40.0 ],
+									"patching_rect" : [ 89.5, 268.0, 115.0, 40.0 ],
 									"style" : "",
 									"text" : "Re-trigger orchestration"
 								}
@@ -6707,25 +7205,9 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 18.5, 357.0, 688.0, 23.0 ],
+									"patching_rect" : [ 18.5, 332.0, 688.0, 23.0 ],
 									"style" : "",
 									"text" : "orchidea.solve"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 13.0,
-									"id" : "obj-11",
-									"linecount" : 2,
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 10.0, 126.0, 915.0, 36.0 ],
-									"style" : "",
-									"text" : "This is the solver object of the orchidea toolbox for assisted orchestration. \nGiven a database of analyzed audio samples, an orchestra and an audio target, it approximates the target via a combination of the database samples.",
-									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
 								}
 
 							}
@@ -6735,7 +7217,7 @@
 									"filename" : "helpdetails.js",
 									"id" : "obj-2",
 									"ignoreclick" : 1,
-									"jsarguments" : [ "orchidea.solve", 80 ],
+									"jsarguments" : [ "orchidea.solve", 120 ],
 									"maxclass" : "jsui",
 									"numinlets" : 1,
 									"numoutlets" : 1,
@@ -6759,7 +7241,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "int" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 237.5, 171.5, 20.0, 20.0 ],
+									"patching_rect" : [ 237.5, 146.5, 20.0, 20.0 ],
 									"rounded" : 60.0,
 									"style" : "",
 									"text" : "3",
@@ -6781,7 +7263,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "int" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 826.0, 177.5, 20.0, 20.0 ],
+									"patching_rect" : [ 826.0, 152.5, 20.0, 20.0 ],
 									"rounded" : 60.0,
 									"style" : "",
 									"text" : "1",
@@ -6803,7 +7285,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "int" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 615.630859, 174.0, 20.0, 20.0 ],
+									"patching_rect" : [ 615.630859, 149.0, 20.0, 20.0 ],
 									"rounded" : 60.0,
 									"style" : "",
 									"text" : "2",
@@ -6980,7 +7462,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-26", 0 ],
-									"midpoints" : [ 28.0, 286.0, 246.5, 286.0 ],
+									"midpoints" : [ 28.0, 261.0, 246.5, 261.0 ],
 									"order" : 0,
 									"source" : [ "obj-8", 0 ]
 								}
@@ -7005,7 +7487,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-19", 0 ],
-									"midpoints" : [ 28.0, 392.0, 410.0, 392.0 ],
+									"midpoints" : [ 28.0, 367.0, 410.0, 367.0 ],
 									"order" : 0,
 									"source" : [ "obj-9", 0 ]
 								}
@@ -7080,7 +7562,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 1055.0, 674.0 ],
+						"rect" : [ 0.0, 26.0, 1055.0, 670.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -7131,11 +7613,11 @@
  ],
 		"lines" : [  ],
 		"parameters" : 		{
+			"obj-5::obj-42" : [ "solution", "solution", 0 ],
 			"obj-10::obj-42" : [ "solution[2]", "solution", 0 ],
-			"obj-9::obj-42" : [ "solution[1]", "solution", 0 ],
-			"obj-5::obj-34" : [ "target", "target", 0 ],
 			"obj-2::obj-42" : [ "gain", "gain", 0 ],
-			"obj-5::obj-42" : [ "solution", "solution", 0 ]
+			"obj-5::obj-34" : [ "target", "target", 0 ],
+			"obj-9::obj-42" : [ "solution[1]", "solution", 0 ]
 		}
 ,
 		"dependency_cache" : [ 			{
@@ -7172,6 +7654,10 @@
 			}
 , 			{
 				"name" : "orchidea.solve.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "bach.print.mxo",
 				"type" : "iLaX"
 			}
  ],

@@ -1,7 +1,0 @@
-(orchestra Fl Ob ClBb )
-(segment 0
-	(solution 1
-		(note 6193.97 Fl ord B3 ff /Winds/Fl/Fl-ord-B3-ff.wav 0)
-		(note 6193.97 ClBb ord B3 pp /Winds/ClBb/ClBb-ord-B3-pp.wav 0)
-	)
-)

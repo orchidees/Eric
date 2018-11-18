@@ -1,2 +1,7 @@
+max oblist "orchidea objects" orchidea.features;
 max oblist "orchidea objects" orchidea.solve;
-max oblist "orchidea objects" orchidea.solve;
+max oblist "orchidea objects" orchidea.db.browse;
+max oblist "orchidea objects" orchidea.db.gen;
+max oblist "orchidea abstractions" orchidea.solution.tobuffer;
+max oblist "orchidea abstractions" orchidea.solution.totext;
+max oblist "orchidea abstractions" orchidea.solution.toroll;

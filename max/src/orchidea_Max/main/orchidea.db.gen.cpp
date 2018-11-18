@@ -31,11 +31,11 @@
  orchestration, instrumentation, dataset, sample, generate, database
  
  @seealso
- orchidea.db.gen, orchidea.solution.toroll, orchidea.solution.totext, orchidea.solution.tobuffer, orchidea.solution.tofile
+ orchidea.db.gen, orchidea.db.browse, orchidea.solve
  
  @owner
  Carmine Emanuele Cella
- */
+*/
 
 #include "orchidea.h"
 #include "tokenizer.h"
@@ -199,7 +199,7 @@ void ext_main(void *r) {
     CLASS_ATTR_SYM(c, "dbname", 0, t_dbgen, db_name);
     CLASS_ATTR_STYLE(c, "dbname", 0, "text");
     CLASS_ATTR_LABEL(c, "dbname", 0, "Output Name for DB");
-    CLASS_ATTR_CATEGORY(c, "dbname", 0, "Paths");
+    CLASS_ATTR_BASIC(c, "dbname", 0);
     // @description Sets the name of the DB.
     // By default output files will be put in the same folder of the sounds.
     
@@ -242,6 +242,19 @@ void orchmax_dbgen_bang(t_dbgen *x) {
 void orchmax_dbgen_free(t_dbgen *x) {
     orchidea_destroy(x->orc_hand);
 }
+
+void orchmax_dbgen_assist(t_dbgen *x, void *b, long m, long a, char *s)
+{
+    if (m == ASSIST_INLET) {
+        sprintf(s, "symbol: Folder"); // @in 0 @type symbol @digest Folder to be analyzed
+    } else {
+        if (a == 0)
+            sprintf(s, "list: Features"); // @out 0 @type list @digest Computed features
+        else
+            sprintf(s, "list: Notifications"); // @out 1 @type list @digest Notifications
+    }
+}
+
 
 t_symbol *conform_path(t_symbol *path) {
     if (!path) {

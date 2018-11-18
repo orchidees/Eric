@@ -1,6 +1,6 @@
 {
-  "orchidea.solve": {
-    "digest": "Orchestrate an audio sample",
+  "orchidea.features": {
+    "digest": "Extract average descriptors from an audio file",
     "module": "orchidea",
     "category": [
       "@keywords"
@@ -8,7 +8,8 @@
     "keywords": [
     ],
     "seealso": [
-      "orchidea.db.gen"
+      "orchidea.db.gen",
+      "orchidea.solve"
     ]
   },
   "orchidea.solve": {
@@ -20,7 +21,82 @@
     "keywords": [
     ],
     "seealso": [
+      "orchidea.db.gen",
+      "orchidea.solution.toroll",
+      "orchidea.solution.totext",
+      "orchidea.solution.tobuffer",
+      "orchidea.solution.tofile"
+    ]
+  },
+  "orchidea.db.browse": {
+    "digest": "Browse an orchidea database",
+    "module": "orchidea",
+    "category": [
+      "@keywords"
+    ],
+    "keywords": [
+    ],
+    "seealso": [
       "orchidea.db.gen"
+    ]
+  },
+  "orchidea.db.gen": {
+    "digest": "Generate database from samples",
+    "module": "orchidea",
+    "category": [
+      "@keywords"
+    ],
+    "keywords": [
+    ],
+    "seealso": [
+      "orchidea.db.gen",
+      "orchidea.db.browse",
+      "orchidea.solve"
+    ]
+  },
+  "orchidea.solution.tobuffer": {
+    "digest": "Import orchidea solution into a buffer",
+    "module": "orchidea",
+    "category": [
+      "@keywords"
+    ],
+    "keywords": [
+    ],
+    "seealso": [
+      "orchidea.solve",
+      "orchidea.solution.totext",
+      "orchidea.solution.toroll",
+      "orchidea.solution.tofile"
+    ]
+  },
+  "orchidea.solution.totext": {
+    "digest": "Import orchidea solution into a text object",
+    "module": "orchidea",
+    "category": [
+      "@keywords"
+    ],
+    "keywords": [
+    ],
+    "seealso": [
+      "orchidea.solve",
+      "orchidea.solution.tobuffer",
+      "orchidea.solution.toroll",
+      "orchidea.solution.tofile"
+    ]
+  },
+  "orchidea.solution.toroll": {
+    "digest": "Import orchidea solutions into a <o>bach.roll</o>",
+    "module": "orchidea",
+    "category": [
+      "@keywords"
+    ],
+    "keywords": [
+    ],
+    "seealso": [
+      "orchidea.solve",
+      "orchidea.solution.totext",
+      "orchidea.solution.tobuffer",
+      "orchidea.solution.tofile"
     ]
   }
 }

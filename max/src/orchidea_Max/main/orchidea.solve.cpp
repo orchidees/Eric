@@ -492,7 +492,7 @@ void* orchidea_solve_dispatcher (void* d) {
         
         if (x->must_rerun_analysis) {
             // reanalysis of target
-            int r = orchidea_set_target(x->orc_hand, x->current_target ? "" : x->current_target->s_name);
+            int r = orchidea_set_target(x->orc_hand, x->current_target ? x->current_target->s_name : "");
             if (r != ORCHIDEA_NO_ERROR) {
                 object_error((t_object *)x, "error: %s (%s)", orchidea_decode_error(r), orchidea_get_error_details(x->orc_hand));
             } else {
@@ -770,6 +770,7 @@ void ext_main(void *r) {
     class_register(CLASS_BOX, c);
     orchmax_solve_class = c;
 }
+
 void orchmax_solve_assist(t_solver *x, void *b, long m, long a, char *s)
 {
     if (m == ASSIST_INLET) {

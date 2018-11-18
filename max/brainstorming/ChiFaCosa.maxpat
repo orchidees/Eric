@@ -45,7 +45,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 10.0, 503.366638, 765.0, 185.0 ],
-					"presentation_rect" : [ 22.0, 587.366638, 0.0, 0.0 ],
 					"style" : "",
 					"text" : "Oggetti:\norchidea.db.browse (C)\n[Per prossima versione: orchidea.target\norchidea.db]"
 				}
@@ -60,9 +59,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 10.0, 343.366638, 765.0, 140.0 ],
-					"presentation_rect" : [ 797.0, 22.066666, 0.0, 0.0 ],
 					"style" : "",
-					"text" : "Doc (+abstractions) (D)\ndaniele tranne i punti in cui non so cosa mettere \"TODOCEC\" -> reference"
+					"text" : "Doc (+abstractions) (D) *\ndaniele tranne i punti in cui non so cosa mettere \"TODOCEC\" -> reference"
 				}
 
 			}
