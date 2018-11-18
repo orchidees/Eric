@@ -114,25 +114,29 @@ void* orchidea_dispatcher (void* d) {
     }
     else {
         std::vector<float> features;
-        compute_features<float> (x->file_name->s_name, features, x->win_size, x->hop_size, 4, "moments");
-        
-//        compute_features<float> (x->file_name->s_name, features,
-//                                 x->win_size, x->hop_size, 4, "transients");
-//
-        
-        t_atom out;
-        
-        atom_setfloat(&out, features[0]);
-        outlet_anything(x->out_1, gensym("centroid"), 1, &out);
-        atom_setfloat(&out, features[1]);
-        outlet_anything(x->out_1, gensym("spread"), 1, &out);
-        atom_setfloat(&out, features[2]);
-        outlet_anything(x->out_1, gensym("skewness"), 1, &out);
-        atom_setfloat(&out, features[3]);
-        outlet_anything(x->out_1, gensym("kurtosis"), 1, &out);
+        try {
+            compute_features<float> (x->file_name->s_name, features, x->win_size, x->hop_size, 4, "moments");
 
-//        object_post((t_object *)x, "features have been computed correctly");
-        
+            //        compute_features<float> (x->file_name->s_name, features,
+            //                                 x->win_size, x->hop_size, 4, "transients");
+            //
+            
+            t_atom out;
+            
+            atom_setfloat(&out, features[0]);
+            outlet_anything(x->out_1, gensym("centroid"), 1, &out);
+            atom_setfloat(&out, features[1]);
+            outlet_anything(x->out_1, gensym("spread"), 1, &out);
+            atom_setfloat(&out, features[2]);
+            outlet_anything(x->out_1, gensym("skewness"), 1, &out);
+            atom_setfloat(&out, features[3]);
+            outlet_anything(x->out_1, gensym("kurtosis"), 1, &out);
+            
+            //        object_post((t_object *)x, "features have been computed correctly");
+
+        } catch (std::exception& e){
+            error("error: %s", e.what ());
+        }
     }
     
     atom_setlong(&busy, 0);
