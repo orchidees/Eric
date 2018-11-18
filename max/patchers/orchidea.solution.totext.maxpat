@@ -38,7 +38,7 @@
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
-					"comment" : "Connect to text object",
+					"comment" : "anything: Messages for the text object",
 					"id" : "obj-17",
 					"index" : 1,
 					"maxclass" : "outlet",
@@ -507,7 +507,7 @@
 			}
 , 			{
 				"box" : 				{
-					"comment" : "Connect to the first outlet of orchidea.session",
+					"comment" : "list: Leftmost Output of orchidea.solve",
 					"id" : "obj-1",
 					"index" : 1,
 					"maxclass" : "inlet",

@@ -98,5 +98,20 @@
       "orchidea.solution.tobuffer",
       "orchidea.solution.tofile"
     ]
+  },
+  "orchidea.solution.tofile": {
+    "digest": "Get filenames for a specific orchidea solution",
+    "module": "orchidea",
+    "category": [
+      "@keywords"
+    ],
+    "keywords": [
+    ],
+    "seealso": [
+      "orchidea.solve",
+      "orchidea.solution.totext",
+      "orchidea.solution.toroll",
+      "orchidea.solution.tobuffer"
+    ]
   }
 }

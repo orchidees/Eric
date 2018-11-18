@@ -68,7 +68,7 @@
 				Segment number
 			</digest>
 			<description>
-				The optional second argument sets the segment number.
+				The optional second argument sets the segment number.  Use 0 to output the connection (default).
 			</description>
 		</objarg>
 		<objarg name="solutionnumber" optional="1" type="int">
