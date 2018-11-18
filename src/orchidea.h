@@ -41,6 +41,7 @@ extern "C" {
 	int orchidea_set_target (OrchideaHandle* h, const char* filename);
 	int orchidea_set_source (OrchideaHandle* h, const char* db_path[], int size);
 	const char* orchidea_dump_source (OrchideaHandle* h);
+	const char* orchidea_query_source (OrchideaHandle* h, const char* query);
 
 	int orchidea_set_search (OrchideaHandle* h, const char* algorithm);
 	int orchidea_set_param (OrchideaHandle* h, const char* param[], int size);

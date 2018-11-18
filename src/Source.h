@@ -84,6 +84,55 @@ struct Source {
 		parameters = params;
 		load ();
 	}
+	void item_to_vector (std::map<std::string, std::vector<int> > item,
+		std::vector<std::string>& results) {
+		for (std::map<std::string, std::vector<int> >::iterator it = item.begin ();
+			it != item.end (); ++it) {
+			results.push_back(it->first);
+		}		
+	}
+	void query (const std::string& query, std::vector<std::string>& results) {
+		std::stringstream tmp;
+		tmp << query;
+		std::vector<std::string> tokens;
+		while (!tmp.eof ()) {
+			std::string tok;
+			tmp >> tok;
+			tokens.push_back(tok);
+		}
+
+		if (tokens.size () < 2) {
+			throw std::runtime_error ("invalid syntax in query");
+		}
+
+		if (tokens[0] == "search") {
+			const char* regexp = tokens[1].c_str ();
+			for (unsigned j = 0; j <  database.size (); ++j) {
+				if (match ((char*) regexp, (char*) database[j].file.c_str ())) {
+					results.push_back (database[j].file);
+				}
+			}
+		} else if (tokens[0] == "list") {
+			for (unsigned i = 1; i < tokens.size (); ++i) {
+				if (tokens[i] == "instruments") {
+					item_to_vector(tot_instruments, results);
+				} else if (tokens[i] == "styles") {
+					item_to_vector(styles, results);
+				} else if (tokens[i] == "pitches") {
+					item_to_vector(pitches, results);
+				} else if (tokens[i] == "dynamics") {
+					item_to_vector(dynamics, results);
+				} else if (tokens[i] == "others") {
+					item_to_vector(others, results);
+				} else {
+					throw std::runtime_error ("invalid item for list");
+				}
+			}					
+		} else {
+			throw std::runtime_error ("invalid query requested");
+		}
+	}
+
 	void load () {
 		if (parameters->db_files.size () == 0) return;
 
