@@ -23,6 +23,11 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		1ED2A59621A06A740049A495 /* utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED89EF7219B1835008B9C9D /* utilities.h */; };
+		1ED2A59721A06A740049A495 /* tokenizer.h in Headers */ = {isa = PBXBuildFile; fileRef = DB419179203B974E00237F10 /* tokenizer.h */; };
+		1ED2A59821A06A740049A495 /* orchidea.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BE44D9820349C37006E42EC /* orchidea.h */; };
+		1ED2A59D21A06A740049A495 /* liborchidea_shared.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DB526AB420582CF0006BE8BC /* liborchidea_shared.dylib */; };
+		1ED2A5A621A06AF10049A495 /* orchidea.db.browse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ED2A5A521A06AF10049A495 /* orchidea.db.browse.cpp */; };
 		1ED89EF8219B1835008B9C9D /* utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED89EF7219B1835008B9C9D /* utilities.h */; };
 		1ED89EFD219B43BD008B9C9D /* utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED89EF7219B1835008B9C9D /* utilities.h */; };
 		1ED89EFE219B43BD008B9C9D /* tokenizer.h in Headers */ = {isa = PBXBuildFile; fileRef = DB419179203B974E00237F10 /* tokenizer.h */; };
@@ -66,6 +71,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1ED2A5A321A06A740049A495 /* orchidea.db.browse.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = orchidea.db.browse.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
+		1ED2A5A521A06AF10049A495 /* orchidea.db.browse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = orchidea.db.browse.cpp; sourceTree = "<group>"; };
 		1ED89EF7219B1835008B9C9D /* utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = utilities.h; path = ../../../src/utilities.h; sourceTree = "<group>"; };
 		1ED89F0C219B43BD008B9C9D /* orchidea.db.gen.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = orchidea.db.gen.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ED89F0F219B4445008B9C9D /* orchidea.db.gen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = orchidea.db.gen.cpp; sourceTree = "<group>"; };
@@ -81,6 +88,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1ED2A59C21A06A740049A495 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1ED2A59D21A06A740049A495 /* liborchidea_shared.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1ED89F03219B43BD008B9C9D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -129,6 +144,7 @@
 				2FBBEAE508F335360078DB84 /* orchidea.solve.mxo */,
 				1ED89F0C219B43BD008B9C9D /* orchidea.db.gen.mxo */,
 				1ED89F22219B445B008B9C9D /* orchidea.features.mxo */,
+				1ED2A5A321A06A740049A495 /* orchidea.db.browse.mxo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -137,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				1ED89F24219B4478008B9C9D /* orchidea.features.cpp */,
+				1ED2A5A521A06AF10049A495 /* orchidea.db.browse.cpp */,
 				1ED89F0F219B4445008B9C9D /* orchidea.db.gen.cpp */,
 				22CF122A0EE9AAAD0054F513 /* orchidea.solve.cpp */,
 			);
@@ -154,6 +171,16 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		1ED2A59521A06A740049A495 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1ED2A59621A06A740049A495 /* utilities.h in Headers */,
+				1ED2A59721A06A740049A495 /* tokenizer.h in Headers */,
+				1ED2A59821A06A740049A495 /* orchidea.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1ED89EFC219B43BD008B9C9D /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -188,6 +215,26 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		1ED2A59421A06A740049A495 /* orchidea.db.browse */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1ED2A5A021A06A740049A495 /* Build configuration list for PBXNativeTarget "orchidea.db.browse" */;
+			buildPhases = (
+				1ED2A59521A06A740049A495 /* Headers */,
+				1ED2A59921A06A740049A495 /* Resources */,
+				1ED2A59A21A06A740049A495 /* Sources */,
+				1ED2A59C21A06A740049A495 /* Frameworks */,
+				1ED2A59E21A06A740049A495 /* Rez */,
+				1ED2A59F21A06A740049A495 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = orchidea.db.browse;
+			productName = iterator;
+			productReference = 1ED2A5A321A06A740049A495 /* orchidea.db.browse.mxo */;
+			productType = "com.apple.product-type.bundle";
+		};
 		1ED89EFB219B43BD008B9C9D /* orchidea.db.gen */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1ED89F09219B43BD008B9C9D /* Build configuration list for PBXNativeTarget "orchidea.db.gen" */;
@@ -278,6 +325,7 @@
 			targets = (
 				1ED89F26219B4544008B9C9D /* orchidea_all */,
 				2FBBEAD608F335360078DB84 /* orchidea.solve */,
+				1ED2A59421A06A740049A495 /* orchidea.db.browse */,
 				1ED89EFB219B43BD008B9C9D /* orchidea.db.gen */,
 				1ED89F11219B445B008B9C9D /* orchidea.features */,
 			);
@@ -285,6 +333,13 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1ED2A59921A06A740049A495 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1ED89F00219B43BD008B9C9D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -309,6 +364,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXRezBuildPhase section */
+		1ED2A59E21A06A740049A495 /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1ED89F05219B43BD008B9C9D /* Rez */ = {
 			isa = PBXRezBuildPhase;
 			buildActionMask = 2147483647;
@@ -333,6 +395,20 @@
 /* End PBXRezBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1ED2A59F21A06A740049A495 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# hack the reference to the orchidea shared library:\ninstall_name_tool -change @rpath/liborchidea_shared.dylib @loader_path/../Frameworks/liborchidea_shared.dylib ../../externals/orchidea.db.browse.mxo/Contents/MacOS/orchidea.db.browse\nmkdir -p ../../externals/orchidea.db.browse.mxo/Contents/Frameworks\ncp ../../../build/bin/*.dylib  ../../externals/orchidea.db.browse.mxo/Contents/Frameworks\ncp -R ../../externals/orchidea.db.browse.mxo/ ../../../build/bin/orchidea.db.browse.mxo";
+			showEnvVarsInLog = 0;
+		};
 		1ED89F06219B43BD008B9C9D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -378,6 +454,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1ED2A59A21A06A740049A495 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1ED2A5A621A06AF10049A495 /* orchidea.db.browse.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1ED89F01219B43BD008B9C9D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -423,6 +507,45 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		1ED2A5A121A06A740049A495 /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22CF10220EE984600054F513 /* maxmspsdk.xcconfig */;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = "$(SRCROOT)/../../";
+				GCC_OPTIMIZATION_LEVEL = 0;
+				HEADER_SEARCH_PATHS = (
+					"\"$(C74SUPPORT)/max-includes\"",
+					"\"$(C74SUPPORT)/msp-includes\"",
+					"\"$(C74SUPPORT)/jit-includes\"",
+					../../../build/src/,
+					../../src,
+				);
+				INSTALL_PATH = /externals;
+				OTHER_LDFLAGS = "$(C74_SYM_LINKER_FLAGS)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Development;
+		};
+		1ED2A5A221A06A740049A495 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22CF10220EE984600054F513 /* maxmspsdk.xcconfig */;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = "$(SRCROOT)/../../";
+				HEADER_SEARCH_PATHS = (
+					"\"$(C74SUPPORT)/max-includes\"",
+					"\"$(C74SUPPORT)/msp-includes\"",
+					"\"$(C74SUPPORT)/jit-includes\"",
+					../../../build/src/,
+					../../src,
+				);
+				INSTALL_PATH = /externals;
+				OTHER_LDFLAGS = "$(C74_SYM_LINKER_FLAGS)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Deployment;
+		};
 		1ED89F0A219B43BD008B9C9D /* Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 22CF10220EE984600054F513 /* maxmspsdk.xcconfig */;
@@ -655,6 +778,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1ED2A5A021A06A740049A495 /* Build configuration list for PBXNativeTarget "orchidea.db.browse" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1ED2A5A121A06A740049A495 /* Development */,
+				1ED2A5A221A06A740049A495 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
 		1ED89F09219B43BD008B9C9D /* Build configuration list for PBXNativeTarget "orchidea.db.gen" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
