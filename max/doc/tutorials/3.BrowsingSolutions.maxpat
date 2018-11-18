@@ -42,7 +42,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3.0, 129.0, 92.0, 21.0 ],
+					"patching_rect" : [ 3.0, 129.0, 150.0, 22.0 ],
 					"style" : "",
 					"text" : "Bla bla bla bla"
 				}
@@ -55,7 +55,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 493.0, 143.0, 94.0, 23.0 ],
+					"patching_rect" : [ 493.0, 143.0, 101.0, 24.0 ],
 					"style" : "",
 					"text" : "orchidea.solve"
 				}
@@ -70,7 +70,7 @@
 					"mode" : 0,
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ -4.0, 62.0, 131.0, 32.0 ],
+					"patching_rect" : [ -4.0, 62.0, 131.0, 35.235489 ],
 					"proportion" : 0.39,
 					"style" : ""
 				}
@@ -85,9 +85,9 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 256.5, 18.442019, 396.0, 57.0 ],
+					"patching_rect" : [ 261.5, 17.735489, 386.0, 57.0 ],
 					"style" : "",
-					"text" : "Static orchestration",
+					"text" : "Browsing solutions",
 					"textjustification" : 1
 				}
 
@@ -143,7 +143,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 3.0, 1.235489, 77.0, 96.0 ],
 					"style" : "",
-					"text" : "1",
+					"text" : "3",
 					"textcolor" : [ 0.011765, 0.396078, 0.752941, 1.0 ],
 					"textjustification" : 1
 				}
