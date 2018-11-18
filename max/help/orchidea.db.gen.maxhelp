@@ -4,12 +4,12 @@
 		"appversion" : 		{
 			"major" : 7,
 			"minor" : 3,
-			"revision" : 1,
+			"revision" : 4,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 584.0, 210.0, 610.0, 590.0 ],
+		"rect" : [ 237.0, 197.0, 782.0, 590.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -51,12 +51,12 @@
 						"appversion" : 						{
 							"major" : 7,
 							"minor" : 3,
-							"revision" : 1,
+							"revision" : 4,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 610.0, 564.0 ],
+						"rect" : [ 0.0, 26.0, 782.0, 564.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -86,12 +86,43 @@
 						"showontab" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"id" : "obj-10",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 10.0, 113.0, 162.0, 21.0 ],
+									"style" : "",
+									"text" : "IMPORTANT:",
+									"textcolor" : [ 0.792157, 0.0, 0.0, 1.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"id" : "obj-1",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 10.0, 128.932373, 680.0, 21.0 ],
+									"presentation_rect" : [ 10.0, 119.567627, 0.0, 0.0 ],
+									"style" : "",
+									"text" : "If you name the dataset manually, remember to use this convention to name your database: whatever.feature.db",
+									"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
 									"id" : "obj-12",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 336.0, 433.0, 109.0, 23.0 ],
+									"patching_rect" : [ 275.0, 278.964783, 109.0, 23.0 ],
 									"style" : "",
 									"text" : "prepend dbname"
 								}
@@ -100,17 +131,16 @@
 , 							{
 								"box" : 								{
 									"bubble" : 1,
-									"bubbleside" : 2,
 									"fontname" : "Arial",
 									"fontsize" : 13.0,
 									"id" : "obj-52",
-									"linecount" : 9,
+									"linecount" : 3,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 336.0, 151.932373, 192.0, 156.0 ],
+									"patching_rect" : [ 469.0, 184.432373, 192.0, 54.0 ],
 									"style" : "",
-									"text" : "Change the attribute dbname to control where to store the analysis data. If dbname = default the analysis is stored in the same folder.\nNB: remember to use this convention to name your database:\nwhatever.feature.db"
+									"text" : "Change the attribute dbname to control where to store the analysis data. "
 								}
 
 							}
@@ -122,7 +152,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 336.0, 227.432373, 98.0, 23.0 ],
+									"patching_rect" : [ 561.0, 299.432373, 98.0, 23.0 ],
 									"style" : "",
 									"text" : "loadmess clear"
 								}
@@ -135,7 +165,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 336.0, 383.799988, 65.0, 23.0 ],
+									"patching_rect" : [ 275.0, 246.764771, 65.0, 23.0 ],
 									"style" : "",
 									"text" : "route text"
 								}
@@ -149,7 +179,7 @@
 									"numoutlets" : 4,
 									"outlettype" : [ "", "int", "", "" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 336.0, 317.799988, 192.0, 51.0 ],
+									"patching_rect" : [ 275.0, 187.432373, 192.0, 51.0 ],
 									"style" : ""
 								}
 
@@ -160,7 +190,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 201.0, 398.0, 110.0, 23.0 ],
+									"patching_rect" : [ 201.0, 358.0, 110.0, 23.0 ],
 									"style" : "",
 									"text" : "print Notifications"
 								}
@@ -173,7 +203,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 41.0, 245.182373, 127.0, 36.0 ],
+									"patching_rect" : [ 41.0, 205.182373, 127.0, 36.0 ],
 									"style" : "helpfile_label",
 									"text" : "Drop folder to analyse here..."
 								}
@@ -186,7 +216,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 10.0, 227.432373, 189.0, 71.5 ]
+									"patching_rect" : [ 10.0, 187.432373, 189.0, 71.5 ]
 								}
 
 							}
@@ -196,7 +226,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 10.0, 526.0, 94.0, 23.0 ],
+									"patching_rect" : [ 10.0, 436.0, 94.0, 23.0 ],
 									"style" : "",
 									"text" : "print db_name"
 								}
@@ -210,7 +240,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 10.0, 331.799988, 210.0, 23.0 ],
+									"patching_rect" : [ 10.0, 320.799988, 210.0, 23.0 ],
 									"style" : "",
 									"text" : "orchidea.db.gen @dbname default"
 								}
@@ -220,28 +250,14 @@
 								"box" : 								{
 									"fontname" : "Arial",
 									"fontsize" : 13.0,
-									"id" : "obj-35",
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 10.0, 59.567627, 230.0, 21.0 ],
-									"style" : "",
-									"text" : "Analyze folder and generate database"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 13.0,
 									"id" : "obj-3",
-									"linecount" : 3,
+									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 10.0, 82.567627, 506.0, 50.0 ],
+									"patching_rect" : [ 10.0, 69.567627, 656.0, 36.0 ],
 									"style" : "",
-									"text" : "You can compute several features over a folder of sounds; each feature will be stored in a separate database. In orchidea.solve you can use several databased at the same time, but they all must use the same feature.",
+									"text" : "Change the attribute \"dbname\" to control where to store the analysis data. If dbname is \"default\", the analysis is stored in the parent folder of the source folder.",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
 								}
 
@@ -249,16 +265,16 @@
 , 							{
 								"box" : 								{
 									"border" : 0,
-									"filename" : "helpdetails.js",
+									"filename" : "helpname.js",
 									"id" : "obj-2",
 									"ignoreclick" : 1,
-									"jsarguments" : [ "orchidea.db.gen", 80 ],
+									"jsarguments" : [ "orchidea.db.gen" ],
 									"maxclass" : "jsui",
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 10.0, 10.0, 660.0, 114.0 ]
+									"patching_rect" : [ 10.0, 10.0, 339.157745, 57.567627 ]
 								}
 
 							}
@@ -266,9 +282,6 @@
 						"lines" : [ 							{
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
-									"disabled" : 0,
-									"hidden" : 0,
-									"midpoints" : [ 345.5, 459.0, 321.0, 459.0, 321.0, 318.0, 19.5, 318.0 ],
 									"source" : [ "obj-12", 0 ]
 								}
 
@@ -276,8 +289,6 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-12", 0 ],
-									"disabled" : 0,
-									"hidden" : 0,
 									"source" : [ "obj-17", 0 ]
 								}
 
@@ -285,8 +296,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-9", 0 ],
-									"disabled" : 0,
-									"hidden" : 0,
+									"hidden" : 1,
 									"source" : [ "obj-18", 0 ]
 								}
 
@@ -294,8 +304,6 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
-									"disabled" : 0,
-									"hidden" : 0,
 									"source" : [ "obj-44", 0 ]
 								}
 
@@ -303,8 +311,6 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-7", 0 ],
-									"disabled" : 0,
-									"hidden" : 0,
 									"source" : [ "obj-5", 0 ]
 								}
 
@@ -312,8 +318,6 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-8", 0 ],
-									"disabled" : 0,
-									"hidden" : 0,
 									"source" : [ "obj-5", 1 ]
 								}
 
@@ -321,8 +325,6 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-17", 0 ],
-									"disabled" : 0,
-									"hidden" : 0,
 									"source" : [ "obj-9", 0 ]
 								}
 
@@ -359,12 +361,12 @@
 						"appversion" : 						{
 							"major" : 7,
 							"minor" : 3,
-							"revision" : 1,
+							"revision" : 4,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 584.0, 236.0, 610.0, 564.0 ],
+						"rect" : [ 0.0, 26.0, 782.0, 564.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -403,7 +405,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 161.0, 361.5, 138.0, 55.0 ],
+									"patching_rect" : [ 161.0, 283.5, 138.0, 55.0 ],
 									"style" : "",
 									"text" : "Set the attributes to control the analysis"
 								}
@@ -419,7 +421,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 465.5, 260.432373, 138.0, 54.0 ],
+									"patching_rect" : [ 465.5, 182.432373, 138.0, 54.0 ],
 									"style" : "",
 									"text" : "Select the feature\nyou want to compute"
 								}
@@ -433,7 +435,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 255.0, 275.932373, 195.0, 23.0 ],
+									"patching_rect" : [ 255.0, 197.932373, 195.0, 23.0 ],
 									"style" : ""
 								}
 
@@ -444,7 +446,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 431.0, 398.0, 110.0, 23.0 ],
+									"patching_rect" : [ 431.0, 320.0, 110.0, 23.0 ],
 									"style" : "",
 									"text" : "print Notifications"
 								}
@@ -457,7 +459,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 41.0, 245.182373, 127.0, 36.0 ],
+									"patching_rect" : [ 41.0, 167.182373, 127.0, 36.0 ],
 									"style" : "helpfile_label",
 									"text" : "Drop folder to analyse here..."
 								}
@@ -470,7 +472,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 10.0, 227.432373, 189.0, 71.5 ]
+									"patching_rect" : [ 10.0, 149.432373, 189.0, 71.5 ]
 								}
 
 							}
@@ -480,7 +482,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 10.0, 526.0, 94.0, 23.0 ],
+									"patching_rect" : [ 10.0, 448.0, 94.0, 23.0 ],
 									"style" : "",
 									"text" : "print db_name"
 								}
@@ -494,23 +496,9 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 10.0, 331.799988, 440.0, 23.0 ],
+									"patching_rect" : [ 10.0, 253.799988, 440.0, 23.0 ],
 									"style" : "",
 									"text" : "orchidea.db.gen @windowsize 4096 @hopsize 1024 @numdimensions 20"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 13.0,
-									"id" : "obj-35",
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 10.0, 59.567627, 230.0, 21.0 ],
-									"style" : "",
-									"text" : "Analyze folder and generate database"
 								}
 
 							}
@@ -533,16 +521,16 @@
 , 							{
 								"box" : 								{
 									"border" : 0,
-									"filename" : "helpdetails.js",
+									"filename" : "helpname.js",
 									"id" : "obj-2",
 									"ignoreclick" : 1,
-									"jsarguments" : [ "orchidea.db.gen", 80 ],
+									"jsarguments" : [ "orchidea.db.gen" ],
 									"maxclass" : "jsui",
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 10.0, 10.0, 660.0, 114.0 ]
+									"patching_rect" : [ 10.0, 10.0, 339.157745, 57.567627 ]
 								}
 
 							}
@@ -550,9 +538,7 @@
 						"lines" : [ 							{
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
-									"disabled" : 0,
-									"hidden" : 0,
-									"midpoints" : [ 264.5, 318.0, 19.5, 318.0 ],
+									"midpoints" : [ 264.5, 240.0, 19.5, 240.0 ],
 									"source" : [ "obj-4", 0 ]
 								}
 
@@ -560,8 +546,6 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
-									"disabled" : 0,
-									"hidden" : 0,
 									"source" : [ "obj-44", 0 ]
 								}
 
@@ -569,8 +553,6 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-7", 0 ],
-									"disabled" : 0,
-									"hidden" : 0,
 									"source" : [ "obj-5", 0 ]
 								}
 
@@ -578,8 +560,6 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-8", 0 ],
-									"disabled" : 0,
-									"hidden" : 0,
 									"source" : [ "obj-5", 1 ]
 								}
 
@@ -636,12 +616,12 @@
 						"appversion" : 						{
 							"major" : 7,
 							"minor" : 3,
-							"revision" : 1,
+							"revision" : 4,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 610.0, 564.0 ],
+						"rect" : [ 237.0, 223.0, 782.0, 564.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -671,14 +651,44 @@
 						"showontab" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"id" : "obj-10",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 205.5, 169.182373, 162.0, 21.0 ],
+									"style" : "",
+									"text" : "IMPORTANT:",
+									"textcolor" : [ 0.792157, 0.0, 0.0, 1.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"id" : "obj-8",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 205.5, 186.182373, 286.0, 21.0 ],
+									"style" : "",
+									"text" : "Audio files must be sampled at 44100 Hz, 16 bit"
+								}
+
+							}
+, 							{
+								"box" : 								{
 									"bubble" : 1,
 									"fontname" : "Arial",
 									"fontsize" : 13.0,
+									"hidden" : 1,
 									"id" : "obj-6",
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 218.5, 236.0, 352.0, 25.0 ],
+									"patching_rect" : [ 75.5, 233.0, 272.0, 25.0 ],
 									"style" : "",
 									"text" : "Re-trigger analysis (database must be set)"
 								}
@@ -691,7 +701,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 183.0, 236.0, 24.0, 24.0 ],
+									"patching_rect" : [ 40.0, 233.0, 24.0, 24.0 ],
 									"style" : ""
 								}
 
@@ -707,7 +717,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 218.5, 302.0, 352.0, 55.0 ],
+									"patching_rect" : [ 218.5, 337.0, 352.0, 55.0 ],
 									"style" : "",
 									"text" : "During the analysis of the files (that can take long) you will see here the name of the file currently analysed"
 								}
@@ -775,7 +785,7 @@
 										"appversion" : 										{
 											"major" : 7,
 											"minor" : 3,
-											"revision" : 1,
+											"revision" : 4,
 											"architecture" : "x64",
 											"modernui" : 1
 										}
@@ -819,7 +829,7 @@
 														"appversion" : 														{
 															"major" : 7,
 															"minor" : 3,
-															"revision" : 1,
+															"revision" : 4,
 															"architecture" : "x64",
 															"modernui" : 1
 														}
@@ -907,6 +917,7 @@
 																"box" : 																{
 																	"comment" : "",
 																	"id" : "obj-103",
+																	"index" : 1,
 																	"maxclass" : "inlet",
 																	"numinlets" : 0,
 																	"numoutlets" : 1,
@@ -920,6 +931,7 @@
 																"box" : 																{
 																	"comment" : "",
 																	"id" : "obj-104",
+																	"index" : 2,
 																	"maxclass" : "inlet",
 																	"numinlets" : 0,
 																	"numoutlets" : 1,
@@ -933,6 +945,7 @@
 																"box" : 																{
 																	"comment" : "",
 																	"id" : "obj-105",
+																	"index" : 1,
 																	"maxclass" : "outlet",
 																	"numinlets" : 1,
 																	"numoutlets" : 0,
@@ -945,6 +958,7 @@
 																"box" : 																{
 																	"comment" : "",
 																	"id" : "obj-106",
+																	"index" : 2,
 																	"maxclass" : "outlet",
 																	"numinlets" : 1,
 																	"numoutlets" : 0,
@@ -957,8 +971,7 @@
 														"lines" : [ 															{
 																"patchline" : 																{
 																	"destination" : [ "obj-91", 0 ],
-																	"disabled" : 0,
-																	"hidden" : 0,
+																	"order" : 0,
 																	"source" : [ "obj-103", 0 ]
 																}
 
@@ -966,8 +979,7 @@
 , 															{
 																"patchline" : 																{
 																	"destination" : [ "obj-96", 0 ],
-																	"disabled" : 0,
-																	"hidden" : 0,
+																	"order" : 1,
 																	"source" : [ "obj-103", 0 ]
 																}
 
@@ -975,8 +987,6 @@
 , 															{
 																"patchline" : 																{
 																	"destination" : [ "obj-93", 0 ],
-																	"disabled" : 0,
-																	"hidden" : 0,
 																	"source" : [ "obj-104", 0 ]
 																}
 
@@ -984,8 +994,6 @@
 , 															{
 																"patchline" : 																{
 																	"destination" : [ "obj-92", 0 ],
-																	"disabled" : 0,
-																	"hidden" : 0,
 																	"source" : [ "obj-91", 0 ]
 																}
 
@@ -993,8 +1001,6 @@
 , 															{
 																"patchline" : 																{
 																	"destination" : [ "obj-106", 0 ],
-																	"disabled" : 0,
-																	"hidden" : 0,
 																	"source" : [ "obj-92", 0 ]
 																}
 
@@ -1002,8 +1008,6 @@
 , 															{
 																"patchline" : 																{
 																	"destination" : [ "obj-106", 0 ],
-																	"disabled" : 0,
-																	"hidden" : 0,
 																	"source" : [ "obj-93", 0 ]
 																}
 
@@ -1011,8 +1015,6 @@
 , 															{
 																"patchline" : 																{
 																	"destination" : [ "obj-105", 0 ],
-																	"disabled" : 0,
-																	"hidden" : 0,
 																	"source" : [ "obj-96", 0 ]
 																}
 
@@ -1051,6 +1053,7 @@
 												"box" : 												{
 													"comment" : "",
 													"id" : "obj-44",
+													"index" : 1,
 													"maxclass" : "inlet",
 													"numinlets" : 0,
 													"numoutlets" : 1,
@@ -1064,6 +1067,7 @@
 												"box" : 												{
 													"comment" : "",
 													"id" : "obj-46",
+													"index" : 1,
 													"maxclass" : "outlet",
 													"numinlets" : 1,
 													"numoutlets" : 0,
@@ -1076,6 +1080,7 @@
 												"box" : 												{
 													"comment" : "",
 													"id" : "obj-47",
+													"index" : 2,
 													"maxclass" : "outlet",
 													"numinlets" : 1,
 													"numoutlets" : 0,
@@ -1088,8 +1093,6 @@
 										"lines" : [ 											{
 												"patchline" : 												{
 													"destination" : [ "obj-46", 0 ],
-													"disabled" : 0,
-													"hidden" : 0,
 													"source" : [ "obj-107", 0 ]
 												}
 
@@ -1097,8 +1100,6 @@
 , 											{
 												"patchline" : 												{
 													"destination" : [ "obj-47", 0 ],
-													"disabled" : 0,
-													"hidden" : 0,
 													"source" : [ "obj-107", 1 ]
 												}
 
@@ -1106,8 +1107,6 @@
 , 											{
 												"patchline" : 												{
 													"destination" : [ "obj-107", 1 ],
-													"disabled" : 0,
-													"hidden" : 0,
 													"source" : [ "obj-4", 1 ]
 												}
 
@@ -1115,8 +1114,6 @@
 , 											{
 												"patchline" : 												{
 													"destination" : [ "obj-107", 0 ],
-													"disabled" : 0,
-													"hidden" : 0,
 													"source" : [ "obj-4", 0 ]
 												}
 
@@ -1124,8 +1121,6 @@
 , 											{
 												"patchline" : 												{
 													"destination" : [ "obj-4", 0 ],
-													"disabled" : 0,
-													"hidden" : 0,
 													"source" : [ "obj-44", 0 ]
 												}
 
@@ -1143,7 +1138,7 @@
 									}
 ,
 									"style" : "",
-									"text" : "p"
+									"text" : "p status"
 								}
 
 							}
@@ -1155,39 +1150,9 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 13.0, 257.799988, 104.0, 23.0 ],
+									"patching_rect" : [ 13.0, 268.799988, 104.0, 23.0 ],
 									"style" : "",
 									"text" : "orchidea.db.gen"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 13.0,
-									"id" : "obj-11",
-									"linecount" : 2,
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 10.0, 88.0, 389.0, 36.0 ],
-									"style" : "",
-									"text" : "This object can be used to create a new database starting from one source. Audio files must be sampled at 44100 Hz, 16 bit",
-									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 13.0,
-									"id" : "obj-35",
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 10.0, 59.567627, 301.0, 21.0 ],
-									"style" : "",
-									"text" : "Analyze a folder of suonds and generate database"
 								}
 
 							}
@@ -1197,13 +1162,13 @@
 									"filename" : "helpdetails.js",
 									"id" : "obj-2",
 									"ignoreclick" : 1,
-									"jsarguments" : [ "orchidea.db.gen", 80 ],
+									"jsarguments" : [ "orchidea.db.gen", 120 ],
 									"maxclass" : "jsui",
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 10.0, 10.0, 660.0, 114.0 ]
+									"patching_rect" : [ 10.0, 10.0, 655.0, 130.0 ]
 								}
 
 							}
@@ -1225,8 +1190,6 @@
 						"lines" : [ 							{
 								"patchline" : 								{
 									"destination" : [ "obj-82", 0 ],
-									"disabled" : 0,
-									"hidden" : 0,
 									"source" : [ "obj-1", 0 ]
 								}
 
@@ -1234,8 +1197,6 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-86", 0 ],
-									"disabled" : 0,
-									"hidden" : 0,
 									"source" : [ "obj-1", 1 ]
 								}
 
@@ -1243,9 +1204,6 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
-									"disabled" : 0,
-									"hidden" : 0,
-									"midpoints" : [ 192.5, 261.0, 129.0, 261.0, 129.0, 243.0, 22.5, 243.0 ],
 									"source" : [ "obj-4", 0 ]
 								}
 
@@ -1253,8 +1211,6 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
-									"disabled" : 0,
-									"hidden" : 0,
 									"source" : [ "obj-44", 0 ]
 								}
 
@@ -1262,8 +1218,6 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-1", 0 ],
-									"disabled" : 0,
-									"hidden" : 0,
 									"source" : [ "obj-5", 1 ]
 								}
 
@@ -1271,8 +1225,6 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-7", 0 ],
-									"disabled" : 0,
-									"hidden" : 0,
 									"source" : [ "obj-5", 0 ]
 								}
 
@@ -1325,12 +1277,12 @@
 						"appversion" : 						{
 							"major" : 7,
 							"minor" : 3,
-							"revision" : 1,
+							"revision" : 4,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 610.0, 564.0 ],
+						"rect" : [ 0.0, 26.0, 782.0, 564.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
