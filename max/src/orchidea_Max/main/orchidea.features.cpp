@@ -40,9 +40,7 @@
 
 #include "analysis.h"
 #include "tokenizer.h"
-
-#include "ext.h"                            // standard Max include, always required
-#include "ext_obex.h"                        // required for new style Max object
+#include "orchidea.maxcommons.h"
 
 #include <deque>
 #include <string>
@@ -227,16 +225,6 @@ void orchmax_features_assist(t_features *x, void *b, long m, long a, char *s)
 
 
 
-t_symbol *conform_path(t_symbol *path) {
-    if (!path) {
-        return NULL;
-    }
-    
-    char outpath[MAX_PATH_CHARS];
-    path_nameconform(path->s_name, outpath, PATH_STYLE_MAX, PATH_TYPE_BOOT);
-    return gensym(outpath);
-}
-
 void orchmax_features_anything_do(t_features *x, t_symbol *s, long ac, t_atom *av) {
     // heavy actions are executed in a separated thread (or pool)
     if (x->running_threads >= ORCHIDEA_FEATURES_MAX_THREADS) {
@@ -244,7 +232,7 @@ void orchmax_features_anything_do(t_features *x, t_symbol *s, long ac, t_atom *a
         return;
     }
     
-    x->file_name = conform_path (ac == 0 ? s : atom_getsym(av));
+    x->file_name = orchidea_ezlocate_file(ac == 0 ? s : atom_getsym(av));
     
     thread_data *d = (thread_data *)sysmem_newptr(sizeof(thread_data)); // delete after thread call - I think it works since thare are no modif during thread
     d->x = x;

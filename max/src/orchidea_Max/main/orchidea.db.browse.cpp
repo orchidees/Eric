@@ -41,9 +41,8 @@
 #include "orchidea.h"
 #include "tokenizer.h"
 #include "utilities.h"
+#include "orchidea.maxcommons.h"
 
-#include "ext.h"							// standard Max include, always required
-#include "ext_obex.h"						// required for new style Max object
 
 #include <deque>
 #include <string>
@@ -368,16 +367,6 @@ t_max_err orchmax_solve_setattr_soundpaths(t_solver *x, void *attr, long ac, t_a
 }
 
 
-t_symbol *conform_path(t_symbol *path) {
-    if (!path) {
-        return NULL;
-    }
-    
-    char outpath[MAX_PATH_CHARS];
-    path_nameconform(path->s_name, outpath, PATH_STYLE_MAX, PATH_TYPE_BOOT);
-    return gensym(outpath);
-}
-
 t_symbol *get_patch_path(t_solver *x) {
     t_object *patcher, *parent, *tmp;
     object_obex_lookup(x, gensym("#P"), &patcher);
@@ -391,7 +380,7 @@ t_symbol *get_patch_path(t_solver *x) {
     
     t_symbol *path = object_attr_getsym(parent, gensym("filepath"));
     
-    return conform_path(path);
+    return orchidea_conform_path(path);
 }
 
 // TO DO: IMPROVE THIS :)

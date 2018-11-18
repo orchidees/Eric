@@ -96,7 +96,7 @@ void main_foo() {
 // @description The argument sets the buffer name that should be filled (it can then be changed via the <m>set</m> message).
 
 // @arg 1 @name segmentnumber @optional 1 @type int @digest Segment number
-// @description The optional second argument sets the segment number.
+// @description The optional second argument sets the segment number.  Use 0 to output the connection (default).
 
 // @arg 2 @name solutionnumber @optional 1 @type int @digest Solution number
 // @description The optional third argument sets the solution number.

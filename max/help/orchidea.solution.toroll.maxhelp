@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 100.0, 100.0, 777.0, 673.0 ],
+		"rect" : [ 307.0, 92.0, 777.0, 673.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -76,7 +76,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 100.0, 126.0, 777.0, 647.0 ],
+						"rect" : [ 307.0, 118.0, 777.0, 647.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -105,6 +105,20 @@
 						"subpatcher_template" : "",
 						"showontab" : 1,
 						"boxes" : [ 							{
+								"box" : 								{
+									"bubble" : 1,
+									"id" : "obj-36",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 80.859528, 265.0, 232.5, 40.0 ],
+									"style" : "",
+									"text" : "No need to re-run the orchestration to import another solution"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"bubble" : 1,
 									"id" : "obj-4",
@@ -915,7 +929,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-26", 0 ],
-									"midpoints" : [ 386.5, 299.0, 100.0, 299.0, 100.0, 269.0, 24.859528, 269.0 ],
+									"midpoints" : [ 386.5, 291.0, 324.0, 291.0, 324.0, 261.0, 24.859528, 261.0 ],
 									"source" : [ "obj-28", 0 ]
 								}
 

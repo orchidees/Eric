@@ -96,7 +96,7 @@ void main_foo() {
 // ---------------
 
 // @arg 0 @name segmentnumber @optional 1 @type int @digest Segment number
-// @description The optional first argument sets the segment number.
+// @description The optional first argument sets the segment number. Use 0 to output the connection (default).
 
 // @arg 1 @name solutionnumber @optional 1 @type int @digest Solution number
 // @description The optional second argument sets the solution number.

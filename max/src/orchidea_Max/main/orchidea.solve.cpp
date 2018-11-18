@@ -41,9 +41,7 @@
 #include "orchidea.h"
 #include "tokenizer.h"
 #include "utilities.h"
-
-#include "ext.h"							// standard Max include, always required
-#include "ext_obex.h"						// required for new style Max object
+#include "orchidea.maxcommons.h"
 
 #include <deque>
 #include <string>
@@ -367,17 +365,6 @@ t_max_err orchmax_solve_setattr_soundpaths(t_solver *x, void *attr, long ac, t_a
     return MAX_ERR_NONE;
 }
 
-
-t_symbol *conform_path(t_symbol *path) {
-    if (!path) {
-        return NULL;
-    }
-    
-    char outpath[MAX_PATH_CHARS];
-    path_nameconform(path->s_name, outpath, PATH_STYLE_MAX, PATH_TYPE_BOOT);
-    return gensym(outpath);
-}
-
 t_symbol *get_patch_path(t_solver *x) {
     t_object *patcher, *parent, *tmp;
     object_obex_lookup(x, gensym("#P"), &patcher);
@@ -391,7 +378,7 @@ t_symbol *get_patch_path(t_solver *x) {
     
     t_symbol *path = object_attr_getsym(parent, gensym("filepath"));
     
-    return conform_path(path);
+    return orchidea_conform_path(path);
 }
 
 // TO DO: IMPROVE THIS :)
@@ -441,7 +428,7 @@ void* orchidea_solve_dispatcher (void* d) {
         argument = atom_getsym(av);
         char** sl  = (char**) malloc ((ac) * sizeof (char*));
         for (int i = 0; i < ac; ++i) {
-            t_symbol *this_dbfile = conform_path(atom_getsym(av + i));
+            t_symbol *this_dbfile = orchidea_ezlocate_file(atom_getsym(av + i));
             if (this_dbfile) {
                 sl[i] = this_dbfile->s_name;
                 if (x->verbose) object_post((t_object*) x, "adding db file %s", sl[i]);
@@ -475,7 +462,7 @@ void* orchidea_solve_dispatcher (void* d) {
     }
     else if (s == gensym ("orchestrate") || s == gensym("target")) {
         if (s == gensym("target")) {
-            argument = conform_path(atom_getsym(av));
+            argument = orchidea_ezlocate_file(atom_getsym(av));
             if (x->current_target != argument) { // filename has changed
                 // first analysis of target
                 x->current_target = argument;
@@ -902,7 +889,7 @@ void orchmax_solve_anything_do(t_solver *x, t_symbol *s, long ac, t_atom *av) {
             }
             for (long i = 0; i < d->ac; i++) { // cycle on each of the db file names
                 if (i >= x->soundpaths_size || x->soundpaths[i] == gensym("default")) { // if the soundpath attribute is "default"
-                    t_symbol *this_path = conform_path(atom_getsym(d->av+i)); // take the current db filename
+                    t_symbol *this_path = orchidea_ezlocate_file(atom_getsym(d->av+i)); // take the current db filename
                     if (this_path) {
                         dbpath_to_soundpath(this_path->s_name, sl[i+1]); // if it exists (should ALWAYS be the case), strip it
                     } else {
