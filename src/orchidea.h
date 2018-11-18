@@ -6,6 +6,8 @@
 
 #include "config.h"
 #include "Callback.h"
+#include "ext.h"                            // standard Max include, always required
+#include "ext_obex.h"                        // required for new style Max object
 
 struct OrchideaHandle; // An opaque type that we'll use as a handle
 typedef struct OrchideaHandle OrchideaHandle;

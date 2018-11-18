@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 303.0, 91.0, 1055.0, 696.0 ],
+		"rect" : [ 100.0, 100.0, 674.0, 696.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -56,7 +56,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 1055.0, 670.0 ],
+						"rect" : [ 0.0, 26.0, 674.0, 670.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -826,7 +826,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 1055.0, 670.0 ],
+						"rect" : [ 0.0, 26.0, 674.0, 670.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -1701,7 +1701,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 1055.0, 670.0 ],
+						"rect" : [ 0.0, 26.0, 674.0, 670.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -1925,7 +1925,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 303.0, 117.0, 1055.0, 670.0 ],
+						"rect" : [ 0.0, 26.0, 674.0, 670.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -2555,7 +2555,6 @@
 													"numoutlets" : 0,
 													"patching_rect" : [ 2.0, 26.5, 209.0, 18.0 ],
 													"style" : "",
-													"text" : "TinySOL.spectrum.db",
 													"textjustification" : 1
 												}
 
@@ -2970,7 +2969,6 @@
 													"numoutlets" : 0,
 													"patching_rect" : [ 2.0, 26.5, 209.0, 18.0 ],
 													"style" : "",
-													"text" : "A_minor.wav",
 													"textjustification" : 1
 												}
 
@@ -3952,7 +3950,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 1055.0, 670.0 ],
+						"rect" : [ 0.0, 26.0, 674.0, 670.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -4559,7 +4557,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 1055.0, 670.0 ],
+						"rect" : [ 0.0, 26.0, 674.0, 670.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -5477,7 +5475,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 1055.0, 670.0 ],
+						"rect" : [ 100.0, 126.0, 674.0, 670.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -6047,7 +6045,6 @@
 													"numoutlets" : 0,
 													"patching_rect" : [ 2.0, 26.5, 209.0, 18.0 ],
 													"style" : "",
-													"text" : "TinySOL.spectrum.db",
 													"textjustification" : 1
 												}
 
@@ -6462,7 +6459,6 @@
 													"numoutlets" : 0,
 													"patching_rect" : [ 2.0, 26.5, 209.0, 18.0 ],
 													"style" : "",
-													"text" : "WinchesterBell.wav",
 													"textjustification" : 1
 												}
 
@@ -6804,7 +6800,6 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 687.5, 438.0, 257.0, 21.0 ],
 									"style" : "",
-									"text" : "exporting connection",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
 								}
 
@@ -7020,15 +7015,13 @@
 , 							{
 								"box" : 								{
 									"id" : "obj-7",
-									"linecount" : 3,
 									"maxclass" : "textedit",
 									"numinlets" : 1,
 									"numoutlets" : 4,
 									"outlettype" : [ "", "int", "", "" ],
 									"parameter_enable" : 0,
 									"patching_rect" : [ 353.0, 209.5, 215.0, 65.5 ],
-									"style" : "",
-									"text" : "Fl Fl Ob Ob ClBb ClBb Bn Bn TpC TpC Hn Hn Tbn Tbn Vn Vn Vn Vn Va Va Vc Cb"
+									"style" : ""
 								}
 
 							}
@@ -7562,7 +7555,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 1055.0, 670.0 ],
+						"rect" : [ 0.0, 26.0, 674.0, 670.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -7613,11 +7606,11 @@
  ],
 		"lines" : [  ],
 		"parameters" : 		{
-			"obj-5::obj-42" : [ "solution", "solution", 0 ],
 			"obj-10::obj-42" : [ "solution[2]", "solution", 0 ],
-			"obj-2::obj-42" : [ "gain", "gain", 0 ],
+			"obj-9::obj-42" : [ "solution[1]", "solution", 0 ],
 			"obj-5::obj-34" : [ "target", "target", 0 ],
-			"obj-9::obj-42" : [ "solution[1]", "solution", 0 ]
+			"obj-5::obj-42" : [ "solution", "solution", 0 ],
+			"obj-2::obj-42" : [ "gain", "gain", 0 ]
 		}
 ,
 		"dependency_cache" : [ 			{
