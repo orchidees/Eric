@@ -118,7 +118,10 @@ extern "C" {
 	}
 	const char* orchidea_dump_source (OrchideaHandle* h) {
 		return h->db_status.c_str ();
-	}	
+	}
+	const char* orchidea_query_source (OrchideaHandle* h, const char* query) {
+		return "";
+	}
 	int orchidea_set_target (OrchideaHandle* h, 
 		const char* filename) {
 		try {
