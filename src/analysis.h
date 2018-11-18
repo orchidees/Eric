@@ -114,8 +114,12 @@ void compute_features (const T* buffer, int samples, std::vector<T>& features,
 			spectrum[j] = avg_coeffs[2 * j];
 		}				
 		T* freq = new T[bsize / 2];
-		ampFreqQuad(&spectrum[0], freq, bsize / 2, DEFAULT_SR);
-
+		T freqPerBin = (DEFAULT_SR) / (T) bsize;
+	
+		for (int i = 1; i < bsize / 2; ++i) {
+			freq[i] = (T) i * freqPerBin;
+		}
+		
 		features[0] = speccentr(spectrum, freq, bsize / 2);
 		features[1] = specspread(spectrum, freq, bsize / 2, features[0]);
 		features[2] = specskew(spectrum, freq, bsize / 2, features[0], features[1]);
