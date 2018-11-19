@@ -6,11 +6,11 @@
 <c74object name="orchidea.features" module="orchidea">
 
 	<digest>
-		Extract average descriptors from an audio file
+		Extract average descriptors from audio files
 	</digest>
 
 	<description>
-		Analyzes the input audiofile and outputs its centroid, spread, skewness and kurtosis.
+		Analyzes the input audio files and outputs their basic average features (centroid, spread, skewness and kurtosis).
 	</description>
 
 	<!--METADATA-->
@@ -23,7 +23,7 @@
 	<inletlist>
 		<inlet id="0" type="INLET_TYPE">
 			<digest>
-				Name of file to be analyzed
+				Name of file or files to be analyzed
 			</digest>
 			<description>
 			</description>
@@ -37,6 +37,7 @@
 				Computed features
 			</digest>
 			<description>
+				For each argument, an outlet is created that will outpu the feature described by that argument.
 			</description>
 		</outlet>
 		<outlet id="1" type="INLET_TYPE">
@@ -50,10 +51,38 @@
 
 	<!--ARGUMENTS-->
 	<objarglist>
+		<objarg name="features" optional="0" type="symbol/list">
+			<digest>
+				Features
+			</digest>
+			<description>
+				The names of the features to retrieve. For each of the feature, a dedicated outlet is created that will output it.
+				Features can be one of the following symbols: "centroid", "spread", "skewness", "kurtosis".
+			</description>
+		</objarg>
 	</objarglist>
 
 	<!--MESSAGES-->
 	<methodlist>
+		<method name="bang">
+			<arglist />
+			<digest>
+				Compute features
+			</digest>
+			<description>
+				When a <m>bang</m> is received, the features are recomputed on the last input files.
+			</description>
+		</method>
+		<method name="symbol/list">
+			<arglist />
+			<digest>
+				Set files and compute features
+			</digest>
+			<description>
+				A symbol or a list in the left inlet sets the name or path of the file or files on which the features should be computed, triggers
+				the computation and outputs the result. Each feature is output through its corresponding outlet.
+			</description>
+		</method>
 	</methodlist>
 
 	<!--ATTRIBUTES-->
@@ -63,7 +92,7 @@
 				Analysis Hop Size
 			</digest>
 			<description>
-				Sets the hop size of the analysis
+				Sets the hop size of the analysis.
 			</description>
 			<attributelist>
 				<attribute name="category" get="1" set="1" type="symbol" size="1" value="Analysis" />
@@ -76,7 +105,9 @@
 				Parallel
 			</digest>
 			<description>
-				When this attribute is 1, the computations are performed in a separate thread.
+				When this attribute is 1, the computations are performed in a separate thread. <br />
+				This is beyond the edge of legality in Max, so use this at your own risk: for instance, don't modify the object or close the patch while running,
+				because this will more than likely cause crashes.
 			</description>
 			<attributelist>
 				<attribute name="label" get="1" set="1" type="symbol" size="1" value="Parallel" />
@@ -95,26 +126,16 @@
 				<attribute name="style" get="1" set="1" type="symbol" size="1" value="onoff" />
 			</attributelist>
 		</attribute>
-		<attribute name="widowsize" get="1" set="1" type="" size="1">
+		<attribute name="windowsize" get="1" set="1" type="int" size="1">
 			<digest>
 				Analysis Window Size
 			</digest>
 			<description>
-			</description>
-			<attributelist>
-				<attribute name="label" get="1" set="1" type="symbol" size="1" value="Analysis Window Size" />
-				<attribute name="style" get="1" set="1" type="symbol" size="1" value="text" />
-			</attributelist>
-		</attribute>
-		<attribute name="windowsize" get="1" set="1" type="int" size="1">
-			<digest>
-				
-			</digest>
-			<description>
-				Sets the size of the analysis window
+				Sets the size of the analysis window.
 			</description>
 			<attributelist>
 				<attribute name="category" get="1" set="1" type="symbol" size="1" value="Analysis" />
+				<attribute name="label" get="1" set="1" type="symbol" size="1" value="Analysis Window Size" />
 				<attribute name="style" get="1" set="1" type="symbol" size="1" value="text" />
 			</attributelist>
 		</attribute>
@@ -134,18 +155,19 @@
 	<misc name = "Input">
 		<entry name ="Inlet 1 (symbol)">
 			<description>
-				Name of file to be analyzed.
+				Name of file or files to be analyzed.
 			</description>
 		</entry>
 	</misc>
 
 	<misc name = "Output">
-		<entry name ="Outlet 1 (list)">
+		<entry name ="Outlets 1, 2, 3... (float/list)">
 			<description>
 				Computed features.
+				For each argument, an outlet is created that will outpu the feature described by that argument.
 			</description>
 		</entry>
-		<entry name ="Outlet 2 (list)">
+		<entry name ="The last Outlet (list)">
 			<description>
 				Notifications.
 			</description>

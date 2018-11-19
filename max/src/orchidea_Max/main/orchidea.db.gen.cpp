@@ -78,12 +78,6 @@ typedef struct _session {
     
 } t_dbgen;
 
-typedef struct _thread_data {
-    t_dbgen* x;
-    t_symbol* s;
-    long ac;
-    t_atom* av;
-} thread_data;
 
 ///////////////////////// function prototypes
 //// standard set
@@ -109,7 +103,7 @@ void notifier (const char* action, void* user_data) {
 void* orchidea_dbgen_dispatcher (void* d) {
     
     thread_data* data = (thread_data*) d;
-    t_dbgen* x = data->x;
+    t_dbgen* x = (t_dbgen *)data->x;
     
     t_atom busy;
     atom_setlong(&busy, 1);
@@ -177,7 +171,7 @@ void ext_main(void *r) {
 
     CLASS_ATTR_LONG(c, "windowsize", 0, t_dbgen, win_size);
     CLASS_ATTR_STYLE(c, "windowsize", 0, "text");
-    CLASS_ATTR_LABEL(c, "widowsize", 0, "Analysis Window Size");
+    CLASS_ATTR_LABEL(c, "windowsize", 0, "Analysis Window Size");
     CLASS_ATTR_CATEGORY(c, "windowsize", 0, "Analysis");
     // @description Sets the size of the analysis window
 
@@ -191,20 +185,20 @@ void ext_main(void *r) {
     CLASS_ATTR_STYLE(c, "numdimensions", 0, "text");
     CLASS_ATTR_LABEL(c, "numdimensions", 0, "Number Of Dimensions To Store");
     CLASS_ATTR_CATEGORY(c, "numdimensions", 0, "Analysis");
-    // @description Sets the hop size of the analysis
+    // @description Sets the number of dimensions to store.
     
     
     CLASS_ATTR_SYM(c, "feature", 0, t_dbgen, feature_name);
     CLASS_ATTR_ENUM(c,"feature",0,"spectrum logspec specpeaks specenv mfcc moments");
     CLASS_ATTR_LABEL(c, "feature", 0, "Feature");
     CLASS_ATTR_CATEGORY(c, "feature", 0, "Analysis");
-    // @description Sets the search type. 
+    // @description Sets the analysis feature.
     
     CLASS_ATTR_SYM(c, "dbname", 0, t_dbgen, db_name);
     CLASS_ATTR_STYLE(c, "dbname", 0, "text");
-    CLASS_ATTR_LABEL(c, "dbname", 0, "Output Name for DB");
+    CLASS_ATTR_LABEL(c, "dbname", 0, "Output Name for Database");
     CLASS_ATTR_BASIC(c, "dbname", 0);
-    // @description Sets the name of the DB.
+    // @description Sets the name of the database.
     // By default output files will be put in the same folder of the sounds.
     
     CLASS_ATTR_CHAR(c, "verbose", 0, t_dbgen, verbose);
@@ -215,7 +209,9 @@ void ext_main(void *r) {
     CLASS_ATTR_CHAR(c, "parallel", 0, t_dbgen, parallel);
     CLASS_ATTR_STYLE(c, "parallel", 0, "onoff");
     CLASS_ATTR_LABEL(c, "parallel", 0, "Parallel");
-    // @description When this attribute is 1, the computations are performed in a separate thread.
+    // @description When this attribute is 1, the computations are performed in a separate thread. <br />
+    // This is beyond the edge of legality in Max, so use this at your own risk: for instance, don't modify the object or close the patch while running,
+    // because this will more than likely cause crashes.
 
     
     class_register(CLASS_BOX, c);
@@ -230,7 +226,7 @@ void orchmax_dbgen_bang_do(t_dbgen *x, t_symbol *s, long ac, t_atom *av) {
     
 
     thread_data *d = (thread_data *)sysmem_newptr(sizeof(thread_data)); // delete after thread call - I think it works since thare are no modif during thread
-    d->x = x;
+    d->x = (t_object *)x;
     
     if (x->parallel) {
         pthread_create(&x->thread_pool[x->running_threads], NULL, orchidea_dbgen_dispatcher, (void*) d);
@@ -269,7 +265,7 @@ void orchmax_dbgen_anything_do(t_dbgen *x, t_symbol *s, long ac, t_atom *av) {
     x->db_folder = orchidea_ezlocate_file(ac == 0 ? s : atom_getsym(av));
 
     thread_data *d = (thread_data *)sysmem_newptr(sizeof(thread_data)); // delete after thread call - I think it works since thare are no modif during thread
-    d->x = x;
+    d->x = (t_object *)x;
     
     if (x->parallel) {
         pthread_create(&x->thread_pool[x->running_threads], NULL, orchidea_dbgen_dispatcher, (void*) d);

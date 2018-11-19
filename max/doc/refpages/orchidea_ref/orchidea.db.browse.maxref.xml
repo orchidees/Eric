@@ -217,7 +217,9 @@
 				Parallel
 			</digest>
 			<description>
-				When this attribute is 1, the computations are performed in a separate thread.
+				When this attribute is 1, the computations are performed in a separate thread. <br />
+				This is beyond the edge of legality in Max, so use this at your own risk: for instance, don't modify the object or close the patch while running,
+				because this will more than likely cause crashes.
 			</description>
 			<attributelist>
 				<attribute name="label" get="1" set="1" type="symbol" size="1" value="Parallel" />

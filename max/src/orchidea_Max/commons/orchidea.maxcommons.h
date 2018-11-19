@@ -8,6 +8,14 @@
 #include "ext_obex.h"                        // required for new style Max object
 
 
+typedef struct _thread_data {
+    t_object* x;
+    t_symbol* s;
+    long ac;
+    t_atom* av;
+} thread_data;
+
+
 t_symbol *orchidea_locate_file(t_symbol *file_name, t_fourcc *file_type);
 t_symbol *orchidea_ezlocate_file(t_symbol *file_name);
 t_symbol *orchidea_conform_path(t_symbol *path);

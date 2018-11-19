@@ -69,13 +69,52 @@
 
 	<!--MESSAGES-->
 	<methodlist>
+		<method name="anything">
+			<arglist />
+			<digest>
+				Function depends on inlet
+			</digest>
+			<description>
+				A symbol in the left inlet is considered as a target audiofile and triggers the orchestration. The orchestration result
+				(prefix of the output files, number of segments and number of solutions for each segment) is output through the left outlet. <br />
+				A list of symbols in the second inlet sets the orchestra: one symbol for each instrument, each symbol must show up in the database. <br />
+				A symbol or list of symbols in the third inlet sets the full path to the database or databases to be used for the orchestration.
+			</description>
+		</method>
 		<method name="bang">
 			<arglist />
 			<digest>
 				Orchestrate
 			</digest>
 			<description>
-				A bang triggers the orchestration.
+				A <m>bang</m> triggers the orchestration with the last input parameters.
+			</description>
+		</method>
+		<method name="list">
+			<arglist />
+			<digest>
+				Set orchestra or databases
+			</digest>
+			<description>
+				See <m>anything</m>.
+			</description>
+		</method>
+		<method name="resetfilters">
+			<arglist />
+			<digest>
+				Reset filters
+			</digest>
+			<description>
+				A <m>resetfilters</m> message will remove all the defined filters.
+			</description>
+		</method>
+		<method name="symbol">
+			<arglist />
+			<digest>
+				Set target and orchestrate
+			</digest>
+			<description>
+				See <m>anything</m>.
 			</description>
 		</method>
 	</methodlist>
@@ -106,6 +145,19 @@
 			<attributelist>
 				<attribute name="category" get="1" set="1" type="symbol" size="1" value="Filters" />
 				<attribute name="label" get="1" set="1" type="symbol" size="1" value="Dynamics" />
+				<attribute name="style" get="1" set="1" type="symbol" size="1" value="text" />
+			</attributelist>
+		</attribute>
+		<attribute name="exportsolutions" get="1" set="1" type="int" size="1">
+			<digest>
+				Number sf Solutions to Export
+			</digest>
+			<description>
+				Sets the number of solutions to be exported as files. It defaults at 10. Set 0 to only export
+				the connection; set to <m>popsize</m> to export the maximum number of possible solutions.
+			</description>
+			<attributelist>
+				<attribute name="label" get="1" set="1" type="symbol" size="1" value="Number sf Solutions to Export" />
 				<attribute name="style" get="1" set="1" type="symbol" size="1" value="text" />
 			</attributelist>
 		</attribute>
@@ -218,7 +270,9 @@
 				Parallel
 			</digest>
 			<description>
-				When this attribute is 1, the computations are performed in a separate thread.
+				When this attribute is 1, the computations are performed in a separate thread. <br />
+				This is beyond the edge of legality in Max, so use this at your own risk: for instance, don't modify the object or close the patch while running,
+				because this will more than likely cause crashes.
 			</description>
 			<attributelist>
 				<attribute name="label" get="1" set="1" type="symbol" size="1" value="Parallel" />
