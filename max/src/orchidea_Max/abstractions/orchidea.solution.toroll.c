@@ -65,8 +65,10 @@
 
 void main_foo() {
 
-// (none)
-
+    CLASS_ATTR_CHAR(c, "autogroup", 0, t_solution_toroll, autogroup);
+    CLASS_ATTR_STYLE(c, "autogroup", 0, "onoff");
+    CLASS_ATTR_LABEL(c, "autogroup", 0, "Automatically Group Voices");
+    // @description Toggles the ability to automatically group voices with the same voicename in voice ensembles.
 }
 
 // ---------------

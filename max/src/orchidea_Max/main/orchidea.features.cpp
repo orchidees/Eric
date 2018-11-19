@@ -18,10 +18,10 @@
  Carmine Emanuele Cella
  
  @digest
- Extract average descriptors from an audio file
+ Extract average descriptors from audio files
  
  @description
- Analyzes the input audiofile and outputs its centroid, spread, skewness and kurtosis.
+ Analyzes the input audio files and outputs their centroid, spread, skewness and kurtosis.
  
  @discussion
  This object can be used to analyse a single audio file to compute basic average features. Audio files must be sampled at 44100 Hz, 16 bit.
@@ -52,12 +52,15 @@
 #include <pthread.h>
 
 #define ORCHIDEA_FEATURES_MAX_THREADS 1
+#define ORCHIDEA_FEATURES_MAX_FILENAMES 8192
 
 ////////////////////////// object struct
 typedef struct _session {
     t_object    ob;
     
-    t_symbol*   file_name;
+    t_symbol*   filenames[ORCHIDEA_FEATURES_MAX_FILENAMES];
+    long        filenames_size;
+    
     long        win_size;
     long        hop_size;
 
@@ -107,41 +110,52 @@ void* orchidea_dispatcher (void* d) {
         object_post((t_object*) x, "current thread n. %d", x->running_threads);
     }
     
-    if (strlen(x->file_name->s_name) == 0) {
-        object_error((t_object*) x, "error: file name not set");
+    if (x->filenames_size == 0) {
+        object_error((t_object*) x, "error: file name(s) not set");
     }
     else {
-        std::vector<float> features;
+        t_atom centroid[ORCHIDEA_FEATURES_MAX_FILENAMES];
+        t_atom spread[ORCHIDEA_FEATURES_MAX_FILENAMES];
+        t_atom skewness[ORCHIDEA_FEATURES_MAX_FILENAMES];
+        t_atom kurtosis[ORCHIDEA_FEATURES_MAX_FILENAMES];
         try {
-            compute_features<float> (x->file_name->s_name, features,
-                                     (int) x->win_size, (int) x->hop_size, 4, "moments");
-
-            //        compute_features<float> (x->file_name->s_name, features,
-            //                                 x->win_size, x->hop_size, 4, "transients");
-            //
-            
-            t_atom out;
-            
-            atom_setfloat(&out, features[0]);
-            outlet_anything(x->out_1, gensym("centroid"), 1, &out);
-            atom_setfloat(&out, features[1]);
-            outlet_anything(x->out_1, gensym("spread"), 1, &out);
-            atom_setfloat(&out, features[2]);
-            outlet_anything(x->out_1, gensym("skewness"), 1, &out);
-            atom_setfloat(&out, features[3]);
-            outlet_anything(x->out_1, gensym("kurtosis"), 1, &out);
-            
+            for (long i = 0; i < x->filenames_size; i++) {
+                std::vector<float> features;
+                if (x->filenames[i]) {
+                    compute_features<float> (x->filenames[i]->s_name, features, x->win_size, x->hop_size, 4, "moments");
+                    
+                    //        compute_features<float> (x->file_name->s_name, features,
+                    //                                 x->win_size, x->hop_size, 4, "transients");
+                    //
+                    
+                    atom_setfloat(centroid + i, features[0]);
+                    atom_setfloat(spread + i, features[1]);
+                    atom_setfloat(skewness + i, features[2]);
+                    atom_setfloat(kurtosis + i, features[3]);
+                } else {
+                    atom_setfloat(centroid + i, 0);
+                    atom_setfloat(spread + i, 0);
+                    atom_setfloat(skewness + i, 0);
+                    atom_setfloat(kurtosis + i, 0);
+                }
+ 
+            }
+                
+            outlet_anything(x->out_1, gensym("centroid"), x->filenames_size, centroid);
+            outlet_anything(x->out_1, gensym("spread"), x->filenames_size, spread);
+            outlet_anything(x->out_1, gensym("skewness"), x->filenames_size, skewness);
+            outlet_anything(x->out_1, gensym("kurtosis"), x->filenames_size, kurtosis);            
             //        object_post((t_object *)x, "features have been computed correctly");
 
         } catch (std::exception& e){
-            error("error: %s", e.what ());
+            object_error((t_object *)x, "error: %s", e.what ());
         }
     }
     
     atom_setlong(&busy, 0);
     outlet_anything(x->out_2, gensym("busy"), 1, &busy);
     if (x->parallel) {
-    x->running_threads--;
+        x->running_threads--;
     }
     
     return NULL;
@@ -152,10 +166,15 @@ void ext_main(void *r) {
     c = class_new("orchidea.features", (method)  orchmax_features_new, (method)orchmax_features_free, (long)sizeof(t_features),
                   0L /* leave NULL!! */, A_GIMME, 0);
     
-    // @description A bang triggers the orchestration.
-    class_addmethod(c, (method)orchmax_features_bang,            "bang",            0);
+    // @method symbol/list @digest Set files and compute features
+    // @description A symbol or a list in the left inlet sets the name or path of the file or files on which the features should be computed, triggers
+    // the computation and outputs the result.
     class_addmethod(c, (method)orchmax_features_anything,        "anything",    A_GIMME, 0);
-    
+
+    // @method bang @digest Compute features
+    // @description When a <m>bang</m> is received, the features are recomputed on the last input files.
+    class_addmethod(c, (method)orchmax_features_bang,            "bang",            0);
+
     CLASS_ATTR_LONG(c, "windowsize", 0, t_features, win_size);
     CLASS_ATTR_STYLE(c, "windowsize", 0, "text");
     CLASS_ATTR_LABEL(c, "widowsize", 0, "Analysis Window Size");
@@ -214,7 +233,7 @@ void orchmax_features_free(t_features *x) {
 void orchmax_features_assist(t_features *x, void *b, long m, long a, char *s)
 {
     if (m == ASSIST_INLET) {
-        sprintf(s, "symbol: Filename"); // @in 0 @type symbol @digest Name of file to be analyzed
+        sprintf(s, "symbol: Filename(s)"); // @in 0 @type symbol @digest Name of file or files to be analyzed
     } else {
         if (a == 0)
             sprintf(s, "list: Features"); // @out 0 @type list @digest Computed features
@@ -231,8 +250,25 @@ void orchmax_features_anything_do(t_features *x, t_symbol *s, long ac, t_atom *a
         object_post((t_object*) x, "pending actions; please retry later...");
         return;
     }
-    
-    x->file_name = orchidea_ezlocate_file(ac == 0 ? s : atom_getsym(av));
+
+    x->filenames_size = 0;
+    if (ac == 0) {
+        if (s) {
+            x->filenames[0] = orchidea_ezlocate_file(s);
+            x->filenames_size = 1;
+        }
+    } else {
+        if (s != gensym("list")) {
+            x->filenames[x->filenames_size++] = orchidea_ezlocate_file(s);
+        }
+        for (long i = 0; i < ac; i++) {
+            if (atom_gettype(av + i) == A_SYM) {
+                x->filenames[x->filenames_size++] = orchidea_ezlocate_file(atom_getsym(av + i));
+            } else {
+                object_warn((t_object *)x, "non-symbol atom introduced, will be ignored");
+            }
+        }
+    }
     
     thread_data *d = (thread_data *)sysmem_newptr(sizeof(thread_data)); // delete after thread call - I think it works since thare are no modif during thread
     d->x = x;
@@ -257,7 +293,7 @@ void* orchmax_features_new(t_symbol *s, long argc, t_atom *argv) {
 
         x->win_size = 4096;
         x->hop_size = 2048;
-        x->file_name = gensym("");
+        x->filenames_size = 0;
         
         x->parallel = 0;
         x->verbose = 0;

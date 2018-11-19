@@ -18,10 +18,10 @@
  Carmine Emanuele Cella
  
  @digest
- Generate database from samples
+ Generate database from a source folder
  
  @description
- Analyzes a set of audio samples to generate a database that can be used by orchidea.solve.
+ Analyzes a set of audio samples contained in a source foler to generate a database that can be used by orchidea.solve.
  
  @discussion
  
@@ -165,10 +165,16 @@ void ext_main(void *r) {
     c = class_new("orchidea.db.gen", (method)  orchmax_dbgen_new, (method)orchmax_dbgen_free, (long)sizeof(t_dbgen),
                   0L /* leave NULL!! */, A_GIMME, 0);
 
-    // @description A bang triggers the orchestration.
-    class_addmethod(c, (method)orchmax_dbgen_bang,            "bang",            0);
+
+    // @method symbol @digest Analyze folder and produce database file
+    // @description A symbol the left inlet sets the path of the folder that should be analyzed to produce an orchidea database; then triggers
+    // the analysis and outputs the database filename.
     class_addmethod(c, (method)orchmax_dbgen_anything,        "anything",    A_GIMME, 0);
-    
+
+    // @method bang @digest Produce database file
+    // @description When a <m>bang</m> is received, the database file is produced by analyzing the last input folder.
+    class_addmethod(c, (method)orchmax_dbgen_bang,            "bang",            0);
+
     CLASS_ATTR_LONG(c, "windowsize", 0, t_dbgen, win_size);
     CLASS_ATTR_STYLE(c, "windowsize", 0, "text");
     CLASS_ATTR_LABEL(c, "widowsize", 0, "Analysis Window Size");
@@ -247,7 +253,7 @@ void orchmax_dbgen_assist(t_dbgen *x, void *b, long m, long a, char *s)
         sprintf(s, "symbol: Folder"); // @in 0 @type symbol @digest Folder to be analyzed
     } else {
         if (a == 0)
-            sprintf(s, "list: Features"); // @out 0 @type list @digest Computed features
+            sprintf(s, "list: Database Filename"); // @out 0 @type list @digest Database filename and path
         else
             sprintf(s, "list: Notifications"); // @out 1 @type list @digest Notifications
     }

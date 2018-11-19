@@ -71,6 +71,7 @@ typedef struct _dbquery {
     long        soundpaths_size;
     t_symbol*   prefix;
     t_symbol*   search;
+    long        exportsolutions;
     long        popsize;
     long        maxepochs;
     long        pursuit;
@@ -195,6 +196,14 @@ t_max_err orchmax_solve_setattr_popsize(t_solver *x, void *attr, long ac, t_atom
     if (ac && av) {
         orchidea_set_param_long(x->orc_hand, gensym("pop_size"), x->popsize = atom_getlong(av));
         if (x->verbose) object_post((t_object *)x, "population size has been set correctly");
+    }
+    return MAX_ERR_NONE;
+}
+
+t_max_err orchmax_solve_setattr_exportsolutions(t_solver *x, void *attr, long ac, t_atom *av){
+    if (ac && av) {
+        orchidea_set_param_long(x->orc_hand, gensym("export_solutions"), x->exportsolutions = atom_getlong(av));
+        if (x->verbose) object_post((t_object *)x, "export solutions has been set correctly");
     }
     return MAX_ERR_NONE;
 }
@@ -402,6 +411,12 @@ t_symbol *strip_extension(t_symbol *s, char keep_dot) {
     return gensym(out);
 }
 
+void orchmax_solve_send_busy_zero(t_solver *x, t_symbol *s, long ac, t_atom *av) {
+    t_atom busy;
+    atom_setlong(&busy, 0);
+    outlet_anything(x->out_2, gensym("busy"), 1, &busy);
+}
+
 // will take care of freeing data->av after usage, if not NULL
 void* orchidea_solve_dispatcher (void* d) {
     thread_data* data = (thread_data*) d;
@@ -463,7 +478,7 @@ void* orchidea_solve_dispatcher (void* d) {
     else if (s == gensym ("orchestrate") || s == gensym("target")) {
         if (s == gensym("target")) {
             argument = orchidea_ezlocate_file(atom_getsym(av));
-            if (x->current_target != argument) { // filename has changed
+            if (x->current_target != argument && argument) { // filename has changed
                 // first analysis of target
                 x->current_target = argument;
                 if (x->verbose) object_post((t_object *)x, "setting target to %s...", argument->s_name);
@@ -537,16 +552,16 @@ void* orchidea_solve_dispatcher (void* d) {
             for (int i = 0; i < num_seg; i++) {
                 int sols = 0;
                 orchidea_solutions_per_segment(x->orc_hand, i, &sols);
+                if (sols > x->exportsolutions) {
+                    if (x->verbose) object_post((t_object *)x, "found %ld solutions for segment %ld - but only exported %ld (increase the 'exportsolutions' attribute if you need more).", sols, i+1, x->exportsolutions);
+                    sols = (int)x->exportsolutions; // we only return the number of EXPORTED solutions; makes no sense to return other solutions
+                }
                 atom_setlong(av + 2 + i, sols);
             }
             outlet_anything(x->out_1, gensym("list"), ac, av);
             sysmem_freeptr(av);
         }
     }
-    atom_setlong(&busy, 0);
-    
-    // TODO: are we sure that we should output stuff from this custom thread?
-    outlet_anything(x->out_2, gensym("busy"), 1, &busy);
     
     if (x->parallel) {
         x->running_threads--;
@@ -555,6 +570,8 @@ void* orchidea_solve_dispatcher (void* d) {
     if (data->av)
         sysmem_freeptr(data->av);
     sysmem_freeptr(data);
+    
+    defer_low(x, (method)orchmax_solve_send_busy_zero, NULL, 0, NULL); // sending "busy 0" must be deferred if we want to use it for anything useful such as chaining other processes.
     
     return NULL;
 }
@@ -565,11 +582,25 @@ void ext_main(void *r) {
     c = class_new("orchidea.solve", (method)orchmax_solve_new, (method)orchmax_solve_free, (long)sizeof(t_solver),
                   0L /* leave NULL!! */, A_GIMME, 0);
 
-    // @method bang @digest Orchestrate
-    // @description A bang triggers the orchestration.
-    class_addmethod(c, (method)orchmax_solve_bang,            "bang",            0);
+    // @method anything @digest Function depends on inlet
+    // @description A symbol in the left inlet is considered as a target audiofile and triggers the orchestration. The orchestration result
+    // (prefix of the output files, number of segments and number of solutions for each segment) is output through the left outlet. <br />
+    // A list of symbols in the second inlet sets the orchestra: one symbol for each instrument, each symbol must show up in the database. <br />
+    // A symbol or list of symbols in the third inlet sets the full path to the database or databases to be used for the orchestration.
+
+    // @method list @digest Set orchestra or databases
+    // @description See <m>anything</m>.
+
+    // @method symbol @digest Set target and orchestrate
+    // @description See <m>anything</m>.
     class_addmethod(c, (method)orchmax_solve_anything,        "anything",    A_GIMME, 0);
 
+    // @method bang @digest Orchestrate
+    // @description A <m>bang</m> triggers the orchestration with the last input parameters.
+    class_addmethod(c, (method)orchmax_solve_bang,            "bang",            0);
+
+    // @method resetfilters @digest Reset filters
+    // @description A <m>resetfilters</m> message will remove all the defined filters.
     class_addmethod(c, (method)orchmax_solve_anything,        "resetfilters",    A_GIMME, 0);
     
     
@@ -626,7 +657,16 @@ void ext_main(void *r) {
     CLASS_ATTR_LABEL(c, "popsize", 0, "Population Size");
     CLASS_ATTR_ACCESSORS(c, "popsize", (method)NULL, (method)orchmax_solve_setattr_popsize);
     CLASS_ATTR_CATEGORY(c, "popsize", 0, "Search");
+    CLASS_ATTR_BASIC(c, "popsize", 0);
     // @description Sets the population size.
+
+    CLASS_ATTR_LONG(c, "exportsolutions", 0, t_solver, exportsolutions);
+    CLASS_ATTR_STYLE(c, "exportsolutions", 0, "text");
+    CLASS_ATTR_LABEL(c, "exportsolutions", 0, "Number sf Solutions to Export");
+    CLASS_ATTR_ACCESSORS(c, "exportsolutions", (method)NULL, (method)orchmax_solve_setattr_exportsolutions);
+    CLASS_ATTR_BASIC(c, "exportsolutions", 0);
+    // @description Sets the number of solutions to be exported as files. It defaults at 10. Set 0 to only export
+    // the connection; set to <m>popsize</m> to export the maximum number of possible solutions.
 
     CLASS_ATTR_LONG(c, "maxepochs", 0, t_solver, maxepochs);
     CLASS_ATTR_STYLE(c, "maxepochs", 0, "text");
@@ -940,6 +980,7 @@ void *orchmax_solve_new(t_symbol *s, long argc, t_atom *argv) {
         x->soundpaths_size = 1;
         x->prefix = gensym("");
         x->search = gensym("genetic");
+        x->exportsolutions = 10;
         x->popsize = 300;
         x->maxepochs = 300;
         x->pursuit = 0;

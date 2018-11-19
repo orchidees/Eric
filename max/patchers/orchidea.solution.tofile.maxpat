@@ -53,7 +53,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 0.0, 640.0, 480.0 ],
+						"rect" : [ 84.0, 129.0, 640.0, 480.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -178,9 +178,9 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 98.5, 428.0, 53.0, 22.0 ],
+									"patching_rect" : [ 98.5, 428.0, 113.0, 22.0 ],
 									"style" : "",
-									"text" : "zl.group"
+									"text" : "zl 8192 group 8192"
 								}
 
 							}
@@ -415,7 +415,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 826.0, 398.0, 87.0, 47.0 ],
-					"presentation_rect" : [ 532.0, 402.0, 0.0, 0.0 ],
 					"style" : "",
 					"text" : "all solutions for given segment"
 				}
@@ -450,7 +449,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 766.0, 162.0, 640.0, 480.0 ],
+						"rect" : [ 93.0, 79.0, 640.0, 480.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -478,6 +477,19 @@
 						"style" : "",
 						"subpatcher_template" : "",
 						"boxes" : [ 							{
+								"box" : 								{
+									"id" : "obj-5",
+									"maxclass" : "newobj",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "int" ],
+									"patching_rect" : [ 171.0, 197.0, 29.5, 22.0 ],
+									"style" : "",
+									"text" : "- 1"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"id" : "obj-14",
 									"maxclass" : "newobj",
@@ -549,7 +561,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 171.0, 209.0, 58.0, 22.0 ],
+									"patching_rect" : [ 171.0, 236.0, 58.0, 22.0 ],
 									"style" : "",
 									"text" : "zl.lookup"
 								}
@@ -699,17 +711,17 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-15", 0 ],
-									"order" : 0,
-									"source" : [ "obj-10", 0 ]
+									"destination" : [ "obj-17", 0 ],
+									"order" : 1,
+									"source" : [ "obj-10", 1 ]
 								}
 
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-17", 0 ],
-									"order" : 1,
-									"source" : [ "obj-10", 1 ]
+									"destination" : [ "obj-5", 0 ],
+									"order" : 0,
+									"source" : [ "obj-10", 0 ]
 								}
 
 							}
@@ -785,6 +797,13 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-15", 0 ],
+									"source" : [ "obj-5", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-8", 0 ],
 									"source" : [ "obj-6", 0 ]
 								}
@@ -816,7 +835,6 @@
 					}
 ,
 					"patching_rect" : [ 667.0, 410.5, 142.0, 22.0 ],
-					"presentation_rect" : [ 622.0, 414.0, 0.0, 0.0 ],
 					"saved_object_attributes" : 					{
 						"description" : "",
 						"digest" : "",
@@ -865,7 +883,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 379.5, 546.0, 30.0, 30.0 ],
-					"presentation_rect" : [ 472.0, 546.0, 0.0, 0.0 ],
 					"style" : ""
 				}
 
@@ -930,6 +947,19 @@
 						"subpatcher_template" : "",
 						"boxes" : [ 							{
 								"box" : 								{
+									"id" : "obj-4",
+									"maxclass" : "newobj",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "int" ],
+									"patching_rect" : [ 171.0, 203.0, 29.5, 22.0 ],
+									"style" : "",
+									"text" : "- 1"
+								}
+
+							}
+, 							{
+								"box" : 								{
 									"id" : "obj-19",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
@@ -948,7 +978,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 57.0, 312.0, 34.0, 22.0 ],
+									"patching_rect" : [ 57.0, 342.0, 34.0, 22.0 ],
 									"style" : "",
 									"text" : "gate"
 								}
@@ -961,7 +991,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 238.0, 312.0, 29.5, 22.0 ],
+									"patching_rect" : [ 238.0, 342.0, 29.5, 22.0 ],
 									"style" : "",
 									"text" : "0"
 								}
@@ -974,7 +1004,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 171.0, 209.0, 58.0, 22.0 ],
+									"patching_rect" : [ 171.0, 239.0, 58.0, 22.0 ],
 									"style" : "",
 									"text" : "zl.lookup"
 								}
@@ -987,7 +1017,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 171.0, 249.0, 241.0, 22.0 ],
+									"patching_rect" : [ 171.0, 279.0, 241.0, 22.0 ],
 									"style" : "",
 									"text" : "if $i2 <= 0 || $i2 > $i1 then out2 bang else 1"
 								}
@@ -1001,7 +1031,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 341.5, 362.0, 232.0, 35.0 ],
+									"patching_rect" : [ 341.5, 392.0, 232.0, 35.0 ],
 									"style" : "",
 									"text" : "\"Error: solution number does not exist for the specified segment.\""
 								}
@@ -1067,7 +1097,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 288.5, 321.0, 223.0, 22.0 ],
+									"patching_rect" : [ 288.5, 351.0, 223.0, 22.0 ],
 									"style" : "",
 									"text" : "\"Error: segment number does not exist.\""
 								}
@@ -1079,7 +1109,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 288.5, 419.0, 34.0, 22.0 ],
+									"patching_rect" : [ 288.5, 449.0, 34.0, 22.0 ],
 									"style" : "",
 									"text" : "print"
 								}
@@ -1106,7 +1136,7 @@
 									"maxclass" : "outlet",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 57.0, 362.0, 30.0, 30.0 ],
+									"patching_rect" : [ 57.0, 392.0, 30.0, 30.0 ],
 									"style" : ""
 								}
 
@@ -1143,16 +1173,16 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-15", 0 ],
-									"source" : [ "obj-10", 0 ]
+									"destination" : [ "obj-17", 0 ],
+									"order" : 1,
+									"source" : [ "obj-10", 1 ]
 								}
 
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-17", 0 ],
-									"order" : 1,
-									"source" : [ "obj-10", 1 ]
+									"destination" : [ "obj-4", 0 ],
+									"source" : [ "obj-10", 0 ]
 								}
 
 							}
@@ -1239,6 +1269,13 @@
 								"patchline" : 								{
 									"destination" : [ "obj-7", 0 ],
 									"source" : [ "obj-3", 1 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-15", 0 ],
+									"source" : [ "obj-4", 0 ]
 								}
 
 							}
@@ -1349,7 +1386,6 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 195.0, 316.0, 30.0, 30.0 ],
-									"presentation_rect" : [ 170.0, 315.0, 0.0, 0.0 ],
 									"style" : ""
 								}
 

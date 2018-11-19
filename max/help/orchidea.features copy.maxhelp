@@ -588,7 +588,11 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
+<<<<<<< HEAD
 									"patching_rect" : [ 13.0, 334.799988, 321.0, 23.0 ],
+=======
+									"patching_rect" : [ 13.0, 306.799988, 321.0, 23.0 ],
+>>>>>>> 176f6acdeb79868620f8270376185497d1854af6
 									"style" : "",
 									"text" : "orchidea.features @windowsize 4096 @hopsize 1024"
 								}
@@ -630,7 +634,13 @@
 						"lines" : [ 							{
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
+<<<<<<< HEAD
 									"midpoints" : [ 385.0, 332.399994, 22.5, 332.399994 ],
+=======
+									"disabled" : 0,
+									"hidden" : 0,
+									"midpoints" : [ 385.0, 302.399994, 22.5, 302.399994 ],
+>>>>>>> 176f6acdeb79868620f8270376185497d1854af6
 									"source" : [ "obj-10", 0 ]
 								}
 
@@ -638,7 +648,13 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
+<<<<<<< HEAD
 									"midpoints" : [ 370.0, 330.799988, 22.5, 330.799988 ],
+=======
+									"disabled" : 0,
+									"hidden" : 0,
+									"midpoints" : [ 370.0, 301.799988, 22.5, 301.799988 ],
+>>>>>>> 176f6acdeb79868620f8270376185497d1854af6
 									"source" : [ "obj-16", 0 ]
 								}
 
@@ -646,7 +662,13 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
+<<<<<<< HEAD
 									"midpoints" : [ 356.0, 330.299988, 22.5, 330.299988 ],
+=======
+									"disabled" : 0,
+									"hidden" : 0,
+									"midpoints" : [ 356.0, 301.299988, 22.5, 301.299988 ],
+>>>>>>> 176f6acdeb79868620f8270376185497d1854af6
 									"source" : [ "obj-18", 0 ]
 								}
 
@@ -654,6 +676,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
+<<<<<<< HEAD
 									"source" : [ "obj-3", 0 ]
 								}
 
@@ -661,6 +684,10 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
+=======
+									"disabled" : 0,
+									"hidden" : 0,
+>>>>>>> 176f6acdeb79868620f8270376185497d1854af6
 									"source" : [ "obj-4", 0 ]
 								}
 
