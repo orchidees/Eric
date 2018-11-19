@@ -105,6 +105,18 @@
 
 	<!--ATTRIBUTES-->
 	<attributelist>
+		<attribute name="autogroup" get="1" set="1" type="int" size="1">
+			<digest>
+				Automatically Group Voices
+			</digest>
+			<description>
+				Toggles the ability to automatically group voices with the same voicename in voice ensembles.
+			</description>
+			<attributelist>
+				<attribute name="label" get="1" set="1" type="symbol" size="1" value="Automatically Group Voices" />
+				<attribute name="style" get="1" set="1" type="symbol" size="1" value="onoff" />
+			</attributelist>
+		</attribute>
 	</attributelist>
 
 	<!--DISCUSSION-->

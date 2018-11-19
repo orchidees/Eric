@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 356.0, 79.0, 911.0, 711.0 ],
+		"rect" : [ 356.0, 79.0, 918.0, 711.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 13.0,
@@ -42,7 +42,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 97.0, 4716.0, 198.0, 21.0 ],
+					"patching_rect" : [ 103.0, 4716.0, 198.0, 21.0 ],
 					"style" : "",
 					"text" : "and then test with these presets:"
 				}
@@ -55,7 +55,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 74.0, 4688.0, 263.0, 23.0 ],
+					"patching_rect" : [ 80.0, 4688.0, 263.0, 23.0 ],
 					"style" : "",
 					"text" : "database orchbrowsingtutorial, table aminor"
 				}
@@ -68,7 +68,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 319.0, 4131.0, 82.0, 23.0 ],
+					"patching_rect" : [ 325.0, 4131.0, 82.0, 23.0 ],
 					"style" : "",
 					"text" : "clear aminor"
 				}
@@ -81,7 +81,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 53.0, 4077.0, 42.0, 23.0 ],
+					"patching_rect" : [ 59.0, 4077.0, 42.0, 23.0 ],
 					"style" : "",
 					"text" : "zl.reg"
 				}
@@ -93,7 +93,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 7.0, 4660.0, 345.0, 21.0 ],
+					"patching_rect" : [ 13.0, 4660.0, 345.0, 21.0 ],
 					"style" : "",
 					"text" : "Once the analysis is done, send this:"
 				}
@@ -107,7 +107,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 439.0, 4822.5, 326.0, 40.0 ],
+					"patching_rect" : [ 445.0, 4822.5, 326.0, 40.0 ],
 					"style" : "",
 					"text" : "display skewness on X axis and centroid on Y axis, use color to distinguish segment number"
 				}
@@ -120,7 +120,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 139.0, 4831.0, 298.0, 23.0 ],
+					"patching_rect" : [ 145.0, 4831.0, 298.0, 23.0 ],
 					"style" : "",
 					"text" : "xfield skewness, yfield centroid, colorfield segnum"
 				}
@@ -134,7 +134,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 424.0, 4780.5, 319.0, 40.0 ],
+					"patching_rect" : [ 430.0, 4780.5, 319.0, 40.0 ],
 					"style" : "",
 					"text" : "display number of segment vs. solution centroid, map color on skewness"
 				}
@@ -147,7 +147,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 124.0, 4789.0, 298.0, 23.0 ],
+					"patching_rect" : [ 130.0, 4789.0, 298.0, 23.0 ],
 					"style" : "",
 					"text" : "xfield segnum, yfield centroid, colorfield skewness"
 				}
@@ -161,7 +161,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 387.5, 4736.5, 365.0, 40.0 ],
+					"patching_rect" : [ 393.5, 4736.5, 365.0, 40.0 ],
 					"style" : "",
 					"text" : "display number of segment vs. number of solution (i.e. browse solutions one by one), map color on the centroid"
 				}
@@ -174,7 +174,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 97.0, 4745.0, 283.0, 23.0 ],
+					"patching_rect" : [ 103.0, 4745.0, 283.0, 23.0 ],
 					"style" : "",
 					"text" : "xfield segnum, yfield solnum, colorfield centroid"
 				}
@@ -187,7 +187,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 411.25, 5538.0, 21.0, 23.0 ],
+					"patching_rect" : [ 417.25, 5538.0, 21.0, 23.0 ],
 					"style" : "",
 					"text" : "t l"
 				}
@@ -200,7 +200,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 411.25, 5488.0, 39.0, 23.0 ],
+					"patching_rect" : [ 417.25, 5488.0, 39.0, 23.0 ],
 					"style" : "",
 					"text" : "clear"
 				}
@@ -213,7 +213,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 255.0, 5488.0, 72.0, 23.0 ],
+					"patching_rect" : [ 261.0, 5488.0, 72.0, 23.0 ],
 					"style" : "",
 					"text" : "open $1, 1"
 				}
@@ -229,7 +229,7 @@
 					"orientation" : 1,
 					"outlettype" : [ "signal", "", "float", "list" ],
 					"parameter_enable" : 1,
-					"patching_rect" : [ 255.0, 5564.0, 103.0, 21.0 ],
+					"patching_rect" : [ 261.0, 5564.0, 103.0, 21.0 ],
 					"presentation_rect" : [ 15.0, 15.0, 50.0, 21.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
@@ -256,7 +256,7 @@
 					"maxclass" : "ezdac~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 255.0, 5600.0, 45.0, 45.0 ],
+					"patching_rect" : [ 261.0, 5600.0, 45.0, 45.0 ],
 					"style" : ""
 				}
 
@@ -268,7 +268,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "bang" ],
-					"patching_rect" : [ 255.0, 5528.0, 52.0, 23.0 ],
+					"patching_rect" : [ 261.0, 5528.0, 52.0, 23.0 ],
 					"saved_object_attributes" : 					{
 						"basictuning" : 440,
 						"followglobaltempo" : 0,
@@ -293,7 +293,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 372.5, 5488.0, 29.5, 23.0 ],
+					"patching_rect" : [ 378.5, 5488.0, 29.5, 23.0 ],
 					"style" : "",
 					"text" : "0"
 				}
@@ -306,7 +306,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "bang" ],
-					"patching_rect" : [ 255.0, 5437.5, 246.0, 23.0 ],
+					"patching_rect" : [ 261.0, 5437.5, 246.0, 23.0 ],
 					"saved_object_attributes" : 					{
 						"versionnumber" : 80001
 					}
@@ -323,7 +323,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
-					"patching_rect" : [ 255.0, 5401.5, 105.0, 23.0 ],
+					"patching_rect" : [ 261.0, 5401.5, 105.0, 23.0 ],
 					"saved_object_attributes" : 					{
 						"versionnumber" : 80001
 					}
@@ -355,7 +355,7 @@
 					"numvoices" : 22,
 					"out" : "nnnnnnn",
 					"outlettype" : [ "", "", "", "", "", "", "", "bang" ],
-					"patching_rect" : [ 651.5, 4883.0, 188.0, 503.0 ],
+					"patching_rect" : [ 657.5, 4883.0, 188.0, 503.0 ],
 					"pitcheditrange" : [ "null" ],
 					"stafflines" : [ 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 ],
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -371,7 +371,7 @@
 			}
 , 			{
 				"box" : 				{
-					"center" : [ 0.0, 1.875 ],
+					"center" : [ 0.9375, 1.453125 ],
 					"convexcombmax" : [ 1.0 ],
 					"convexcombmin" : [ 0.0 ],
 					"id" : "obj-132",
@@ -381,7 +381,7 @@
 					"numoutlets" : 4,
 					"out" : "nnn",
 					"outlettype" : [ "", "", "", "bang" ],
-					"patching_rect" : [ 74.0, 4883.0, 562.0, 503.0 ],
+					"patching_rect" : [ 80.0, 4883.0, 562.0, 503.0 ],
 					"query" : "SELECT * FROM ",
 					"versionnumber" : 10000
 				}
@@ -394,7 +394,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 94.0, 4184.0, 142.0, 25.0 ],
+					"patching_rect" : [ 100.0, 4184.0, 142.0, 25.0 ],
 					"style" : "",
 					"text" : "iterate on segments"
 				}
@@ -407,7 +407,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 649.0, 4478.0, 42.0, 23.0 ],
+					"patching_rect" : [ 655.0, 4478.0, 42.0, 23.0 ],
 					"style" : "",
 					"text" : "zl.rev"
 				}
@@ -420,7 +420,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 649.0, 4449.0, 51.0, 23.0 ],
+					"patching_rect" : [ 655.0, 4449.0, 51.0, 23.0 ],
 					"style" : "",
 					"text" : "pack i i"
 				}
@@ -433,7 +433,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 478.916656, 3574.0, 39.0, 23.0 ],
+					"patching_rect" : [ 484.916656, 3574.0, 39.0, 23.0 ],
 					"style" : "",
 					"text" : "clear"
 				}
@@ -447,7 +447,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 808.0, 2689.0, 98.0, 23.0 ],
+					"patching_rect" : [ 777.0, 2686.0, 98.0, 23.0 ],
 					"style" : "",
 					"text" : "loadmess clear"
 				}
@@ -461,7 +461,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 417.0, 4102.0, 228.0, 52.0 ],
+					"patching_rect" : [ 423.0, 4102.0, 228.0, 52.0 ],
 					"style" : "",
 					"text" : "addtable aminor (filename f) (score l) (segnum i) (solnum i) (centroid f) (skewness f)"
 				}
@@ -475,7 +475,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
-					"patching_rect" : [ 417.0, 4172.0, 191.0, 23.0 ],
+					"patching_rect" : [ 423.0, 4172.0, 191.0, 23.0 ],
 					"style" : "",
 					"text" : "dada.base orchbrowsingtutorial"
 				}
@@ -488,7 +488,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 74.0, 4265.0, 70.5, 23.0 ],
+					"patching_rect" : [ 80.0, 4265.0, 70.5, 23.0 ],
 					"style" : "",
 					"text" : "zl.reg"
 				}
@@ -501,7 +501,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 53.0, 4112.0, 91.5, 23.0 ],
+					"patching_rect" : [ 59.0, 4112.0, 91.5, 23.0 ],
 					"style" : "",
 					"text" : "t l l"
 				}
@@ -514,7 +514,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 5,
 					"outlettype" : [ "bang", "int", "int", "int", "int" ],
-					"patching_rect" : [ 74.0, 4212.0, 56.0, 23.0 ],
+					"patching_rect" : [ 80.0, 4212.0, 56.0, 23.0 ],
 					"style" : "",
 					"text" : "t b i i i 1"
 				}
@@ -527,7 +527,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "bang", "bang", "int" ],
-					"patching_rect" : [ 53.0, 4184.0, 40.0, 23.0 ],
+					"patching_rect" : [ 59.0, 4184.0, 40.0, 23.0 ],
 					"style" : "",
 					"text" : "uzi"
 				}
@@ -539,7 +539,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 644.0, 4177.0, 51.0, 21.0 ],
+					"patching_rect" : [ 650.0, 4177.0, 51.0, 21.0 ],
 					"style" : "",
 					"text" : "Status:"
 				}
@@ -552,7 +552,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 53.0, 4147.0, 52.0, 23.0 ],
+					"patching_rect" : [ 59.0, 4147.0, 52.0, 23.0 ],
 					"style" : "",
 					"text" : "zl.nth 2"
 				}
@@ -565,7 +565,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "bang", "int", "bang" ],
-					"patching_rect" : [ 362.0, 3906.0, 47.0, 23.0 ],
+					"patching_rect" : [ 368.0, 3906.0, 47.0, 23.0 ],
 					"style" : "",
 					"text" : "t b 1 b"
 				}
@@ -578,7 +578,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 702.5, 4102.0, 36.0, 23.0 ],
+					"patching_rect" : [ 708.5, 4102.0, 36.0, 23.0 ],
 					"style" : "",
 					"text" : "gate"
 				}
@@ -590,7 +590,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 699.0, 4177.0, 199.0, 21.0 ],
+					"patching_rect" : [ 705.0, 4177.0, 183.0, 21.0 ],
 					"style" : "",
 					"text" : "exporting connection"
 				}
@@ -603,7 +603,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 764.5, 4112.0, 79.0, 23.0 ],
+					"patching_rect" : [ 770.5, 4112.0, 79.0, 23.0 ],
 					"style" : "",
 					"text" : "prepend set"
 				}
@@ -616,7 +616,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 428.0, 3855.0, 345.0, 65.0 ],
+					"patching_rect" : [ 434.0, 3855.0, 345.0, 65.0 ],
 					"style" : "",
 					"text" : "Since this will SURELY take a while, we would like orchidea.solve to work in a separate thread. But then, in order to chain the operations, we need more convoluted spaghetti-like patching!"
 				}
@@ -629,7 +629,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "bang", "bang", "int" ],
-					"patching_rect" : [ 235.0, 3944.0, 47.0, 23.0 ],
+					"patching_rect" : [ 241.0, 3944.0, 47.0, 23.0 ],
 					"style" : "",
 					"text" : "t b b 0"
 				}
@@ -642,7 +642,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 362.0, 3855.0, 44.0, 44.0 ],
+					"patching_rect" : [ 368.0, 3855.0, 44.0, 44.0 ],
 					"style" : ""
 				}
 
@@ -654,7 +654,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "bang", "" ],
-					"patching_rect" : [ 702.5, 4131.0, 38.0, 23.0 ],
+					"patching_rect" : [ 708.5, 4131.0, 38.0, 23.0 ],
 					"style" : "",
 					"text" : "sel 0"
 				}
@@ -667,7 +667,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 719.5, 4071.0, 109.0, 23.0 ],
+					"patching_rect" : [ 725.5, 4071.0, 109.0, 23.0 ],
 					"style" : "",
 					"text" : "route busy status"
 				}
@@ -680,7 +680,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 441.0, 4472.764648, 91.0, 23.0 ],
+					"patching_rect" : [ 447.0, 4472.764648, 91.0, 23.0 ],
 					"style" : "",
 					"text" : "zl.reg"
 				}
@@ -693,7 +693,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 74.0, 4589.264648, 188.0, 23.0 ],
+					"patching_rect" : [ 80.0, 4589.264648, 188.0, 23.0 ],
 					"style" : "",
 					"text" : "bach.prepend addentry aminor"
 				}
@@ -706,13 +706,13 @@
 					"numinlets" : 6,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 74.0, 4548.264648, 386.0, 23.0 ],
+					"patching_rect" : [ 80.0, 4548.264648, 386.0, 23.0 ],
 					"saved_object_attributes" : 					{
 						"versionnumber" : 80001
 					}
 ,
 					"style" : "",
-					"text" : "bach.pack skewness centroid filename segnum solnum score"
+					"text" : "bach.pack centroid skewness filename segnum solnum score"
 				}
 
 			}
@@ -723,7 +723,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 441.0, 4505.764648, 227.0, 23.0 ],
+					"patching_rect" : [ 447.0, 4505.764648, 227.0, 23.0 ],
 					"style" : "",
 					"text" : "orchidea.solution.toroll @autogroup 1"
 				}
@@ -736,22 +736,9 @@
 					"numinlets" : 5,
 					"numoutlets" : 4,
 					"outlettype" : [ "int", "", "", "int" ],
-					"patching_rect" : [ 347.5, 4396.5, 97.0, 23.0 ],
+					"patching_rect" : [ 353.5, 4396.5, 97.0, 23.0 ],
 					"style" : "",
 					"text" : "counter 1 1000"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-170",
-					"maxclass" : "newobj",
-					"numinlets" : 3,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 74.0, 4481.764648, 151.0, 23.0 ],
-					"style" : "",
-					"text" : "route centroid skewness"
 				}
 
 			}
@@ -762,7 +749,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 74.0, 4328.764648, 52.0, 23.0 ],
+					"patching_rect" : [ 80.0, 4328.764648, 52.0, 23.0 ],
 					"style" : "",
 					"text" : "zl.iter 1"
 				}
@@ -775,7 +762,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "bang", "bang" ],
-					"patching_rect" : [ 74.0, 4361.764648, 292.5, 23.0 ],
+					"patching_rect" : [ 80.0, 4361.764648, 292.5, 23.0 ],
 					"style" : "",
 					"text" : "t l l b b"
 				}
@@ -784,13 +771,14 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-173",
+					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 74.0, 4447.5, 111.0, 23.0 ],
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 80.0, 4447.5, 134.0, 38.0 ],
 					"style" : "",
-					"text" : "orchidea.features"
+					"text" : "orchidea.features centroid skewness"
 				}
 
 			}
@@ -801,7 +789,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 129.5, 4328.764648, 137.0, 25.0 ],
+					"patching_rect" : [ 135.5, 4328.764648, 137.0, 25.0 ],
 					"style" : "",
 					"text" : "iterate on solutions"
 				}
@@ -814,7 +802,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 74.0, 4298.0, 151.0, 23.0 ],
+					"patching_rect" : [ 80.0, 4298.0, 151.0, 23.0 ],
 					"style" : "",
 					"text" : "orchidea.solution.tofile 1"
 				}
@@ -828,7 +816,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
-					"patching_rect" : [ 74.0, 4624.0, 191.0, 23.0 ],
+					"patching_rect" : [ 80.0, 4624.0, 191.0, 23.0 ],
 					"style" : "",
 					"text" : "dada.base orchbrowsingtutorial"
 				}
@@ -841,7 +829,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 53.0, 3993.0, 85.0, 23.0 ],
+					"patching_rect" : [ 59.0, 3993.0, 85.0, 23.0 ],
 					"style" : "",
 					"text" : "A_minor.wav"
 				}
@@ -858,7 +846,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 164.5, 3850.0, 188.0, 54.0 ],
+					"patching_rect" : [ 170.5, 3850.0, 188.0, 54.0 ],
 					"style" : "",
 					"text" : "Launch the orchestration of the A_minor example, then scroll down! :-)"
 				}
@@ -1213,7 +1201,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 719.5, 3993.0, 113.0, 23.0 ],
+					"patching_rect" : [ 725.5, 3993.0, 113.0, 23.0 ],
 					"saved_object_attributes" : 					{
 						"description" : "",
 						"digest" : "",
@@ -1235,7 +1223,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 386.25, 3985.5, 273.0, 38.0 ],
+					"patching_rect" : [ 392.25, 3985.5, 273.0, 38.0 ],
 					"style" : "",
 					"text" : "Fl Fl Ob Ob ClBb ClBb Bn Bn TpC TpC Hn Hn Tbn Tbn Vn Vn Vn Vn Va Va Vc Cb"
 				}
@@ -1248,7 +1236,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 53.0, 4036.0, 685.5, 23.0 ],
+					"patching_rect" : [ 59.0, 4036.0, 685.5, 23.0 ],
 					"style" : "",
 					"text" : "orchidea.solve @onsetthreshold 0.3"
 				}
@@ -1260,7 +1248,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3.416656, 3817.0, 903.0, 21.0 ],
+					"patching_rect" : [ 9.416656, 3817.0, 887.0, 21.0 ],
 					"style" : "",
 					"text" : "As another example, we'd like to give you, here below, a similar system dealing with dynamic orchestration."
 				}
@@ -1273,7 +1261,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3.416656, 3765.0, 903.0, 50.0 ],
+					"patching_rect" : [ 9.416656, 3765.0, 887.0, 50.0 ],
 					"style" : "",
 					"text" : "This is essentially it: these are the basics you need to start building your own system to browse through solution. Of course you can customize it in multiple ways: for one thing, instead of orchidea.feature, you may use your own feature extractor. On the other thing, you can combine such system with other display mechanisms (such as dada.distances).\n"
 				}
@@ -1301,7 +1289,7 @@
 					"numvoices" : 22,
 					"out" : "nnnnnnn",
 					"outlettype" : [ "", "", "", "", "", "", "", "bang" ],
-					"patching_rect" : [ 688.0, 2732.0, 172.0, 475.0 ],
+					"patching_rect" : [ 694.0, 2732.0, 172.0, 475.0 ],
 					"pitcheditrange" : [ "null" ],
 					"stafflines" : [ 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 ],
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -1322,7 +1310,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3.0, 2812.0, 287.0, 65.0 ],
+					"patching_rect" : [ 9.0, 2812.0, 287.0, 65.0 ],
 					"style" : "",
 					"text" : "Use the mousewheel to navigate the interface;\nadd Command (mac) to zoom horizontally;\nadd Alt+Command (mac) to zoom vertically;\nclick on the canvas and press Tab to autozoom."
 				}
@@ -1335,7 +1323,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 724.5, 1724.0, 173.0, 25.0 ],
+					"patching_rect" : [ 725.5, 1725.0, 173.0, 25.0 ],
 					"style" : "",
 					"text" : "retrieve score for solution"
 				}
@@ -1349,7 +1337,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 500.5, 1692.0, 124.0, 23.0 ],
+					"patching_rect" : [ 506.5, 1692.0, 124.0, 23.0 ],
 					"style" : "",
 					"text" : "value winchestersol"
 				}
@@ -1362,7 +1350,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 708.5, 1692.0, 36.0, 23.0 ],
+					"patching_rect" : [ 714.5, 1692.0, 36.0, 23.0 ],
 					"style" : "",
 					"text" : "1 $1"
 				}
@@ -1376,7 +1364,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 523.5, 1753.0, 278.0, 54.0 ],
+					"patching_rect" : [ 529.5, 1753.0, 278.0, 54.0 ],
 					"style" : "",
 					"text" : "bach.pack builds key-value pairs wrapped in a level of parentheses. That's what we need for dada.base to understand!"
 				}
@@ -1388,7 +1376,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 244.5, 1806.0, 141.0, 23.0 ],
+					"patching_rect" : [ 250.5, 1806.0, 141.0, 23.0 ],
 					"saved_object_attributes" : 					{
 						"versionnumber" : 80001
 					}
@@ -1405,7 +1393,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 205.5, 1838.5, 210.0, 23.0 ],
+					"patching_rect" : [ 211.5, 1838.5, 210.0, 23.0 ],
 					"style" : "",
 					"text" : "bach.prepend addentry winchester"
 				}
@@ -1418,13 +1406,13 @@
 					"numinlets" : 5,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 205.5, 1768.5, 314.0, 23.0 ],
+					"patching_rect" : [ 211.5, 1768.5, 314.0, 23.0 ],
 					"saved_object_attributes" : 					{
 						"versionnumber" : 80001
 					}
 ,
 					"style" : "",
-					"text" : "bach.pack skewness centroid filename solnum score"
+					"text" : "bach.pack centroid skewness filename solnum score"
 				}
 
 			}
@@ -1435,7 +1423,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 500.5, 1725.0, 227.0, 23.0 ],
+					"patching_rect" : [ 506.5, 1725.0, 227.0, 23.0 ],
 					"style" : "",
 					"text" : "orchidea.solution.toroll @autogroup 1"
 				}
@@ -1449,7 +1437,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 640.5, 1047.5, 191.0, 54.0 ],
+					"patching_rect" : [ 646.5, 1047.5, 191.0, 54.0 ],
 					"style" : "",
 					"text" : "Display nth solution for 1st segment (we just have 1 segment, so that'll do it :-)"
 				}
@@ -1462,7 +1450,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 556.0, 1094.235474, 49.0, 23.0 ],
+					"patching_rect" : [ 562.0, 1094.235474, 49.0, 23.0 ],
 					"style" : "",
 					"text" : "pak 1 i"
 				}
@@ -1476,7 +1464,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 586.0, 1063.0, 50.0, 23.0 ],
+					"patching_rect" : [ 592.0, 1063.0, 50.0, 23.0 ],
 					"style" : ""
 				}
 
@@ -1489,7 +1477,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 159.0, 1322.0, 118.0, 23.0 ],
+					"patching_rect" : [ 165.0, 1322.0, 118.0, 23.0 ],
 					"style" : "",
 					"text" : "clear, numvoices 1"
 				}
@@ -1503,7 +1491,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 159.0, 1286.0, 64.0, 23.0 ],
+					"patching_rect" : [ 165.0, 1286.0, 64.0, 23.0 ],
 					"style" : "",
 					"text" : "loadbang"
 				}
@@ -1519,7 +1507,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 354.5, 1155.0, 230.0, 84.0 ],
+					"patching_rect" : [ 360.5, 1155.0, 230.0, 84.0 ],
 					"style" : "",
 					"text" : "The autogroup attribute will gather two or more instruments on the same staff if they are the same.\nThis'll save us some vertical space!"
 				}
@@ -1533,7 +1521,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 695.5, 1188.235474, 191.0, 83.0 ],
+					"patching_rect" : [ 701.5, 1188.235474, 191.0, 83.0 ],
 					"style" : "",
 					"text" : "For scores with a lot of instruments, it is always convenient to set the \"vzoom\" attribute to some low fixed value, such as 60."
 				}
@@ -1547,7 +1535,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 586.5, 1213.0, 107.0, 23.0 ],
+					"patching_rect" : [ 592.5, 1213.0, 107.0, 23.0 ],
 					"style" : "",
 					"text_width" : 60.5
 				}
@@ -1569,7 +1557,7 @@
 					"numvoices" : 1,
 					"out" : "nnnnnnn",
 					"outlettype" : [ "", "", "", "", "", "", "", "bang" ],
-					"patching_rect" : [ 327.0, 1257.0, 495.0, 144.0 ],
+					"patching_rect" : [ 333.0, 1257.0, 495.0, 144.0 ],
 					"pitcheditrange" : [ "null" ],
 					"stafflines" : [ 5 ],
 					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ],
@@ -1589,7 +1577,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3.0, 1075.235474, 309.0, 94.0 ],
+					"patching_rect" : [ 9.0, 1075.235474, 309.0, 94.0 ],
 					"style" : "",
 					"text" : "How do we obtain a the score for a specific solution? Well, that is exactly what the module orchidea.solution.toroll is for: it will take the output of orchidea.solve and retrieve a specific solution in bach.roll form. (If you're not familiar with bach.roll, it is the proportial-notation editor in the bach library.)"
 				}
@@ -1602,7 +1590,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 327.0, 1130.0, 248.0, 23.0 ],
+					"patching_rect" : [ 333.0, 1130.0, 248.0, 23.0 ],
 					"style" : "",
 					"text" : "orchidea.solution.toroll 1 1 @autogroup 1"
 				}
@@ -1615,7 +1603,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 327.0, 1062.0, 24.0, 24.0 ],
+					"patching_rect" : [ 333.0, 1062.0, 24.0, 24.0 ],
 					"style" : ""
 				}
 
@@ -1628,7 +1616,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 327.0, 1094.235474, 124.0, 23.0 ],
+					"patching_rect" : [ 333.0, 1094.235474, 124.0, 23.0 ],
 					"style" : "",
 					"text" : "value winchestersol"
 				}
@@ -1641,7 +1629,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3.0, 1004.235474, 896.0, 36.0 ],
+					"patching_rect" : [ 9.0, 1004.235474, 888.0, 36.0 ],
 					"style" : "",
 					"text" : "Notice that we want to include in the database also the score for each of the solutions. Why so? Because our aim is to get to a sort of explorable interface where users can navigate the solutions, hear them and also see the corresponding scores."
 				}
@@ -1655,7 +1643,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 457.5, 2185.5, 299.0, 40.0 ],
+					"patching_rect" : [ 463.5, 2185.5, 299.0, 40.0 ],
 					"style" : "",
 					"text" : "Number of solutions with negative skewness ordered by increasing centroid"
 				}
@@ -1667,7 +1655,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 350.0, 2194.0, 100.0, 23.0 ],
+					"patching_rect" : [ 356.0, 2194.0, 100.0, 23.0 ],
 					"style" : "",
 					"text" : "print @popup 1"
 				}
@@ -1680,7 +1668,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 350.0, 2115.0, 506.0, 23.0 ],
+					"patching_rect" : [ 356.0, 2115.0, 506.0, 23.0 ],
 					"style" : "",
 					"text" : "query SELECT solnum FROM winchester WHERE skewness < 0 ORDER BY centroid"
 				}
@@ -1694,7 +1682,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
-					"patching_rect" : [ 350.0, 2149.235352, 360.0, 23.0 ],
+					"patching_rect" : [ 356.0, 2149.235352, 360.0, 23.0 ],
 					"style" : "",
 					"text" : "dada.base orchbrowsingtutorial @out m @outputcolnames 0"
 				}
@@ -1707,7 +1695,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3.0, 2121.235352, 334.0, 79.0 ],
+					"patching_rect" : [ 9.0, 2121.235352, 334.0, 79.0 ],
 					"style" : "",
 					"text" : "Once the solutions are in the database, if you are familiar with SQLite queries, it will be easy for you to retrieve specific ones. If you're not familiar with them, please carry on reading - we promise this is the nerdiest stuff in this tutorial, from here on, it'll be a cakewalk ;-)"
 				}
@@ -1720,7 +1708,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3.416656, 3472.5, 329.0, 152.0 ],
+					"patching_rect" : [ 9.416656, 3472.5, 329.0, 152.0 ],
 					"style" : "",
 					"text" : "Once we have routed the  messages coming from \"hover\", then we see:\n• whether there is a \"filename\" symbol at the beginning of some sublist, and then we'll play the sample\n• whether there is a \"score\" symbol at the beginning of some sublist, and then we'll display the score in a bach.roll\n• whether there's a \"none\" symbol, which would mean that no sample is being hovered any longer, and hence we'll stop it."
 				}
@@ -1735,7 +1723,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 204.666656, 3684.0, 141.0, 40.0 ],
+					"patching_rect" : [ 210.666656, 3684.0, 141.0, 40.0 ],
 					"style" : "",
 					"text" : "Turn audio on, and explore the points!"
 				}
@@ -1750,7 +1738,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 590.5, 3390.5, 265.0, 98.0 ],
+					"patching_rect" : [ 596.5, 3390.5, 265.0, 98.0 ],
 					"style" : "",
 					"text" : "we need @out m for the \"filename\" outlet only, because we need to communicate between a bach object and a standard Max object (the messagebox). All the remaining outlets can be natively bach @out n (hence mn)"
 				}
@@ -1764,7 +1752,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 521.666626, 3558.5, 263.0, 54.0 ],
+					"patching_rect" : [ 527.666626, 3558.5, 263.0, 54.0 ],
 					"style" : "",
 					"text" : "if there's a \"none\" symbol after \"hover\", then stop playing and clear the bach.roll: we aren't hovering any point."
 				}
@@ -1777,7 +1765,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 347.666656, 3523.0, 72.0, 23.0 ],
+					"patching_rect" : [ 353.666656, 3523.0, 72.0, 23.0 ],
 					"style" : "",
 					"text" : "open $1, 1"
 				}
@@ -1793,7 +1781,7 @@
 					"orientation" : 1,
 					"outlettype" : [ "signal", "", "float", "list" ],
 					"parameter_enable" : 1,
-					"patching_rect" : [ 347.666656, 3648.0, 103.0, 21.0 ],
+					"patching_rect" : [ 353.666656, 3648.0, 103.0, 21.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 50.0, 21.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
@@ -1820,7 +1808,7 @@
 					"maxclass" : "ezdac~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 347.666656, 3684.0, 45.0, 45.0 ],
+					"patching_rect" : [ 353.666656, 3684.0, 45.0, 45.0 ],
 					"style" : ""
 				}
 
@@ -1832,7 +1820,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "bang" ],
-					"patching_rect" : [ 347.666656, 3612.0, 52.0, 23.0 ],
+					"patching_rect" : [ 353.666656, 3612.0, 52.0, 23.0 ],
 					"saved_object_attributes" : 					{
 						"basictuning" : 440,
 						"followglobaltempo" : 0,
@@ -1857,7 +1845,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 440.166656, 3574.0, 29.5, 23.0 ],
+					"patching_rect" : [ 446.166656, 3574.0, 29.5, 23.0 ],
 					"style" : "",
 					"text" : "0"
 				}
@@ -1871,7 +1859,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 424.5, 3514.5, 222.0, 40.0 ],
+					"patching_rect" : [ 430.5, 3514.5, 222.0, 40.0 ],
 					"style" : "",
 					"text" : "if there's a filename specification, open it and play it"
 				}
@@ -1885,7 +1873,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 460.5, 3318.0, 131.0, 54.0 ],
+					"patching_rect" : [ 466.5, 3318.0, 131.0, 54.0 ],
 					"style" : "",
 					"text" : "route messages starting with a \"hover\" symbol"
 				}
@@ -1898,7 +1886,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "bang" ],
-					"patching_rect" : [ 347.666656, 3472.5, 246.0, 23.0 ],
+					"patching_rect" : [ 353.666656, 3472.5, 246.0, 23.0 ],
 					"saved_object_attributes" : 					{
 						"versionnumber" : 80001
 					}
@@ -1915,7 +1903,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
-					"patching_rect" : [ 347.666656, 3333.5, 105.0, 23.0 ],
+					"patching_rect" : [ 353.666656, 3333.5, 105.0, 23.0 ],
 					"saved_object_attributes" : 					{
 						"versionnumber" : 80001
 					}
@@ -1932,7 +1920,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3.416656, 3310.0, 326.0, 123.0 ],
+					"patching_rect" : [ 9.416656, 3310.0, 326.0, 123.0 ],
 					"style" : "",
 					"text" : "For instance, we would like to have the solution play whenever the point is hovered. To do so, we only route messages with a \"hover\" symbol.\nSince dada objects output bach messages, we do so via bach.keys (a sort of \"route\" for bach lists). If you need a primer on bach lists (called lllls), including the @out attribute, you can follow bach \"Hello world\" tutorial."
 				}
@@ -1945,7 +1933,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3.416656, 3224.5, 315.0, 65.0 ],
+					"patching_rect" : [ 9.416656, 3224.5, 315.0, 65.0 ],
 					"style" : "",
 					"text" : "The output of the second outlet of dada.catart will notify us, whenever a point is clicked/hovered, its content fields. All we need to do is to retrieve them and handle them as we want."
 				}
@@ -1959,7 +1947,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 488.5, 3230.5, 269.0, 40.0 ],
+					"patching_rect" : [ 494.5, 3230.5, 269.0, 40.0 ],
 					"style" : "",
 					"text" : "whenever we hover/click on a point, its properties are retrieved from this outlet."
 				}
@@ -1973,7 +1961,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 539.5, 2677.5, 269.0, 40.0 ],
+					"patching_rect" : [ 545.5, 2677.5, 269.0, 40.0 ],
 					"style" : "",
 					"text" : "5. we'll retrieve both the filename and the score via hovering/clicking"
 				}
@@ -1986,7 +1974,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 357.5, 2511.0, 364.0, 50.0 ],
+					"patching_rect" : [ 363.5, 2511.0, 364.0, 50.0 ],
 					"style" : "",
 					"text" : "As soon as we define these attributes, a number of points appear in a cartesian plane: each point represents a solution, and its coordinates are its centroid and its skewness-"
 				}
@@ -1999,7 +1987,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 357.5, 2563.0, 438.0, 108.0 ],
+					"patching_rect" : [ 363.5, 2563.0, 438.0, 108.0 ],
 					"style" : "",
 					"text" : "There is a fifth attribute we are better off defining right now, namely: whenever we hover or click on a point, what properties (i.e. what fields) of the point would we like to retrieve? In dada, these fields are called \"content\" fields.\nIt would be extremely handy to retrieve both the filename (so that we can play it) and the score (so that we can display it), so we should properly set the \"contentfield\" attribute to do so:"
 				}
@@ -2011,7 +1999,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 337.666656, 3239.0, 142.0, 23.0 ],
+					"patching_rect" : [ 343.666656, 3239.0, 142.0, 23.0 ],
 					"saved_object_attributes" : 					{
 						"versionnumber" : 80001
 					}
@@ -2029,7 +2017,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 417.5, 1830.0, 194.0, 40.0 ],
+					"patching_rect" : [ 423.5, 1830.0, 194.0, 40.0 ],
 					"style" : "",
 					"text" : "Add a database entry for the file in the table \"winchester\""
 				}
@@ -2042,7 +2030,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 518.0, 1597.0, 29.5, 23.0 ],
+					"patching_rect" : [ 524.0, 1597.0, 29.5, 23.0 ],
 					"style" : "",
 					"text" : "1"
 				}
@@ -2056,7 +2044,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 581.5, 1626.235474, 142.0, 40.0 ],
+					"patching_rect" : [ 587.5, 1626.235474, 142.0, 40.0 ],
 					"style" : "",
 					"text" : "get counter for solution number"
 				}
@@ -2069,7 +2057,7 @@
 					"numinlets" : 5,
 					"numoutlets" : 4,
 					"outlettype" : [ "int", "", "", "int" ],
-					"patching_rect" : [ 479.0, 1634.735474, 97.0, 23.0 ],
+					"patching_rect" : [ 485.0, 1634.735474, 97.0, 23.0 ],
 					"style" : "",
 					"text" : "counter 1 1000"
 				}
@@ -2082,7 +2070,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 357.5, 2686.0, 165.0, 23.0 ],
+					"patching_rect" : [ 363.5, 2686.0, 165.0, 23.0 ],
 					"style" : "",
 					"text" : "contentfield filename score"
 				}
@@ -2095,7 +2083,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 88.0, 2421.5, 168.0, 50.0 ],
+					"patching_rect" : [ 94.0, 2421.5, 168.0, 50.0 ],
 					"style" : "",
 					"text" : "You can also set all the attributes in the \"Basic\" tab of the object's inspector"
 				}
@@ -2110,7 +2098,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 97.0, 2365.0, 98.0, 40.0 ],
+					"patching_rect" : [ 103.0, 2365.0, 98.0, 40.0 ],
 					"style" : "",
 					"text" : "Set all the attributes"
 				}
@@ -2123,7 +2111,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 201.0, 2370.0, 24.0, 24.0 ],
+					"patching_rect" : [ 207.0, 2370.0, 24.0, 24.0 ],
 					"style" : ""
 				}
 
@@ -2135,7 +2123,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 492.5, 2461.0, 200.0, 50.0 ],
+					"patching_rect" : [ 498.5, 2461.0, 200.0, 50.0 ],
 					"style" : "",
 					"text" : "In our case, we are putting the centroid on the X coordinate and the spread on the Y coordinate"
 				}
@@ -2148,7 +2136,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 451.5, 2434.0, 263.0, 25.0 ],
+					"patching_rect" : [ 457.5, 2434.0, 263.0, 25.0 ],
 					"style" : "",
 					"text" : "4. the field to be mapped on the Y axis"
 				}
@@ -2161,7 +2149,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 401.5, 2409.0, 263.0, 25.0 ],
+					"patching_rect" : [ 407.5, 2409.0, 263.0, 25.0 ],
 					"style" : "",
 					"text" : "3. the field to be mapped on the X axis"
 				}
@@ -2174,7 +2162,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 401.5, 2384.0, 263.0, 25.0 ],
+					"patching_rect" : [ 407.5, 2384.0, 263.0, 25.0 ],
 					"style" : "",
 					"text" : "2. the table name that we want to display"
 				}
@@ -2187,7 +2175,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 469.0, 2359.0, 280.0, 25.0 ],
+					"patching_rect" : [ 475.0, 2359.0, 280.0, 25.0 ],
 					"style" : "",
 					"text" : "1. the dada.base to which we want to attach"
 				}
@@ -2200,7 +2188,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 343.0, 2434.0, 102.0, 23.0 ],
+					"patching_rect" : [ 349.0, 2434.0, 102.0, 23.0 ],
 					"style" : "",
 					"text" : "yfield skewness"
 				}
@@ -2213,7 +2201,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 314.0, 2409.0, 91.0, 23.0 ],
+					"patching_rect" : [ 320.0, 2409.0, 91.0, 23.0 ],
 					"style" : "",
 					"text" : "xfield centroid"
 				}
@@ -2226,7 +2214,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 302.0, 2384.0, 104.0, 23.0 ],
+					"patching_rect" : [ 308.0, 2384.0, 104.0, 23.0 ],
 					"style" : "",
 					"text" : "table winchester"
 				}
@@ -2239,7 +2227,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 290.0, 2359.0, 184.0, 23.0 ],
+					"patching_rect" : [ 296.0, 2359.0, 184.0, 23.0 ],
 					"style" : "",
 					"text" : "database orchbrowsingtutorial"
 				}
@@ -2247,11 +2235,9 @@
 			}
 , 			{
 				"box" : 				{
-					"center" : [ -1226.332313, -88.229086 ],
-					"contentfield" : [ "filename", "score" ],
+					"center" : [ 0.9375, -1.5 ],
 					"convexcombmax" : [ 1.0 ],
 					"convexcombmin" : [ 0.0 ],
-					"database" : "orchbrowsingtutorial",
 					"id" : "obj-64",
 					"maxclass" : "dada.catart",
 					"mode" : 0,
@@ -2259,14 +2245,9 @@
 					"numoutlets" : 4,
 					"out" : "nnn",
 					"outlettype" : [ "", "", "", "bang" ],
-					"patching_rect" : [ 290.0, 2722.0, 380.999969, 485.0 ],
-					"query" : "SELECT * FROM winchester",
-					"table" : "winchester",
-					"versionnumber" : 10000,
-					"vzoom" : 30.220846,
-					"xfield" : "centroid",
-					"yfield" : "skewness",
-					"zoom" : 7.412334
+					"patching_rect" : [ 296.0, 2722.0, 385.0, 485.0 ],
+					"query" : "SELECT * FROM ",
+					"versionnumber" : 10000
 				}
 
 			}
@@ -2277,9 +2258,9 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3.0, 2258.0, 905.0, 50.0 ],
+					"patching_rect" : [ 9.0, 2258.0, 890.0, 50.0 ],
 					"style" : "",
-					"text" : "Very well. Now the last step: let's set up a palette to explore the database. Our palette will be the dada.catart object (which will be  dada.cartesian object, in future versions of dada > 0.2). This object is a sort of \"window\" on a given dada.base table: it shows us all the entries according to some of their features.\nOnce we create the object, we need to define at least four important attributes in order for it to start working:"
+					"text" : "Very well. Now the last step: let's set up a palette to explore the database. Our palette will be the dada.catart object (which will be  dada.cartesian object, in future versions of dada > 0.2). This object is a sort of \"window\" on a given dada.base table: it shows us all the entries according to some of their features. Once we have created the object, we need to define at least four important attributes in order for it to start working:"
 				}
 
 			}
@@ -2290,7 +2271,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 235.5, 1459.235474, 150.0, 25.0 ],
+					"patching_rect" : [ 241.5, 1459.235474, 150.0, 25.0 ],
 					"style" : "",
 					"text" : "bang to start analysis"
 				}
@@ -2305,7 +2286,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 115.5, 2028.5, 159.0, 54.0 ],
+					"patching_rect" : [ 121.5, 2028.5, 159.0, 54.0 ],
 					"style" : "",
 					"text" : "You should get a certain number of solutions, up to 200"
 				}
@@ -2317,7 +2298,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 283.0, 2044.0, 100.0, 23.0 ],
+					"patching_rect" : [ 289.0, 2044.0, 100.0, 23.0 ],
 					"style" : "",
 					"text" : "print @popup 1"
 				}
@@ -2330,7 +2311,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 283.0, 1967.0, 312.0, 23.0 ],
+					"patching_rect" : [ 289.0, 1967.0, 312.0, 23.0 ],
 					"style" : "",
 					"text" : "query SELECT COUNT(filename) FROM winchester"
 				}
@@ -2344,7 +2325,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
-					"patching_rect" : [ 283.0, 2006.235474, 240.0, 23.0 ],
+					"patching_rect" : [ 289.0, 2006.235474, 240.0, 23.0 ],
 					"style" : "",
 					"text" : "dada.base orchbrowsingtutorial @out m"
 				}
@@ -2357,7 +2338,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3.0, 1922.0, 566.0, 36.0 ],
+					"patching_rect" : [ 9.0, 1922.0, 566.0, 36.0 ],
 					"style" : "",
 					"text" : "Now the \"winchester\" table in \"orchbrowsingtutorial\" should contain all our solutions. \nTo check this, let's count the number of different filenames in the winchester table:"
 				}
@@ -2371,7 +2352,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 663.5, 861.235474, 223.0, 127.0 ],
+					"patching_rect" : [ 669.5, 861.235474, 223.0, 127.0 ],
 					"style" : "",
 					"text" : "Click to add a table named \"solutions\" having 3 columns: the filename (a symbol), the solution number (an integer), the centroid (a floating point value), the skewness (floating point also), and the musical score of the solution (in bach llll form)."
 				}
@@ -2385,7 +2366,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 457.5, 892.235474, 212.0, 52.0 ],
+					"patching_rect" : [ 463.5, 892.235474, 212.0, 52.0 ],
 					"style" : "",
 					"text" : "addtable winchester (filename s) (solnum i) (centroid f) (skewness f) (score l)"
 				}
@@ -2398,7 +2379,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3.0, 892.235474, 432.0, 65.0 ],
+					"patching_rect" : [ 9.0, 892.235474, 432.0, 65.0 ],
 					"style" : "",
 					"text" : "The first thing we have to do whenever we need to set up a dada.base is to define at least a table. Let's create a table containing as columns the filename, the centroid and the skewness of each solution. Let's call this table \"winchester\""
 				}
@@ -2412,7 +2393,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
-					"patching_rect" : [ 457.5, 960.470947, 191.0, 23.0 ],
+					"patching_rect" : [ 463.5, 960.470947, 191.0, 23.0 ],
 					"style" : "",
 					"text" : "dada.base orchbrowsingtutorial"
 				}
@@ -2426,22 +2407,9 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 54.0, 1667.735474, 142.0, 25.0 ],
+					"patching_rect" : [ 60.0, 1692.0, 142.0, 25.0 ],
 					"style" : "",
 					"text" : "retrieve file features"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-39",
-					"maxclass" : "newobj",
-					"numinlets" : 3,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 205.5, 1702.0, 151.0, 23.0 ],
-					"style" : "",
-					"text" : "route skewness centroid"
 				}
 
 			}
@@ -2452,7 +2420,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 205.5, 1564.0, 52.0, 23.0 ],
+					"patching_rect" : [ 211.5, 1564.0, 52.0, 23.0 ],
 					"style" : "",
 					"text" : "zl.iter 1"
 				}
@@ -2465,7 +2433,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3.0, 1415.0, 904.0, 36.0 ],
+					"patching_rect" : [ 9.0, 1415.0, 578.0, 36.0 ],
 					"style" : "",
 					"text" : "Then, let's add entries in the table, one for each orchidea solution. \nLet's handle one file at a time, so that we can analyze it and then input its features in the database."
 				}
@@ -2478,7 +2446,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "bang", "bang" ],
-					"patching_rect" : [ 205.5, 1597.0, 292.5, 23.0 ],
+					"patching_rect" : [ 211.5, 1597.0, 292.5, 23.0 ],
 					"style" : "",
 					"text" : "t l l b b"
 				}
@@ -2487,13 +2455,14 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-33",
+					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 205.5, 1667.735474, 111.0, 23.0 ],
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 211.5, 1684.5, 144.0, 38.0 ],
 					"style" : "",
-					"text" : "orchidea.features"
+					"text" : "orchidea.features centroid skewness"
 				}
 
 			}
@@ -2504,7 +2473,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 261.0, 1564.0, 108.0, 25.0 ],
+					"patching_rect" : [ 267.0, 1564.0, 108.0, 25.0 ],
 					"style" : "",
 					"text" : "iterate on files"
 				}
@@ -2517,7 +2486,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 205.5, 1533.235474, 151.0, 23.0 ],
+					"patching_rect" : [ 211.5, 1533.235474, 151.0, 23.0 ],
 					"style" : "",
 					"text" : "orchidea.solution.tofile 1"
 				}
@@ -2530,7 +2499,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 205.5, 1459.235474, 24.0, 24.0 ],
+					"patching_rect" : [ 211.5, 1459.235474, 24.0, 24.0 ],
 					"style" : ""
 				}
 
@@ -2543,7 +2512,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 205.5, 1502.470947, 124.0, 23.0 ],
+					"patching_rect" : [ 211.5, 1502.470947, 124.0, 23.0 ],
 					"style" : "",
 					"text" : "value winchestersol"
 				}
@@ -2555,7 +2524,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 384.5, 695.735474, 360.0, 21.0 ],
+					"patching_rect" : [ 446.5, 695.735474, 360.0, 21.0 ],
 					"style" : "",
 					"text" : "Again, be patient, this object needs to analyze up to 200 files"
 				}
@@ -2569,7 +2538,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
-					"patching_rect" : [ 205.5, 1877.235474, 191.0, 23.0 ],
+					"patching_rect" : [ 211.5, 1877.235474, 191.0, 23.0 ],
 					"style" : "",
 					"text" : "dada.base orchbrowsingtutorial"
 				}
@@ -2583,7 +2552,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
-					"patching_rect" : [ 497.5, 828.235474, 191.0, 23.0 ],
+					"patching_rect" : [ 503.5, 828.235474, 191.0, 23.0 ],
 					"style" : "",
 					"text" : "dada.base orchbrowsingtutorial"
 				}
@@ -2596,7 +2565,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3.0, 807.235474, 488.0, 65.0 ],
+					"patching_rect" : [ 9.0, 807.235474, 488.0, 65.0 ],
 					"style" : "",
 					"text" : "Now, let's put the information about files and their features inside a SQLite database. To do so, we use the dada.base object, from the dada library. We build a dada.base and name it \"orchbrowsingtutorial\". Different dada.base objects with the same name are actually referring to the same SQLite database."
 				}
@@ -2609,7 +2578,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 557.0, 257.0, 308.0, 36.0 ],
+					"patching_rect" : [ 563.0, 257.0, 308.0, 36.0 ],
 					"style" : "",
 					"text" : "Be patient: this may take a little while, since we are asking to export up to 200 solutions."
 				}
@@ -2627,7 +2596,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 393.25, 390.0, 465.0, 69.0 ],
+					"patching_rect" : [ 399.25, 390.0, 465.0, 69.0 ],
 					"style" : "",
 					"text" : "The population size (200) is also the maximum number of solutions orchidea.solve can find. By setting \"exportsolutions\" to 200 as well, we are essentially exporting as many solutions as possible, given the population size"
 				}
@@ -2640,7 +2609,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 16.0, 370.0, 24.0, 24.0 ],
+					"patching_rect" : [ 22.0, 370.0, 24.0, 24.0 ],
 					"style" : ""
 				}
 
@@ -2651,7 +2620,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 270.0, 767.0, 152.0, 23.0 ],
+					"patching_rect" : [ 276.0, 767.0, 152.0, 23.0 ],
 					"style" : "",
 					"text" : "print Centroid @popup 1"
 				}
@@ -2663,22 +2632,9 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 292.0, 645.0, 131.0, 23.0 ],
+					"patching_rect" : [ 298.0, 645.0, 131.0, 23.0 ],
 					"style" : "",
 					"text" : "print Files @popup 1"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-4",
-					"maxclass" : "newobj",
-					"numinlets" : 2,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 270.0, 732.0, 90.0, 23.0 ],
-					"style" : "",
-					"text" : "route centroid"
 				}
 
 			}
@@ -2689,22 +2645,22 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 270.0, 695.735474, 111.0, 23.0 ],
+					"patching_rect" : [ 276.0, 695.735474, 161.0, 23.0 ],
 					"style" : "",
-					"text" : "orchidea.features"
+					"text" : "orchidea.features centroid"
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"id" : "obj-26",
-					"linecount" : 4,
+					"linecount" : 5,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3.0, 689.235474, 258.0, 65.0 ],
+					"patching_rect" : [ 9.0, 667.735474, 247.0, 79.0 ],
 					"style" : "",
-					"text" : "Then, step 2: to analyze files, we'll make use of orchidea.features, that receives the filenames to be analyzed and outputs a list of features (one for each file):"
+					"text" : "Then, step 2: to analyze files, we'll make use of orchidea.features, that receives the filenames to be analyzed and outputs the features we require, in our case the centroid (one element for each file):"
 				}
 
 			}
@@ -2716,7 +2672,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 421.5, 564.235474, 323.0, 112.0 ],
+					"patching_rect" : [ 427.5, 564.235474, 323.0, 112.0 ],
 					"style" : "",
 					"text" : "...however, by default orchidea.solution.tofile only outputs one solution (the connection). We need to tell it to export all the solutions of the 1st segment (notice that our example will have a single segment, so 1st segment is all we need!). To do that, we set the argument as 1 (we could also have sent 1 through the right inlet) "
 				}
@@ -2729,7 +2685,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 270.0, 610.0, 151.0, 23.0 ],
+					"patching_rect" : [ 276.0, 610.0, 151.0, 23.0 ],
 					"style" : "",
 					"text" : "orchidea.solution.tofile 1"
 				}
@@ -2742,7 +2698,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 270.0, 547.0, 24.0, 24.0 ],
+					"patching_rect" : [ 276.0, 547.0, 24.0, 24.0 ],
 					"style" : ""
 				}
 
@@ -2754,7 +2710,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3.0, 564.235474, 236.0, 65.0 ],
+					"patching_rect" : [ 9.0, 564.235474, 236.0, 65.0 ],
 					"style" : "",
 					"text" : "Let's start with step 1: retrieving the audio files of the solution. This is easy, we just need to use the orchidea.solution.tofile module:"
 				}
@@ -2767,7 +2723,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3.0, 487.235474, 903.0, 50.0 ],
+					"patching_rect" : [ 9.0, 487.235474, 893.0, 50.0 ],
 					"style" : "",
 					"text" : "We will procede in the following way: first of all, we will retrieve the audio files corresponding to each solution; then we will analyze them and extract their features; finally, we will use the dada library to display and interact with each solution. Please note that, in order to have the interactive display work, you should have the libraries \"bach\" and \"dada\" properly installed on your machine (download them from the website www.bachproject.net)."
 				}
@@ -2781,7 +2737,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 270.0, 579.235474, 124.0, 23.0 ],
+					"patching_rect" : [ 276.0, 579.235474, 124.0, 23.0 ],
 					"style" : "",
 					"text" : "value winchestersol"
 				}
@@ -2795,7 +2751,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 60.0, 401.5, 124.0, 23.0 ],
+					"patching_rect" : [ 66.0, 401.5, 124.0, 23.0 ],
 					"style" : "",
 					"text" : "value winchestersol"
 				}
@@ -2811,7 +2767,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 186.0, 393.0, 171.0, 40.0 ],
+					"patching_rect" : [ 192.0, 393.0, 171.0, 40.0 ],
 					"style" : "",
 					"text" : "Let's store the solution info in this variable"
 				}
@@ -2824,7 +2780,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 60.0, 322.0, 124.0, 23.0 ],
+					"patching_rect" : [ 66.0, 329.5, 124.0, 23.0 ],
 					"style" : "",
 					"text" : "WinchesterBell.wav"
 				}
@@ -2840,7 +2796,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 421.5, 257.0, 130.0, 40.0 ],
+					"patching_rect" : [ 427.5, 257.0, 130.0, 40.0 ],
 					"style" : "",
 					"text" : "Orchestrate the Winchester Bell"
 				}
@@ -2853,7 +2809,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 393.25, 265.0, 24.0, 24.0 ],
+					"patching_rect" : [ 399.25, 265.0, 24.0, 24.0 ],
 					"style" : ""
 				}
 
@@ -3207,7 +3163,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 726.5, 322.0, 113.0, 23.0 ],
+					"patching_rect" : [ 732.5, 322.0, 113.0, 23.0 ],
 					"saved_object_attributes" : 					{
 						"description" : "",
 						"digest" : "",
@@ -3229,7 +3185,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 393.25, 314.5, 273.0, 38.0 ],
+					"patching_rect" : [ 399.25, 314.5, 273.0, 38.0 ],
 					"style" : "",
 					"text" : "Fl Fl Ob Ob ClBb ClBb Bn Bn TpC TpC Hn Hn Tbn Tbn Vn Vn Vn Vn Va Va Vc Cb"
 				}
@@ -3242,7 +3198,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3.0, 90.235489, 904.0, 152.0 ],
+					"patching_rect" : [ 9.0, 90.235489, 894.0, 152.0 ],
 					"style" : "",
 					"text" : "One of the benefits of computer-assisted orchestration is being able to generate a large number of solutions, among which one may choose one's favorite. On one hand, this is nice: the more solution we have, the more likely it is we come across something interesting or something unexpected (for some composers, this may as well be the whole point of the operation, to some extent...). On the other hand, running through all the solution files may be tiresome and cumbersome: as the number of solutions grows larger, so does the need of being able to organize them properly, in order to browse them in a musically meaningful way.\n\nThis tutorial is about this very need: to collect a number of solutions and to organize them into an interactive, explorable descriptor-based palette.\n\nLet's start with an example. Let us take Harvey's Winchester Bell, and let us try to orchestrate it with TinySOL (you can of course substitute any other dataset and any other target file) – we are just using this to make a point."
 				}
@@ -3255,7 +3211,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 60.0, 365.0, 685.5, 23.0 ],
+					"patching_rect" : [ 66.0, 365.0, 685.5, 23.0 ],
 					"style" : "",
 					"text" : "orchidea.solve @parallel 0 @popsize 200 @exportsolutions 200"
 				}
@@ -3270,7 +3226,7 @@
 					"mode" : 0,
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3.0, 62.0, 131.0, 35.235489 ],
+					"patching_rect" : [ 9.0, 62.0, 131.0, 35.235489 ],
 					"proportion" : 0.39,
 					"style" : ""
 				}
@@ -3285,7 +3241,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 260.5, 18.442019, 386.0, 57.0 ],
+					"patching_rect" : [ 266.5, 18.442019, 386.0, 57.0 ],
 					"style" : "",
 					"text" : "Browsing solutions",
 					"textjustification" : 1
@@ -3300,7 +3256,7 @@
 					"maxclass" : "live.line",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3.0, 59.0, 903.0, 16.442019 ]
+					"patching_rect" : [ 9.0, 59.0, 894.0, 16.442019 ]
 				}
 
 			}
@@ -3313,7 +3269,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 3.0, 1.235489, 77.0, 96.0 ],
+					"patching_rect" : [ 9.0, 1.235489, 77.0, 96.0 ],
 					"style" : "",
 					"text" : "3",
 					"textcolor" : [ 0.011765, 0.396078, 0.752941, 1.0 ],
@@ -3324,7 +3280,7 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-4", 0 ],
+					"destination" : [ "obj-8", 0 ],
 					"source" : [ "obj-1", 0 ]
 				}
 
@@ -3398,7 +3354,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-102", 1 ],
-					"midpoints" : [ 102.0, 4250.5, 690.5, 4250.5 ],
+					"midpoints" : [ 108.0, 4250.5, 696.5, 4250.5 ],
 					"source" : [ "obj-113", 2 ]
 				}
 
@@ -3413,7 +3369,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-162", 3 ],
-					"midpoints" : [ 111.25, 4245.132324, 303.7, 4245.132324 ],
+					"midpoints" : [ 117.25, 4245.132324, 309.7, 4245.132324 ],
 					"source" : [ "obj-113", 3 ]
 				}
 
@@ -3421,7 +3377,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-167", 2 ],
-					"midpoints" : [ 120.5, 4241.75, 396.0, 4241.75 ],
+					"midpoints" : [ 126.5, 4241.75, 402.0, 4241.75 ],
 					"source" : [ "obj-113", 4 ]
 				}
 
@@ -3429,7 +3385,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-175", 1 ],
-					"midpoints" : [ 92.75, 4254.0, 215.5, 4254.0 ],
+					"midpoints" : [ 98.75, 4254.0, 221.5, 4254.0 ],
 					"source" : [ "obj-113", 1 ]
 				}
 
@@ -3445,7 +3401,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-157", 1 ],
-					"midpoints" : [ 135.0, 4230.382324, 522.5, 4230.382324 ],
+					"midpoints" : [ 141.0, 4230.382324, 528.5, 4230.382324 ],
 					"order" : 0,
 					"source" : [ "obj-114", 1 ]
 				}
@@ -3680,7 +3636,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-159", 0 ],
-					"midpoints" : [ 340.166667, 5527.0, 420.75, 5527.0 ],
+					"midpoints" : [ 346.166667, 5527.0, 426.75, 5527.0 ],
 					"source" : [ "obj-156", 1 ]
 				}
 
@@ -3702,7 +3658,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-129", 0 ],
-					"midpoints" : [ 420.75, 5575.0, 872.0, 5575.0, 872.0, 4876.0, 661.0, 4876.0 ],
+					"midpoints" : [ 426.75, 5575.0, 878.0, 5575.0, 878.0, 4876.0, 667.0, 4876.0 ],
 					"source" : [ "obj-159", 0 ]
 				}
 
@@ -3783,20 +3739,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-162", 1 ],
-					"source" : [ "obj-170", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-162", 0 ],
-					"source" : [ "obj-170", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-172", 0 ],
 					"source" : [ "obj-171", 0 ]
 				}
@@ -3805,7 +3747,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-157", 0 ],
-					"midpoints" : [ 265.833333, 4442.764526, 450.5, 4442.764526 ],
+					"midpoints" : [ 271.833333, 4442.764526, 456.5, 4442.764526 ],
 					"source" : [ "obj-172", 2 ]
 				}
 
@@ -3813,7 +3755,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-162", 2 ],
-					"midpoints" : [ 174.666667, 4420.514526, 230.3, 4420.514526 ],
+					"midpoints" : [ 180.666667, 4420.514526, 236.3, 4420.514526 ],
 					"source" : [ "obj-172", 1 ]
 				}
 
@@ -3834,7 +3776,14 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-170", 0 ],
+					"destination" : [ "obj-162", 1 ],
+					"source" : [ "obj-173", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-162", 0 ],
 					"source" : [ "obj-173", 0 ]
 				}
 
@@ -3863,7 +3812,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-185", 0 ],
-					"midpoints" : [ 712.0, 4165.0, 861.75, 4165.0, 861.75, 3936.0, 244.5, 3936.0 ],
+					"midpoints" : [ 718.0, 4165.0, 867.75, 4165.0, 867.75, 3936.0, 250.5, 3936.0 ],
 					"source" : [ "obj-180", 0 ]
 				}
 
@@ -3957,7 +3906,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-87", 0 ],
-					"midpoints" : [ 215.0, 1495.0, 527.5, 1495.0 ],
+					"midpoints" : [ 221.0, 1495.0, 533.5, 1495.0 ],
 					"order" : 0,
 					"source" : [ "obj-29", 0 ]
 				}
@@ -3994,7 +3943,14 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-39", 0 ],
+					"destination" : [ "obj-127", 1 ],
+					"source" : [ "obj-33", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-127", 0 ],
 					"source" : [ "obj-33", 0 ]
 				}
 
@@ -4002,7 +3958,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-127", 2 ],
-					"midpoints" : [ 306.166667, 1655.75, 362.5, 1655.75 ],
+					"midpoints" : [ 312.166667, 1655.75, 368.5, 1655.75 ],
 					"source" : [ "obj-34", 1 ]
 				}
 
@@ -4010,7 +3966,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-136", 0 ],
-					"midpoints" : [ 397.333333, 1678.0, 510.0, 1678.0 ],
+					"midpoints" : [ 403.333333, 1678.0, 516.0, 1678.0 ],
 					"source" : [ "obj-34", 2 ]
 				}
 
@@ -4040,7 +3996,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-141", 0 ],
-					"midpoints" : [ 488.416656, 3620.0, 873.958328, 3620.0, 873.958328, 2721.0, 697.5, 2721.0 ],
+					"midpoints" : [ 494.416656, 3620.0, 879.958328, 3620.0, 879.958328, 2721.0, 703.5, 2721.0 ],
 					"source" : [ "obj-36", 0 ]
 				}
 
@@ -4049,27 +4005,6 @@
 				"patchline" : 				{
 					"destination" : [ "obj-34", 0 ],
 					"source" : [ "obj-38", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-127", 1 ],
-					"source" : [ "obj-39", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-127", 0 ],
-					"source" : [ "obj-39", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-8", 0 ],
-					"source" : [ "obj-4", 0 ]
 				}
 
 			}
@@ -4319,7 +4254,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-141", 0 ],
-					"midpoints" : [ 432.833323, 3502.5, 873.166662, 3502.5, 873.166662, 2723.0, 697.5, 2723.0 ],
+					"midpoints" : [ 438.833323, 3502.5, 879.166662, 3502.5, 879.166662, 2723.0, 703.5, 2723.0 ],
 					"source" : [ "obj-99", 1 ]
 				}
 
@@ -4334,8 +4269,8 @@
 			}
  ],
 		"parameters" : 		{
-			"obj-139" : [ "live.gain~[1]", "live.gain~", 0 ],
-			"obj-108" : [ "live.gain~", "live.gain~", 0 ]
+			"obj-108" : [ "live.gain~", "live.gain~", 0 ],
+			"obj-139" : [ "live.gain~[1]", "live.gain~", 0 ]
 		}
 ,
 		"dependency_cache" : [ 			{

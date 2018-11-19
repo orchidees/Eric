@@ -6,11 +6,11 @@
 <c74object name="orchidea.db.gen" module="orchidea">
 
 	<digest>
-		Generate database from samples
+		Generate database from a source folder
 	</digest>
 
 	<description>
-		Analyzes a set of audio samples to generate a database that can be used by orchidea.solve.
+		Analyzes a set of audio samples contained in a source foler to generate a database that can be used by orchidea.solve.
 	</description>
 
 	<!--METADATA-->
@@ -34,7 +34,7 @@
 	<outletlist>
 		<outlet id="0" type="INLET_TYPE">
 			<digest>
-				Computed features
+				Database filename and path
 			</digest>
 			<description>
 			</description>
@@ -54,20 +54,39 @@
 
 	<!--MESSAGES-->
 	<methodlist>
+		<method name="bang">
+			<arglist />
+			<digest>
+				Produce database file
+			</digest>
+			<description>
+				When a <m>bang</m> is received, the database file is produced by analyzing the last input folder.
+			</description>
+		</method>
+		<method name="symbol">
+			<arglist />
+			<digest>
+				Analyze folder and produce database file
+			</digest>
+			<description>
+				A symbol the left inlet sets the path of the folder that should be analyzed to produce an orchidea database; then triggers
+				the analysis and outputs the database filename.
+			</description>
+		</method>
 	</methodlist>
 
 	<!--ATTRIBUTES-->
 	<attributelist>
 		<attribute name="dbname" get="1" set="1" type="symbol" size="1">
 			<digest>
-				Output Name for DB
+				Output Name for Database
 			</digest>
 			<description>
-				Sets the name of the DB.
+				Sets the name of the database.
 				By default output files will be put in the same folder of the sounds.
 			</description>
 			<attributelist>
-				<attribute name="label" get="1" set="1" type="symbol" size="1" value="Output Name for DB" />
+				<attribute name="label" get="1" set="1" type="symbol" size="1" value="Output Name for Database" />
 				<attribute name="style" get="1" set="1" type="symbol" size="1" value="text" />
 			</attributelist>
 		</attribute>
@@ -76,7 +95,7 @@
 				Feature
 			</digest>
 			<description>
-				Sets the search type.
+				Sets the analysis feature.
 			</description>
 			<attributelist>
 				<attribute name="category" get="1" set="1" type="symbol" size="1" value="Analysis" />
@@ -102,7 +121,7 @@
 				Number Of Dimensions To Store
 			</digest>
 			<description>
-				Sets the hop size of the analysis
+				Sets the number of dimensions to store.
 			</description>
 			<attributelist>
 				<attribute name="category" get="1" set="1" type="symbol" size="1" value="Analysis" />
@@ -115,7 +134,9 @@
 				Parallel
 			</digest>
 			<description>
-				When this attribute is 1, the computations are performed in a separate thread.
+				When this attribute is 1, the computations are performed in a separate thread. <br />
+				This is beyond the edge of legality in Max, so use this at your own risk: for instance, don't modify the object or close the patch while running,
+				because this will more than likely cause crashes.
 			</description>
 			<attributelist>
 				<attribute name="label" get="1" set="1" type="symbol" size="1" value="Parallel" />
@@ -134,26 +155,16 @@
 				<attribute name="style" get="1" set="1" type="symbol" size="1" value="onoff" />
 			</attributelist>
 		</attribute>
-		<attribute name="widowsize" get="1" set="1" type="" size="1">
-			<digest>
-				Analysis Window Size
-			</digest>
-			<description>
-			</description>
-			<attributelist>
-				<attribute name="label" get="1" set="1" type="symbol" size="1" value="Analysis Window Size" />
-				<attribute name="style" get="1" set="1" type="symbol" size="1" value="text" />
-			</attributelist>
-		</attribute>
 		<attribute name="windowsize" get="1" set="1" type="int" size="1">
 			<digest>
-				
+				Analysis Window Size
 			</digest>
 			<description>
 				Sets the size of the analysis window
 			</description>
 			<attributelist>
 				<attribute name="category" get="1" set="1" type="symbol" size="1" value="Analysis" />
+				<attribute name="label" get="1" set="1" type="symbol" size="1" value="Analysis Window Size" />
 				<attribute name="style" get="1" set="1" type="symbol" size="1" value="text" />
 			</attributelist>
 		</attribute>
@@ -177,7 +188,7 @@
 	<misc name = "Output">
 		<entry name ="Outlet 1 (list)">
 			<description>
-				Computed features.
+				Database filename and path.
 			</description>
 		</entry>
 		<entry name ="Outlet 2 (list)">

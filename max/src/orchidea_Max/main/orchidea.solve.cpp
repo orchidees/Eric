@@ -114,12 +114,6 @@ typedef struct _solver {
     Callback*   callback;
 } t_solver;
 
-typedef struct _thread_data {
-    t_solver* x;
-    t_symbol* s;
-    long ac;
-    t_atom* av;
-} thread_data;
 
 ///////////////////////// function prototypes
 //// standard set
@@ -420,7 +414,7 @@ void orchmax_solve_send_busy_zero(t_solver *x, t_symbol *s, long ac, t_atom *av)
 // will take care of freeing data->av after usage, if not NULL
 void* orchidea_solve_dispatcher (void* d) {
     thread_data* data = (thread_data*) d;
-    t_solver* x = data->x;
+    t_solver* x = (t_solver *)data->x;
     t_symbol* s = data->s;
     t_atom* av = data->av;
     long ac = data->ac;
@@ -792,7 +786,9 @@ void ext_main(void *r) {
     CLASS_ATTR_CHAR(c, "parallel", 0, t_solver, parallel);
     CLASS_ATTR_STYLE(c, "parallel", 0, "onoff");
     CLASS_ATTR_LABEL(c, "parallel", 0, "Parallel");
-    // @description When this attribute is 1, the computations are performed in a separate thread.
+    // @description When this attribute is 1, the computations are performed in a separate thread. <br />
+    // This is beyond the edge of legality in Max, so use this at your own risk: for instance, don't modify the object or close the patch while running,
+    // because this will more than likely cause crashes.
 
     class_register(CLASS_BOX, c);
     orchmax_solve_class = c;
@@ -832,7 +828,7 @@ void orchmax_solve_bang_do(t_solver *x, t_symbol *s, long ac, t_atom *av) {
     }
     
     thread_data *d = (thread_data *)sysmem_newptr(sizeof(thread_data)); // delete after thread call - I think it works since thare are no modif during thread
-    d->x = x;
+    d->x = (t_object *)x;
     d->s = gensym("orchestrate");
     d->ac = 0;
     d->av = NULL;
@@ -871,7 +867,7 @@ void orchmax_solve_anything_do(t_solver *x, t_symbol *s, long ac, t_atom *av) {
         long inlet = proxy_getinlet((t_object *) x);
 
         thread_data *d = (thread_data *)sysmem_newptr(sizeof(thread_data)); // delete after thread call - I think it works since thare are no modif during thread
-        d->x = x;
+        d->x = (t_object *)x;
         
         if (inlet == 0) {
             // heavy actions are executed in a separated thread (or pool)

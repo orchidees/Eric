@@ -114,12 +114,6 @@ typedef struct _solver {
     Callback*   callback;
 } t_solver;
 
-typedef struct _thread_data {
-    t_solver* x;
-    t_symbol* s;
-    long ac;
-    t_atom* av;
-} thread_data;
 
 ///////////////////////// function prototypes
 //// standard set
@@ -754,7 +748,9 @@ void ext_main(void *r) {
     CLASS_ATTR_CHAR(c, "parallel", 0, t_solver, parallel);
     CLASS_ATTR_STYLE(c, "parallel", 0, "onoff");
     CLASS_ATTR_LABEL(c, "parallel", 0, "Parallel");
-    // @description When this attribute is 1, the computations are performed in a separate thread.
+    // @description When this attribute is 1, the computations are performed in a separate thread. <br />
+    // This is beyond the edge of legality in Max, so use this at your own risk: for instance, don't modify the object or close the patch while running,
+    // because this will more than likely cause crashes.
 
     class_register(CLASS_BOX, c);
     orchmax_solve_class = c;

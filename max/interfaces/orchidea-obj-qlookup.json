@@ -1,6 +1,6 @@
 {
   "orchidea.features": {
-    "digest": "Extract average descriptors from an audio file",
+    "digest": "Extract average descriptors from audio files",
     "module": "orchidea",
     "category": [
       "@keywords"
@@ -41,7 +41,7 @@
     ]
   },
   "orchidea.db.gen": {
-    "digest": "Generate database from samples",
+    "digest": "Generate database from a source folder",
     "module": "orchidea",
     "category": [
       "@keywords"
