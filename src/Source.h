@@ -114,6 +114,7 @@ struct Source {
 			}
 		} else if (tokens[0] == "items") {
 			for (unsigned i = 1; i < tokens.size (); ++i) {
+				if (tokens[i].size () == 0) continue;
 				if (tokens[i] == "instruments") {
 					item_to_vector(tot_instruments, results);
 				} else if (tokens[i] == "styles") {
@@ -125,7 +126,9 @@ struct Source {
 				} else if (tokens[i] == "others") {
 					item_to_vector(others, results);
 				} else {
-					throw std::runtime_error ("invalid item requested");
+					std::stringstream err;
+					err << "invalid item requested [" << tokens[i] << "]";
+					throw std::runtime_error (err.str ().c_str ());
 				}
 			}					
 		} else {

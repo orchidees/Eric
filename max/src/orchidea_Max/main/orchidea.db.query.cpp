@@ -76,13 +76,6 @@ typedef struct _dbquery {
     Source<float> * source;
 } t_dbquery;
 
-typedef struct _thread_data {
-    t_dbquery* x;
-    t_symbol* s;
-    long ac;
-    t_atom* av;
-} thread_data;
-
 ///////////////////////// function prototypes
 //// standard set
 void *orchmax_dbquery_new(t_symbol *s, long argc, t_atom *argv);
@@ -137,7 +130,7 @@ t_symbol *strip_extension(t_symbol *s, char keep_dot) {
 // will take care of freeing data->av after usage, if not NULL
 void* orchidea_solve_dispatcher (void* d) {
     thread_data* data = (thread_data*) d;
-    t_dbquery* x = data->x;
+    t_dbquery* x = (t_dbquery*) data->x;
     t_symbol* s = data->s;
     t_atom* av = data->av;
     long ac = data->ac;
@@ -272,7 +265,7 @@ void orchmax_dbquery_anything_do(t_dbquery *x, t_symbol *s, long ac, t_atom *av)
         long inlet = proxy_getinlet((t_object *) x);
         
         thread_data *d = (thread_data *)sysmem_newptr(sizeof(thread_data)); // delete after thread call - I think it works since thare are no modif during thread
-        d->x = x;
+        d->x =(t_object *)x;
         
         if (inlet == 1) {
             // heavy actions are executed in a separated thread (or pool)
