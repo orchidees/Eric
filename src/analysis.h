@@ -44,13 +44,14 @@ void compute_features (const T* buffer, int samples, std::vector<T>& features,
 		T nrg = 0;
 		int rsize = i + bsize > samples ? samples - i : bsize;
 		for (unsigned j = 0; j < rsize; ++j) {
-			cdata[2 * j] = buffer[i + j] * win[j]; // windowing
-			T v = fabs (buffer[j]);
+ 			cdata[2 * j] = buffer[i + j] * win[j]; // windowing
+			T v = fabs (buffer[i + j]);
 			nrg += v*v;
 		}
+
 		nrg = (nrg / rsize); // frame energy
 		tot_nrg += nrg;
-
+	
 		fft->forward(cdata);
 		for (unsigned j = 0; j < bsize; ++j) {
 			spectrum[j] = sqrt (cdata[j * 2] * cdata[j * 2] + 
@@ -118,7 +119,6 @@ void compute_features (const T* buffer, int samples, std::vector<T>& features,
 	
 		for (int i = 0; i < bsize; ++i) {
 			freq[i] = (T) i * freqPerBin;
-			std::cout << "+++ " << freq[i] << std::endl;
 		}
 		
 		features[0] = speccentr(spectrum, freq, bsize / 2);

@@ -11,14 +11,6 @@
 
 using namespace std;
 
-// (0. read all files of a folder, compute features and save a text file)
-
-
-void notifier (const char* msg, void* data) {
-    cout << msg << endl;
-    cout.flush ();
-}
-
 int main (int argc, char* argv[]) {
     srand (time (NULL));
     

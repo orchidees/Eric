@@ -196,7 +196,8 @@ void ext_main(void *r) {
     c = class_new("orchidea.db.query", (method)orchmax_dbquery_new, (method)orchmax_dbquery_free, (long)sizeof(t_dbquery),
                   0L /* leave NULL!! */, A_GIMME, 0);
     
-    class_addmethod(c, (method)orchmax_dbquery_anything,        "items",    A_GIMME, 0);
+    class_addmethod(c, (method)orchmax_dbquery_anything,        "getinfo",    A_GIMME, 0);
+    class_addmethod(c, (method)orchmax_dbquery_anything,        "getitems",    A_GIMME, 0);
     class_addmethod(c, (method)orchmax_dbquery_anything,        "grep",    A_GIMME, 0);
     class_addmethod(c, (method)orchmax_dbquery_anything,        "anything",    A_GIMME, 0);
     
@@ -243,7 +244,7 @@ void dbpath_to_soundpath(char *dbpath, char *soundpath) {
 }
 
 void orchmax_dbquery_anything_do(t_dbquery *x, t_symbol *s, long ac, t_atom *av) {
-    if (s == gensym("items") || s == gensym("grep")) {
+    if (s == gensym("getitems") || s == gensym("grep") || gensym("getinfo")) {
         
         std::stringstream query;
         query << s->s_name << " ";

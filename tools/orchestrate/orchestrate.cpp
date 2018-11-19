@@ -66,11 +66,6 @@ int main (int argc, char* argv[]) {
 		Source<float> source  (&params);
 		cout << "done (" << source.database.size () << " entries)" << endl;
 		
-		// symbols -------------------------------------------------------------
-		ofstream dd ("source_dump.txt");
-		source.dump (dd);
-		dd.close ();
-
 		// target --------------------------------------------------------------
 		cout << "analysing target........ ";  cout.flush ();
 		SoundTarget<float, FluxSegmentation> target (argv[1], &source, &params);
