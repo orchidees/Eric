@@ -30,15 +30,15 @@ int main (int argc, char* argv[]) {
         if (argc < 3) {
             throw runtime_error("syntax is 'dbquery query dbfile1 dbfile2 ...'\n\n" \
             	"where query is composed as follows:\n"\
-            	"list [instruments|styles|pitches|dynamics|others]\n" \
-            	"search regexp\n" \
+            	"items [instruments|styles|pitches|dynamics|others]\n" \
+            	"grep regexp\n" \
             	"\twhere regexp can be [c|.|^|$|*]\n"\
             	"\t\tc matches any literal character c\n" \
             	"\t\t. matches any single character\n" \
             	"\t\t^ matches the beginning of the input string\n" \
             	"\t\t$ matches the end of the input string\n" \
             	"\t\t* matches zero or more occurences of the previous character\n" \
-            	"\t eg. search .*Fl.*4.*pp retrieves all flutes in octave 4 playing pianissimo\n");
+            	"\t eg. grep .*Fl.*4.*pp retrieves all flutes in octave 4 playing pianissimo\n");
         }
 
         Parameters<float> params;

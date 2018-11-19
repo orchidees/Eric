@@ -105,14 +105,14 @@ struct Source {
 			throw std::runtime_error ("invalid syntax in query");
 		}
 
-		if (tokens[0] == "search") {
+		if (tokens[0] == "grep") {
 			const char* regexp = tokens[1].c_str ();
 			for (unsigned j = 0; j <  database.size (); ++j) {
 				if (match ((char*) regexp, (char*) database[j].file.c_str ())) {
 					results.push_back (database[j].file);
 				}
 			}
-		} else if (tokens[0] == "list") {
+		} else if (tokens[0] == "items") {
 			for (unsigned i = 1; i < tokens.size (); ++i) {
 				if (tokens[i] == "instruments") {
 					item_to_vector(tot_instruments, results);
@@ -125,7 +125,7 @@ struct Source {
 				} else if (tokens[i] == "others") {
 					item_to_vector(others, results);
 				} else {
-					throw std::runtime_error ("invalid item for list");
+					throw std::runtime_error ("invalid item requested");
 				}
 			}					
 		} else {

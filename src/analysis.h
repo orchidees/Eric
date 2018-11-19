@@ -113,10 +113,10 @@ void compute_features (const T* buffer, int samples, std::vector<T>& features,
 		for (unsigned j = 0; j < bsize; ++j) {
 			spectrum[j] = avg_coeffs[2 * j];
 		}				
-		T* freq = new T[bsize / 2];
+		T* freq = new T[bsize];
 		T freqPerBin = (DEFAULT_SR) / (T) bsize;
 	
-		for (int i = 1; i < bsize / 2; ++i) {
+		for (int i = 0; i < bsize; ++i) {
 			freq[i] = (T) i * freqPerBin;
 		}
 		

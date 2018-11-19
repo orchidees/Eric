@@ -114,7 +114,7 @@ void* orchidea_dispatcher (void* d) {
         std::vector<float> features;
         try {
             compute_features<float> (x->file_name->s_name, features,
-                                     (int) x->win_size, x->hop_size, 4, "moments");
+                                     (int) x->win_size, (int) x->hop_size, 4, "moments");
 
             //        compute_features<float> (x->file_name->s_name, features,
             //                                 x->win_size, x->hop_size, 4, "transients");

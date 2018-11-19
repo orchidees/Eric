@@ -59,7 +59,7 @@
 #define ORCHIDEA_SOLVE_MAX_EXTRAPITCHES 1024
 
 ////////////////////////// object struct
-typedef struct _solver {
+typedef struct _dbquery {
     t_object	ob;
 
     // Static attributes

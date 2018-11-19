@@ -385,6 +385,18 @@ void ampFreqQuad (const T* amp, T* freq, int N,  double R) {
 }
 
 template <typename T>
+void ampFreqBins (const T* cbuffer, T* amp, T* freq, int N,  double R) {
+	T freqPerBin = (R) / (T) N;
+	for (int i = 0; i < N; ++i) {
+		amp[i] = sqrtf (cbuffer[2 * i] * cbuffer[2 * i] + cbuffer[2 * i + 1] * cbuffer[2 * i + 1]);
+	}
+	
+	for (int i = 1; i < N - 1; ++i) {
+		freq[i] = (T) i * freqPerBin;
+	}
+}
+
+template <typename T>
 void cepstralEnvelope (int C, const T* magn, T* specenv,
 	AbstractFFT<T>* fft, int N) {
 	int NN = 2 * N;

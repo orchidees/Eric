@@ -314,7 +314,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 13.0, 306.799988, 321.0, 23.0 ],
+									"patching_rect" : [ 13.0, 305.799988, 321.0, 23.0 ],
 									"style" : "",
 									"text" : "orchidea.features @windowsize 4096 @hopsize 1024"
 								}
