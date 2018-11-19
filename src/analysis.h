@@ -118,6 +118,7 @@ void compute_features (const T* buffer, int samples, std::vector<T>& features,
 	
 		for (int i = 0; i < bsize; ++i) {
 			freq[i] = (T) i * freqPerBin;
+			std::cout << "+++ " << freq[i] << std::endl;
 		}
 		
 		features[0] = speccentr(spectrum, freq, bsize / 2);

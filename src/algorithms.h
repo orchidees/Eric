@@ -12,6 +12,7 @@
 #include <stdexcept>
 #include <cstring>
 #include <cassert>
+#include <iostream>
 
 // ------------------------------------------------------------------//
 
@@ -148,6 +149,7 @@ inline T centroid(
 	}
 
 	// FIXME: is it right or we should compare with != 0?
+	std::cout << "**** " << sumWeigth << " " << MINIMUM_REASONABLE_THRESHOLD << std::endl;
 	return (sumWeigth >= MINIMUM_REASONABLE_THRESHOLD ?
 			sumWeigthDistance / sumWeigth : 0);
 }
