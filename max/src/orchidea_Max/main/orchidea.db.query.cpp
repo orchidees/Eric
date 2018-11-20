@@ -276,7 +276,7 @@ void dbpath_to_soundpath(char *dbpath, char *soundpath) {
 }
 
 void orchmax_dbquery_anything_do(t_dbquery *x, t_symbol *s, long ac, t_atom *av) {
-    if (s == gensym("getitems") || s == gensym("grep") || gensym("getinfo")) {
+    if (s == gensym("getitems") || s == gensym("grep") || s == gensym("getinfo")) {
         
         long out_ac = 0;
         t_atom *out_av = (t_atom *)sysmem_newptr(ORCHIDEA_MAX_MAX_LIST_SIZE * sizeof(t_atom));
