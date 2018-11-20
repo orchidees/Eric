@@ -21,11 +21,12 @@
  Browse an orchidea database
  
  @description
- Obtain specific samples from an orchidea database
+ Queries an orchidea database to obtain specific samples or to get occurring items
  
  @discussion
  
  @category
+ orchidea database
  
  @keywords
  orchestration, instrumentation, database, orchidea, browse, filter, find
@@ -81,6 +82,7 @@ typedef struct _dbquery {
 void *orchmax_dbquery_new(t_symbol *s, long argc, t_atom *argv);
 void orchmax_dbquery_free(t_dbquery *x);
 void orchmax_dbquery_assist(t_dbquery *x, void *b, long m, long a, char *s);
+void orchmax_dbquery_inletinfo(t_dbquery *x, void *b, long a, char *t);
 
 void orchmax_dbquery_anything(t_dbquery *x, t_symbol *s, long ac, t_atom *av);
 void orchmax_dbquery_bang(t_dbquery *x);
@@ -128,7 +130,7 @@ t_symbol *strip_extension(t_symbol *s, char keep_dot) {
 }
 
 // will take care of freeing data->av after usage, if not NULL
-void* orchidea_solve_dispatcher (void* d) {
+void* orchidea_query_dispatcher (void* d) {
     thread_data* data = (thread_data*) d;
     t_dbquery* x = (t_dbquery*) data->x;
     t_symbol* s = data->s;
@@ -196,14 +198,32 @@ void ext_main(void *r) {
     c = class_new("orchidea.db.query", (method)orchmax_dbquery_new, (method)orchmax_dbquery_free, (long)sizeof(t_dbquery),
                   0L /* leave NULL!! */, A_GIMME, 0);
     
+    // @method items @digest Obtain occurring items of a specific type
+    // @description The message <m>items</m> followed by one or more symbols (determining the items class) will return a list containing
+    // all the occurrences of those specific class in the database. For instance, <m>items dynamics</m> will return all the dynamics in the dataset,
+    // while <m>items instruments</m> will return all the instruments and <m>items styles pitches</m> will return all the styles and all the pitches.
+    // Allowed classes names are: "instruments", "dynamics", "styles", "pitches", "others"
+    // @marg 0 @name class(es) @optional 0 @type symbol/list
     class_addmethod(c, (method)orchmax_dbquery_anything,        "items",    A_GIMME, 0);
+
+    // @method grep @digest Search for samples matching a regular expression
+    // @description The message <m>grep</m> followed by a regular expression will return all the samples in the database that match the specific regular
+    // expression. As wildcards, '.' stands for "any character", '*' stands for "appearing at least zero times", '^' matches the beginning of the string
+    // and '$' the end. For instance, <b>grep .*Fl.*4.*pp</b> retrieves all the flute samples in the fourth octave playing pianissimo.
+    // @marg 0 @name expression @optional 0 @type symbol
     class_addmethod(c, (method)orchmax_dbquery_anything,        "grep",    A_GIMME, 0);
+
+    // @method symbol/list @digest Set database file(s)
+    // @description A symbol or a list of symbols in the second inlet is considered as the filename(s) of the database(s) that should be queried.
     class_addmethod(c, (method)orchmax_dbquery_anything,        "anything",    A_GIMME, 0);
     
+    class_addmethod(c, (method)orchmax_dbquery_assist,    "assist",        A_CANT,        0);
+    class_addmethod(c, (method)orchmax_dbquery_inletinfo,    "inletinfo",    A_CANT,        0);
+
     CLASS_ATTR_CHAR(c, "verbose", 0, t_dbquery, verbose);
     CLASS_ATTR_STYLE(c, "verbose", 0, "onoff");
     CLASS_ATTR_LABEL(c, "verbose", 0, "Verbose");
-    // @description Toggles the verbose mode
+    // @description Toggles the verbose mode.
     
     CLASS_ATTR_CHAR(c, "parallel", 0, t_dbquery, parallel);
     CLASS_ATTR_STYLE(c, "parallel", 0, "onoff");
@@ -216,16 +236,24 @@ void ext_main(void *r) {
 
 void orchmax_dbquery_assist(t_dbquery *x, void *b, long m, long a, char *s) {
     if (m == ASSIST_INLET) {
-        if (a == 1) {
-            sprintf(s, "symbol/list: Database File(s)"); // @in 2 @type symbol/list @digest File or files containing the database (usually ending with .db)
+        if (a == 0) {
+            sprintf(s, "anything: Queries"); // @in 0 @type anything @digest Queries
+        } else {
+            sprintf(s, "symbol/list: Database File(s)"); // @in 1 @type symbol/list @digest File or files containing the database (usually ending with .db)
         }
     } else {
         if (a == 0)
-            sprintf(s, "list: Output Of Query");
-        // @out 0 @type symbol/list @digest Output Of Query
+            sprintf(s, "list: Query Result"); // @out 0 @type anything @digest Query Result
         else
-            sprintf(s, "list: Notifications"); // @out 1 @type list @digest Notifications
+            sprintf(s, "anything: Notifications"); // @out 1 @type list @digest Notifications
     }
+}
+
+
+void orchmax_dbquery_inletinfo(t_dbquery *x, void *b, long a, char *t)
+{
+    if (a)
+        *t = 1;
 }
 
 void orchmax_dbquery_free(t_dbquery *x) {
@@ -245,27 +273,41 @@ void dbpath_to_soundpath(char *dbpath, char *soundpath) {
 void orchmax_dbquery_anything_do(t_dbquery *x, t_symbol *s, long ac, t_atom *av) {
     if (s == gensym("items") || s == gensym("grep")) {
         
+        long out_ac = 0;
+        t_atom *out_av = (t_atom *)sysmem_newptr(ORCHIDEA_MAX_MAX_LIST_SIZE * sizeof(t_atom));
+        
         std::stringstream query;
         query << s->s_name << " ";
         for (int i = 0; i < ac; ++i) {
-            query << atom_getsym (av + i)->s_name << " ";
+            if (atom_gettype(av + i) == A_SYM)
+                query << atom_getsym (av + i)->s_name << " ";
         }
-        post ("%s", query.str ().c_str ());
+//        post ("%s", query.str ().c_str ());
         std::vector<std::string> res;
         try {
             x->source->query (query.str ().c_str (), res);
             
             for (unsigned i = 0; i < res.size (); ++i) {
-                outlet_anything(x->out_1, gensym (res[i].c_str ()), 0, NULL);
+                if (out_ac < ORCHIDEA_MAX_MAX_LIST_SIZE) {
+                    atom_setsym(out_av + out_ac, gensym(res[i].c_str()));
+                    out_ac++;
+                }
             }
         } catch (std::exception& e) {
             object_error((t_object *)x, "error: %s", e.what ());
         }
+        
+        if (out_ac) {
+            outlet_anything(x->out_1, atom_getsym(out_av), out_ac - 1, out_av + 1);
+        }
+        sysmem_freeptr(out_av);
     } else {
         long inlet = proxy_getinlet((t_object *) x);
         
         thread_data *d = (thread_data *)sysmem_newptr(sizeof(thread_data)); // delete after thread call - I think it works since thare are no modif during thread
         d->x =(t_object *)x;
+        d->ac = 0;
+        d->av = NULL;
         
         if (inlet == 1) {
             // heavy actions are executed in a separated thread (or pool)
@@ -287,11 +329,14 @@ void orchmax_dbquery_anything_do(t_dbquery *x, t_symbol *s, long ac, t_atom *av)
                 d->av[j++] = av[i];
             }
             
-        }
-        if (x->parallel) {
-            pthread_create(&x->thread_pool[x->running_threads], NULL, orchidea_solve_dispatcher, (void*) d);
         } else {
-            orchidea_solve_dispatcher(d);
+            object_error((t_object *)x, "unknown message");
+        }
+        
+        if (x->parallel) {
+            pthread_create(&x->thread_pool[x->running_threads], NULL, orchidea_query_dispatcher, (void*) d);
+        } else {
+            orchidea_query_dispatcher(d);
         }
     }
 }
@@ -305,14 +350,13 @@ void *orchmax_dbquery_new(t_symbol *s, long argc, t_atom *argv) {
     
     if ((x = (t_dbquery *)object_alloc((t_class*)orchmax_dbquery_class))) {
         
-        x->verbose = true; // just for now?
         
         x->n_proxy[1] = proxy_new((t_object *) x, 1, &x->n_in);
 
         x->running_threads = 0;
-        x->parallel = 1; // DG: I'm not so sure this should be the default. I see the point, of course, but custom threading in Max is prone to crashes...
-        
-        
+        x->parallel = 0;
+        x->verbose = 0;
+
         attr_args_process(x, argc, argv);
         
         x->out_2 = outlet_new(x, NULL);

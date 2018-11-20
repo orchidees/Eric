@@ -16,7 +16,7 @@
 	<!--METADATA-->
 	<metadatalist>
 		<metadata name="author">Carmine Emanuele Cella</metadata>
-		<metadata name="tag">@keywords</metadata>
+		<metadata name="tag">orchidea utilities</metadata>
 	</metadatalist>
 
 	<!--INLETS-->
@@ -167,7 +167,7 @@
 				For each argument, an outlet is created that will outpu the feature described by that argument.
 			</description>
 		</entry>
-		<entry name ="The last Outlet (list)">
+		<entry name ="The last Outlet (anything)">
 			<description>
 				Notifications.
 			</description>
@@ -182,6 +182,7 @@
 		</entry>
 		<entry name ="Keywords">
 			<description>
+orchestration, instrumentation, analyze, moments, centroid, spread, skewness, kurtosis, descriptors, features.
 			</description>
 		</entry>
 	</misc>

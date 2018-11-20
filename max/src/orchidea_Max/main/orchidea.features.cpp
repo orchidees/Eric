@@ -27,6 +27,7 @@
  This object can be used to analyse a single audio file to compute basic average features. Audio files must be sampled at 44100 Hz, 16 bit.
  
  @category
+ orchidea utilities
  
  @keywords
  orchestration, instrumentation, analyze, moments, centroid, spread, skewness, kurtosis, descriptors, features
@@ -94,6 +95,7 @@ typedef enum _orchidea_features {
 void *orchmax_features_new(t_symbol *s, long argc, t_atom *argv);
 void orchmax_features_free(t_features *x);
 void orchmax_features_assist(t_features *x, void *b, long m, long a, char *s);
+void orchmax_features_inletinfo(t_features *x, void *b, long a, char *t);
 
 void orchmax_features_anything(t_features *x, t_symbol *s, long ac, t_atom *av);
 void orchmax_features_bang(t_features *x);
@@ -227,6 +229,10 @@ void ext_main(void *r) {
     // @description When a <m>bang</m> is received, the features are recomputed on the last input files.
     class_addmethod(c, (method)orchmax_features_bang,            "bang",            0);
 
+    class_addmethod(c, (method)orchmax_features_assist,    "assist",        A_CANT,        0);
+    class_addmethod(c, (method)orchmax_features_inletinfo,    "inletinfo",    A_CANT,        0);
+
+    
     CLASS_ATTR_LONG(c, "windowsize", 0, t_features, win_size);
     CLASS_ATTR_STYLE(c, "windowsize", 0, "text");
     CLASS_ATTR_LABEL(c, "windowsize", 0, "Analysis Window Size");
@@ -293,8 +299,15 @@ void orchmax_features_assist(t_features *x, void *b, long m, long a, char *s)
             sprintf(s, "list: Features"); // @out 0 @loop 1 @type float/list @digest Computed features
                                           // @description For each argument, an outlet is created that will outpu the feature described by that argument.
         else
-            sprintf(s, "list: Notifications"); // @out 1 @type list @digest Notifications
+            sprintf(s, "anything: Notifications"); // @out 1 @type anything @digest Notifications
     }
+}
+
+
+void orchmax_features_inletinfo(t_features *x, void *b, long a, char *t)
+{
+    if (a)
+        *t = 1;
 }
 
 

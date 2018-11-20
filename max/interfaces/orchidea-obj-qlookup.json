@@ -3,9 +3,19 @@
     "digest": "Extract average descriptors from audio files",
     "module": "orchidea",
     "category": [
-      "@keywords"
+      "orchidea utilities"
     ],
     "keywords": [
+      "orchestration",
+      "instrumentation",
+      "analyze",
+      "moments",
+      "centroid",
+      "spread",
+      "skewness",
+      "kurtosis",
+      "descriptors",
+      "features"
     ],
     "seealso": [
       "orchidea.db.gen",
@@ -16,9 +26,15 @@
     "digest": "Orchestrate an audio sample",
     "module": "orchidea",
     "category": [
-      "@keywords"
+      "orchidea orchestration"
     ],
     "keywords": [
+      "orchestration",
+      "instrumentation",
+      "approximation",
+      "solve",
+      "search",
+      "approximate"
     ],
     "seealso": [
       "orchidea.db.gen",
@@ -28,13 +44,20 @@
       "orchidea.solution.tofile"
     ]
   },
-  "orchidea.db.browse": {
+  "orchidea.db.query.cpp": {
     "digest": "Browse an orchidea database",
     "module": "orchidea",
     "category": [
-      "@keywords"
+      "orchidea database"
     ],
     "keywords": [
+      "orchestration",
+      "instrumentation",
+      "database",
+      "orchidea",
+      "browse",
+      "filter",
+      "find"
     ],
     "seealso": [
       "orchidea.db.gen"
@@ -44,9 +67,15 @@
     "digest": "Generate database from a source folder",
     "module": "orchidea",
     "category": [
-      "@keywords"
+      "orchidea database"
     ],
     "keywords": [
+      "orchestration",
+      "instrumentation",
+      "dataset",
+      "sample",
+      "generate",
+      "database"
     ],
     "seealso": [
       "orchidea.db.gen",
@@ -58,9 +87,14 @@
     "digest": "Import orchidea solution into a buffer",
     "module": "orchidea",
     "category": [
-      "@keywords"
+      "orchidea solutions"
     ],
     "keywords": [
+      "solution",
+      "buffer",
+      "convert",
+      "import",
+      "read"
     ],
     "seealso": [
       "orchidea.solve",
@@ -73,9 +107,14 @@
     "digest": "Import orchidea solution into a text object",
     "module": "orchidea",
     "category": [
-      "@keywords"
+      "orchidea solutions"
     ],
     "keywords": [
+      "solution",
+      "text",
+      "convert",
+      "import",
+      "read"
     ],
     "seealso": [
       "orchidea.solve",
@@ -88,9 +127,15 @@
     "digest": "Import orchidea solutions into a <o>bach.roll</o>",
     "module": "orchidea",
     "category": [
-      "@keywords"
+      "orchidea solutions"
     ],
     "keywords": [
+      "solution",
+      "roll",
+      "score",
+      "import",
+      "symbolic",
+      "read"
     ],
     "seealso": [
       "orchidea.solve",
@@ -103,9 +148,15 @@
     "digest": "Get filenames for a specific orchidea solution",
     "module": "orchidea",
     "category": [
-      "@keywords"
+      "orchidea solutions"
     ],
     "keywords": [
+      "solution",
+      "text",
+      "file",
+      "obtain",
+      "filename",
+      "audiofile"
     ],
     "seealso": [
       "orchidea.solve",

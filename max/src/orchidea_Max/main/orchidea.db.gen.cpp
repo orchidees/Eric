@@ -26,6 +26,7 @@
  @discussion
  
  @category
+ orchidea database
  
  @keywords
  orchestration, instrumentation, dataset, sample, generate, database
@@ -84,6 +85,7 @@ typedef struct _session {
 void *orchmax_dbgen_new(t_symbol *s, long argc, t_atom *argv);
 void orchmax_dbgen_free(t_dbgen *x);
 void orchmax_dbgen_assist(t_dbgen *x, void *b, long m, long a, char *s);
+void orchmax_dbgen_inletinfo(t_dbgen *x, void *b, long a, char *t);
 
 void orchmax_dbgen_anything(t_dbgen *x, t_symbol *s, long ac, t_atom *av);
 void orchmax_dbgen_bang(t_dbgen *x);
@@ -169,6 +171,9 @@ void ext_main(void *r) {
     // @description When a <m>bang</m> is received, the database file is produced by analyzing the last input folder.
     class_addmethod(c, (method)orchmax_dbgen_bang,            "bang",            0);
 
+    class_addmethod(c, (method)orchmax_dbgen_assist,    "assist",        A_CANT,        0);
+    class_addmethod(c, (method)orchmax_dbgen_inletinfo,    "inletinfo",    A_CANT,        0);
+
     CLASS_ATTR_LONG(c, "windowsize", 0, t_dbgen, win_size);
     CLASS_ATTR_STYLE(c, "windowsize", 0, "text");
     CLASS_ATTR_LABEL(c, "windowsize", 0, "Analysis Window Size");
@@ -186,6 +191,7 @@ void ext_main(void *r) {
     CLASS_ATTR_LABEL(c, "numdimensions", 0, "Number Of Dimensions To Store");
     CLASS_ATTR_CATEGORY(c, "numdimensions", 0, "Analysis");
     // @description Sets the number of dimensions to store.
+    // For instance, on a spectrum analysis 
     
     
     CLASS_ATTR_SYM(c, "feature", 0, t_dbgen, feature_name);
@@ -251,8 +257,15 @@ void orchmax_dbgen_assist(t_dbgen *x, void *b, long m, long a, char *s)
         if (a == 0)
             sprintf(s, "list: Database Filename"); // @out 0 @type list @digest Database filename and path
         else
-            sprintf(s, "list: Notifications"); // @out 1 @type list @digest Notifications
+            sprintf(s, "anything: Notifications"); // @out 1 @type anything @digest Notifications
     }
+}
+
+
+void orchmax_dbgen_inletinfo(t_dbgen *x, void *b, long a, char *t)
+{
+    if (a)
+        *t = 1;
 }
 
 void orchmax_dbgen_anything_do(t_dbgen *x, t_symbol *s, long ac, t_atom *av) {

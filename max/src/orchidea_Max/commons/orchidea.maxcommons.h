@@ -8,6 +8,9 @@
 #include "ext_obex.h"                        // required for new style Max object
 
 
+#define ORCHIDEA_MAX_MAX_LIST_SIZE 32766      // this is 2^15-2 (1 is due to the message selector, 1 is just out of precaution, that's on us :-)
+                                              // The double MAX is intentional: it is the Maximum list size in Max
+
 typedef struct _thread_data {
     t_object* x;
     t_symbol* s;

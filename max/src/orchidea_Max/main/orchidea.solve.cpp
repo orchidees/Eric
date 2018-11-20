@@ -27,6 +27,7 @@
  @discussion
  
  @category
+ orchidea orchestration
  
  @keywords
  orchestration, instrumentation, approximation, solve, search, approximate
@@ -120,6 +121,7 @@ typedef struct _dbquery {
 void *orchmax_solve_new(t_symbol *s, long argc, t_atom *argv);
 void orchmax_solve_free(t_solver *x);
 void orchmax_solve_assist(t_solver *x, void *b, long m, long a, char *s);
+void orchmax_solve_inletinfo(t_solver *x, void *b, long a, char *t);
 
 void orchmax_solve_anything(t_solver *x, t_symbol *s, long ac, t_atom *av);
 void orchmax_solve_bang(t_solver *x);
@@ -596,7 +598,9 @@ void ext_main(void *r) {
     // @method resetfilters @digest Reset filters
     // @description A <m>resetfilters</m> message will remove all the defined filters.
     class_addmethod(c, (method)orchmax_solve_anything,        "resetfilters",    A_GIMME, 0);
-    
+
+    class_addmethod(c, (method)orchmax_solve_assist,    "assist",        A_CANT,        0);
+    class_addmethod(c, (method)orchmax_solve_inletinfo,    "inletinfo",    A_CANT,        0);
     
 //    class_addmethod(c, (method)orchmax_solve_notify, "notify", A_CANT, 0);
     CLASS_ATTR_SYM(c, "segmentation", 0, t_solver, segmentation);
@@ -809,8 +813,15 @@ void orchmax_solve_assist(t_solver *x, void *b, long m, long a, char *s)
             sprintf(s, "list: Output Files Prefix, Number of Segments and Number of Solutions for each Segment");
             // @out 0 @type symbol/list @digest Output prefix, number of found segments and number of found solutions for each segment
         else
-            sprintf(s, "list: Notifications"); // @out 1 @type list @digest Notifications
+            sprintf(s, "anything: Notifications"); // @out 1 @type anything @digest Notifications
     }
+}
+
+
+void orchmax_solve_inletinfo(t_solver *x, void *b, long a, char *t)
+{
+    if (a)
+        *t = 1;
 }
 
 void orchmax_solve_free(t_solver *x) {
@@ -956,9 +967,42 @@ void orchmax_solve_anything(t_solver *x, t_symbol *s, long ac, t_atom *av) {
 
 void notifier (const char* action, void* user_data) {
     t_atom a;
-    atom_setsym(&a, gensym(action));
-    t_solver* instance = (t_solver*) user_data;
-    outlet_anything(instance->out_2, gensym("status"), 1, &a);
+    t_symbol *action_sym = gensym(action);
+    atom_setsym(&a, action_sym);
+    t_solver* x = (t_solver*) user_data;
+    outlet_anything(x->out_2, gensym("status"), 1, &a);
+    
+    // retrieve progress percentage
+    // This part of code needs to be used when the segment information is also retrieven by the notifier
+/*    if (action_sym) {
+        long maxepochs = x->maxepochs;
+        double progress = 0.;
+        if (action_sym == gensym("done")) {
+            progress = 1.;
+        } else {
+            const char *epoch = strstr(action_sym->s_name, "epoch");
+            const char *segment = strstr(action_sym->s_name, "segment");
+            if (segment && epoch) {
+                progress = 0.5 * ((double)atol(segment+8) - 1 + ((double)atol(epoch+6))/maxepochs)/numsegments;
+            } else {
+                const char *exporting = strstr(action_sym->s_name, "exporting");
+                if (exporting) {
+                    const char *solution = strstr(action_sym->s_name, "solution");
+                    if (solution) {
+                        progress = 0.5 + ((double)atol(solution+9))/(numsegments + 1);
+                    } else { // exporting connection
+                        progress = 0.5 + ((double)numsegments)/(numsegments + 1);
+                    }
+                } else {
+                    progress = -1;
+                }
+            }
+        }
+        if (progress >= 0.) {
+            atom_setfloat(&a, progress);
+            outlet_anything(x->out_2, gensym("progress"), 1, &a);
+        }
+    } */
 }
 
 
