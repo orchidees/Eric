@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 354.0, 79.0, 729.0, 380.0 ],
+		"rect" : [ 173.0, 79.0, 729.0, 380.0 ],
 		"bgcolor" : [ 0.941176, 0.941176, 0.941176, 1.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
@@ -39,6 +39,24 @@
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 13.0,
+					"id" : "obj-6",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 333.0, 28.0, 176.0, 36.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 517.75, 15.0, 201.0, 21.0 ],
+					"style" : "",
+					"text" : "to the memory of Eric Daubresse",
+					"textcolor" : [ 0.25, 0.25, 0.25, 1.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"hidden" : 1,
 					"id" : "obj-25",
 					"linecount" : 2,
@@ -46,8 +64,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 512.200012, 817.0, 185.0, 35.0 ],
-					"presentation_rect" : [ 517.200012, 828.0, 0.0, 0.0 ],
+					"patching_rect" : [ 580.5, 855.0, 185.0, 35.0 ],
 					"style" : "",
 					"text" : "load 4.BrowsingTheDatabase.maxpat"
 				}
@@ -61,7 +78,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 497.200012, 794.0, 188.0, 22.0 ],
+					"patching_rect" : [ 506.200012, 824.0, 188.0, 22.0 ],
 					"style" : "",
 					"text" : "load 3.BrowsingSolutions.maxpat"
 				}
@@ -75,7 +92,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 463.0, 865.0, 53.0, 22.0 ],
+					"patching_rect" : [ 518.0, 902.0, 53.0, 22.0 ],
 					"style" : "",
 					"text" : "pcontrol"
 				}
@@ -246,9 +263,9 @@
 					"patching_rect" : [ 294.0, 98.0, 176.0, 36.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 2,
-					"presentation_rect" : [ 7.0, 67.0, 571.0, 36.0 ],
+					"presentation_rect" : [ 7.0, 67.0, 176.0, 36.0 ],
 					"style" : "",
-					"text" : "by Carmine Emanuele Cella\n(c) 2018 Ircam/HES",
+					"text" : "by Carmine Emanuele Cella\n(c) 2018 Ircam/HEM",
 					"textcolor" : [ 0.25, 0.25, 0.25, 1.0 ]
 				}
 
@@ -471,7 +488,7 @@
 					"rounded" : 4.0,
 					"style" : "",
 					"tabcolor" : [ 0.25, 0.25, 0.25, 1.0 ],
-					"tabs" : [ "orchidea.features", "orchidea.solve", "orchidea.db.query.cpp", "orchidea.db.gen", "orchidea.solution.tobuffer", "orchidea.solution.totext", "orchidea.solution.toroll", "orchidea.solution.tofile" ],
+					"tabs" : [ "orchidea.features", "orchidea.solve", "orchidea.db.query", "orchidea.db.gen", "orchidea.solution.tobuffer", "orchidea.solution.totext", "orchidea.solution.toroll", "orchidea.solution.tofile" ],
 					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ]
 				}
 

@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 192.0, 79.0, 1055.0, 696.0 ],
+		"rect" : [ 153.0, 79.0, 1055.0, 696.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -4478,7 +4478,6 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 470.5, 296.0, 130.0, 25.0 ],
-									"presentation_rect" : [ 470.5, 293.0, 0.0, 0.0 ],
 									"style" : "",
 									"text" : "Run orchestration"
 								}
@@ -5335,7 +5334,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 192.0, 105.0, 1055.0, 670.0 ],
+						"rect" : [ 153.0, 105.0, 1055.0, 670.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -5905,6 +5904,7 @@
 													"numoutlets" : 0,
 													"patching_rect" : [ 2.0, 26.5, 209.0, 18.0 ],
 													"style" : "",
+													"text" : "TinySOL.spectrum.db",
 													"textjustification" : 1
 												}
 
@@ -6319,6 +6319,7 @@
 													"numoutlets" : 0,
 													"patching_rect" : [ 2.0, 26.5, 209.0, 18.0 ],
 													"style" : "",
+													"text" : "WinchesterBell.wav",
 													"textjustification" : 1
 												}
 
@@ -6660,6 +6661,7 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 687.5, 438.0, 257.0, 21.0 ],
 									"style" : "",
+									"text" : "exporting connection",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
 								}
 
@@ -6795,7 +6797,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 451.5, 467.0, 134.56543, 54.0 ],
+									"patching_rect" : [ 416.5, 457.5, 134.56543, 54.0 ],
 									"style" : "",
 									"text" : "Double click to display solution in textual form"
 								}
@@ -6808,7 +6810,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "", "bang", "int" ],
-									"patching_rect" : [ 400.5, 480.0, 40.0, 23.0 ],
+									"patching_rect" : [ 380.5, 473.0, 40.0, 23.0 ],
 									"style" : "",
 									"text" : "text"
 								}
@@ -6875,13 +6877,15 @@
 , 							{
 								"box" : 								{
 									"id" : "obj-7",
+									"linecount" : 3,
 									"maxclass" : "textedit",
 									"numinlets" : 1,
 									"numoutlets" : 4,
 									"outlettype" : [ "", "int", "", "" ],
 									"parameter_enable" : 0,
 									"patching_rect" : [ 353.0, 209.5, 215.0, 65.5 ],
-									"style" : ""
+									"style" : "",
+									"text" : "Fl Fl Ob Ob ClBb ClBb Bn Bn TpC TpC Hn Hn Tbn Tbn Vn Vn Vn Vn Va Va Vc Cb"
 								}
 
 							}
@@ -7005,7 +7009,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 400.5, 438.0, 144.0, 23.0 ],
+									"patching_rect" : [ 380.5, 428.0, 144.0, 23.0 ],
 									"style" : "",
 									"text" : "orchidea.solution.totext"
 								}
@@ -7340,7 +7344,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-19", 0 ],
-									"midpoints" : [ 28.0, 367.0, 410.0, 367.0 ],
+									"midpoints" : [ 28.0, 367.0, 390.0, 367.0 ],
 									"order" : 0,
 									"source" : [ "obj-9", 0 ]
 								}
@@ -7466,11 +7470,11 @@
  ],
 		"lines" : [  ],
 		"parameters" : 		{
-			"obj-10::obj-42" : [ "solution[2]", "solution", 0 ],
 			"obj-2::obj-42" : [ "gain", "gain", 0 ],
+			"obj-5::obj-42" : [ "solution", "solution", 0 ],
 			"obj-9::obj-42" : [ "solution[1]", "solution", 0 ],
 			"obj-5::obj-34" : [ "target", "target", 0 ],
-			"obj-5::obj-42" : [ "solution", "solution", 0 ]
+			"obj-10::obj-42" : [ "solution[2]", "solution", 0 ]
 		}
 ,
 		"dependency_cache" : [ 			{

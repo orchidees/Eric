@@ -44,7 +44,7 @@
       "orchidea.solution.tofile"
     ]
   },
-  "orchidea.db.query.cpp": {
+  "orchidea.db.query": {
     "digest": "Browse an orchidea database",
     "module": "orchidea",
     "category": [

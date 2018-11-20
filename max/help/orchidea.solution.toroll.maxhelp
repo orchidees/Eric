@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 173.0, 79.0, 769.0, 699.0 ],
+		"rect" : [ 100.0, 100.0, 769.0, 699.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -695,7 +695,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 173.0, 105.0, 769.0, 673.0 ],
+						"rect" : [ 100.0, 126.0, 769.0, 673.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,

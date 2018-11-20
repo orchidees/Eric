@@ -15,7 +15,7 @@
  orchidea
  
  @author
- Carmine Emanuele 
+ Carmine Emanuele Cella
  
  @digest
  Browse an orchidea database
@@ -282,6 +282,7 @@ void orchmax_dbquery_anything_do(t_dbquery *x, t_symbol *s, long ac, t_atom *av)
     if (s == gensym("getitems") || s == gensym("grep") || s == gensym("getinfo") || s == gensym ("getfeatures")) {
         
         long out_ac = 0;
+        t_symbol *getfeatures_sym = gensym("getfeatures");
         t_atom *out_av = (t_atom *)sysmem_newptr(ORCHIDEA_MAX_MAX_LIST_SIZE * sizeof(t_atom));
         
         std::stringstream query;
@@ -297,7 +298,11 @@ void orchmax_dbquery_anything_do(t_dbquery *x, t_symbol *s, long ac, t_atom *av)
             
             for (unsigned i = 0; i < res.size (); ++i) {
                 if (out_ac < ORCHIDEA_MAX_MAX_LIST_SIZE) {
-                    atom_setsym(out_av + out_ac, gensym(res[i].c_str()));
+                    if (s == getfeatures_sym) {
+                        atom_setfloat(out_av + out_ac, atof(res[i].c_str()));
+                    } else {
+                        atom_setsym(out_av + out_ac, gensym(res[i].c_str()));
+                    }
                     out_ac++;
                 }
             }
@@ -306,7 +311,11 @@ void orchmax_dbquery_anything_do(t_dbquery *x, t_symbol *s, long ac, t_atom *av)
         }
         
         if (out_ac) {
-            outlet_anything(x->out_1, atom_getsym(out_av), out_ac - 1, out_av + 1);
+            if (atom_gettype(out_av) == A_SYM) {
+                outlet_anything(x->out_1, atom_getsym(out_av), out_ac - 1, out_av + 1);
+            } else {
+                outlet_anything(x->out_1, gensym("list"), out_ac, out_av);
+            }
         }
         sysmem_freeptr(out_av);
     } else {
