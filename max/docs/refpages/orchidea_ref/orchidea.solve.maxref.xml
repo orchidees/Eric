@@ -17,7 +17,7 @@
 	<!--METADATA-->
 	<metadatalist>
 		<metadata name="author">Carmine Emanuele Cella</metadata>
-		<metadata name="tag">@keywords</metadata>
+		<metadata name="tag">orchidea orchestration</metadata>
 	</metadatalist>
 
 	<!--INLETS-->
@@ -487,7 +487,7 @@
 				Output prefix, number of found segments and number of found solutions for each segment.
 			</description>
 		</entry>
-		<entry name ="Outlet 2 (list)">
+		<entry name ="Outlet 2 (anything)">
 			<description>
 				Notifications.
 			</description>

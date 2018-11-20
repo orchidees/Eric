@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 356.0, 79.0, 918.0, 711.0 ],
+		"rect" : [ 386.0, 79.0, 918.0, 711.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 13.0,
@@ -37,6 +37,41 @@
 		"style" : "",
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-170",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 459.0, 4498.5, 150.0, 21.0 ],
+					"style" : ""
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-147",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 687.0, 4221.0, 36.0, 23.0 ],
+					"style" : "",
+					"text" : "print"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-135",
+					"maxclass" : "button",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 16.0, 4044.0, 24.0, 24.0 ],
+					"style" : ""
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-152",
 					"maxclass" : "comment",
@@ -371,7 +406,7 @@
 			}
 , 			{
 				"box" : 				{
-					"center" : [ 0.9375, 1.453125 ],
+					"center" : [ 1.03125, 3.140625 ],
 					"convexcombmax" : [ 1.0 ],
 					"convexcombmin" : [ 0.0 ],
 					"id" : "obj-132",
@@ -736,7 +771,7 @@
 					"numinlets" : 5,
 					"numoutlets" : 4,
 					"outlettype" : [ "int", "", "", "int" ],
-					"patching_rect" : [ 353.5, 4396.5, 97.0, 23.0 ],
+					"patching_rect" : [ 353.5, 4392.5, 97.0, 23.0 ],
 					"style" : "",
 					"text" : "counter 1 1000"
 				}
@@ -776,7 +811,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 80.0, 4447.5, 134.0, 38.0 ],
+					"patching_rect" : [ 80.0, 4465.264648, 117.0, 38.0 ],
 					"style" : "",
 					"text" : "orchidea.features centroid skewness"
 				}
@@ -1643,9 +1678,9 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 463.5, 2185.5, 299.0, 40.0 ],
+					"patching_rect" : [ 463.5, 2185.5, 312.0, 40.0 ],
 					"style" : "",
-					"text" : "Number of solutions with negative skewness ordered by increasing centroid"
+					"text" : "Number of solutions with skewness > 5 ordered by increasing centroid"
 				}
 
 			}
@@ -1670,7 +1705,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 356.0, 2115.0, 506.0, 23.0 ],
 					"style" : "",
-					"text" : "query SELECT solnum FROM winchester WHERE skewness < 0 ORDER BY centroid"
+					"text" : "query SELECT solnum FROM winchester WHERE skewness > 5 ORDER BY centroid"
 				}
 
 			}
@@ -2235,7 +2270,6 @@
 			}
 , 			{
 				"box" : 				{
-					"center" : [ 0.9375, -1.5 ],
 					"convexcombmax" : [ 1.0 ],
 					"convexcombmin" : [ 0.0 ],
 					"id" : "obj-64",
@@ -2245,8 +2279,7 @@
 					"numoutlets" : 4,
 					"out" : "nnn",
 					"outlettype" : [ "", "", "", "bang" ],
-					"patching_rect" : [ 296.0, 2722.0, 385.0, 485.0 ],
-					"query" : "SELECT * FROM ",
+					"patching_rect" : [ 296.0, 2732.0, 386.0, 475.0 ],
 					"versionnumber" : 10000
 				}
 
@@ -2658,7 +2691,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 9.0, 667.735474, 247.0, 79.0 ],
+					"patching_rect" : [ 9.0, 667.735474, 249.0, 79.0 ],
 					"style" : "",
 					"text" : "Then, step 2: to analyze files, we'll make use of orchidea.features, that receives the filenames to be analyzed and outputs the features we require, in our case the centroid (one element for each file):"
 				}
@@ -3519,6 +3552,13 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-181", 0 ],
+					"source" : [ "obj-135", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-126", 0 ],
 					"source" : [ "obj-136", 0 ]
 				}
@@ -3688,13 +3728,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-161", 0 ],
-					"source" : [ "obj-162", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-162", 5 ],
 					"source" : [ "obj-163", 0 ]
 				}
@@ -3747,7 +3780,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-157", 0 ],
-					"midpoints" : [ 271.833333, 4442.764526, 456.5, 4442.764526 ],
 					"source" : [ "obj-172", 2 ]
 				}
 
@@ -3755,7 +3787,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-162", 2 ],
-					"midpoints" : [ 180.666667, 4420.514526, 236.3, 4420.514526 ],
 					"source" : [ "obj-172", 1 ]
 				}
 

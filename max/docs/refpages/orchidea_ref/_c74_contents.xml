@@ -2,7 +2,7 @@
 <root>
 <refpage name='orchidea.features.maxref.xml'/>
 <refpage name='orchidea.solve.maxref.xml'/>
-<refpage name='orchidea.db.browse.maxref.xml'/>
+<refpage name='orchidea.db.query.cpp.maxref.xml'/>
 <refpage name='orchidea.db.gen.maxref.xml'/>
 <refpage name='orchidea.solution.tobuffer.maxref.xml'/>
 <refpage name='orchidea.solution.totext.maxref.xml'/>

@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 100.0, 100.0, 783.0, 592.0 ],
+		"rect" : [ 138.0, 97.0, 783.0, 592.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -196,7 +196,6 @@
 					}
 ,
 					"patching_rect" : [ 65.0, 173.0, 68.0, 22.0 ],
-					"presentation_rect" : [ 65.0, 173.0, 0.0, 0.0 ],
 					"saved_object_attributes" : 					{
 						"description" : "",
 						"digest" : "",
@@ -476,7 +475,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 100.0, 126.0, 783.0, 566.0 ],
+						"rect" : [ 138.0, 123.0, 783.0, 566.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -747,24 +746,26 @@
 							}
 , 							{
 								"box" : 								{
-									"id" : "obj-40",
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 27.0, 210.682373, 161.0, 21.0 ],
-									"style" : "helpfile_label",
-									"text" : "Drop file to analyse here..."
-								}
-
-							}
-, 							{
-								"box" : 								{
+									"decodemode" : 1,
 									"id" : "obj-44",
-									"maxclass" : "dropfile",
+									"legend" : "Drop file to analyze here!",
+									"maxclass" : "live.drop",
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 13.0, 185.432373, 189.0, 71.5 ]
+									"parameter_enable" : 1,
+									"patching_rect" : [ 13.0, 188.799988, 140.0, 60.0 ],
+									"saved_attribute_attributes" : 									{
+										"valueof" : 										{
+											"parameter_longname" : "live.drop",
+											"parameter_shortname" : "live.drop",
+											"parameter_type" : 4,
+											"parameter_invisible" : 1
+										}
+
+									}
+,
+									"varname" : "live.drop"
 								}
 
 							}
@@ -802,7 +803,7 @@
 						"lines" : [ 							{
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
-									"midpoints" : [ 370.0, 340.799988, 22.5, 340.799988 ],
+									"midpoints" : [ 370.0, 359.799988, 22.5, 359.799988 ],
 									"source" : [ "obj-16", 0 ]
 								}
 
@@ -810,7 +811,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
-									"midpoints" : [ 356.0, 340.299988, 22.5, 340.299988 ],
+									"midpoints" : [ 356.0, 355.299988, 22.5, 355.299988 ],
 									"source" : [ "obj-18", 0 ]
 								}
 
@@ -974,6 +975,10 @@
 			}
  ],
 		"lines" : [  ],
+		"parameters" : 		{
+			"obj-2::obj-44" : [ "live.drop", "live.drop", 0 ]
+		}
+,
 		"dependency_cache" : [ 			{
 				"name" : "helpname.js",
 				"bootpath" : "C74:/help/resources",

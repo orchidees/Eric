@@ -28,6 +28,7 @@
 	This module only work if the bach library is installed (www.bachproject.net).
 
 	@category
+	orchidea solutions
 
 	@keywords
 	solution, roll, score, import, symbolic, read

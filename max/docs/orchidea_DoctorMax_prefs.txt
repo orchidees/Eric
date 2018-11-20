@@ -4,7 +4,7 @@
 
 
 
-/Users/danieleghisi/MusicaMia/_RICERCA/orchidea/max/doc/refpages/orchidea_ref
+/Users/danieleghisi/MusicaMia/_RICERCA/orchidea/max/docs/refpages/orchidea_ref
 /Users/danieleghisi/MusicaMia/_RICERCA/orchidea/max/init
 1
 1
