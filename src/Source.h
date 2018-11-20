@@ -112,7 +112,7 @@ struct Source {
 					results.push_back (database[j].file);
 				}
 			}
-		} else if (tokens[0] == "items") {
+		} else if (tokens[0] == "getitems") {
 			for (unsigned i = 1; i < tokens.size (); ++i) {
 				if (tokens[i].size () == 0) continue;
 				if (tokens[i] == "instruments") {
@@ -131,8 +131,28 @@ struct Source {
 					throw std::runtime_error (err.str ().c_str ());
 				}
 			}					
+		} else if (tokens[0] == "getinfo") {
+			for (unsigned j = 0; j <  database.size (); ++j) {
+				if (database[j].file.find (tokens[1]) != std::string::npos) {
+					for (unsigned z = 0; z < database[j].symbols.size (); ++z) {
+						results.push_back (database[j].symbols[z]);
+					}	
+				}
+			}
+		} else if (tokens[0] == "getfeatures") {
+			for (unsigned j = 0; j <  database.size (); ++j) {
+				if (database[j].file.find (tokens[1]) != std::string::npos) {
+					for (unsigned z = 0; z < database[j].features.size (); ++z) {
+						std::stringstream tmp;
+						tmp << database[j].features[z];
+						results.push_back (tmp.str ());
+					}	
+				}
+			}
 		} else {
-			throw std::runtime_error ("invalid query requested");
+			std::stringstream err;
+			err << "invalid query requested [" << tokens[0] << "]";
+			throw std::runtime_error (err.str ().c_str ());
 		}
 	}
 

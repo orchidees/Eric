@@ -41,7 +41,7 @@ struct OrchestrationModel {
 			std::vector<T> outleft;
 			std::vector<T> outright;
 			solutions[i].generate (outleft, outright, solutions_summary,
-				segment, parameters, database, i);
+				segment, parameters, database, i, true);
 
 			std::vector<T> mix (outleft.size () * 2);
 			interleave(&mix[0], &outleft[0], &outright[0], outleft.size ());

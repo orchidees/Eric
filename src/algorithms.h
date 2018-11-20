@@ -12,6 +12,7 @@
 #include <stdexcept>
 #include <cstring>
 #include <cassert>
+#include <iostream>
 
 // ------------------------------------------------------------------//
 

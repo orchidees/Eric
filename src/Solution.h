@@ -36,7 +36,8 @@ struct Solution {
 		Segment<T>* segment,
 		Parameters<T>* parameters,
 		const std::vector<DB_entry<T>* >& database,
-		int num_solution) {
+		int num_solution,
+		bool align_to_zero = false) {
 		std::vector<T> ratios;
 		std::vector<std::string> files;
 		std::vector<T> pans;
@@ -55,6 +56,9 @@ struct Solution {
 			summary << ((float) durations[j] / DEFAULT_SR) * 1000. << " ";
 			for (unsigned z = 0; z < d->symbols.size (); ++z) {
 				summary << d->symbols[z] << " ";	
+			}
+			for (unsigned z = d->symbols.size (); z < 5; ++z) { // to cover "others"
+				summary << "N ";	
 			}
 			summary << d->file << " " << segment->notes[d->symbols[2]] <<
 				")" << std::endl;
@@ -88,7 +92,7 @@ struct Solution {
 
 		create_sound_mix(files, parameters->sound_paths, ratios, pans,
 			parameters->t60,  parameters->dry_wet,
-			segment->start, durations, outleft, outright);
+			(align_to_zero == true ? 0 : segment->start), durations, outleft, outright);
 	}	
 };
 
