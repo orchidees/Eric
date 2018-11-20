@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 356.0, 94.0, 729.0, 380.0 ],
+		"rect" : [ 354.0, 79.0, 729.0, 380.0 ],
 		"bgcolor" : [ 0.941176, 0.941176, 0.941176, 1.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
@@ -38,6 +38,64 @@
 		"style" : "",
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
+				"box" : 				{
+					"hidden" : 1,
+					"id" : "obj-25",
+					"linecount" : 2,
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 512.200012, 817.0, 185.0, 35.0 ],
+					"presentation_rect" : [ 517.200012, 828.0, 0.0, 0.0 ],
+					"style" : "",
+					"text" : "load 4.BrowsingTheDatabase.maxpat"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"hidden" : 1,
+					"id" : "obj-18",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 497.200012, 794.0, 188.0, 22.0 ],
+					"style" : "",
+					"text" : "load 3.BrowsingSolutions.maxpat"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"hidden" : 1,
+					"id" : "obj-5",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 463.0, 865.0, 53.0, 22.0 ],
+					"style" : "",
+					"text" : "pcontrol"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"hidden" : 1,
+					"id" : "obj-1",
+					"maxclass" : "newobj",
+					"numinlets" : 6,
+					"numoutlets" : 6,
+					"outlettype" : [ "bang", "bang", "bang", "bang", "bang", "" ],
+					"patching_rect" : [ 463.0, 758.0, 76.0, 22.0 ],
+					"style" : "",
+					"text" : "sel 0 1 2 3 4"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-44",
 					"maxclass" : "live.line",
@@ -120,7 +178,7 @@
 					"rounded" : 4.0,
 					"style" : "",
 					"tabcolor" : [ 0.25, 0.25, 0.25, 1.0 ],
-					"tabs" : [ "1. What Is Computer-Assisted Orchestration?", "2. Static Orchestration", "3. Dynamic Orchestration", "4. Browsing Solutions", "5. Browsing the Database" ],
+					"tabs" : [ "0. What Is Computer-Assisted Orchestration?", "1. Static Orchestration", "2. Dynamic Orchestration", "3. Browsing Solutions", "4. Browsing the Database" ],
 					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ]
 				}
 
@@ -152,7 +210,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 541.0, 43.0, 29.0, 21.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 242.0, 4.0, 39.0, 21.0 ],
+					"presentation_rect" : [ 241.0, 15.0, 39.0, 21.0 ],
 					"style" : "",
 					"text" : "0.4",
 					"textcolor" : [ 0.25, 0.25, 0.25, 1.0 ]
@@ -413,7 +471,7 @@
 					"rounded" : 4.0,
 					"style" : "",
 					"tabcolor" : [ 0.25, 0.25, 0.25, 1.0 ],
-					"tabs" : [ "orchidea.features", "orchidea.solve", "orchidea.db.browse", "orchidea.db.gen", "orchidea.solution.tobuffer", "orchidea.solution.totext", "orchidea.solution.toroll", "orchidea.solution.tofile" ],
+					"tabs" : [ "orchidea.features", "orchidea.solve", "orchidea.db.query.cpp", "orchidea.db.gen", "orchidea.solution.tobuffer", "orchidea.solution.totext", "orchidea.solution.toroll", "orchidea.solution.tofile" ],
 					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ]
 				}
 
@@ -436,6 +494,22 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
+					"destination" : [ "obj-18", 0 ],
+					"hidden" : 1,
+					"source" : [ "obj-1", 3 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-25", 0 ],
+					"hidden" : 1,
+					"source" : [ "obj-1", 4 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-15", 0 ],
 					"source" : [ "obj-12", 0 ]
 				}
@@ -445,6 +519,22 @@
 				"patchline" : 				{
 					"destination" : [ "obj-27", 0 ],
 					"source" : [ "obj-15", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-5", 0 ],
+					"hidden" : 1,
+					"source" : [ "obj-18", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-5", 0 ],
+					"hidden" : 1,
+					"source" : [ "obj-25", 0 ]
 				}
 
 			}
@@ -506,6 +596,14 @@
 					"destination" : [ "obj-26", 0 ],
 					"hidden" : 1,
 					"source" : [ "obj-35", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"hidden" : 1,
+					"source" : [ "obj-40", 0 ]
 				}
 
 			}

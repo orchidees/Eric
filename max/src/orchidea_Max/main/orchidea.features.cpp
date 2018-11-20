@@ -186,6 +186,7 @@ void* orchidea_dispatcher (void* d) {
                         }
                     }
                 } else {
+                    object_error((t_object *)x, "file not found");
                     for (long j = 0; j < x->features_size; j++)
                         atom_setfloat(outlet_features[j] + i, 0);
                 }

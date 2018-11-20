@@ -10,6 +10,7 @@ mkdir -p ~/Documents/Max\ 7/Packages/orchidea/init/
 mkdir -p ~/Documents/Max\ 7/Packages/orchidea/interfaces/
 mkdir -p ~/Documents/Max\ 7/Packages/orchidea/docs/
 mkdir -p ~/Documents/Max\ 7/Packages/orchidea/docs/refpages/
+mkdir -p ~/Documents/Max\ 7/Packages/orchidea/docs/tutorials/
 mkdir -p ~/Documents/Max\ 7/Packages/orchidea/docs/refpages/orchidea_ref/
 mkdir -p ~/Documents/Max\ 7/Packages/orchidea/extras/
 mkdir -p ~/Documents/Max\ 7/Packages/orchidea/docs/
@@ -30,6 +31,9 @@ cp ../max/help/*.maxhelp ~/Documents/Max\ 7/Packages/orchidea/help/
 
 echo "copying docs files..."
 cp ../max/docs/refpages/orchidea_ref/* ~/Documents/Max\ 7/Packages/orchidea/docs/refpages/orchidea_ref/
+
+echo "copying tutorials files..."
+cp ../max/docs/tutorials/* ~/Documents/Max\ 7/Packages/orchidea/docs/tutorials/
 
 echo "copying init files..."
 cp ../max/init/* ~/Documents/Max\ 7/Packages/orchidea/init/

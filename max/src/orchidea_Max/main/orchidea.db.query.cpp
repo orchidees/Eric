@@ -3,10 +3,10 @@
  orchidea.db.query.cpp
  
  @name
- orchidea.db.query.cpp
+ orchidea.db.query
  
  @realname
- orchidea.db.query.cpp
+ orchidea.db.query
  
  @type
  object
