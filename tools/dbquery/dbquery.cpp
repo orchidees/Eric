@@ -29,8 +29,10 @@ int main (int argc, char* argv[]) {
 	try {
         if (argc < 3) {
             throw runtime_error("syntax is 'dbquery query dbfile1 dbfile2 ...'\n\n" \
-            	"where query is composed as follows:\n"\
-            	"items [instruments|styles|pitches|dynamics|others]\n" \
+            	"where query is composed as follows:\n\n"\
+            	"getitems [instruments|styles|pitches|dynamics|others]\n" \
+            	"getinfo filename (also partial)\n" \
+            	"getfeatures filename (also partial)\n" \
             	"grep regexp\n" \
             	"\twhere regexp can be [c|.|^|$|*]\n"\
             	"\t\tc matches any literal character c\n" \
@@ -38,7 +40,9 @@ int main (int argc, char* argv[]) {
             	"\t\t^ matches the beginning of the input string\n" \
             	"\t\t$ matches the end of the input string\n" \
             	"\t\t* matches zero or more occurences of the previous character\n" \
-            	"\t eg. grep .*Fl.*4.*pp retrieves all flutes in octave 4 playing pianissimo\n");
+            	"\t eg. grep .*Fl.*4.*pp retrieves all flutes in octave 4 playing pianissimo\n" \
+            	"\t eg. grep .*Fl.*C.-   retrieves all flutes playing a C in any octave\n\n" \
+            	"the expected naming convention is instrument-style-note-dynamics-others.wav");
         }
 
         Parameters<float> params;

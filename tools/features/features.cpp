@@ -16,7 +16,7 @@ int main (int argc, char* argv[]) {
     
     cout << "[orchidea, ver. " << ORCHIDEA_VERSION_MAJOR << "." << 
         ORCHIDEA_VERSION_MINOR << "]" << endl << endl;
-	cout << "feature analysis tool for display" << endl;
+	cout << "display a standard set of features on a file" << endl;
 	cout << "(c) 2018, www.carminecella.com" << endl << endl;
 
 	try {

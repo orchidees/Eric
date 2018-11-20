@@ -139,6 +139,16 @@ struct Source {
 					}	
 				}
 			}
+		} else if (tokens[0] == "getfeatures") {
+			for (unsigned j = 0; j <  database.size (); ++j) {
+				if (database[j].file.find (tokens[1]) != std::string::npos) {
+					for (unsigned z = 0; z < database[j].features.size (); ++z) {
+						std::stringstream tmp;
+						tmp << database[j].features[z];
+						results.push_back (tmp.str ());
+					}	
+				}
+			}
 		} else {
 			std::stringstream err;
 			err << "invalid query requested [" << tokens[0] << "]";
