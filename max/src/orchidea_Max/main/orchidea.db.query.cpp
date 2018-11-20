@@ -198,12 +198,15 @@ void ext_main(void *r) {
     c = class_new("orchidea.db.query", (method)orchmax_dbquery_new, (method)orchmax_dbquery_free, (long)sizeof(t_dbquery),
                   0L /* leave NULL!! */, A_GIMME, 0);
     
+    class_addmethod(c, (method)orchmax_dbquery_anything,        "getfeatures",    A_GIMME, 0);
+
     // @method getitems @digest Obtain occurring items of a specific type
     // @description The message <m>items</m> followed by one or more symbols (determining the items class) will return a list containing
     // all the occurrences of those specific class in the database. For instance, <m>items dynamics</m> will return all the dynamics in the dataset,
     // while <m>items instruments</m> will return all the instruments and <m>items styles pitches</m> will return all the styles and all the pitches.
     // Allowed classes names are: "instruments", "dynamics", "styles", "pitches", "others"
     // @marg 0 @name class(es) @optional 0 @type symbol/list
+
     class_addmethod(c, (method)orchmax_dbquery_anything,        "getitems",    A_GIMME, 0);
 
     // @method getinfo @digest Obtain information on a sample
@@ -276,7 +279,7 @@ void dbpath_to_soundpath(char *dbpath, char *soundpath) {
 }
 
 void orchmax_dbquery_anything_do(t_dbquery *x, t_symbol *s, long ac, t_atom *av) {
-    if (s == gensym("getitems") || s == gensym("grep") || s == gensym("getinfo")) {
+    if (s == gensym("getitems") || s == gensym("grep") || s == gensym("getinfo") || s == gensym ("getfeatures")) {
         
         long out_ac = 0;
         t_atom *out_av = (t_atom *)sysmem_newptr(ORCHIDEA_MAX_MAX_LIST_SIZE * sizeof(t_atom));
