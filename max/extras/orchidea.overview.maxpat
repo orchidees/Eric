@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 173.0, 79.0, 729.0, 380.0 ],
+		"rect" : [ 268.0, 159.0, 728.0, 508.0 ],
 		"bgcolor" : [ 0.941176, 0.941176, 0.941176, 1.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
@@ -39,6 +39,7 @@
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
+					"fontface" : 1,
 					"fontname" : "Arial",
 					"fontsize" : 13.0,
 					"id" : "obj-6",
@@ -46,9 +47,9 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 333.0, 28.0, 176.0, 36.0 ],
+					"patching_rect" : [ 333.0, 28.0, 189.0, 36.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 517.75, 15.0, 201.0, 21.0 ],
+					"presentation_rect" : [ 503.75, 15.0, 215.0, 21.0 ],
 					"style" : "",
 					"text" : "to the memory of Eric Daubresse",
 					"textcolor" : [ 0.25, 0.25, 0.25, 1.0 ]
@@ -120,7 +121,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 270.0, 98.0, 5.0, 100.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 7.0, 121.0, 711.75, 27.0 ]
+					"presentation_rect" : [ 7.0, 249.0, 711.75, 27.0 ]
 				}
 
 			}
@@ -134,7 +135,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 578.0, 121.0, 641.0, 42.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 580.75, 121.0, 138.0, 42.0 ],
+					"presentation_rect" : [ 580.75, 249.0, 138.0, 42.0 ],
 					"style" : "",
 					"text" : "modules",
 					"textcolor" : [ 0.25, 0.25, 0.25, 1.0 ],
@@ -152,7 +153,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 765.0, 411.0, 122.0, 42.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 7.0, 121.0, 138.0, 42.0 ],
+					"presentation_rect" : [ 7.0, 249.0, 138.0, 42.0 ],
 					"style" : "",
 					"text" : "tutorials",
 					"textcolor" : [ 0.25, 0.25, 0.25, 1.0 ]
@@ -171,7 +172,7 @@
 					"patching_rect" : [ 746.0, 467.0, 189.0, 30.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 2,
-					"presentation_rect" : [ 311.0, 168.327866, 124.0, 50.0 ],
+					"presentation_rect" : [ 321.75, 293.0, 124.0, 50.0 ],
 					"style" : "",
 					"text" : "Follow our tutorials...",
 					"textcolor" : [ 0.25, 0.25, 0.25, 1.0 ]
@@ -191,7 +192,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 606.0, 382.327881, 134.0, 345.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 7.0, 165.0, 312.75, 202.0 ],
+					"presentation_rect" : [ 7.0, 293.0, 312.75, 202.0 ],
 					"rounded" : 4.0,
 					"style" : "",
 					"tabcolor" : [ 0.25, 0.25, 0.25, 1.0 ],
@@ -210,7 +211,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 294.0, 146.0, 196.0, 21.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 7.0, 98.0, 196.0, 21.0 ],
+					"presentation_rect" : [ 7.0, 231.050003, 196.0, 21.0 ],
 					"style" : "",
 					"text" : "www.carminecella.com/orchidea",
 					"textcolor" : [ 0.25, 0.25, 0.25, 1.0 ]
@@ -256,16 +257,16 @@
 					"fontname" : "Arial",
 					"fontsize" : 13.0,
 					"id" : "obj-2",
-					"linecount" : 2,
+					"linecount" : 14,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 294.0, 98.0, 176.0, 36.0 ],
+					"patching_rect" : [ 294.0, 98.0, 176.0, 210.0 ],
 					"presentation" : 1,
-					"presentation_linecount" : 2,
-					"presentation_rect" : [ 7.0, 67.0, 176.0, 36.0 ],
+					"presentation_linecount" : 10,
+					"presentation_rect" : [ 7.0, 77.050003, 265.0, 152.0 ],
 					"style" : "",
-					"text" : "by Carmine Emanuele Cella\n(c) 2018 Ircam/HEM",
+					"text" : "Written by Carmine-Emanuele Cella\n\nMax/MSP co-design: Daniele Ghisi\nAssisting composers: Yan Maresz, Kit Soden, Victor Cordero, Luis Naon, Nuria Jimenez, Marc Garcia Victoria\nConsultants: Jean-Louis Giavitto, Philippe Esling\n\n(c) 2018/2019 by Ircam/HEM",
 					"textcolor" : [ 0.25, 0.25, 0.25, 1.0 ]
 				}
 
@@ -283,7 +284,7 @@
 					"patching_rect" : [ 147.0, 382.327881, 229.0, 30.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 2,
-					"presentation_rect" : [ 355.0, 222.327866, 170.0, 50.0 ],
+					"presentation_rect" : [ 355.0, 383.327881, 170.0, 50.0 ],
 					"style" : "",
 					"text" : "...or discover our modules",
 					"textcolor" : [ 0.25, 0.25, 0.25, 1.0 ]
@@ -484,7 +485,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 6.0, 361.0, 134.0, 345.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 527.0, 165.0, 191.75, 202.0 ],
+					"presentation_rect" : [ 527.0, 293.0, 191.75, 202.0 ],
 					"rounded" : 4.0,
 					"style" : "",
 					"tabcolor" : [ 0.25, 0.25, 0.25, 1.0 ],

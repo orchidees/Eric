@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 100.0, 100.0, 809.0, 674.0 ],
+		"rect" : [ 100.0, 79.0, 809.0, 655.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -56,7 +56,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 809.0, 648.0 ],
+						"rect" : [ 100.0, 105.0, 809.0, 629.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -86,12 +86,92 @@
 						"showontab" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
+									"bubble" : 1,
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"id" : "obj-6",
+									"linecount" : 3,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 339.0, 182.0, 134.0, 54.0 ],
+									"presentation_rect" : [ 290.5, 132.0, 0.0, 0.0 ],
+									"style" : "",
+									"text" : "Try to click on the two messages to plot the features"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"id" : "obj-4",
+									"linecount" : 3,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 18.5, 119.0, 212.666626, 50.0 ],
+									"style" : "",
+									"text" : "With 'getfeatures' you can get the features contained in the database for a specific file",
+									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"bubble" : 1,
+									"bubbleside" : 0,
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"id" : "obj-3",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 18.5, 249.0, 288.0, 55.0 ],
+									"presentation_rect" : [ 280.5, 166.0, 0.0, 0.0 ],
+									"style" : "",
+									"text" : "To get the name of a file in the database, you can use a 'grep'"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-1",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 78.828857, 213.0, 246.0, 23.0 ],
+									"presentation_rect" : [ 20.5, 216.0, 0.0, 0.0 ],
+									"style" : "",
+									"text" : "getfeatures /Brass/Hn/Hn-ord-C4-pp.wav"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"id" : "obj-22",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 10.0, 72.0, 271.0, 21.0 ],
+									"style" : "",
+									"text" : "Retrieve the stored features for a specific file.",
+									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
 									"id" : "obj-13",
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 18.5, 103.0, 239.0, 23.0 ],
+									"patching_rect" : [ 18.5, 179.0, 239.0, 23.0 ],
 									"style" : "",
 									"text" : "getfeatures /Brass/Hn/Hn-ord-C2-ff.wav"
 								}
@@ -256,7 +336,7 @@
  ]
 									}
 ,
-									"patching_rect" : [ 18.5, 305.666656, 78.0, 23.0 ],
+									"patching_rect" : [ 18.5, 373.666656, 78.0, 23.0 ],
 									"saved_object_attributes" : 									{
 										"description" : "",
 										"digest" : "",
@@ -279,7 +359,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 18.5, 346.666626, 705.0, 118.0 ],
+									"patching_rect" : [ 18.5, 410.666626, 705.0, 118.0 ],
 									"setminmax" : [ 0.0, 1.0 ],
 									"size" : 1024,
 									"style" : ""
@@ -295,7 +375,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 337.5, 100.0, 104.0, 25.0 ],
+									"patching_rect" : [ 529.5, 145.0, 104.0, 25.0 ],
 									"style" : "",
 									"text" : "Set database"
 								}
@@ -308,7 +388,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 309.0, 100.0, 24.0, 24.0 ],
+									"patching_rect" : [ 501.0, 145.0, 24.0, 24.0 ],
 									"style" : ""
 								}
 
@@ -662,7 +742,7 @@
  ]
 									}
 ,
-									"patching_rect" : [ 309.0, 134.0, 113.0, 23.0 ],
+									"patching_rect" : [ 501.0, 203.0, 113.0, 23.0 ],
 									"saved_object_attributes" : 									{
 										"description" : "",
 										"digest" : "",
@@ -1072,7 +1152,7 @@
  ]
 									}
 ,
-									"patching_rect" : [ 309.0, 173.0, 222.5, 67.0 ],
+									"patching_rect" : [ 501.0, 249.0, 222.5, 67.0 ],
 									"viewvisibility" : 1
 								}
 
@@ -1085,7 +1165,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 18.5, 268.799988, 115.0, 23.0 ],
+									"patching_rect" : [ 18.5, 336.799988, 115.0, 23.0 ],
 									"style" : "",
 									"text" : "orchidea.db.query"
 								}
@@ -1110,6 +1190,14 @@
  ],
 						"lines" : [ 							{
 								"patchline" : 								{
+									"destination" : [ "obj-5", 0 ],
+									"midpoints" : [ 88.328857, 237.0, 3.0, 237.0, 3.0, 321.0, 28.0, 321.0 ],
+									"source" : [ "obj-1", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-23", 0 ],
 									"source" : [ "obj-10", 0 ]
 								}
@@ -1125,6 +1213,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-5", 1 ],
+									"midpoints" : [ 510.5, 321.0, 124.0, 321.0 ],
 									"source" : [ "obj-16", 0 ]
 								}
 
@@ -1207,7 +1296,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 100.0, 126.0, 809.0, 648.0 ],
+						"rect" : [ 0.0, 26.0, 809.0, 629.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -1237,26 +1326,150 @@
 						"showontab" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
-									"id" : "obj-32",
-									"maxclass" : "newobj",
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"id" : "obj-10",
+									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 18.5, 483.0, 118.0, 23.0 ],
+									"patching_rect" : [ 18.5, 523.875, 162.0, 21.0 ],
 									"style" : "",
-									"text" : "print QueryAnswer"
+									"text" : "IMPORTANT:",
+									"textcolor" : [ 0.792157, 0.0, 0.0, 1.0 ]
 								}
 
 							}
 , 							{
 								"box" : 								{
-									"id" : "obj-13",
-									"maxclass" : "message",
-									"numinlets" : 2,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 18.5, 120.0, 239.0, 23.0 ],
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"id" : "obj-23",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 18.5, 540.875, 273.0, 36.0 ],
 									"style" : "",
-									"text" : "getfeatures /Brass/Hn/Hn-ord-C2-ff.wav"
+									"text" : "The expected naming convention is: instrument-style-note-dynamics-others.wav"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"id" : "obj-22",
+									"linecount" : 4,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 18.5, 147.0, 212.666626, 65.0 ],
+									"presentation_rect" : [ 27.0, 173.0, 0.0, 0.0 ],
+									"style" : "",
+									"text" : "By using 'getitmes' it is possible to retrive from the database all the instruments, pitches, styles, dynamics and other symbols",
+									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"bubble" : 1,
+									"bubbleside" : 3,
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"id" : "obj-21",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 433.5, 580.25, 104.0, 40.0 ],
+									"presentation_rect" : [ 407.0, 579.25, 0.0, 0.0 ],
+									"style" : "",
+									"text" : "Get all strings"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"bubble" : 1,
+									"bubbleside" : 3,
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"id" : "obj-19",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 411.5, 536.25, 131.0, 40.0 ],
+									"presentation_rect" : [ 406.0, 539.25, 0.0, 0.0 ],
+									"style" : "",
+									"text" : "Get all oboes playing an A in pp"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"bubble" : 1,
+									"bubbleside" : 3,
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"id" : "obj-18",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 433.5, 448.5, 104.0, 40.0 ],
+									"presentation_rect" : [ 407.0, 501.0, 0.0, 0.0 ],
+									"style" : "",
+									"text" : "Get all horns playing a C"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"bubble" : 1,
+									"bubbleside" : 3,
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"id" : "obj-15",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 350.333374, 492.25, 189.5, 40.0 ],
+									"presentation_rect" : [ 393.0, 501.0, 0.0, 0.0 ],
+									"style" : "",
+									"text" : "Get all flutes playing mf in the fourth octave"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 13.0,
+									"id" : "obj-13",
+									"linecount" : 10,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 397.666656, 288.799988, 285.0, 152.0 ],
+									"presentation_rect" : [ 524.0, 197.0, 0.0, 0.0 ],
+									"style" : "",
+									"text" : "The database can be queried also by a simple \nregular expression engine by using 'grep';\n the supported patterns are [c|.|^|$|*], where:\n\n\tc matches any literal character c\n\t. matches any single haracter\n\t^ matches the beginning of the input string\n\t$ matches the end of the input string\n\t\t* matches zero or more occurences of\n    the previous character",
+									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ],
+									"textjustification" : 0
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-32",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 18.5, 460.25, 118.0, 23.0 ],
+									"style" : "",
+									"text" : "print QueryAnswer"
 								}
 
 							}
@@ -1267,7 +1480,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 430.333374, 272.0, 91.0, 23.0 ],
+									"patching_rect" : [ 553.833374, 457.0, 91.0, 23.0 ],
 									"style" : "",
 									"text" : "grep .*Hn.*C.-"
 								}
@@ -1280,7 +1493,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 449.333344, 479.666656, 195.0, 23.0 ],
+									"patching_rect" : [ 27.499964, 268.666656, 195.0, 23.0 ],
 									"style" : "",
 									"text" : "getitems styles dynamics others"
 								}
@@ -1293,7 +1506,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 459.333344, 422.600006, 90.0, 23.0 ],
+									"patching_rect" : [ 553.833374, 588.75, 90.0, 23.0 ],
 									"style" : "",
 									"text" : "grep ^/Strings"
 								}
@@ -1306,7 +1519,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 459.333344, 336.666656, 107.0, 23.0 ],
+									"patching_rect" : [ 553.833374, 544.75, 107.0, 23.0 ],
 									"style" : "",
 									"text" : "grep .*Ob.*A.*pp"
 								}
@@ -1319,7 +1532,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 459.333344, 381.666656, 175.0, 23.0 ],
+									"patching_rect" : [ 28.666651, 234.166687, 175.0, 23.0 ],
 									"style" : "",
 									"text" : "getitems instruments pitches"
 								}
@@ -1332,7 +1545,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 452.833344, 309.0, 99.0, 23.0 ],
+									"patching_rect" : [ 553.833374, 500.75, 99.0, 23.0 ],
 									"style" : "",
 									"text" : "grep .*Fl.*4.*mf"
 								}
@@ -1344,7 +1557,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 157.5, 483.0, 110.0, 23.0 ],
+									"patching_rect" : [ 239.5, 460.25, 110.0, 23.0 ],
 									"style" : "",
 									"text" : "print Notifications"
 								}
@@ -1359,7 +1572,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 332.0, 161.0, 156.0, 79.0 ],
+									"patching_rect" : [ 477.800018, 125.0, 156.0, 79.0 ],
 									"style" : "",
 									"text" : "orchidea comes with a bundled database called \"TinySOL\", but you can build your own datasets: see orchidea.db.gen",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
@@ -1375,7 +1588,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 186.0, 174.0, 104.0, 25.0 ],
+									"patching_rect" : [ 356.0, 139.0, 104.0, 25.0 ],
 									"style" : "",
 									"text" : "Set database"
 								}
@@ -1388,7 +1601,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 157.5, 174.0, 24.0, 24.0 ],
+									"patching_rect" : [ 313.5, 139.0, 24.0, 24.0 ],
 									"style" : ""
 								}
 
@@ -1742,7 +1955,7 @@
  ]
 									}
 ,
-									"patching_rect" : [ 157.5, 208.0, 113.0, 23.0 ],
+									"patching_rect" : [ 313.5, 174.0, 113.0, 23.0 ],
 									"saved_object_attributes" : 									{
 										"description" : "",
 										"digest" : "",
@@ -2152,7 +2365,7 @@
  ]
 									}
 ,
-									"patching_rect" : [ 157.5, 254.0, 222.5, 67.0 ],
+									"patching_rect" : [ 313.5, 206.0, 222.5, 67.0 ],
 									"viewvisibility" : 1
 								}
 
@@ -2165,7 +2378,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 18.5, 417.799988, 158.0, 23.0 ],
+									"patching_rect" : [ 18.5, 417.799988, 240.0, 23.0 ],
 									"style" : "",
 									"text" : "orchidea.db.query"
 								}
@@ -2189,6 +2402,44 @@
 							}
 , 							{
 								"box" : 								{
+									"angle" : 270.0,
+									"border" : 2,
+									"bordercolor" : [ 0.32549, 0.345098, 0.372549, 1.0 ],
+									"grad1" : [ 0.0, 0.0, 0.0, 0.0 ],
+									"grad2" : [ 0.0, 0.0, 0.0, 0.0 ],
+									"id" : "obj-7",
+									"maxclass" : "panel",
+									"mode" : 1,
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 539.333374, 448.5, 130.666626, 171.75 ],
+									"proportion" : 0.39,
+									"rounded" : 10,
+									"style" : ""
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"angle" : 270.0,
+									"border" : 2,
+									"bordercolor" : [ 0.32549, 0.345098, 0.372549, 1.0 ],
+									"grad1" : [ 0.0, 0.0, 0.0, 0.0 ],
+									"grad2" : [ 0.0, 0.0, 0.0, 0.0 ],
+									"id" : "obj-14",
+									"maxclass" : "panel",
+									"mode" : 1,
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 18.5, 221.799988, 212.666626, 89.5 ],
+									"proportion" : 0.39,
+									"rounded" : 10,
+									"style" : ""
+								}
+
+							}
+, 							{
+								"box" : 								{
 									"background" : 1,
 									"bgcolor" : [ 1.0, 0.788235, 0.470588, 1.0 ],
 									"fontface" : 1,
@@ -2201,7 +2452,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "int" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 296.0, 176.5, 20.0, 20.0 ],
+									"patching_rect" : [ 452.0, 167.5, 20.0, 20.0 ],
 									"rounded" : 60.0,
 									"style" : "",
 									"text" : "1",
@@ -2213,20 +2464,15 @@
 						"lines" : [ 							{
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
+									"midpoints" : [ 563.333374, 483.0, 513.0, 483.0, 513.0, 489.0, 393.0, 489.0, 393.0, 447.0, 270.0, 447.0, 270.0, 402.0, 28.0, 402.0 ],
 									"source" : [ "obj-12", 0 ]
 								}
 
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-5", 0 ],
-									"source" : [ "obj-13", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
 									"destination" : [ "obj-5", 1 ],
+									"midpoints" : [ 323.0, 402.0, 249.0, 402.0 ],
 									"source" : [ "obj-16", 0 ]
 								}
 
@@ -2234,6 +2480,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
+									"midpoints" : [ 563.333374, 570.0, 516.0, 570.0, 516.0, 576.0, 3.0, 576.0, 3.0, 411.0, 28.0, 411.0 ],
 									"source" : [ "obj-3", 0 ]
 								}
 
@@ -2241,6 +2488,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
+									"midpoints" : [ 563.333374, 525.0, 513.0, 525.0, 513.0, 489.0, 393.0, 489.0, 393.0, 447.0, 270.0, 447.0, 270.0, 402.0, 28.0, 402.0 ],
 									"source" : [ "obj-4", 0 ]
 								}
 
@@ -2276,6 +2524,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
+									"midpoints" : [ 38.166651, 327.0, 12.0, 327.0, 12.0, 402.0, 28.0, 402.0 ],
 									"source" : [ "obj-6", 0 ]
 								}
 
@@ -2283,6 +2532,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
+									"midpoints" : [ 563.333374, 630.0, 3.0, 630.0, 3.0, 411.0, 28.0, 411.0 ],
 									"source" : [ "obj-8", 0 ]
 								}
 
@@ -2290,6 +2540,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
+									"midpoints" : [ 36.999964, 402.0, 28.0, 402.0 ],
 									"source" : [ "obj-9", 0 ]
 								}
 
@@ -2347,7 +2598,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 809.0, 648.0 ],
+						"rect" : [ 0.0, 26.0, 809.0, 629.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,

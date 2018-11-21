@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 237.0, 197.0, 782.0, 590.0 ],
+		"rect" : [ 261.0, 92.0, 782.0, 590.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -108,10 +108,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 10.0, 128.932373, 680.0, 21.0 ],
-									"presentation_rect" : [ 10.0, 119.567627, 0.0, 0.0 ],
 									"style" : "",
-									"text" : "If you name the dataset manually, remember to use this convention to name your database: whatever.feature.db",
-									"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ]
+									"text" : "If you name the dataset manually, remember to use this convention to name your database: whatever.feature.db"
 								}
 
 							}
@@ -621,7 +619,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 237.0, 223.0, 782.0, 564.0 ],
+						"rect" : [ 261.0, 118.0, 782.0, 564.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
