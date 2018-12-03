@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 276.0, 94.0, 726.0, 515.0 ],
+		"rect" : [ 59.0, 79.0, 731.0, 514.0 ],
 		"bgcolor" : [ 0.941176, 0.941176, 0.941176, 1.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
@@ -40,6 +40,35 @@
 		"boxes" : [ 			{
 				"box" : 				{
 					"hidden" : 1,
+					"id" : "obj-9",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 195.200012, 906.0, 208.0, 22.0 ],
+					"presentation_rect" : [ 329.200012, 904.5, 0.0, 0.0 ],
+					"style" : "",
+					"text" : "load 2.DynamicOrchestration.maxpat"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"hidden" : 1,
+					"id" : "obj-8",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 336.200012, 860.5, 191.0, 22.0 ],
+					"style" : "",
+					"text" : "load 1.StaticOrchestration.maxpat"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"hidden" : 1,
 					"id" : "obj-7",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -60,12 +89,12 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "int" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 932.0, 328.0, 100.0, 20.0 ],
+					"patching_rect" : [ 932.0, 328.0, 299.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 520.0, 15.0, 198.75, 43.0 ],
+					"presentation_rect" : [ 527.0, 15.0, 191.75, 43.0 ],
 					"rounded" : 20.0,
 					"style" : "default",
-					"text" : "to the memory of Eric Daubresse",
+					"text" : "in memoriam Eric Daubresse",
 					"textoncolor" : [ 0.0, 0.0, 0.0, 1.0 ]
 				}
 
@@ -124,7 +153,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 59.0, 79.0, 700.0, 396.0 ],
+						"rect" : [ 451.0, 386.0, 700.0, 396.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -174,7 +203,7 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 260.0, 14.0, 420.0, 74.0 ],
 									"style" : "",
-									"text" : "Eric Daubress has been a composer and pioneer figure at Ircam, where he has been the first  production musical assistant. He has been a central figure in the research project related to assisted orchestration and without him this work would not exist. We dedicate this toolbox to his memory."
+									"text" : "Eric Daubresse has been a composer and pioneer figure at Ircam, where he has been the first  production musical assistant. He has been a central figure in the research project related to assisted orchestration and without him this work would not exist. We dedicate this toolbox to his memory."
 								}
 
 							}
@@ -199,7 +228,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 260.0, 96.0, 430.0, 288.0 ],
+									"patching_rect" : [ 260.0, 96.0, 436.0, 288.0 ],
 									"style" : "",
 									"text" : "Eric Daubresse was born November 2, 1954 in Arras (Pas-de-Calais), where he began musical studies, continued at the Conservatory of Lille. With a scientific background, he took an early interest in electroacoustics and attended the Noroit cultural center in Arras, where he followed courses organized by the Musical Research Group (GRM). On this occasion, he met Guy Reibel, whose electroacoustic class he joined at the Paris conservatoire, and at the same institution, studied composition with Ivo Malec.\n\nIn 1985, when he graduated from the Paris Conservatory, he participated in the creation of the Prémis studio, designed for the 2e2m ensemble and taught electroacoustics at the Champigny-sur-Marne Conservatory. Alain Huteau, 2e2m percussionist, then joined forces with Eric Daubresse to form the Spirale duo, which produced numerous scores for percussion and electronics. The vast field of \"mixed music\" (which results from the confrontation of instrumental and electronic sources) is also explored by Eric Daubresse within the Ensemble Itinéraire.\n\nIn 1990, he entered IRCAM, the temple of computer music founded by Pierre Boulez (1925-2016). Marc Battier, then head of the \"Creation\" department, hired him for a one-off operation that led, two years later, to a production musical assistant position. At IRCAM, this is a first."
 								}
@@ -287,7 +316,7 @@
 					"numinlets" : 6,
 					"numoutlets" : 6,
 					"outlettype" : [ "bang", "bang", "bang", "bang", "bang", "" ],
-					"patching_rect" : [ 463.0, 758.0, 76.0, 22.0 ],
+					"patching_rect" : [ 463.0, 759.0, 76.0, 22.0 ],
 					"style" : "",
 					"text" : "sel 0 1 2 3 4"
 				}
@@ -437,16 +466,16 @@
 					"fontname" : "Arial",
 					"fontsize" : 13.0,
 					"id" : "obj-2",
-					"linecount" : 15,
+					"linecount" : 14,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 300.0, 129.0, 180.0, 224.0 ],
+					"patching_rect" : [ 300.0, 129.0, 180.0, 210.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 8,
-					"presentation_rect" : [ 7.0, 77.050003, 368.0, 123.0 ],
+					"presentation_rect" : [ 7.0, 88.25, 374.0, 123.0 ],
 					"style" : "",
-					"text" : "Written by Carmine-Emanuele Cella\n\nMax/MSP co-design: Daniele Ghisi\nAssisting composers: Yan Maresz, Kit Soden, Victor Cordero, Luis Naon, Nuria Giménez, Marc Garcia Victoria\nThanks to: Jean-Louis Giavitto, Philippe Esling, Michael Jarrel\n\n(c) 2018/2019 by Ircam/HEM",
+					"text" : "Written by Carmine-Emanuele Cella\n\nMax co-design: Daniele Ghisi\nAssisting composers: Yan Maresz, Kit Soden, Victor Cordero, Luis Naon, Nuria Giménez, Marc Garcia Victoria\nThanks to: Jean-Louis Giavitto, Philippe Esling, Michael Jarrell\n\n(c) 2018/2019 by Ircam/HEM",
 					"textcolor" : [ 0.25, 0.25, 0.25, 1.0 ]
 				}
 
@@ -719,6 +748,24 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-1", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-1", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-15", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
@@ -885,6 +932,24 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-5", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-8", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-5", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-9", 0 ]
 				}
 
 			}

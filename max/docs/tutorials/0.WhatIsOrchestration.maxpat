@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 59.0, 79.0, 1384.0, 937.0 ],
+		"rect" : [ 59.0, 79.0, 1587.0, 937.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 13.0,
@@ -47,8 +47,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 626.666626, 2116.615234, 282.333344, 40.0 ],
-					"presentation_rect" : [ 688.666626, 1844.200073, 0.0, 0.0 ],
+					"patching_rect" : [ 626.666626, 2116.615234, 286.0, 40.0 ],
 					"style" : "",
 					"text" : "Tip: follow other tutorials to learn more about static and dynamic orchestrations!"
 				}
@@ -76,9 +75,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 18.666668, 1763.733398, 890.333313, 50.0 ],
-					"presentation_rect" : [ 18.666668, 1776.733398, 0.0, 0.0 ],
 					"style" : "",
-					"text" : "An important aspect of the current algorithm is the possibility of orchestrate sounds that evolve in time, to produce dynamic orchestrations. Before each orchestration, a segmentation step divides the original dynamic target in a set of static target to optimize. Finally, a specific model tries to connect the generated solution into a single score."
+					"text" : "An important aspect of the current algorithm is the possibility of orchestrate sounds that evolve in time, to produce dynamic orchestrations. Before each orchestration, a segmentation step divides the original dynamic target into a set of static targets to optimize. Finally, a specific model tries to connect the generated solution into a single score."
 				}
 
 			}
@@ -174,19 +172,19 @@
 								"content_state" : 								{
 									"originallengthms" : [ 0.0 ],
 									"pitchshift" : [ 1.0 ],
-									"basictuning" : [ 440 ],
-									"timestretch" : [ 0 ],
-									"mode" : [ "basic" ],
-									"formant" : [ 1.0 ],
 									"quality" : [ "basic" ],
-									"formantcorrection" : [ 0 ],
-									"speed" : [ 1.0 ],
-									"originallength" : [ 0.0, "ticks" ],
-									"originaltempo" : [ 120.0 ],
-									"followglobaltempo" : [ 0 ],
 									"pitchcorrection" : [ 0 ],
+									"play" : [ 0 ],
+									"mode" : [ "basic" ],
+									"basictuning" : [ 440 ],
+									"followglobaltempo" : [ 0 ],
+									"speed" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"originallength" : [ 0.0, "ticks" ],
 									"slurtime" : [ 0.0 ],
-									"play" : [ 0 ]
+									"formant" : [ 1.0 ],
+									"timestretch" : [ 0 ],
+									"formantcorrection" : [ 0 ]
 								}
 
 							}
@@ -213,19 +211,19 @@
 								"content_state" : 								{
 									"originallengthms" : [ 0.0 ],
 									"pitchshift" : [ 1.0 ],
-									"basictuning" : [ 440 ],
-									"timestretch" : [ 0 ],
-									"mode" : [ "basic" ],
-									"formant" : [ 1.0 ],
 									"quality" : [ "basic" ],
-									"formantcorrection" : [ 0 ],
-									"speed" : [ 1.0 ],
-									"originallength" : [ 0.0, "ticks" ],
-									"originaltempo" : [ 120.0 ],
-									"followglobaltempo" : [ 0 ],
 									"pitchcorrection" : [ 0 ],
+									"play" : [ 0 ],
+									"mode" : [ "basic" ],
+									"basictuning" : [ 440 ],
+									"followglobaltempo" : [ 0 ],
+									"speed" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"originallength" : [ 0.0, "ticks" ],
 									"slurtime" : [ 0.0 ],
-									"play" : [ 0 ]
+									"formant" : [ 1.0 ],
+									"timestretch" : [ 0 ],
+									"formantcorrection" : [ 0 ]
 								}
 
 							}
@@ -489,19 +487,19 @@
 								"content_state" : 								{
 									"originallengthms" : [ 0.0 ],
 									"pitchshift" : [ 1.0 ],
-									"basictuning" : [ 440 ],
-									"timestretch" : [ 0 ],
-									"mode" : [ "basic" ],
-									"formant" : [ 1.0 ],
 									"quality" : [ "basic" ],
-									"formantcorrection" : [ 0 ],
-									"speed" : [ 1.0 ],
-									"originallength" : [ 0.0, "ticks" ],
-									"originaltempo" : [ 120.0 ],
-									"followglobaltempo" : [ 0 ],
 									"pitchcorrection" : [ 0 ],
+									"play" : [ 0 ],
+									"mode" : [ "basic" ],
+									"basictuning" : [ 440 ],
+									"followglobaltempo" : [ 0 ],
+									"speed" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"originallength" : [ 0.0, "ticks" ],
 									"slurtime" : [ 0.0 ],
-									"play" : [ 0 ]
+									"formant" : [ 1.0 ],
+									"timestretch" : [ 0 ],
+									"formantcorrection" : [ 0 ]
 								}
 
 							}

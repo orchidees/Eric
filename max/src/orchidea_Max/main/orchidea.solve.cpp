@@ -437,18 +437,27 @@ void* orchidea_solve_dispatcher (void* d) {
 
     if (s == gensym("dbfiles")) {
         argument = atom_getsym(av);
-        char** sl  = (char**) malloc ((ac) * sizeof (char*));
+        char** sl  = (char**) sysmem_newptr ((ac) * sizeof (char*));
+        
+        int true_ac = 0;
         for (int i = 0; i < ac; ++i) {
             t_symbol *this_dbfile = orchidea_ezlocate_file(atom_getsym(av + i));
             if (this_dbfile) {
+                ++true_ac;
                 sl[i] = this_dbfile->s_name;
                 if (x->verbose) object_post((t_object*) x, "adding db file %s", sl[i]);
             } else {
-                object_error((t_object *)x, "can't add db file %s", sl[i]);
+                t_symbol* user_file = atom_getsym(av + i);
+                object_error((t_object *)x, "can't find db file %s", (user_file ? user_file->s_name : ""));
             }
         }
         
-        int r = orchidea_set_source(x->orc_hand, (const char**) sl, (int) ac);
+        if (!true_ac) {
+            object_error((t_object *)x, "no valid db files found");
+            sysmem_freeptr(sl);
+            return NULL;
+        }
+        int r = orchidea_set_source(x->orc_hand, (const char**) sl, (int) true_ac);
         
         if (r != ORCHIDEA_NO_ERROR) {
             object_error((t_object *)x, "error: %s (%s)", orchidea_decode_error(r),
@@ -469,7 +478,7 @@ void* orchidea_solve_dispatcher (void* d) {
 
             if (x->verbose) object_post((t_object *)x, "db files have been set correctly");
         }
-        free (sl);
+        sysmem_freeptr (sl);
     }
     else if (s == gensym ("orchestrate") || s == gensym("target")) {
         if (s == gensym("target")) {
