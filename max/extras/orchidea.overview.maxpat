@@ -4,12 +4,12 @@
 		"appversion" : 		{
 			"major" : 7,
 			"minor" : 3,
-			"revision" : 4,
+			"revision" : 5,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 268.0, 159.0, 728.0, 508.0 ],
+		"rect" : [ 550.0, 270.0, 1114.0, 807.0 ],
 		"bgcolor" : [ 0.941176, 0.941176, 0.941176, 1.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
@@ -39,20 +39,162 @@
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
-					"fontface" : 1,
-					"fontname" : "Arial",
-					"fontsize" : 13.0,
-					"id" : "obj-6",
-					"linecount" : 2,
-					"maxclass" : "comment",
+					"id" : "obj-24",
+					"maxclass" : "button",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 1121.0, 446.0, 24.0, 24.0 ],
+					"style" : ""
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-21",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 1081.0, 522.5, 53.0, 22.0 ],
+					"style" : "",
+					"text" : "pcontrol"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-16",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 1020.0, 421.0, 37.0, 22.0 ],
+					"style" : "",
+					"text" : "open"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-11",
+					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 333.0, 28.0, 189.0, 36.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 503.75, 15.0, 215.0, 21.0 ],
+					"patcher" : 					{
+						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 7,
+							"minor" : 3,
+							"revision" : 5,
+							"architecture" : "x64",
+							"modernui" : 1
+						}
+,
+						"rect" : [ 728.0, 391.0, 651.0, 521.0 ],
+						"bglocked" : 0,
+						"openinpresentation" : 0,
+						"default_fontsize" : 12.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"gridonopen" : 1,
+						"gridsize" : [ 15.0, 15.0 ],
+						"gridsnaponopen" : 1,
+						"objectsnaponopen" : 1,
+						"statusbarvisible" : 2,
+						"toolbarvisible" : 1,
+						"lefttoolbarpinned" : 0,
+						"toptoolbarpinned" : 0,
+						"righttoolbarpinned" : 0,
+						"bottomtoolbarpinned" : 0,
+						"toolbars_unpinned_last_save" : 0,
+						"tallnewobj" : 0,
+						"boxanimatetime" : 200,
+						"enablehscroll" : 1,
+						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
+						"description" : "",
+						"digest" : "",
+						"tags" : "",
+						"style" : "",
+						"subpatcher_template" : "",
+						"boxes" : [ 							{
+								"box" : 								{
+									"autofit" : 1,
+									"forceaspect" : 1,
+									"id" : "obj-6",
+									"maxclass" : "fpic",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "jit_matrix" ],
+									"patching_rect" : [ 21.0, 18.0, 231.0, 231.0 ],
+									"pic" : "eric.jpg"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-3",
+									"linecount" : 33,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 261.0, 0.0, 361.0, 449.0 ],
+									"style" : "",
+									"text" : "\nEric Daubress has been a composer and pioneer figure at Ircam, where he has been the first  production musical assistant. He has been a central figure in the research project related to assisted orchestration and without him this\nwork would not exist. We dedicate this work to him.\n\nEric Daubresse was born November 2, 1954 in Arras (Pas-de-Calais), where he began musical studies, continued at the Conservatory of Lille. With a scientific background, he took an early interest in electroacoustics and attended the Noroit cultural center in Arras, where he followed courses organized by the Musical Research Group (GRM). On this occasion, he met Guy Reibel, whose electroacoustic class he joined at the Paris conservatoire, and at the same institution, studied composition with Ivo Malec.\n\nIn 1985, when he graduated from the Paris Conservatory, he participated in the creation of the Prémis studio, designed for the 2e2m ensemble and taught electroacoustics at the Champigny-sur-Marne Conservatory. Alain Huteau, 2e2m percussionist, then joined forces with Eric Daubresse to form the Spirale duo, which produced numerous scores for percussion and electronics. The vast field of \"mixed music\" (which results from the confrontation of instrumental and electronic sources) is also explored by Eric Daubresse within the Ensemble Itinéraire.\n\n\nIn 1990, he entered IRCAM, the temple of computer music founded by Pierre Boulez (1925-2016). Marc Battier, then head of the \"Creation\" department, hired him for a one-off operation that led, two years later, to a production musical assistant position. At IRCAM, this is a first."
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"comment" : "",
+									"id" : "obj-1",
+									"index" : 1,
+									"maxclass" : "inlet",
+									"numinlets" : 0,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 21.0, 18.0, 30.0, 30.0 ],
+									"style" : ""
+								}
+
+							}
+ ],
+						"lines" : [  ]
+					}
+,
+					"patching_rect" : [ 1081.0, 585.0, 73.0, 22.0 ],
+					"saved_object_attributes" : 					{
+						"description" : "",
+						"digest" : "",
+						"globalpatchername" : "",
+						"style" : "",
+						"tags" : ""
+					}
+,
 					"style" : "",
-					"text" : "to the memory of Eric Daubresse",
-					"textcolor" : [ 0.25, 0.25, 0.25, 1.0 ]
+					"text" : "patcher eric"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"active" : 0,
+					"bgcolor" : [ 0.290196, 0.309804, 0.301961, 0.52 ],
+					"fontface" : 1,
+					"id" : "obj-10",
+					"maxclass" : "textbutton",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "int" ],
+					"outputmode" : 0,
+					"parameter_enable" : 0,
+					"patching_rect" : [ 1020.0, 351.0, 213.0, 39.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 503.75, 43.0, 213.0, 39.0 ],
+					"style" : "",
+					"text" : "To the memory of Eric Daubresse",
+					"textoncolor" : [ 0.0, 0.0, 0.0, 1.0 ]
 				}
 
 			}
@@ -133,7 +275,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 578.0, 121.0, 641.0, 42.0 ],
+					"patching_rect" : [ 573.0, 174.0, 641.0, 42.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 580.75, 249.0, 138.0, 42.0 ],
 					"style" : "",
@@ -209,7 +351,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 294.0, 146.0, 196.0, 21.0 ],
+					"patching_rect" : [ 589.0, 85.0, 196.0, 21.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 7.0, 231.050003, 196.0, 21.0 ],
 					"style" : "",
@@ -261,7 +403,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 294.0, 98.0, 176.0, 210.0 ],
+					"patching_rect" : [ 300.0, 129.0, 180.0, 210.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 10,
 					"presentation_rect" : [ 7.0, 77.050003, 265.0, 152.0 ],
@@ -528,6 +670,22 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-16", 0 ],
+					"order" : 1,
+					"source" : [ "obj-10", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-24", 0 ],
+					"order" : 0,
+					"source" : [ "obj-10", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-15", 0 ],
 					"source" : [ "obj-12", 0 ]
 				}
@@ -542,9 +700,23 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-21", 0 ],
+					"source" : [ "obj-16", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-5", 0 ],
 					"hidden" : 1,
 					"source" : [ "obj-18", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-11", 0 ],
+					"source" : [ "obj-21", 0 ]
 				}
 
 			}
@@ -642,7 +814,14 @@
 
 			}
  ],
-		"dependency_cache" : [  ],
+		"dependency_cache" : [ 			{
+				"name" : "eric.jpg",
+				"bootpath" : "~/Desktop/orchidea/max/media",
+				"patcherrelativepath" : "../media",
+				"type" : "JPEG",
+				"implicit" : 1
+			}
+ ],
 		"autosave" : 0
 	}
 
