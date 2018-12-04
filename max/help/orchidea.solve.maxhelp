@@ -1863,7 +1863,7 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 10.0, 75.614624, 720.0, 21.0 ],
 									"style" : "",
-									"text" : "You can customize the way the target is analyzed:",
+									"text" : "You can customize the way the target is analyzed.",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
 								}
 
@@ -4695,7 +4695,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 26.0, 1060.0, 711.0 ],
+						"rect" : [ 59.0, 105.0, 1060.0, 711.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -5402,13 +5402,12 @@
 									"fontname" : "Arial",
 									"fontsize" : 13.0,
 									"id" : "obj-4",
-									"linecount" : 3,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 10.0, 75.614624, 720.0, 50.0 ],
+									"patching_rect" : [ 10.0, 75.614624, 720.0, 21.0 ],
 									"style" : "",
-									"text" : "Si spiega che i file sono un bordello ma attenzione nessuno vi vieta di metterli da un'altra parte per esempio @prefix /tmp/\nPotremmo pure interfacciare @exportsolutions 0: esporta solo la connection. Exportsolution è il numero delle soluzioni che esporta (da 0 alla population size)",
+									"text" : "It is possible to specify symbolic filters to drive the search of the solutions.",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
 								}
 
@@ -5646,7 +5645,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 59.0, 105.0, 1060.0, 711.0 ],
+						"rect" : [ 0.0, 26.0, 1060.0, 711.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -6177,7 +6176,7 @@
 											"modernui" : 1
 										}
 ,
-										"rect" : [ 748.0, 334.0, 222.0, 67.0 ],
+										"rect" : [ 689.0, 255.0, 222.0, 67.0 ],
 										"bglocked" : 0,
 										"openinpresentation" : 0,
 										"default_fontsize" : 12.0,
@@ -6243,6 +6242,7 @@
 													"numoutlets" : 0,
 													"patching_rect" : [ 2.0, 26.5, 209.0, 18.0 ],
 													"style" : "",
+													"text" : "TinySOL.spectrum.db",
 													"textjustification" : 1
 												}
 
@@ -6587,7 +6587,7 @@
 											"modernui" : 1
 										}
 ,
-										"rect" : [ 78.0, 285.0, 222.0, 67.0 ],
+										"rect" : [ 19.0, 206.0, 222.0, 67.0 ],
 										"bglocked" : 0,
 										"openinpresentation" : 0,
 										"default_fontsize" : 12.0,
@@ -6666,6 +6666,7 @@
 													"numoutlets" : 0,
 													"patching_rect" : [ 2.0, 26.5, 209.0, 18.0 ],
 													"style" : "",
+													"text" : "WinchesterBell.wav",
 													"textjustification" : 1
 												}
 
@@ -7018,6 +7019,7 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 687.5, 438.0, 257.0, 21.0 ],
 									"style" : "",
+									"text" : "exporting connection",
 									"textcolor" : [ 0.501961, 0.501961, 0.501961, 1.0 ]
 								}
 
@@ -7233,13 +7235,15 @@
 , 							{
 								"box" : 								{
 									"id" : "obj-7",
+									"linecount" : 3,
 									"maxclass" : "textedit",
 									"numinlets" : 1,
 									"numoutlets" : 4,
 									"outlettype" : [ "", "int", "", "" ],
 									"parameter_enable" : 0,
 									"patching_rect" : [ 353.0, 209.5, 215.0, 65.5 ],
-									"style" : ""
+									"style" : "",
+									"text" : "Fl Fl Ob Ob ClBb ClBb Bn Bn TpC TpC Hn Hn Tbn Tbn Vn Vn Vn Vn Va Va Vc Cb"
 								}
 
 							}
@@ -7872,11 +7876,11 @@
  ],
 		"lines" : [  ],
 		"parameters" : 		{
-			"obj-10::obj-42" : [ "solution[2]", "solution", 0 ],
-			"obj-5::obj-42" : [ "solution", "solution", 0 ],
-			"obj-9::obj-42" : [ "solution[1]", "solution", 0 ],
 			"obj-5::obj-34" : [ "target", "target", 0 ],
-			"obj-2::obj-42" : [ "gain", "gain", 0 ]
+			"obj-2::obj-42" : [ "gain", "gain", 0 ],
+			"obj-10::obj-42" : [ "solution[2]", "solution", 0 ],
+			"obj-9::obj-42" : [ "solution[1]", "solution", 0 ],
+			"obj-5::obj-42" : [ "solution", "solution", 0 ]
 		}
 ,
 		"dependency_cache" : [ 			{
