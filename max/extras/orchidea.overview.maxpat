@@ -46,7 +46,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 195.200012, 906.0, 208.0, 22.0 ],
-					"presentation_rect" : [ 329.200012, 904.5, 0.0, 0.0 ],
 					"style" : "",
 					"text" : "load 2.DynamicOrchestration.maxpat"
 				}
@@ -153,7 +152,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 451.0, 386.0, 700.0, 396.0 ],
+						"rect" : [ 190.0, 143.0, 700.0, 396.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -228,7 +227,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 260.0, 96.0, 436.0, 288.0 ],
+									"patching_rect" : [ 260.0, 96.0, 439.0, 288.0 ],
 									"style" : "",
 									"text" : "Eric Daubresse was born November 2, 1954 in Arras (Pas-de-Calais), where he began musical studies, continued at the Conservatory of Lille. With a scientific background, he took an early interest in electroacoustics and attended the Noroit cultural center in Arras, where he followed courses organized by the Musical Research Group (GRM). On this occasion, he met Guy Reibel, whose electroacoustic class he joined at the Paris conservatoire, and at the same institution, studied composition with Ivo Malec.\n\nIn 1985, when he graduated from the Paris Conservatory, he participated in the creation of the Prémis studio, designed for the 2e2m ensemble and taught electroacoustics at the Champigny-sur-Marne Conservatory. Alain Huteau, 2e2m percussionist, then joined forces with Eric Daubresse to form the Spirale duo, which produced numerous scores for percussion and electronics. The vast field of \"mixed music\" (which results from the confrontation of instrumental and electronic sources) is also explored by Eric Daubresse within the Ensemble Itinéraire.\n\nIn 1990, he entered IRCAM, the temple of computer music founded by Pierre Boulez (1925-2016). Marc Battier, then head of the \"Creation\" department, hired him for a one-off operation that led, two years later, to a production musical assistant position. At IRCAM, this is a first."
 								}

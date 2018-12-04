@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 59.0, 79.0, 1587.0, 937.0 ],
+		"rect" : [ 59.0, 79.0, 935.0, 937.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 13.0,
@@ -47,7 +47,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 626.666626, 2116.615234, 286.0, 40.0 ],
+					"patching_rect" : [ 631.0, 2116.615234, 286.0, 40.0 ],
 					"style" : "",
 					"text" : "Tip: follow other tutorials to learn more about static and dynamic orchestrations!"
 				}
@@ -128,7 +128,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 626.666626, 1431.033325, 95.0, 23.0 ],
+					"patching_rect" : [ 631.0, 1434.533325, 95.0, 23.0 ],
 					"style" : "",
 					"text" : "loadmess start"
 				}
@@ -170,21 +170,21 @@
 								"filekind" : "audiofile",
 								"loop" : 0,
 								"content_state" : 								{
-									"originallengthms" : [ 0.0 ],
-									"pitchshift" : [ 1.0 ],
-									"quality" : [ "basic" ],
-									"pitchcorrection" : [ 0 ],
 									"play" : [ 0 ],
-									"mode" : [ "basic" ],
-									"basictuning" : [ 440 ],
-									"followglobaltempo" : [ 0 ],
-									"speed" : [ 1.0 ],
-									"originaltempo" : [ 120.0 ],
-									"originallength" : [ 0.0, "ticks" ],
+									"pitchcorrection" : [ 0 ],
 									"slurtime" : [ 0.0 ],
+									"originallengthms" : [ 0.0 ],
+									"mode" : [ "basic" ],
+									"originaltempo" : [ 120.0 ],
+									"formantcorrection" : [ 0 ],
+									"basictuning" : [ 440 ],
 									"formant" : [ 1.0 ],
+									"pitchshift" : [ 1.0 ],
+									"originallength" : [ 0.0, "ticks" ],
+									"speed" : [ 1.0 ],
+									"followglobaltempo" : [ 0 ],
 									"timestretch" : [ 0 ],
-									"formantcorrection" : [ 0 ]
+									"quality" : [ "basic" ]
 								}
 
 							}
@@ -209,21 +209,21 @@
 								"filekind" : "audiofile",
 								"loop" : 0,
 								"content_state" : 								{
-									"originallengthms" : [ 0.0 ],
-									"pitchshift" : [ 1.0 ],
-									"quality" : [ "basic" ],
-									"pitchcorrection" : [ 0 ],
 									"play" : [ 0 ],
-									"mode" : [ "basic" ],
-									"basictuning" : [ 440 ],
-									"followglobaltempo" : [ 0 ],
-									"speed" : [ 1.0 ],
-									"originaltempo" : [ 120.0 ],
-									"originallength" : [ 0.0, "ticks" ],
+									"pitchcorrection" : [ 0 ],
 									"slurtime" : [ 0.0 ],
+									"originallengthms" : [ 0.0 ],
+									"mode" : [ "basic" ],
+									"originaltempo" : [ 120.0 ],
+									"formantcorrection" : [ 0 ],
+									"basictuning" : [ 440 ],
 									"formant" : [ 1.0 ],
+									"pitchshift" : [ 1.0 ],
+									"originallength" : [ 0.0, "ticks" ],
+									"speed" : [ 1.0 ],
+									"followglobaltempo" : [ 0 ],
 									"timestretch" : [ 0 ],
-									"formantcorrection" : [ 0 ]
+									"quality" : [ "basic" ]
 								}
 
 							}
@@ -483,23 +483,24 @@
 						"clips" : [ 							{
 								"filename" : "WinchesterBell.wav",
 								"filekind" : "audiofile",
+								"selection" : [ 0.192308, 0.375 ],
 								"loop" : 0,
 								"content_state" : 								{
-									"originallengthms" : [ 0.0 ],
-									"pitchshift" : [ 1.0 ],
-									"quality" : [ "basic" ],
-									"pitchcorrection" : [ 0 ],
 									"play" : [ 0 ],
-									"mode" : [ "basic" ],
-									"basictuning" : [ 440 ],
-									"followglobaltempo" : [ 0 ],
-									"speed" : [ 1.0 ],
-									"originaltempo" : [ 120.0 ],
-									"originallength" : [ 0.0, "ticks" ],
+									"pitchcorrection" : [ 0 ],
 									"slurtime" : [ 0.0 ],
+									"originallengthms" : [ 0.0 ],
+									"mode" : [ "basic" ],
+									"originaltempo" : [ 120.0 ],
+									"formantcorrection" : [ 0 ],
+									"basictuning" : [ 440 ],
 									"formant" : [ 1.0 ],
+									"pitchshift" : [ 1.0 ],
+									"originallength" : [ 0.0, "ticks" ],
+									"speed" : [ 1.0 ],
+									"followglobaltempo" : [ 0 ],
 									"timestretch" : [ 0 ],
-									"formantcorrection" : [ 0 ]
+									"quality" : [ "basic" ]
 								}
 
 							}
