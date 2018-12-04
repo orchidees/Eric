@@ -48,7 +48,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 401.000031, 893.900146, 136.499969, 55.0 ],
-					"presentation_rect" : [ 402.599976, 896.800049, 0.0, 0.0 ],
 					"style" : "",
 					"text" : "Check the dynamic solution in text format"
 				}
@@ -823,9 +822,9 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 626.666626, 2116.615234, 309.0, 40.0 ],
+					"patching_rect" : [ 591.599976, 1365.615234, 309.0, 40.0 ],
 					"style" : "",
-					"text" : "Tip: follow next tutorials to learn more about and dynamic orchestrations!"
+					"text" : "Tip: follow next tutorials to learn more about how to browse solutions and the database."
 				}
 
 			}
@@ -1092,8 +1091,8 @@
 			}
  ],
 		"parameters" : 		{
-			"obj-34" : [ "target", "target", 0 ],
-			"obj-42" : [ "solution", "solution", 0 ]
+			"obj-42" : [ "solution", "solution", 0 ],
+			"obj-34" : [ "target", "target", 0 ]
 		}
 ,
 		"dependency_cache" : [ 			{
