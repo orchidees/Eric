@@ -38,8 +38,50 @@
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
+					"hidden" : 1,
+					"id" : "obj-26",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 676.5, 2162.0, 205.0, 23.0 ],
+					"style" : "",
+					"text" : "load 1.StaticOrchestration.maxpat"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"hidden" : 1,
+					"id" : "obj-39",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 676.5, 2189.0, 57.0, 23.0 ],
+					"style" : "",
+					"text" : "pcontrol"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-13",
+					"maxclass" : "textbutton",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "int" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 676.5, 2136.615234, 232.5, 19.999907 ],
+					"style" : "",
+					"text" : "Static orchestration"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"bubble" : 1,
-					"bubbleside" : 3,
+					"bubbleside" : 2,
 					"fontname" : "Arial",
 					"fontsize" : 13.0,
 					"id" : "obj-9",
@@ -47,9 +89,9 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 631.0, 2116.615234, 286.0, 40.0 ],
+					"patching_rect" : [ 676.5, 2077.615234, 232.5, 55.0 ],
 					"style" : "",
-					"text" : "Tip: follow other tutorials to learn more about static and dynamic orchestrations!"
+					"text" : "Tip: follow the next tutorial to learn more about static orchestrations!"
 				}
 
 			}
@@ -170,21 +212,21 @@
 								"filekind" : "audiofile",
 								"loop" : 0,
 								"content_state" : 								{
-									"play" : [ 0 ],
-									"pitchcorrection" : [ 0 ],
-									"slurtime" : [ 0.0 ],
-									"originallengthms" : [ 0.0 ],
-									"mode" : [ "basic" ],
-									"originaltempo" : [ 120.0 ],
 									"formantcorrection" : [ 0 ],
-									"basictuning" : [ 440 ],
-									"formant" : [ 1.0 ],
-									"pitchshift" : [ 1.0 ],
-									"originallength" : [ 0.0, "ticks" ],
-									"speed" : [ 1.0 ],
 									"followglobaltempo" : [ 0 ],
+									"play" : [ 0 ],
+									"quality" : [ "basic" ],
+									"originallengthms" : [ 0.0 ],
+									"pitchshift" : [ 1.0 ],
+									"pitchcorrection" : [ 0 ],
+									"basictuning" : [ 440 ],
 									"timestretch" : [ 0 ],
-									"quality" : [ "basic" ]
+									"speed" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"originallength" : [ 0.0, "ticks" ],
+									"mode" : [ "basic" ],
+									"slurtime" : [ 0.0 ],
+									"formant" : [ 1.0 ]
 								}
 
 							}
@@ -209,21 +251,21 @@
 								"filekind" : "audiofile",
 								"loop" : 0,
 								"content_state" : 								{
-									"play" : [ 0 ],
-									"pitchcorrection" : [ 0 ],
-									"slurtime" : [ 0.0 ],
-									"originallengthms" : [ 0.0 ],
-									"mode" : [ "basic" ],
-									"originaltempo" : [ 120.0 ],
 									"formantcorrection" : [ 0 ],
-									"basictuning" : [ 440 ],
-									"formant" : [ 1.0 ],
-									"pitchshift" : [ 1.0 ],
-									"originallength" : [ 0.0, "ticks" ],
-									"speed" : [ 1.0 ],
 									"followglobaltempo" : [ 0 ],
+									"play" : [ 0 ],
+									"quality" : [ "basic" ],
+									"originallengthms" : [ 0.0 ],
+									"pitchshift" : [ 1.0 ],
+									"pitchcorrection" : [ 0 ],
+									"basictuning" : [ 440 ],
 									"timestretch" : [ 0 ],
-									"quality" : [ "basic" ]
+									"speed" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"originallength" : [ 0.0, "ticks" ],
+									"mode" : [ "basic" ],
+									"slurtime" : [ 0.0 ],
+									"formant" : [ 1.0 ]
 								}
 
 							}
@@ -486,21 +528,21 @@
 								"selection" : [ 0.192308, 0.375 ],
 								"loop" : 0,
 								"content_state" : 								{
-									"play" : [ 0 ],
-									"pitchcorrection" : [ 0 ],
-									"slurtime" : [ 0.0 ],
-									"originallengthms" : [ 0.0 ],
-									"mode" : [ "basic" ],
-									"originaltempo" : [ 120.0 ],
 									"formantcorrection" : [ 0 ],
-									"basictuning" : [ 440 ],
-									"formant" : [ 1.0 ],
-									"pitchshift" : [ 1.0 ],
-									"originallength" : [ 0.0, "ticks" ],
-									"speed" : [ 1.0 ],
 									"followglobaltempo" : [ 0 ],
+									"play" : [ 0 ],
+									"quality" : [ "basic" ],
+									"originallengthms" : [ 0.0 ],
+									"pitchshift" : [ 1.0 ],
+									"pitchcorrection" : [ 0 ],
+									"basictuning" : [ 440 ],
 									"timestretch" : [ 0 ],
-									"quality" : [ "basic" ]
+									"speed" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"originallength" : [ 0.0, "ticks" ],
+									"mode" : [ "basic" ],
+									"slurtime" : [ 0.0 ],
+									"formant" : [ 1.0 ]
 								}
 
 							}
@@ -564,9 +606,9 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 9.0, 619.999939, 900.0, 36.0 ],
+					"patching_rect" : [ 9.0, 619.999939, 900.0, 50.0 ],
 					"style" : "",
-					"text" : "A more systematic approach developed in 2003, when the French composer Yan Maresz proposed a more formalized statement of the problem:\n\n"
+					"text" : "A  systematic approach developed in 2003, when the French composer Yan Maresz proposed a more formalized statement of the problem:\n\n"
 				}
 
 			}
@@ -664,6 +706,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-26", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-13", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-17", 1 ],
 					"disabled" : 0,
 					"hidden" : 0,
@@ -704,6 +755,15 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-24", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-39", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-26", 0 ]
 				}
 
 			}

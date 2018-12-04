@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 59.0, 79.0, 1164.0, 887.0 ],
+		"rect" : [ 59.0, 79.0, 930.0, 937.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 13.0,
@@ -37,6 +37,133 @@
 		"style" : "",
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-17",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 500.000031, 1193.0, 109.0, 23.0 ],
+					"presentation_rect" : [ 500.000031, 1193.0, 0.0, 0.0 ],
+					"style" : "",
+					"text" : "exportsolutions 0"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-16",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 401.000031, 1172.0, 81.0, 23.0 ],
+					"presentation_rect" : [ 400.0, 1172.0, 0.0, 0.0 ],
+					"style" : "",
+					"text" : "popsize 100"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-14",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 281.0, 1151.0, 102.0, 23.0 ],
+					"style" : "",
+					"text" : "maxepochs 100"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-9",
+					"maxclass" : "newobj",
+					"numinlets" : 3,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 68.0, 1177.0, 94.0, 23.0 ],
+					"style" : "",
+					"text" : "orchidea.solve"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-8",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 11.0, 1064.995239, 889.599976, 36.0 ],
+					"presentation_rect" : [ 11.0, 1064.995239, 0.0, 0.0 ],
+					"style" : "",
+					"text" : "In order to speed up the search for dynamic orchestrations, we suggest to reduce the number of epochs and the population size to 100. Moreover, it is a good practice to reduce the number of solutions stored (or even to avoid storing them altogether and just save the final connection."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"hidden" : 1,
+					"id" : "obj-11",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 668.099976, 1663.384766, 203.0, 23.0 ],
+					"style" : "",
+					"text" : "load 3.BrowsingSolutions.maxpat"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"hidden" : 1,
+					"id" : "obj-39",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 668.099976, 1690.384766, 57.0, 23.0 ],
+					"style" : "",
+					"text" : "pcontrol"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-13",
+					"maxclass" : "textbutton",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "int" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 668.099976, 1638.0, 232.5, 19.999907 ],
+					"style" : "",
+					"text" : "Browsing solutions"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"bubble" : 1,
+					"bubbleside" : 2,
+					"fontname" : "Arial",
+					"fontsize" : 13.0,
+					"id" : "obj-12",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 668.099976, 1579.0, 232.5, 55.0 ],
+					"style" : "",
+					"text" : "Tip: follow the next tutorial to learn how to browse solutions!"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"bubble" : 1,
 					"bubbleside" : 0,
@@ -77,7 +204,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "jit_matrix" ],
-					"patching_rect" : [ 210.199982, 1096.199951, 487.200012, 247.508028 ],
+					"patching_rect" : [ 210.199982, 1285.199951, 487.200012, 247.508028 ],
 					"pic" : "/Users/Carmine/Elementi/Dati/Elettronica/Lavori/IRCAM_17_18/Orchids/orchidea/max/media/continuity.png"
 				}
 
@@ -89,9 +216,9 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 11.0, 1047.995239, 889.599976, 36.0 ],
+					"patching_rect" : [ 11.0, 1236.995239, 889.599976, 36.0 ],
 					"style" : "",
-					"text" : "To maximize the common notes/instruments between segment, a continuity model is implemented after the independent orchestration. This is an important features of the orchidea toolbox."
+					"text" : "To maximize the common notes/instruments between segments, a continuity model is implemented after the independent orchestration. This is an important features of the orchidea toolbox."
 				}
 
 			}
@@ -813,23 +940,6 @@
 			}
 , 			{
 				"box" : 				{
-					"bubble" : 1,
-					"bubbleside" : 3,
-					"fontname" : "Arial",
-					"fontsize" : 13.0,
-					"id" : "obj-9",
-					"linecount" : 2,
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 591.599976, 1365.615234, 309.0, 40.0 ],
-					"style" : "",
-					"text" : "Tip: follow next tutorials to learn more about how to browse solutions and the database."
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"angle" : 270.0,
 					"bgcolor" : [ 0.878431, 0.878431, 0.843137, 1.0 ],
 					"id" : "obj-20",
@@ -890,6 +1000,51 @@
 			}
  ],
 		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-39", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-11", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-11", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-13", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-14", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-16", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-17", 0 ]
+				}
+
+			}
+, 			{
 				"patchline" : 				{
 					"destination" : [ "obj-51", 0 ],
 					"disabled" : 0,
@@ -1091,8 +1246,8 @@
 			}
  ],
 		"parameters" : 		{
-			"obj-42" : [ "solution", "solution", 0 ],
-			"obj-34" : [ "target", "target", 0 ]
+			"obj-34" : [ "target", "target", 0 ],
+			"obj-42" : [ "solution", "solution", 0 ]
 		}
 ,
 		"dependency_cache" : [ 			{

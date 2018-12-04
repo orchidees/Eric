@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 59.0, 79.0, 950.0, 937.0 ],
+		"rect" : [ 59.0, 79.0, 933.0, 937.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 13.0,
@@ -37,6 +37,65 @@
 		"style" : "",
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
+				"box" : 				{
+					"hidden" : 1,
+					"id" : "obj-3",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 630.0, 4600.300781, 224.0, 23.0 ],
+					"style" : "",
+					"text" : "load 2.DynamicOrchestration.maxpat"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"hidden" : 1,
+					"id" : "obj-23",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 630.0, 4627.300781, 57.0, 23.0 ],
+					"style" : "",
+					"text" : "pcontrol"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-64",
+					"maxclass" : "textbutton",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "int" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 630.0, 4574.916016, 232.5, 19.999907 ],
+					"style" : "",
+					"text" : "Dynamic orchestration"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"bubble" : 1,
+					"bubbleside" : 2,
+					"fontname" : "Arial",
+					"fontsize" : 13.0,
+					"id" : "obj-65",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 630.0, 4515.916016, 232.5, 55.0 ],
+					"style" : "",
+					"text" : "Tip: follow the next tutorial to learn more about dynamic orchestrations!"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-124",
 					"linecount" : 2,
@@ -144,9 +203,9 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 68.700005, 4107.933594, 130.0, 25.0 ],
+					"patching_rect" : [ 68.700005, 4107.933594, 186.0, 25.0 ],
 					"style" : "",
-					"text" : "Tuned solution"
+					"text" : "Run a pitched orchestration"
 				}
 
 			}
@@ -640,13 +699,13 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-115",
-					"linecount" : 6,
+					"linecount" : 7,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 42.700001, 3975.466553, 861.299988, 94.0 ],
+					"patching_rect" : [ 42.700001, 3975.466553, 861.299988, 108.0 ],
 					"style" : "",
-					"text" : "The following parameters refer to the analyis of the target and subsequent filtering of the search space. The window size (in samples) should be large if you know that the target contains very low frequency (ex. A1). Partials filtering works like that: if it is 0 there is no filtering and all the sounds in the database are used. If it is between 0 < x < 1 than the database is reduced by removing the sounds that does not correspond to the partials in the target. Increasing this value produces a stricter selection and only strongest partials (dynamically) are retained. \nSuggestion: use 0 for inharmonic or noisy sounds where timbre is more important than pitch, and something between 0.1 < x < 0.3 if pitches are also important."
+					"text" : "If your target sound has some pitches that you want to capture during orchestration, than you need to help the algorithm by tuning the analysis phase. There are two main parameters for the target analysis: the window size and the partials filtering. The window size (in samples) should be large if you know that the target contains very low frequency (ex. A1). Partials filtering works like that: if it is 0 there is no filtering and all the sounds in the database are used. If it is between 0 < x < 1 than the database is reduced by removing the sounds that does not correspond to the partials in the target. Increasing this value produces a stricter selection and only strongest partials (dynamically) are retained. \nSuggestion: use 0 for inharmonic or noisy sounds where timbre is more important than pitch, and something between 0.1 < x < 0.3 if pitches are also important."
 				}
 
 			}
@@ -1793,7 +1852,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 17.199999, 3055.0, 886.799988, 50.0 ],
 					"style" : "",
-					"text" : "Sparsity determines the freedom that the algorithm has to remove instruments of the given orchestra from the solution. If sparsity is 0, each solution will use all instruments; if this value increases, the probability of dropping an instrument increases correspondly. \nSuggestion: use 0.01 for general targets, 0.001 for symphonic targets, 0.1 for single notes of instruments used as targets."
+					"text" : "Sparsity determines the freedom that the algorithm has to remove instruments of the given orchestra from the solution. If sparsity is 0, each solution will use all instruments; if this value increases, the probability of dropping an instrument increases correspondingly. \nSuggestion: use 0.01 for general targets, 0.001 for symphonic targets, 0.1 for single notes of instruments used as targets."
 				}
 
 			}
@@ -2728,7 +2787,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 25.533325, 1888.200073, 878.466675, 94.0 ],
 					"style" : "",
-					"text" : "To determine the initial population for the optimization, we use a method called 'relaxed pursuit'. Generally speaking, the method tries to generate right away some solutions that are close to the target. This is usually better but can produce final solutions that are too homogeneous. Using 0, the initial population is random; using 1 the pursuit will be not relaxed and the inital population will be made of a single solution repeated (so it is not good). Increasing this value,for example to 3, means that the initial population will be made of a number of different solutions that are somehow close to the target.\nSuggestion: use 0 if you are unsure, 3 or more if you understand this parameter."
+					"text" : "To determine the initial population for the optimization, we use a method called 'relaxed pursuit'. Generally speaking, the method tries to generate right away some solutions that are close to the target. This is usually better but can produce final solutions that are too homogeneous. Using 0, the initial population is random; using 1 the pursuit will be not relaxed and the inital population will be made of a single solution repeated (so it is not good). Increasing this value, for example to 3, means that the initial population will be made of a number of different solutions that are somehow close to the target.\nSuggestion: use 0 if you are unsure, 3 or more if you understand this parameter."
 				}
 
 			}
@@ -3306,7 +3365,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 283.0, 1162.0, 223.0, 67.0 ],
+						"rect" : [ 283.0, -2529.0, 223.0, 67.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -3740,9 +3799,9 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 762.666626, 908.80011, 141.333359, 98.0 ],
+					"patching_rect" : [ 759.0, 908.80011, 145.0, 98.0 ],
 					"style" : "",
-					"text" : "Tip: look the help file of the orchidea.db.query object to retrieve information about databases"
+					"text" : "Tip: look at the help file of the orchidea.db.query object to retrieve information about databases"
 				}
 
 			}
@@ -3813,7 +3872,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 633.0, 720.981384, 204.0, 98.0 ],
 					"style" : "",
-					"text" : "Timbre is difficult to define; in this context we will accept that is related to the overall shape of the spectrum. MFCC are a good description of such shape."
+					"text" : "Timbre is difficult to define; in this context we will accept that is related to the overall shape of the spectrum. MFCC are a good description of such shape"
 				}
 
 			}
@@ -3830,7 +3889,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 112.0, 720.981384, 167.0, 98.0 ],
 					"style" : "",
-					"text" : "Pitch is related to the position of the peaks in the spectrum; Fourier transform is a good feature to describe these position."
+					"text" : "Pitch is related to the position of the peaks in the spectrum; Fourier transform is a good feature to describe these positions"
 				}
 
 			}
@@ -3931,23 +3990,6 @@
 					"outlettype" : [ "jit_matrix" ],
 					"patching_rect" : [ 281.0, 666.000061, 350.0, 221.962617 ],
 					"pic" : "pitch_timbre.png"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"bubble" : 1,
-					"bubbleside" : 3,
-					"fontname" : "Arial",
-					"fontsize" : 13.0,
-					"id" : "obj-9",
-					"linecount" : 2,
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 595.0, 4545.415527, 309.0, 40.0 ],
-					"style" : "",
-					"text" : "Tip: follow next tutorials to learn more about and dynamic orchestrations!"
 				}
 
 			}
@@ -4340,6 +4382,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-23", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-3", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-29", 1 ],
 					"disabled" : 0,
 					"hidden" : 0,
@@ -4555,6 +4606,15 @@
 					"hidden" : 0,
 					"midpoints" : [ 26.699999, 2418.0, 3.0, 2418.0, 3.0, 2487.0, 102.0, 2487.0, 102.0, 2508.0, 292.299988, 2508.0 ],
 					"source" : [ "obj-63", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-64", 0 ]
 				}
 
 			}
