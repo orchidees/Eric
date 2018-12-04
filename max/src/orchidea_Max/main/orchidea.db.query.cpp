@@ -159,7 +159,7 @@ void* orchidea_query_dispatcher (void* d) {
                 x->params.db_files.push_back (this_dbfile->s_name);
                 if (x->verbose) object_post((t_object*) x, "adding db file %s", this_dbfile->s_name);
             } else {
-                object_error((t_object *)x, "can't add db file %s", this_dbfile->s_name);
+                object_error((t_object *)x, "can't add db file");
             }
         }
         
