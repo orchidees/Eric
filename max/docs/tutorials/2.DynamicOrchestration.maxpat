@@ -878,7 +878,7 @@
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 11.0, 762.833313, 889.599976, 38.0 ],
 					"style" : "",
-					"text" : "orchidea.solve @parallel 0 @segmentation flux @connection closest @onsetthreshold 0.01 @onsettimegate 2000 @partialswindow 32768 @partialsfilter 0 @maxepochs 100 @exportsolutions 0 @negativepenalization 10 @positivepenalization 0.5 @sparsity 0.01"
+					"text" : "orchidea.solve @parallel 0 @segmentation flux @connection closest @onsetthreshold 0.01 @onsettimegate 2000 @partialswindow 32768 @partialsfiltering 0 @maxepochs 100 @exportsolutions 0 @negativepenalization 10 @positivepenalization 0.5 @sparsity 0.01"
 				}
 
 			}

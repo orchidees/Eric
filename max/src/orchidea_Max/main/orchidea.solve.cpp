@@ -84,7 +84,7 @@ typedef struct _dbquery {
     double      onsetthreshold;
     double      onsettimegate;
     long        partialswindow;
-    double      partialsfilter;
+    double      partialsfiltering;
     t_symbol    *orchestra[ORCHIDEA_SOLVE_MAX_ORCHESTRA];
     long        orchestra_size;
     t_symbol    *styles[ORCHIDEA_SOLVE_MAX_STYLES];
@@ -289,9 +289,9 @@ t_max_err orchmax_solve_setattr_partialswindow(t_solver *x, void *attr, long ac,
     return MAX_ERR_NONE;
 }
 
-t_max_err orchmax_solve_setattr_partialsfilter(t_solver *x, void *attr, long ac, t_atom *av) {
+t_max_err orchmax_solve_setattr_partialsfiltering(t_solver *x, void *attr, long ac, t_atom *av) {
     if (ac && av) {
-        orchidea_set_param_double(x->orc_hand, gensym("partials_filter"), x->partialsfilter = atom_getfloat(av));
+        orchidea_set_param_double(x->orc_hand, gensym("partials_filtering"), x->partialsfiltering = atom_getfloat(av));
         x->must_rerun_analysis = true;
         if (x->verbose) object_post((t_object *)x, "partials filter has been set correctly");
     }
@@ -747,11 +747,11 @@ void ext_main(void *r) {
     CLASS_ATTR_CATEGORY(c, "partialswindow", 0, "Target");
     // @description Sets the size of the analysis window for partials
 
-    CLASS_ATTR_DOUBLE(c, "partialsfilter", 0, t_solver, partialsfilter);
-    CLASS_ATTR_STYLE(c, "partialsfilter", 0, "text");
-    CLASS_ATTR_LABEL(c, "partialsfilter", 0, "Partials Filter");
-    CLASS_ATTR_ACCESSORS(c, "partialsfilter", (method)NULL, (method)orchmax_solve_setattr_partialsfilter);
-    CLASS_ATTR_CATEGORY(c, "partialsfilter", 0, "Target");
+    CLASS_ATTR_DOUBLE(c, "partialsfiltering", 0, t_solver, partialsfiltering);
+    CLASS_ATTR_STYLE(c, "partialsfiltering", 0, "text");
+    CLASS_ATTR_LABEL(c, "partialsfiltering", 0, "Partials Filtering");
+    CLASS_ATTR_ACCESSORS(c, "partialsfiltering", (method)NULL, (method)orchmax_solve_setattr_partialsfiltering);
+    CLASS_ATTR_CATEGORY(c, "partialsfiltering", 0, "Target");
     // @description Sets the partials filter
 
     
@@ -1041,7 +1041,7 @@ void *orchmax_solve_new(t_symbol *s, long argc, t_atom *argv) {
         x->onsetthreshold = 2;
         x->onsettimegate = 100;
         x->partialswindow = 32768;
-        x->partialsfilter = .2;
+        x->partialsfiltering = .2;
         x->verbose = true; // just for now?
 
         x->n_proxy[2] = proxy_new((t_object *) x, 2, &x->n_in);

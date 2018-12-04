@@ -636,7 +636,7 @@
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 42.700001, 4266.26709, 269.0, 23.0 ],
 					"style" : "",
-					"text" : "orchidea.solve @parallel 0 @partialsfilter 0.3"
+					"text" : "orchidea.solve @parallel 0 @partialsfiltering 0.3"
 				}
 
 			}

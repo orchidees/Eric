@@ -1829,7 +1829,7 @@
 							}
 , 							{
 								"box" : 								{
-									"attr" : "partialsfilter",
+									"attr" : "partialsfiltering",
 									"id" : "obj-3",
 									"maxclass" : "attrui",
 									"numinlets" : 1,
@@ -3672,7 +3672,7 @@
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 111.0, 436.0, 730.0, 38.0 ],
 									"style" : "",
-									"text" : "orchidea.solve @segmentation flux @connection closest @onsetthreshold 0.1 @onsettimegate 100 @partialswindow 32768 @partialsfilter 0.3 @maxepochs 100 @exportsolutions 0 @negativepenalization 10 @positivepenalization 0.5 @sparsity 0.01"
+									"text" : "orchidea.solve @segmentation flux @connection closest @onsetthreshold 0.1 @onsettimegate 100 @partialswindow 32768 @partialsfiltering 0.3 @maxepochs 100 @exportsolutions 0 @negativepenalization 10 @positivepenalization 0.5 @sparsity 0.01"
 								}
 
 							}
