@@ -279,16 +279,16 @@
 				<attribute name="style" get="1" set="1" type="symbol" size="1" value="onoff" />
 			</attributelist>
 		</attribute>
-		<attribute name="partialsfilter" get="1" set="1" type="float" size="1">
+		<attribute name="partialsfiltering" get="1" set="1" type="float" size="1">
 			<digest>
-				Partials Filter
+				Partials Filtering
 			</digest>
 			<description>
 				Sets the partials filter
 			</description>
 			<attributelist>
 				<attribute name="category" get="1" set="1" type="symbol" size="1" value="Target" />
-				<attribute name="label" get="1" set="1" type="symbol" size="1" value="Partials Filter" />
+				<attribute name="label" get="1" set="1" type="symbol" size="1" value="Partials Filtering" />
 				<attribute name="style" get="1" set="1" type="symbol" size="1" value="text" />
 			</attributelist>
 		</attribute>

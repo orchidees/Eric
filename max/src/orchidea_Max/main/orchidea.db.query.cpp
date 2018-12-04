@@ -149,7 +149,7 @@ void* orchidea_query_dispatcher (void* d) {
     t_symbol* argument = 0;
     
     t_symbol *path = get_patch_path(x);
-    if (x->verbose) object_post((t_object*) x, "path: %s", path->s_name);
+    if (x->verbose) object_post((t_object*) x, "path: %s", path ? path->s_name : "");
     
     if (s == gensym("dbfiles")) {
         argument = atom_getsym(av);

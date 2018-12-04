@@ -83,6 +83,24 @@
       "orchidea.solve"
     ]
   },
+  "orchidea.db.tinySOL": {
+    "digest": "Locate the tinySOL database",
+    "module": "orchidea",
+    "category": [
+      "orchidea solutions"
+    ],
+    "keywords": [
+      "database",
+      "db",
+      "tiny",
+      "SOL",
+      "tinySOL",
+      "file"
+    ],
+    "seealso": [
+      "orchidea.db.gen"
+    ]
+  },
   "orchidea.solution.tobuffer": {
     "digest": "Import orchidea solution into a buffer",
     "module": "orchidea",

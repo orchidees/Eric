@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 261.0, 92.0, 782.0, 590.0 ],
+		"rect" : [ 100.0, 100.0, 782.0, 590.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -619,7 +619,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 261.0, 118.0, 782.0, 564.0 ],
+						"rect" : [ 100.0, 126.0, 782.0, 564.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -681,7 +681,6 @@
 									"bubble" : 1,
 									"fontname" : "Arial",
 									"fontsize" : 13.0,
-									"hidden" : 1,
 									"id" : "obj-6",
 									"maxclass" : "comment",
 									"numinlets" : 1,
@@ -715,7 +714,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 218.5, 337.0, 352.0, 55.0 ],
+									"patching_rect" : [ 241.5, 353.0, 352.0, 55.0 ],
 									"style" : "",
 									"text" : "During the analysis of the files (that can take long) you will see here the name of the file currently analysed"
 								}
@@ -764,7 +763,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 183.0, 396.75, 490.0, 21.0 ],
+									"patching_rect" : [ 206.0, 412.75, 490.0, 21.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 782.5, 118.0, 260.0, 21.0 ],
 									"style" : ""
@@ -1126,7 +1125,7 @@
  ]
 									}
 ,
-									"patching_rect" : [ 98.0, 302.0, 104.0, 23.0 ],
+									"patching_rect" : [ 121.0, 318.0, 104.0, 23.0 ],
 									"saved_object_attributes" : 									{
 										"description" : "",
 										"digest" : "",
@@ -1148,7 +1147,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 13.0, 268.799988, 104.0, 23.0 ],
+									"patching_rect" : [ 13.0, 268.799988, 127.0, 23.0 ],
 									"style" : "",
 									"text" : "orchidea.db.gen"
 								}
@@ -1166,7 +1165,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 10.0, 10.0, 655.0, 130.0 ]
+									"patching_rect" : [ 10.0, 10.0, 709.0, 126.0 ]
 								}
 
 							}
@@ -1178,7 +1177,7 @@
 									"maxclass" : "progress",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 98.0, 347.25, 70.5, 70.5 ],
+									"patching_rect" : [ 121.0, 363.25, 70.5, 70.5 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 1090.5, 131.0, 55.0, 55.0 ]
 								}

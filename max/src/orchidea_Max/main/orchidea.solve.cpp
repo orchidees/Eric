@@ -174,14 +174,16 @@ void orchidea_set_param_symarray(OrchideaHandle *orc_hand, t_symbol *param, long
 t_max_err orchmax_solve_setattr_search(t_solver *x, void *attr, long ac, t_atom *av) {
     if (ac && av) {
         t_symbol *s = atom_getsym(av);
-        x->search = s;
-        if (x->verbose) object_post((t_object *)x, "setting search to %s", s->s_name);
-        int r = orchidea_set_search(x->orc_hand, s->s_name);
-        if (r != ORCHIDEA_NO_ERROR) {
-            object_error((t_object *)x, "error: %s (%s)", orchidea_decode_error(r),
-                        orchidea_get_error_details(x->orc_hand));
-        } else {
-            if (x->verbose) object_post((t_object *)x, "search has been set correctly");
+        if (s) {
+            x->search = s;
+            if (x->verbose) object_post((t_object *)x, "setting search to %s", s->s_name);
+            int r = orchidea_set_search(x->orc_hand, s->s_name);
+            if (r != ORCHIDEA_NO_ERROR) {
+                object_error((t_object *)x, "error: %s (%s)", orchidea_decode_error(r),
+                             orchidea_get_error_details(x->orc_hand));
+            } else {
+                if (x->verbose) object_post((t_object *)x, "search has been set correctly");
+            }
         }
     }
     return MAX_ERR_NONE;
@@ -393,7 +395,7 @@ t_symbol *strip_extension(t_symbol *s, char keep_dot) {
     }
     
     char out[MAX_PATH_CHARS];
-    snprintf_zero(out, MAX_PATH_CHARS, "%s", s->s_name);
+    snprintf_zero(out, MAX_PATH_CHARS, "%s", s ? s->s_name : "");
     long l = strlen(out);
     
     // TO DO: support WINDOWS
@@ -433,7 +435,7 @@ void* orchidea_solve_dispatcher (void* d) {
     t_symbol* argument = 0;
 
     t_symbol *path = get_patch_path(x);
-    if (x->verbose) object_post((t_object*) x, "path: %s", path->s_name);
+    if (x->verbose) object_post((t_object*) x, "path: %s", path ? path->s_name : "");
 
     if (s == gensym("dbfiles")) {
         argument = atom_getsym(av);

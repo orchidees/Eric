@@ -2,13 +2,14 @@
 	"patcher" : 	{
 		"fileversion" : 1,
 		"appversion" : 		{
-			"major" : 7,
-			"minor" : 3,
-			"revision" : 4,
+			"major" : 8,
+			"minor" : 0,
+			"revision" : 1,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
+		"classnamespace" : "box",
 		"rect" : [ 591.0, 88.0, 777.0, 612.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
@@ -53,7 +54,6 @@
 						"parameter_enable" : 0
 					}
 ,
-					"style" : "",
 					"text" : "js helpstarter.js orchidea.solution.tobuffer"
 				}
 
@@ -69,13 +69,14 @@
 					"patcher" : 					{
 						"fileversion" : 1,
 						"appversion" : 						{
-							"major" : 7,
-							"minor" : 3,
-							"revision" : 4,
+							"major" : 8,
+							"minor" : 0,
+							"revision" : 1,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
 ,
+						"classnamespace" : "box",
 						"rect" : [ 591.0, 114.0, 777.0, 586.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
@@ -112,8 +113,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 458.359528, 410.0, 87.0, 23.0 ],
-									"style" : "",
+									"patching_rect" : [ 458.359528000000012, 410.0, 87.0, 23.0 ],
 									"text" : "loadmess set"
 								}
 
@@ -125,8 +125,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 526.359558, 239.5, 236.0, 25.0 ],
-									"style" : "",
+									"patching_rect" : [ 526.359557999999993, 239.5, 236.0, 25.0 ],
 									"text" : "Output all solutions for 2nd segment"
 								}
 
@@ -138,8 +137,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 492.859558, 239.5, 29.5, 23.0 ],
-									"style" : "",
+									"patching_rect" : [ 492.859557999999993, 239.5, 29.5, 23.0 ],
 									"text" : "2"
 								}
 
@@ -152,8 +150,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 61.609528, 273.5, 173.5, 54.0 ],
-									"style" : "",
+									"patching_rect" : [ 61.609527999999997, 273.5, 173.5, 54.0 ],
 									"text" : "No need to re-run the orchestration to import another solution"
 								}
 
@@ -165,8 +162,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 458.359528, 446.0, 245.5, 23.0 ],
-									"style" : ""
+									"patching_rect" : [ 458.359528000000012, 446.0, 245.5, 23.0 ]
 								}
 
 							}
@@ -177,8 +173,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 15.359528, 446.0, 438.5, 23.0 ],
-									"style" : ""
+									"patching_rect" : [ 15.359527999999999, 446.0, 438.5, 23.0 ]
 								}
 
 							}
@@ -191,8 +186,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 268.859528, 357.567627, 152.0, 54.0 ],
-									"style" : "",
+									"patching_rect" : [ 268.859528000000012, 357.567627000000016, 152.0, 54.0 ],
 									"text" : "Text file full path comes from the rightmost outlet"
 								}
 
@@ -205,8 +199,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 32.5, 357.567627, 152.0, 54.0 ],
-									"style" : "",
+									"patching_rect" : [ 32.5, 357.567627000000016, 152.0, 54.0 ],
 									"text" : "Audio file(s) full path comes from the leftmost outlet"
 								}
 
@@ -218,8 +211,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "bang", "" ],
-									"patching_rect" : [ 402.859528, 281.0, 31.0, 23.0 ],
-									"style" : "",
+									"patching_rect" : [ 402.859528000000012, 281.0, 31.0, 23.0 ],
 									"text" : "t b l"
 								}
 
@@ -231,8 +223,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 15.359528, 289.0, 42.0, 23.0 ],
-									"style" : "",
+									"patching_rect" : [ 15.359527999999999, 289.0, 42.0, 23.0 ],
 									"text" : "zl.reg"
 								}
 
@@ -244,8 +235,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 162.359528, 133.0, 134.0, 25.0 ],
-									"style" : "",
+									"patching_rect" : [ 162.359528000000012, 133.0, 134.0, 25.0 ],
 									"text" : "Run orchestration!"
 								}
 
@@ -257,8 +247,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "bang" ],
-									"patching_rect" : [ 136.359528, 133.0, 24.0, 24.0 ],
-									"style" : ""
+									"parameter_enable" : 0,
+									"patching_rect" : [ 136.359528000000012, 133.0, 24.0, 24.0 ]
 								}
 
 							}
@@ -269,347 +259,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patcher" : 									{
-										"fileversion" : 1,
-										"appversion" : 										{
-											"major" : 7,
-											"minor" : 3,
-											"revision" : 4,
-											"architecture" : "x64",
-											"modernui" : 1
-										}
-,
-										"rect" : [ 48.0, 96.0, 640.0, 480.0 ],
-										"bglocked" : 0,
-										"openinpresentation" : 0,
-										"default_fontsize" : 12.0,
-										"default_fontface" : 0,
-										"default_fontname" : "Arial",
-										"gridonopen" : 1,
-										"gridsize" : [ 15.0, 15.0 ],
-										"gridsnaponopen" : 1,
-										"objectsnaponopen" : 1,
-										"statusbarvisible" : 2,
-										"toolbarvisible" : 1,
-										"lefttoolbarpinned" : 0,
-										"toptoolbarpinned" : 0,
-										"righttoolbarpinned" : 0,
-										"bottomtoolbarpinned" : 0,
-										"toolbars_unpinned_last_save" : 0,
-										"tallnewobj" : 0,
-										"boxanimatetime" : 200,
-										"enablehscroll" : 1,
-										"enablevscroll" : 1,
-										"devicewidth" : 0.0,
-										"description" : "",
-										"digest" : "",
-										"tags" : "",
-										"style" : "",
-										"subpatcher_template" : "",
-										"boxes" : [ 											{
-												"box" : 												{
-													"id" : "obj-17",
-													"maxclass" : "message",
-													"numinlets" : 2,
-													"numoutlets" : 1,
-													"outlettype" : [ "" ],
-													"patching_rect" : [ 138.0, 118.0, 29.5, 22.0 ],
-													"style" : "",
-													"text" : "2"
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"id" : "obj-16",
-													"maxclass" : "message",
-													"numinlets" : 2,
-													"numoutlets" : 1,
-													"outlettype" : [ "" ],
-													"patching_rect" : [ 73.0, 118.0, 29.5, 22.0 ],
-													"style" : "",
-													"text" : "1"
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"id" : "obj-14",
-													"maxclass" : "newobj",
-													"numinlets" : 3,
-													"numoutlets" : 3,
-													"outlettype" : [ "bang", "bang", "" ],
-													"patching_rect" : [ 65.0, 85.0, 133.0, 22.0 ],
-													"style" : "",
-													"text" : "sel macintosh windows"
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"id" : "obj-11",
-													"maxclass" : "newobj",
-													"numinlets" : 2,
-													"numoutlets" : 2,
-													"outlettype" : [ "", "" ],
-													"patching_rect" : [ 251.0, 204.0, 65.0, 22.0 ],
-													"style" : "",
-													"text" : "gate 2 1"
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"comment" : "",
-													"id" : "obj-10",
-													"index" : 1,
-													"maxclass" : "outlet",
-													"numinlets" : 1,
-													"numoutlets" : 0,
-													"patching_rect" : [ 230.0, 418.0, 30.0, 30.0 ],
-													"style" : ""
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"id" : "obj-9",
-													"maxclass" : "message",
-													"numinlets" : 2,
-													"numoutlets" : 1,
-													"outlettype" : [ "" ],
-													"patching_rect" : [ 251.0, 375.0, 367.0, 22.0 ],
-													"style" : "",
-													"text" : "\"~/Documents/Max 8/Packages/orchidea/db/TinySOL.spectrum.db\""
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"id" : "obj-8",
-													"maxclass" : "message",
-													"numinlets" : 2,
-													"numoutlets" : 1,
-													"outlettype" : [ "" ],
-													"patching_rect" : [ 189.0, 334.0, 367.0, 22.0 ],
-													"style" : "",
-													"text" : "\"~/Documents/Max 7/Packages/orchidea/db/TinySOL.spectrum.db\""
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"id" : "obj-6",
-													"maxclass" : "newobj",
-													"numinlets" : 0,
-													"numoutlets" : 1,
-													"outlettype" : [ "" ],
-													"patching_rect" : [ 65.0, 53.5, 195.0, 22.0 ],
-													"style" : "",
-													"text" : "r orchidea_solve_help_maxsystem"
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"comment" : "",
-													"id" : "obj-5",
-													"index" : 1,
-													"maxclass" : "inlet",
-													"numinlets" : 0,
-													"numoutlets" : 1,
-													"outlettype" : [ "bang" ],
-													"patching_rect" : [ 293.0, 7.0, 30.0, 30.0 ],
-													"style" : ""
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"id" : "obj-3",
-													"maxclass" : "newobj",
-													"numinlets" : 1,
-													"numoutlets" : 2,
-													"outlettype" : [ "bang", "bang" ],
-													"patching_rect" : [ 293.0, 46.0, 34.0, 22.0 ],
-													"style" : "",
-													"text" : "t b b"
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"id" : "obj-2",
-													"maxclass" : "newobj",
-													"numinlets" : 2,
-													"numoutlets" : 2,
-													"outlettype" : [ "", "" ],
-													"patching_rect" : [ 189.0, 286.0, 81.0, 22.0 ],
-													"style" : "",
-													"text" : "gate 2"
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"id" : "obj-1",
-													"maxclass" : "newobj",
-													"numinlets" : 1,
-													"numoutlets" : 1,
-													"outlettype" : [ "" ],
-													"patching_rect" : [ 38.0, 233.0, 148.0, 22.0 ],
-													"style" : "",
-													"text" : "if $i1 < 2000 then 1 else 2"
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"id" : "obj-39",
-													"maxclass" : "newobj",
-													"numinlets" : 0,
-													"numoutlets" : 1,
-													"outlettype" : [ "" ],
-													"patching_rect" : [ 38.0, 190.5, 196.0, 22.0 ],
-													"style" : "",
-													"text" : "r orchidea_solve_help_maxversion"
-												}
-
-											}
-, 											{
-												"box" : 												{
-													"id" : "obj-37",
-													"linecount" : 3,
-													"maxclass" : "message",
-													"numinlets" : 2,
-													"numoutlets" : 1,
-													"outlettype" : [ "" ],
-													"patching_rect" : [ 308.0, 84.5, 280.0, 49.0 ],
-													"style" : "",
-													"text" : ";\rmax getsystem orchidea_solve_help_maxsystem;\rmax getversion orchidea_solve_help_maxversion;\r"
-												}
-
-											}
- ],
-										"lines" : [ 											{
-												"patchline" : 												{
-													"destination" : [ "obj-2", 0 ],
-													"source" : [ "obj-1", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-2", 0 ],
-													"source" : [ "obj-11", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-16", 0 ],
-													"source" : [ "obj-14", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-17", 0 ],
-													"source" : [ "obj-14", 1 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-11", 0 ],
-													"source" : [ "obj-16", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-11", 0 ],
-													"source" : [ "obj-17", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-8", 0 ],
-													"source" : [ "obj-2", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-9", 0 ],
-													"source" : [ "obj-2", 1 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-11", 1 ],
-													"source" : [ "obj-3", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-37", 0 ],
-													"source" : [ "obj-3", 1 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-1", 0 ],
-													"source" : [ "obj-39", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-3", 0 ],
-													"source" : [ "obj-5", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-14", 0 ],
-													"source" : [ "obj-6", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-10", 0 ],
-													"source" : [ "obj-8", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
-													"destination" : [ "obj-10", 0 ],
-													"source" : [ "obj-9", 0 ]
-												}
-
-											}
- ]
-									}
-,
-									"patching_rect" : [ 284.359528, 199.0, 113.0, 23.0 ],
-									"saved_object_attributes" : 									{
-										"description" : "",
-										"digest" : "",
-										"globalpatchername" : "",
-										"style" : "",
-										"tags" : ""
-									}
-,
-									"style" : "",
-									"text" : "p locate_TinySOL"
+									"patching_rect" : [ 284.359528000000012, 199.0, 126.0, 23.0 ],
+									"text" : "orchidea.db.tinySOL"
 								}
 
 							}
@@ -620,8 +271,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 136.359528, 199.0, 135.0, 23.0 ],
-									"style" : "",
+									"patching_rect" : [ 136.359528000000012, 199.0, 135.0, 23.0 ],
 									"text" : "ClBb Vn Vn Va Vc Cb"
 								}
 
@@ -633,8 +283,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 15.359528, 199.0, 119.0, 23.0 ],
-									"style" : "",
+									"patching_rect" : [ 15.359527999999999, 199.0, 119.0, 23.0 ],
 									"text" : "BeethovenAm.wav"
 								}
 
@@ -646,8 +295,7 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 15.359528, 233.0, 288.0, 23.0 ],
-									"style" : "",
+									"patching_rect" : [ 15.359527999999999, 233.0, 288.0, 23.0 ],
 									"text" : "orchidea.solve @parallel 0 @onsetthreshold 0.3"
 								}
 
@@ -661,8 +309,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 461.359558, 312.567627, 224.0, 50.0 ],
-									"style" : "",
+									"patching_rect" : [ 461.359557999999993, 312.567627000000016, 224.0, 50.0 ],
 									"text" : "Arguments are: \n• segment number (optional)\n• solution number (optional)"
 								}
 
@@ -675,8 +322,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 514.359558, 197.5, 177.0, 40.0 ],
-									"style" : "",
+									"patching_rect" : [ 514.359557999999993, 197.5, 177.0, 40.0 ],
 									"text" : "Output 1st solution found for 2nd segment"
 								}
 
@@ -688,8 +334,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 477.859558, 211.0, 29.5, 23.0 ],
-									"style" : "",
+									"patching_rect" : [ 477.859557999999993, 211.0, 29.5, 23.0 ],
 									"text" : "2 1"
 								}
 
@@ -702,8 +347,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 548.859558, 264.0, 178.0, 40.0 ],
-									"style" : "",
+									"patching_rect" : [ 548.859557999999993, 264.0, 178.0, 40.0 ],
 									"text" : "Output 4th solution found for 1st segment"
 								}
 
@@ -715,8 +359,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 509.359558, 272.5, 29.5, 23.0 ],
-									"style" : "",
+									"patching_rect" : [ 509.359557999999993, 272.5, 29.5, 23.0 ],
 									"text" : "1 4"
 								}
 
@@ -728,8 +371,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 492.859558, 175.0, 150.0, 25.0 ],
-									"style" : "",
+									"patching_rect" : [ 492.859557999999993, 175.0, 150.0, 25.0 ],
 									"text" : "Output connection"
 								}
 
@@ -741,8 +383,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 461.359558, 175.0, 29.5, 23.0 ],
-									"style" : "",
+									"patching_rect" : [ 461.359557999999993, 175.0, 29.5, 23.0 ],
 									"text" : "0"
 								}
 
@@ -754,8 +395,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 15.359528, 330.0, 418.5, 23.0 ],
-									"style" : "",
+									"patching_rect" : [ 15.359527999999999, 330.0, 418.5, 23.0 ],
 									"text" : "orchidea.solution.tofile"
 								}
 
@@ -805,7 +445,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
-									"midpoints" : [ 412.359528, 306.0, 246.0, 306.0, 246.0, 270.0, 24.859528, 270.0 ],
+									"midpoints" : [ 412.359528000000012, 306.0, 246.0, 306.0, 246.0, 270.0, 24.859527999999997, 270.0 ],
 									"source" : [ "obj-10", 0 ]
 								}
 
@@ -880,7 +520,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-21", 1 ],
-									"midpoints" : [ 24.859528, 427.0, 444.359528, 427.0 ],
+									"midpoints" : [ 24.859527999999997, 427.0, 444.359528000000012, 427.0 ],
 									"source" : [ "obj-6", 0 ]
 								}
 
@@ -888,7 +528,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-22", 1 ],
-									"midpoints" : [ 424.359528, 392.0, 694.359528, 392.0 ],
+									"midpoints" : [ 424.359528000000012, 392.0, 694.359527999999955, 392.0 ],
 									"source" : [ "obj-6", 1 ]
 								}
 
@@ -923,11 +563,9 @@
 						"digest" : "",
 						"fontsize" : 13.0,
 						"globalpatchername" : "",
-						"style" : "",
 						"tags" : ""
 					}
 ,
-					"style" : "",
 					"text" : "p basic",
 					"varname" : "basic_tab"
 				}
@@ -945,7 +583,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 10.0, 10.0, 551.288635, 57.567627 ]
+					"patching_rect" : [ 10.0, 10.0, 551.288634999999999, 57.567627000000002 ]
 				}
 
 			}
@@ -960,13 +598,14 @@
 					"patcher" : 					{
 						"fileversion" : 1,
 						"appversion" : 						{
-							"major" : 7,
-							"minor" : 3,
-							"revision" : 4,
+							"major" : 8,
+							"minor" : 0,
+							"revision" : 1,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
 ,
+						"classnamespace" : "box",
 						"rect" : [ 0.0, 26.0, 777.0, 586.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
@@ -1005,11 +644,9 @@
 						"digest" : "",
 						"fontsize" : 13.0,
 						"globalpatchername" : "",
-						"style" : "",
 						"tags" : ""
 					}
 ,
-					"style" : "",
 					"text" : "p ?",
 					"varname" : "q_tab"
 				}
@@ -1031,6 +668,13 @@
 			}
 , 			{
 				"name" : "orchidea.solution.tofile.maxpat",
+				"bootpath" : "~/MusicaMia/_RICERCA/orchidea/max/patchers",
+				"patcherrelativepath" : "../patchers",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "orchidea.db.tinySOL.maxpat",
 				"bootpath" : "~/MusicaMia/_RICERCA/orchidea/max/patchers",
 				"patcherrelativepath" : "../patchers",
 				"type" : "JSON",

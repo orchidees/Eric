@@ -4,6 +4,7 @@
 <refpage name='orchidea.solve.maxref.xml'/>
 <refpage name='orchidea.db.query.maxref.xml'/>
 <refpage name='orchidea.db.gen.maxref.xml'/>
+<refpage name='orchidea.db.tinySOL.maxref.xml'/>
 <refpage name='orchidea.solution.tobuffer.maxref.xml'/>
 <refpage name='orchidea.solution.totext.maxref.xml'/>
 <refpage name='orchidea.solution.toroll.maxref.xml'/>
