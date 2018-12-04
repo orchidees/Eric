@@ -2,7 +2,12 @@
 Anarkid - version changes
 -------------------------
 
-0.0.4 - September, 3, 2018
+0.3 - September, 3, 2018
 
 First version deployed. Allow static and basic temporal orchestrations.
 Command line tools (anarkid and makedb) with dedicated scripts.
+
+0.4 - December, 3, 2018
+
+First version deployed of the Max packaged toolbox deployed. 
+Fixed bugs, renamed tools, added more targets. Added several command line tools.

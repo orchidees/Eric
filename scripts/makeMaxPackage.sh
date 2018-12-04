@@ -20,6 +20,9 @@ echo "copying icon, package info and license"
 cp COPYRIGHT ~/Documents/Max\ 7/Packages/orchidea/
 cp package-info.json ~/Documents/Max\ 7/Packages/orchidea/
 
+echo "copying extras..."
+cp -R ../max/extras/*.maxpath ~/Documents/Max\ 7/Packages/orchidea/extras/
+
 echo "copying externals..."
 cp -R ../max/externals/*.mxo ~/Documents/Max\ 7/Packages/orchidea/externals/
 

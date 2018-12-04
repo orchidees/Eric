@@ -68,8 +68,8 @@ styles 				ord
 ; for dynamic targets probably using 100 for both (or 100 and 300 respectively) 
 ; can be more appropriate.
 
-pop_size			300
-max_epochs			300
+pop_size			100
+max_epochs			100
 
 ; To determine the initial population for the optimization, Anarkid uses a method
 ; called 'relaxed pursuit'. Generally speaking, the method tries to generate right
@@ -81,7 +81,7 @@ max_epochs			300
 ; different solutions that are somehow close to the target.
 ; Suggestion: use 0 if you are unsure, 3 or more if you understand this parameter.
 
-pursuit				0
+pursuit				4
 
 ; Cross-over rate and mutation rate have the usual meaning in genetic optimization.
 ; Generally speaking, you should not change cross-over rate and you should increase
@@ -143,9 +143,10 @@ partials_filtering	0.2
 ; no onsets and target is considered static. The values for timegates depend
 ; on the specific problem.
 
-onsets_threshold 	2
+onsets_threshold 	.1
 onsets_timegate		.1
 
+; Other possible values are:
 ; brahms .01 2
 ; a_minor .1 .1
 ; jarrett .03 .5
