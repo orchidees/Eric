@@ -1,6 +1,6 @@
-; ----------------------------
-; Anarkid - configuration file
-; ----------------------------
+; -----------------------------
+; Orchidea - configuration file
+; -----------------------------
 ;
 ; (c) 2018-2019 Carmine E. Cella, HEM, Ircam
 ;
