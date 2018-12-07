@@ -2,12 +2,24 @@
 COPYRIGHT
 ---------
 
+Orchidea - assisted orchestration
+
+Written by Carmine-Emanuele Cella
 (c) IRCAM - HEM, 2018
 
-This package contains materials copyrighted by IRCAM (www.ircam.fr)
-and you CANNOT USE, COPY, DISTRIBUTE OR REVERSE ENGINEER
-ANY PART OF THIS PACKAGE WITHOUT THE EXPLICIT PERMISSION OF
-IRCAM or HEM. This package may or not use external libraries for which
-licence information is reported below; please refer to respective
-web sites.
+
+This package contains materials copyrighted by IRCAM (www.ircam.fr) and HEM
+(https://www.hesge.ch/hem/); you can use this software for personal research
+but you CANNOT COPY, DISTRIBUTE OR REVERSE ENGINEER ANY PART OF THIS PACKAGE 
+WITHOUT THE EXPLICIT PERMISSION OF IRCAM or HEM.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+In no cases the author or the instutions cited above will be responsible
+for any damage caused directly or indirectly by this software.
+
+
+Please contact any of the institutions for more information.
+
 

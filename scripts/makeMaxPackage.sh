@@ -17,7 +17,7 @@ mkdir -p ~/Documents/Max\ 7/Packages/orchidea/docs/
 mkdir -p ~/Documents/Max\ 7/Packages/orchidea/media/
 
 echo "copying icon, package info and license"
-cp COPYRIGHT ~/Documents/Max\ 7/Packages/orchidea/
+cp ../scripts/COPYING.* ~/Documents/Max\ 7/Packages/orchidea/
 cp package-info.json ~/Documents/Max\ 7/Packages/orchidea/
 
 echo "copying extras..."
