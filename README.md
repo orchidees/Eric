@@ -23,4 +23,3 @@ To compile, from root folder type:
 For other tools for assisted orchestration see https://github.com/CarmineCella/liborchidea.
 
 (c) 2018, www.carminecella.com/orchidea, www.ircam.fr, www.hesge.ch/hem/
-  
