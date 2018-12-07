@@ -10,8 +10,8 @@ Orchidea is an evolution of the **Orch*** tools and performs assisted orchestrat
 The design principle is the Pareto rule of 80/20: we wanted to have a tool that 
 is able to solve the 80% of the problem but takes the 20% of the development time.
 
-Orchidea performs mono-objective optimization on multi-dimensional features and r
-equires a little number of parameters for orchestration. 
+Orchidea performs mono-objective optimization on multi-dimensional features and requires 
+a small number of parameters for orchestration. 
 
 To compile, from root folder type:
 
