@@ -1,0 +1,20 @@
+/*! \page metaprog Some (obscure) details on metaprogramming
+
+
+The whole library uses some internal facilities based on template metaprogramming
+(for a detailed explanation of all these techniques and much more please see
+<B>A. Alexandrescu, Modern C++ Design, Addison-Wesley Professional, 2001</B>).
+
+The most important ones are:
+
+- policy-based design (already explained a bit in \ref policies);
+- typelists;
+- static check and conversions.
+
+<H3>References</H3>
+<UL>
+<LI><A HREF="http://www.ircam.fr">www.ircam.fr</A></LI>
+<BR>
+IRCAM web page
+</UL>
+*/
