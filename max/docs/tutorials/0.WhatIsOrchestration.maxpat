@@ -4,7 +4,7 @@
 		"appversion" : 		{
 			"major" : 7,
 			"minor" : 3,
-			"revision" : 4,
+			"revision" : 1,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
@@ -43,7 +43,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 18.666668, 2189.0, 890.333313, 21.0 ],
-					"presentation_rect" : [ 17.666668, 2186.733398, 0.0, 0.0 ],
 					"style" : "",
 					"text" : " "
 				}
@@ -175,7 +174,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 15.666667, 1584.799927, 707.0, 94.0 ],
 					"style" : "",
-					"text" : "How an orchestra can be used to reproduce a target timbre within a compositional context? How can we find a combination of instruments that, at the same time best matches a given target sound and fits writing constraints specified by the composer?  More formally, the target-based assisted orchestration problem can be split into two joint problem:\n\n1. a combinatorial optimization problem defined on a multidimensional timbre description;\n2. a constraint solving problem on the variables of musical writing."
+					"text" : "How an orchestra can be used to reproduce a target timbre within a compositional context? How can we find a combination of instruments that, at the same time best matches a given target sound and fits writing constraints specified by the composer?  More formally, the target-based assisted orchestration problem can be split into two joint problems:\n\n1. a combinatorial optimization problem defined on a multidimensional timbre description;\n2. a constraint solving problem on the variables of musical writing."
 				}
 
 			}
@@ -229,21 +228,21 @@
 								"filekind" : "audiofile",
 								"loop" : 0,
 								"content_state" : 								{
-									"formant" : [ 1.0 ],
-									"followglobaltempo" : [ 0 ],
-									"originallength" : [ 0.0, "ticks" ],
-									"formantcorrection" : [ 0 ],
-									"mode" : [ "basic" ],
-									"originallengthms" : [ 0.0 ],
-									"play" : [ 0 ],
 									"pitchshift" : [ 1.0 ],
-									"speed" : [ 1.0 ],
+									"pitchcorrection" : [ 0 ],
 									"quality" : [ "basic" ],
-									"timestretch" : [ 0 ],
-									"originaltempo" : [ 120.0 ],
+									"formantcorrection" : [ 0 ],
 									"slurtime" : [ 0.0 ],
+									"mode" : [ "basic" ],
+									"followglobaltempo" : [ 0 ],
+									"play" : [ 0 ],
+									"timestretch" : [ 0 ],
+									"originallengthms" : [ 0.0 ],
 									"basictuning" : [ 440 ],
-									"pitchcorrection" : [ 0 ]
+									"originallength" : [ 0.0, "ticks" ],
+									"speed" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"formant" : [ 1.0 ]
 								}
 
 							}
@@ -268,21 +267,21 @@
 								"filekind" : "audiofile",
 								"loop" : 0,
 								"content_state" : 								{
-									"formant" : [ 1.0 ],
-									"followglobaltempo" : [ 0 ],
-									"originallength" : [ 0.0, "ticks" ],
-									"formantcorrection" : [ 0 ],
-									"mode" : [ "basic" ],
-									"originallengthms" : [ 0.0 ],
-									"play" : [ 0 ],
 									"pitchshift" : [ 1.0 ],
-									"speed" : [ 1.0 ],
+									"pitchcorrection" : [ 0 ],
 									"quality" : [ "basic" ],
-									"timestretch" : [ 0 ],
-									"originaltempo" : [ 120.0 ],
+									"formantcorrection" : [ 0 ],
 									"slurtime" : [ 0.0 ],
+									"mode" : [ "basic" ],
+									"followglobaltempo" : [ 0 ],
+									"play" : [ 0 ],
+									"timestretch" : [ 0 ],
+									"originallengthms" : [ 0.0 ],
 									"basictuning" : [ 440 ],
-									"pitchcorrection" : [ 0 ]
+									"originallength" : [ 0.0, "ticks" ],
+									"speed" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"formant" : [ 1.0 ]
 								}
 
 							}
@@ -417,9 +416,9 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 15.666667, 1058.466675, 120.0, 21.0 ],
+					"patching_rect" : [ 15.666667, 1058.466675, 128.0, 21.0 ],
 					"style" : "",
-					"text" : "Problem statemnt"
+					"text" : "Problem statement"
 				}
 
 			}
@@ -548,24 +547,23 @@
 						"clips" : [ 							{
 								"filename" : "WinchesterBell.wav",
 								"filekind" : "audiofile",
-								"selection" : [ 0.192308, 0.375 ],
 								"loop" : 0,
 								"content_state" : 								{
-									"formant" : [ 1.0 ],
-									"followglobaltempo" : [ 0 ],
-									"originallength" : [ 0.0, "ticks" ],
-									"formantcorrection" : [ 0 ],
-									"mode" : [ "basic" ],
-									"originallengthms" : [ 0.0 ],
-									"play" : [ 0 ],
 									"pitchshift" : [ 1.0 ],
-									"speed" : [ 1.0 ],
+									"pitchcorrection" : [ 0 ],
 									"quality" : [ "basic" ],
-									"timestretch" : [ 0 ],
-									"originaltempo" : [ 120.0 ],
+									"formantcorrection" : [ 0 ],
 									"slurtime" : [ 0.0 ],
+									"mode" : [ "basic" ],
+									"followglobaltempo" : [ 0 ],
+									"play" : [ 0 ],
+									"timestretch" : [ 0 ],
+									"originallengthms" : [ 0.0 ],
 									"basictuning" : [ 440 ],
-									"pitchcorrection" : [ 0 ]
+									"originallength" : [ 0.0, "ticks" ],
+									"speed" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"formant" : [ 1.0 ]
 								}
 
 							}
@@ -714,6 +712,8 @@
 		"lines" : [ 			{
 				"patchline" : 				{
 					"destination" : [ "obj-22", 1 ],
+					"disabled" : 0,
+					"hidden" : 0,
 					"source" : [ "obj-11", 1 ]
 				}
 
@@ -721,6 +721,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-22", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
 					"source" : [ "obj-11", 0 ]
 				}
 
@@ -728,6 +730,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-26", 0 ],
+					"disabled" : 0,
 					"hidden" : 1,
 					"source" : [ "obj-13", 0 ]
 				}
@@ -736,6 +739,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-17", 1 ],
+					"disabled" : 0,
+					"hidden" : 0,
 					"source" : [ "obj-14", 1 ]
 				}
 
@@ -743,6 +748,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-17", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
 					"source" : [ "obj-14", 0 ]
 				}
 
@@ -750,6 +757,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-22", 1 ],
+					"disabled" : 0,
+					"hidden" : 0,
 					"source" : [ "obj-16", 1 ]
 				}
 
@@ -757,6 +766,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-22", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
 					"source" : [ "obj-16", 0 ]
 				}
 
@@ -764,6 +775,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-22", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
 					"source" : [ "obj-24", 0 ]
 				}
 
@@ -771,6 +784,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-39", 0 ],
+					"disabled" : 0,
 					"hidden" : 1,
 					"source" : [ "obj-26", 0 ]
 				}
@@ -779,6 +793,8 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-17", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
 					"source" : [ "obj-43", 0 ]
 				}
 
@@ -786,64 +802,55 @@
  ],
 		"dependency_cache" : [ 			{
 				"name" : "symbols_signals.png",
-				"bootpath" : "~/MusicaMia/_RICERCA/orchidea/max/media",
-				"patcherrelativepath" : "../../media",
+				"bootpath" : "~/Documents/Max 7/Packages/orchidea/media",
 				"type" : "PNG ",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "WinchesterBell.wav",
-				"bootpath" : "~/MusicaMia/_RICERCA/orchidea/max/media",
-				"patcherrelativepath" : "../../media",
+				"bootpath" : "~/Documents/Max 7/Packages/orchidea/media",
 				"type" : "WAVE",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "Orchids.png",
-				"bootpath" : "~/MusicaMia/_RICERCA/orchidea/max/media",
-				"patcherrelativepath" : "../../media",
+				"bootpath" : "~/Documents/Max 7/Packages/orchidea/media",
 				"type" : "PNG ",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "Orchis.png",
-				"bootpath" : "~/MusicaMia/_RICERCA/orchidea/max/media",
-				"patcherrelativepath" : "../../media",
+				"bootpath" : "~/Documents/Max 7/Packages/orchidea/media",
 				"type" : "PNG ",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "induction.png",
-				"bootpath" : "~/MusicaMia/_RICERCA/orchidea/max/media",
-				"patcherrelativepath" : "../../media",
+				"bootpath" : "~/Documents/Max 7/Packages/orchidea/media",
 				"type" : "PNG ",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "archeos-bell.wav",
-				"bootpath" : "~/MusicaMia/_RICERCA/orchidea/max/media",
-				"patcherrelativepath" : "../../media",
+				"bootpath" : "~/Documents/Max 7/Packages/orchidea/media",
 				"type" : "WAVE",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "archeos_solution_0.wav",
-				"bootpath" : "~/MusicaMia/_RICERCA/orchidea/max/media",
-				"patcherrelativepath" : "../../media",
+				"bootpath" : "~/Documents/Max 7/Packages/orchidea/media",
 				"type" : "WAVE",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "multidim.png",
-				"bootpath" : "~/MusicaMia/_RICERCA/orchidea/max/media",
-				"patcherrelativepath" : "../../media",
+				"bootpath" : "~/Documents/Max 7/Packages/orchidea/media",
 				"type" : "PNG ",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "model.png",
-				"bootpath" : "~/MusicaMia/_RICERCA/orchidea/max/media",
-				"patcherrelativepath" : "../../media",
+				"bootpath" : "~/Documents/Max 7/Packages/orchidea/media",
 				"type" : "PNG ",
 				"implicit" : 1
 			}

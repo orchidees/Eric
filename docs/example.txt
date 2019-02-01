@@ -1,0 +1,8 @@
+/*! \page example A basic example
+
+The following code shows an example usage of the template library;
+please focus your attention on Session.
+
+\include cpp_driver.cpp
+
+*/

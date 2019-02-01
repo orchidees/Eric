@@ -17,11 +17,11 @@ mkdir -p ~/Documents/Max\ 7/Packages/orchidea/docs/
 mkdir -p ~/Documents/Max\ 7/Packages/orchidea/media/
 
 echo "copying icon, package info and license"
-cp COPYRIGHT ~/Documents/Max\ 7/Packages/orchidea/
-cp package-info.json ~/Documents/Max\ 7/Packages/orchidea/
+cp ../scripts/COPYRIGHT ~/Documents/Max\ 7/Packages/orchidea/
+cp ../max/packagestuff/package-info.json ~/Documents/Max\ 7/Packages/orchidea/
 
 echo "copying extras..."
-cp -R ../max/extras/*.maxpath ~/Documents/Max\ 7/Packages/orchidea/extras/
+cp -R ../max/extras/*.maxpat ~/Documents/Max\ 7/Packages/orchidea/extras/
 
 echo "copying externals..."
 cp -R ../max/externals/*.mxo ~/Documents/Max\ 7/Packages/orchidea/externals/
