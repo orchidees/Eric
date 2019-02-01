@@ -2,15 +2,14 @@
 	"patcher" : 	{
 		"fileversion" : 1,
 		"appversion" : 		{
-			"major" : 8,
-			"minor" : 0,
-			"revision" : 1,
+			"major" : 7,
+			"minor" : 3,
+			"revision" : 4,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
-		"classnamespace" : "box",
-		"rect" : [ 66.0, 79.0, 923.0, 937.0 ],
+		"rect" : [ 211.0, 79.0, 923.0, 724.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 13.0,
@@ -48,6 +47,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 451.0, 2440.5, 137.0, 98.0 ],
+					"style" : "",
 					"text" : "Convert dynamics into integers, so that we can use them as sizes for the dots in our canvas"
 				}
 
@@ -62,14 +62,13 @@
 					"patcher" : 					{
 						"fileversion" : 1,
 						"appversion" : 						{
-							"major" : 8,
-							"minor" : 0,
-							"revision" : 1,
+							"major" : 7,
+							"minor" : 3,
+							"revision" : 4,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
 ,
-						"classnamespace" : "box",
 						"rect" : [ 59.0, 104.0, 640.0, 480.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
@@ -106,7 +105,8 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 83.0, 60.0, 30.0, 30.0 ]
+									"patching_rect" : [ 83.0, 60.0, 30.0, 30.0 ],
+									"style" : ""
 								}
 
 							}
@@ -122,6 +122,7 @@
 										"versionnumber" : 80001
 									}
 ,
+									"style" : "",
 									"text" : "bach.portal @out m"
 								}
 
@@ -133,7 +134,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 361.100006000000008, 196.0, 29.5, 22.0 ],
+									"patching_rect" : [ 361.100006, 196.0, 29.5, 22.0 ],
+									"style" : "",
 									"text" : "0"
 								}
 
@@ -146,7 +148,8 @@
 									"maxclass" : "outlet",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 88.0, 262.0, 30.0, 30.0 ]
+									"patching_rect" : [ 88.0, 262.0, 30.0, 30.0 ],
+									"style" : ""
 								}
 
 							}
@@ -157,7 +160,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 323.100006000000008, 196.0, 29.5, 22.0 ],
+									"patching_rect" : [ 323.100006, 196.0, 29.5, 22.0 ],
+									"style" : "",
 									"text" : "8"
 								}
 
@@ -169,7 +173,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 288.799987999999985, 196.0, 29.5, 22.0 ],
+									"patching_rect" : [ 288.799988, 196.0, 29.5, 22.0 ],
+									"style" : "",
 									"text" : "7"
 								}
 
@@ -182,6 +187,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 254.5, 196.0, 29.5, 22.0 ],
+									"style" : "",
 									"text" : "6"
 								}
 
@@ -193,7 +199,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 220.199996999999996, 196.0, 29.5, 22.0 ],
+									"patching_rect" : [ 220.199997, 196.0, 29.5, 22.0 ],
+									"style" : "",
 									"text" : "5"
 								}
 
@@ -205,7 +212,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 185.899993999999992, 196.0, 29.5, 22.0 ],
+									"patching_rect" : [ 185.899994, 196.0, 29.5, 22.0 ],
+									"style" : "",
 									"text" : "4"
 								}
 
@@ -217,7 +225,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 151.600006000000008, 196.0, 29.5, 22.0 ],
+									"patching_rect" : [ 151.600006, 196.0, 29.5, 22.0 ],
+									"style" : "",
 									"text" : "3"
 								}
 
@@ -229,7 +238,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 117.300003000000004, 196.0, 29.5, 22.0 ],
+									"patching_rect" : [ 117.300003, 196.0, 29.5, 22.0 ],
+									"style" : "",
 									"text" : "2"
 								}
 
@@ -242,6 +252,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 83.0, 196.0, 29.5, 22.0 ],
+									"style" : "",
 									"text" : "1"
 								}
 
@@ -253,7 +264,8 @@
 									"numinlets" : 9,
 									"numoutlets" : 9,
 									"outlettype" : [ "bang", "bang", "bang", "bang", "bang", "bang", "bang", "bang", "" ],
-									"patching_rect" : [ 83.0, 151.0, 293.399993999999992, 22.0 ],
+									"patching_rect" : [ 83.0, 151.0, 293.399994, 22.0 ],
+									"style" : "",
 									"text" : "sel ppp pp p mp mf f ff fff"
 								}
 
@@ -407,9 +419,11 @@
 						"description" : "",
 						"digest" : "",
 						"globalpatchername" : "",
+						"style" : "",
 						"tags" : ""
 					}
 ,
+					"style" : "",
 					"text" : "p dynamics2int"
 				}
 
@@ -424,7 +438,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 758.666687000000024, 2110.0, 142.333313000000004, 40.0 ],
+					"patching_rect" : [ 758.666687, 2110.0, 142.333313, 40.0 ],
+					"style" : "",
 					"text" : "only display pitches below middle C"
 				}
 
@@ -437,6 +452,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 615.25, 2118.5, 147.0, 23.0 ],
+					"style" : "",
 					"text" : "where \"midipitch <= 60\""
 				}
 
@@ -451,7 +467,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 741.666687000000024, 2065.5, 149.0, 40.0 ],
+					"patching_rect" : [ 741.666687, 2065.5, 149.0, 40.0 ],
+					"style" : "",
 					"text" : "only display \"p\", \"pp\" and \"ppp\" dynamics"
 				}
 
@@ -465,7 +482,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 677.166687000000024, 2154.0, 106.0, 25.0 ],
+					"patching_rect" : [ 677.166687, 2154.0, 106.0, 25.0 ],
+					"style" : "",
 					"text" : "remove filters"
 				}
 
@@ -477,7 +495,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 634.666687000000024, 2154.0, 46.0, 23.0 ],
+					"patching_rect" : [ 634.666687, 2154.0, 46.0, 23.0 ],
+					"style" : "",
 					"text" : "where"
 				}
 
@@ -490,6 +509,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 596.25, 2074.0, 143.0, 23.0 ],
+					"style" : "",
 					"text" : "where \"dynamics <= 3\""
 				}
 
@@ -504,7 +524,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 741.666687000000024, 2659.0, 145.0, 54.0 ],
+					"patching_rect" : [ 741.666687, 2659.0, 145.0, 54.0 ],
+					"style" : "",
 					"text" : "Turn audio on and hover on the points on the canvas"
 				}
 
@@ -517,6 +538,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 586.0, 2199.0, 21.0, 123.0 ],
+					"style" : "",
 					"text" : "c\ne\nn\nt\nr\no\ni\nd"
 				}
 
@@ -528,6 +550,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 850.0, 2500.0, 57.0, 21.0 ],
+					"style" : "",
 					"text" : "pitch"
 				}
 
@@ -539,7 +562,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 787.166687000000024, 2571.0, 29.5, 23.0 ],
+					"patching_rect" : [ 787.166687, 2571.0, 29.5, 23.0 ],
+					"style" : "",
 					"text" : "0"
 				}
 
@@ -551,7 +575,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 694.666687000000024, 2571.0, 72.0, 23.0 ],
+					"patching_rect" : [ 694.666687, 2571.0, 72.0, 23.0 ],
+					"style" : "",
 					"text" : "open $1, 1"
 				}
 
@@ -560,23 +585,23 @@
 				"box" : 				{
 					"channels" : 1,
 					"id" : "obj-168",
-					"lastchannelcount" : 0,
 					"maxclass" : "live.gain~",
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"orientation" : 1,
 					"outlettype" : [ "signal", "", "float", "list" ],
 					"parameter_enable" : 1,
-					"patching_rect" : [ 694.666687000000024, 2638.0, 103.0, 20.0 ],
+					"patching_rect" : [ 694.666687, 2638.0, 103.0, 21.0 ],
+					"presentation_rect" : [ 0.0, 0.0, 0.0, 21.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
-							"parameter_initial" : [ 0.0 ],
+							"parameter_longname" : "live.gain~[2]",
 							"parameter_shortname" : "live.gain~",
 							"parameter_type" : 0,
-							"parameter_unitstyle" : 4,
 							"parameter_mmin" : -70.0,
-							"parameter_longname" : "live.gain~[2]",
-							"parameter_mmax" : 6.0
+							"parameter_mmax" : 6.0,
+							"parameter_initial" : [ 0.0 ],
+							"parameter_unitstyle" : 4
 						}
 
 					}
@@ -593,7 +618,8 @@
 					"maxclass" : "ezdac~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 694.666687000000024, 2668.0, 45.0, 45.0 ]
+					"patching_rect" : [ 694.666687, 2668.0, 45.0, 45.0 ],
+					"style" : ""
 				}
 
 			}
@@ -604,19 +630,20 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "bang" ],
-					"patching_rect" : [ 694.666687000000024, 2602.0, 52.0, 23.0 ],
+					"patching_rect" : [ 694.666687, 2602.0, 52.0, 23.0 ],
 					"saved_object_attributes" : 					{
 						"basictuning" : 440,
 						"followglobaltempo" : 0,
 						"formantcorrection" : 0,
 						"mode" : "basic",
-						"originallength" : [ 7998.889796000000388, "ticks" ],
+						"originallength" : [ 7998.889796, "ticks" ],
 						"originaltempo" : 120.0,
 						"pitchcorrection" : 0,
 						"quality" : "basic",
 						"timestretch" : [ 0 ]
 					}
 ,
+					"style" : "",
 					"text" : "sfplay~"
 				}
 
@@ -628,11 +655,12 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "bang" ],
-					"patching_rect" : [ 694.666687000000024, 2541.0, 204.0, 23.0 ],
+					"patching_rect" : [ 694.666687, 2541.0, 204.0, 23.0 ],
 					"saved_object_attributes" : 					{
 						"versionnumber" : 80001
 					}
 ,
+					"style" : "",
 					"text" : "bach.keys filename none @out m"
 				}
 
@@ -644,18 +672,19 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
-					"patching_rect" : [ 694.666687000000024, 2507.5, 105.0, 23.0 ],
+					"patching_rect" : [ 694.666687, 2507.5, 105.0, 23.0 ],
 					"saved_object_attributes" : 					{
 						"versionnumber" : 80001
 					}
 ,
+					"style" : "",
 					"text" : "bach.keys hover"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"center" : [ -3499.001010999999835, -3503.828889999999774 ],
+					"center" : [ -3499.001011, -3503.82889 ],
 					"colorfield" : "spread",
 					"contentfield" : [ "filename" ],
 					"convexcombmax" : [ 1.0 ],
@@ -694,6 +723,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 451.0, 2586.5, 152.0, 98.0 ],
+					"style" : "",
 					"text" : "...but bach has C5 as middle C, so let's account for that, and let's get back to MIDI numbers by dividing by 100"
 				}
 
@@ -708,6 +738,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 363.0, 2544.5, 211.0, 25.0 ],
+					"style" : "",
 					"text" : "Convert notename to MIDIcents"
 				}
 
@@ -722,6 +753,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 380.0, 2413.5, 194.0, 25.0 ],
+					"style" : "",
 					"text" : "Get notename and dynamics"
 				}
 
@@ -734,6 +766,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 159.0, 2313.0, 91.0, 23.0 ],
+					"style" : "",
 					"text" : "clear samples"
 				}
 
@@ -750,6 +783,7 @@
 						"versionnumber" : 80001
 					}
 ,
+					"style" : "",
 					"text" : "bach.expr ($x1+1200)/100"
 				}
 
@@ -766,6 +800,7 @@
 						"versionnumber" : 80001
 					}
 ,
+					"style" : "",
 					"text" : "bach.p2mc"
 				}
 
@@ -782,6 +817,7 @@
 						"versionnumber" : 80001
 					}
 ,
+					"style" : "",
 					"text" : "bach.pick 3 4"
 				}
 
@@ -796,14 +832,13 @@
 					"patcher" : 					{
 						"fileversion" : 1,
 						"appversion" : 						{
-							"major" : 8,
-							"minor" : 0,
-							"revision" : 1,
+							"major" : 7,
+							"minor" : 3,
+							"revision" : 4,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
 ,
-						"classnamespace" : "box",
 						"rect" : [ 59.0, 104.0, 640.0, 480.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
@@ -839,6 +874,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "bang", "" ],
 									"patching_rect" : [ 50.0, 100.0, 31.0, 22.0 ],
+									"style" : "",
 									"text" : "t b l"
 								}
 
@@ -851,6 +887,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 73.0, 230.0, 127.0, 22.0 ],
+									"style" : "",
 									"text" : "combine s /TinySOL s"
 								}
 
@@ -863,6 +900,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "bang", "" ],
 									"patching_rect" : [ 73.0, 164.0, 31.0, 22.0 ],
+									"style" : "",
 									"text" : "t b l"
 								}
 
@@ -875,6 +913,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 73.0, 196.0, 42.0, 22.0 ],
+									"style" : "",
 									"text" : "zl.reg"
 								}
 
@@ -887,6 +926,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 61.5, 262.0, 97.0, 22.0 ],
+									"style" : "",
 									"text" : "zl 32766 group"
 								}
 
@@ -899,6 +939,7 @@
 									"numoutlets" : 5,
 									"outlettype" : [ "", "", "", "", "" ],
 									"patching_rect" : [ 165.0, 125.0, 89.0, 22.0 ],
+									"style" : "",
 									"text" : "regexp (.+)/.+"
 								}
 
@@ -911,6 +952,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 73.0, 130.0, 52.0, 22.0 ],
+									"style" : "",
 									"text" : "zl.iter 1"
 								}
 
@@ -924,7 +966,8 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 50.0, 40.0, 30.0, 30.0 ]
+									"patching_rect" : [ 50.0, 40.0, 30.0, 30.0 ],
+									"style" : ""
 								}
 
 							}
@@ -937,7 +980,8 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 165.0, 40.0, 30.0, 30.0 ]
+									"patching_rect" : [ 165.0, 40.0, 30.0, 30.0 ],
+									"style" : ""
 								}
 
 							}
@@ -949,7 +993,8 @@
 									"maxclass" : "outlet",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 61.5, 345.0, 30.0, 30.0 ]
+									"patching_rect" : [ 61.5, 345.0, 30.0, 30.0 ],
+									"style" : ""
 								}
 
 							}
@@ -1039,9 +1084,11 @@
 						"description" : "",
 						"digest" : "",
 						"globalpatchername" : "",
+						"style" : "",
 						"tags" : ""
 					}
 ,
+					"style" : "",
 					"text" : "p convert_to_full_paths"
 				}
 
@@ -1054,6 +1101,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 284.0, 2352.5, 101.0, 23.0 ],
+					"style" : "",
 					"text" : "prepend getinfo"
 				}
 
@@ -1066,6 +1114,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 284.0, 2384.5, 232.0, 23.0 ],
+					"style" : "",
 					"text" : "orchidea.db.query"
 				}
 
@@ -1078,6 +1127,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 44.0, 2675.5, 196.0, 23.0 ],
+					"style" : "",
 					"text" : "bach.prepend addentry samples"
 				}
 
@@ -1090,6 +1140,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 44.0, 2364.5, 222.0, 23.0 ],
+					"style" : "",
 					"text" : "t l l"
 				}
 
@@ -1106,6 +1157,7 @@
 						"versionnumber" : 80001
 					}
 ,
+					"style" : "",
 					"text" : "bach.pack centroid spread filename midipitch dynamics"
 				}
 
@@ -1118,6 +1170,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"patching_rect" : [ 44.0, 2718.0, 154.0, 23.0 ],
+					"style" : "",
 					"text" : "dada.base TinySOLFilter"
 				}
 
@@ -1130,6 +1183,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 44.0, 2446.0, 204.0, 23.0 ],
+					"style" : "",
 					"text" : "orchidea.features centroid spread"
 				}
 
@@ -1142,6 +1196,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 81.0, 2002.0, 252.0, 23.0 ],
+					"style" : "",
 					"text" : "getinfo /Strings/Vn/Vn-ord-G#6-pp-1c.wav"
 				}
 
@@ -1157,6 +1212,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 125.0, 2190.0, 271.0, 40.0 ],
+					"style" : "",
 					"text" : "Take all violin notes, analyze them and plot them. This may take a little while..."
 				}
 
@@ -1168,6 +1224,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 7.0, 2156.0, 432.0, 21.0 ],
+					"style" : "",
 					"text" : "We can combine it with our previous search to add some possibilities to it"
 				}
 
@@ -1180,6 +1237,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 63.0, 1967.0, 254.0, 23.0 ],
+					"style" : "",
 					"text" : "getinfo /Winds/ClBb/ClBb-ord-G#5-pp.wav"
 				}
 
@@ -1195,6 +1253,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 107.0, 2080.5, 306.0, 40.0 ],
+					"style" : "",
 					"text" : "Information is: instrument, style, pitch, dynamics (and possibly: others, such as string number)"
 				}
 
@@ -1207,6 +1266,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 7.0, 1891.0, 278.0, 36.0 ],
+					"style" : "",
 					"text" : "Another useful message is \"getinfo\", retrieving information about an audio sample."
 				}
 
@@ -1219,6 +1279,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 44.0, 1934.0, 212.0, 23.0 ],
+					"style" : "",
 					"text" : "getinfo /Winds/Fl/Fl-ord-G5-mf.wav"
 				}
 
@@ -1230,6 +1291,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 44.0, 2089.0, 61.0, 23.0 ],
+					"style" : "",
 					"text" : "print Info"
 				}
 
@@ -1242,6 +1304,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 578.0, 301.5, 282.0, 65.0 ],
+					"style" : "",
 					"text" : "...and while we are at it, we set it for all the orchidea.db.query we are using in this tutorial.\n(This'll take a little while, but bear with us. We won't need to do it any more at later stages)"
 				}
 
@@ -1257,6 +1320,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 462.0, 1336.0, 95.0, 25.0 ],
+					"style" : "",
 					"text" : "TinySOL db"
 				}
 
@@ -1269,6 +1333,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"patching_rect" : [ 44.0, 2282.0, 134.0, 23.0 ],
+					"style" : "",
 					"text" : "t l b"
 				}
 
@@ -1281,6 +1346,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 44.0, 2324.0, 52.0, 23.0 ],
+					"style" : "",
 					"text" : "zl.iter 1"
 				}
 
@@ -1293,6 +1359,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 44.0, 2051.0, 374.5, 23.0 ],
+					"style" : "",
 					"text" : "orchidea.db.query"
 				}
 
@@ -1305,6 +1372,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 44.0, 2199.0, 73.0, 23.0 ],
+					"style" : "",
 					"text" : "grep .*Vn.*"
 				}
 
@@ -1317,6 +1385,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 44.0, 2245.0, 501.5, 23.0 ],
+					"style" : "",
 					"text" : "orchidea.db.query"
 				}
 
@@ -1333,6 +1402,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 242.0, 1419.5, 94.0, 54.0 ],
+					"style" : "",
 					"text" : "Get flute samples in octave 4"
 				}
 
@@ -1345,6 +1415,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 337.5, 1435.0, 89.0, 23.0 ],
+					"style" : "",
 					"text" : "grep .*Fl.*4-.*"
 				}
 
@@ -1359,7 +1430,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 727.666687000000024, 1817.0, 145.0, 54.0 ],
+					"patching_rect" : [ 727.666687, 1817.0, 145.0, 54.0 ],
+					"style" : "",
 					"text" : "Turn audio on and hover on the points on the canvas"
 				}
 
@@ -1372,6 +1444,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"patching_rect" : [ 280.0, 1587.0, 31.0, 23.0 ],
+					"style" : "",
 					"text" : "t l b"
 				}
 
@@ -1384,6 +1457,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 572.0, 1357.0, 57.0, 94.0 ],
+					"style" : "",
 					"text" : "s\np\nr\ne\na\nd"
 				}
 
@@ -1395,6 +1469,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 836.0, 1659.0, 57.0, 21.0 ],
+					"style" : "",
 					"text" : "centroid"
 				}
 
@@ -1406,7 +1481,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 773.166687000000024, 1729.0, 29.5, 23.0 ],
+					"patching_rect" : [ 773.166687, 1729.0, 29.5, 23.0 ],
+					"style" : "",
 					"text" : "0"
 				}
 
@@ -1418,7 +1494,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 680.666687000000024, 1729.0, 72.0, 23.0 ],
+					"patching_rect" : [ 680.666687, 1729.0, 72.0, 23.0 ],
+					"style" : "",
 					"text" : "open $1, 1"
 				}
 
@@ -1427,23 +1504,23 @@
 				"box" : 				{
 					"channels" : 1,
 					"id" : "obj-139",
-					"lastchannelcount" : 0,
 					"maxclass" : "live.gain~",
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"orientation" : 1,
 					"outlettype" : [ "signal", "", "float", "list" ],
 					"parameter_enable" : 1,
-					"patching_rect" : [ 680.666687000000024, 1796.0, 103.0, 20.0 ],
+					"patching_rect" : [ 680.666687, 1796.0, 103.0, 21.0 ],
+					"presentation_rect" : [ 0.0, 0.0, 0.0, 21.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
-							"parameter_initial" : [ 0.0 ],
+							"parameter_longname" : "live.gain~[1]",
 							"parameter_shortname" : "live.gain~",
 							"parameter_type" : 0,
-							"parameter_unitstyle" : 4,
 							"parameter_mmin" : -70.0,
-							"parameter_longname" : "live.gain~[1]",
-							"parameter_mmax" : 6.0
+							"parameter_mmax" : 6.0,
+							"parameter_initial" : [ 0.0 ],
+							"parameter_unitstyle" : 4
 						}
 
 					}
@@ -1460,7 +1537,8 @@
 					"maxclass" : "ezdac~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 680.666687000000024, 1826.0, 45.0, 45.0 ]
+					"patching_rect" : [ 680.666687, 1826.0, 45.0, 45.0 ],
+					"style" : ""
 				}
 
 			}
@@ -1471,19 +1549,20 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "bang" ],
-					"patching_rect" : [ 680.666687000000024, 1760.0, 52.0, 23.0 ],
+					"patching_rect" : [ 680.666687, 1760.0, 52.0, 23.0 ],
 					"saved_object_attributes" : 					{
 						"basictuning" : 440,
 						"followglobaltempo" : 0,
 						"formantcorrection" : 0,
 						"mode" : "basic",
-						"originallength" : [ 6054.204082000000199, "ticks" ],
+						"originallength" : [ 6054.204082, "ticks" ],
 						"originaltempo" : 120.0,
 						"pitchcorrection" : 0,
 						"quality" : "basic",
 						"timestretch" : [ 0 ]
 					}
 ,
+					"style" : "",
 					"text" : "sfplay~"
 				}
 
@@ -1495,11 +1574,12 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "bang" ],
-					"patching_rect" : [ 680.666687000000024, 1699.0, 204.0, 23.0 ],
+					"patching_rect" : [ 680.666687, 1699.0, 204.0, 23.0 ],
 					"saved_object_attributes" : 					{
 						"versionnumber" : 80001
 					}
 ,
+					"style" : "",
 					"text" : "bach.keys filename none @out m"
 				}
 
@@ -1511,11 +1591,12 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
-					"patching_rect" : [ 680.666687000000024, 1665.5, 105.0, 23.0 ],
+					"patching_rect" : [ 680.666687, 1665.5, 105.0, 23.0 ],
 					"saved_object_attributes" : 					{
 						"versionnumber" : 80001
 					}
 ,
+					"style" : "",
 					"text" : "bach.keys hover"
 				}
 
@@ -1531,6 +1612,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 197.0, 1386.0, 106.0, 25.0 ],
+					"style" : "",
 					"text" : "Get flute C#'s"
 				}
 
@@ -1546,6 +1628,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 173.5, 1349.0, 99.0, 25.0 ],
+					"style" : "",
 					"text" : "Get flute C's"
 				}
 
@@ -1558,6 +1641,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 305.0, 1386.0, 102.0, 23.0 ],
+					"style" : "",
 					"text" : "grep .*Fl.*C#.-.*"
 				}
 
@@ -1570,13 +1654,14 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 345.5, 1644.0, 91.0, 23.0 ],
+					"style" : "",
 					"text" : "clear samples"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"center" : [ -4264.946484000000055, 7.961514 ],
+					"center" : [ -3220.02528, -3593.920306 ],
 					"contentfield" : [ "filename" ],
 					"convexcombmax" : [ 1.0 ],
 					"convexcombmin" : [ 0.0 ],
@@ -1593,10 +1678,10 @@
 					"query" : "SELECT * FROM samples",
 					"table" : "samples",
 					"versionnumber" : 10000,
-					"vzoom" : 1.713353,
+					"vzoom" : 1.558959,
 					"xfield" : "centroid",
 					"yfield" : "spread",
-					"zoom" : 1.0732
+					"zoom" : 1.222514
 				}
 
 			}
@@ -1608,6 +1693,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 280.0, 1794.5, 196.0, 23.0 ],
+					"style" : "",
 					"text" : "bach.prepend addentry samples"
 				}
 
@@ -1620,6 +1706,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 280.0, 1677.5, 222.0, 23.0 ],
+					"style" : "",
 					"text" : "t l l"
 				}
 
@@ -1632,6 +1719,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 280.0, 1644.0, 52.0, 23.0 ],
+					"style" : "",
 					"text" : "zl.iter 1"
 				}
 
@@ -1648,6 +1736,7 @@
 						"versionnumber" : 80001
 					}
 ,
+					"style" : "",
 					"text" : "bach.pack centroid spread filename"
 				}
 
@@ -1662,6 +1751,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 85.5, 1547.0, 156.0, 25.0 ],
+					"style" : "",
 					"text" : "Create table at startup"
 				}
 
@@ -1675,6 +1765,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 17.5, 1579.0, 214.0, 52.0 ],
+					"style" : "",
 					"text" : "addtable samples (filename s) (centroid f) (spread f) (midipitch i) (dynamics i)"
 				}
 
@@ -1687,6 +1778,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
 					"patching_rect" : [ 17.5, 1547.0, 64.0, 23.0 ],
+					"style" : "",
 					"text" : "loadbang"
 				}
 
@@ -1699,6 +1791,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"patching_rect" : [ 280.0, 1837.0, 154.0, 23.0 ],
+					"style" : "",
 					"text" : "dada.base TinySOLFilter"
 				}
 
@@ -1714,6 +1807,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 421.0, 1533.5, 105.0, 69.0 ],
+					"style" : "",
 					"text" : "Convert the file paths from relative to full paths"
 				}
 
@@ -1728,14 +1822,13 @@
 					"patcher" : 					{
 						"fileversion" : 1,
 						"appversion" : 						{
-							"major" : 8,
-							"minor" : 0,
-							"revision" : 1,
+							"major" : 7,
+							"minor" : 3,
+							"revision" : 4,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
 ,
-						"classnamespace" : "box",
 						"rect" : [ 59.0, 104.0, 640.0, 480.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
@@ -1771,6 +1864,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "bang", "" ],
 									"patching_rect" : [ 50.0, 100.0, 31.0, 22.0 ],
+									"style" : "",
 									"text" : "t b l"
 								}
 
@@ -1783,6 +1877,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 73.0, 230.0, 127.0, 22.0 ],
+									"style" : "",
 									"text" : "combine s /TinySOL s"
 								}
 
@@ -1795,6 +1890,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "bang", "" ],
 									"patching_rect" : [ 73.0, 164.0, 31.0, 22.0 ],
+									"style" : "",
 									"text" : "t b l"
 								}
 
@@ -1807,6 +1903,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 73.0, 196.0, 42.0, 22.0 ],
+									"style" : "",
 									"text" : "zl.reg"
 								}
 
@@ -1819,6 +1916,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 61.5, 262.0, 97.0, 22.0 ],
+									"style" : "",
 									"text" : "zl 32766 group"
 								}
 
@@ -1831,6 +1929,7 @@
 									"numoutlets" : 5,
 									"outlettype" : [ "", "", "", "", "" ],
 									"patching_rect" : [ 165.0, 125.0, 89.0, 22.0 ],
+									"style" : "",
 									"text" : "regexp (.+)/.+"
 								}
 
@@ -1843,6 +1942,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 73.0, 130.0, 52.0, 22.0 ],
+									"style" : "",
 									"text" : "zl.iter 1"
 								}
 
@@ -1856,7 +1956,8 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 50.0, 40.0, 30.0, 30.0 ]
+									"patching_rect" : [ 50.0, 40.0, 30.0, 30.0 ],
+									"style" : ""
 								}
 
 							}
@@ -1869,7 +1970,8 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 165.0, 40.0, 30.0, 30.0 ]
+									"patching_rect" : [ 165.0, 40.0, 30.0, 30.0 ],
+									"style" : ""
 								}
 
 							}
@@ -1881,7 +1983,8 @@
 									"maxclass" : "outlet",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 61.5, 345.0, 30.0, 30.0 ]
+									"patching_rect" : [ 61.5, 345.0, 30.0, 30.0 ],
+									"style" : ""
 								}
 
 							}
@@ -1971,9 +2074,11 @@
 						"description" : "",
 						"digest" : "",
 						"globalpatchername" : "",
+						"style" : "",
 						"tags" : ""
 					}
 ,
+					"style" : "",
 					"text" : "p convert_to_full_paths"
 				}
 
@@ -1986,6 +2091,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 7.0, 1435.0, 236.0, 79.0 ],
+					"style" : "",
 					"text" : "We can then compute all the features for each match and display them in a dada.catart. See tutorial \"Browsing Solutions\" to know more about using dada to handle and display datasets."
 				}
 
@@ -1998,6 +2104,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 280.0, 1716.0, 204.0, 23.0 ],
+					"style" : "",
 					"text" : "orchidea.features centroid spread"
 				}
 
@@ -2009,7 +2116,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 7.0, 1270.0, 718.666687000000024, 50.0 ],
+					"patching_rect" : [ 7.0, 1270.0, 718.666687, 50.0 ],
+					"style" : "",
 					"text" : "As another example, in order to retrieve all C's of the flute, we need to be extra smart: we need to match only strings containing Fl and containing a sequence of: \"C\", number and then \"-\" (dash). We can do so by using the dot as wildchar in the place of a number. Pitches like C#4 will not be matched, because they have one more character."
 				}
 
@@ -2021,6 +2129,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 305.0, 1524.0, 76.0, 23.0 ],
+					"style" : "",
 					"text" : "print Result"
 				}
 
@@ -2033,6 +2142,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 280.0, 1350.0, 94.0, 23.0 ],
+					"style" : "",
 					"text" : "grep .*Fl.*C.-.*"
 				}
 
@@ -2045,6 +2155,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 280.0, 1491.0, 176.5, 23.0 ],
+					"style" : "",
 					"text" : "orchidea.db.query"
 				}
 
@@ -2057,6 +2168,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 437.5, 1357.0, 108.0, 23.0 ],
+					"style" : "",
 					"text" : "t l l l"
 				}
 
@@ -2072,6 +2184,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 594.0, 1080.5, 172.5, 54.0 ],
+					"style" : "",
 					"text" : "(but in TinySOL we don't have string samples in \"p\": only \"pp\")"
 				}
 
@@ -2084,6 +2197,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 501.0, 1116.0, 105.0, 23.0 ],
+					"style" : "",
 					"text" : "grep .*-p-4c.wav"
 				}
 
@@ -2096,6 +2210,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 384.0, 1116.0, 105.0, 23.0 ],
+					"style" : "",
 					"text" : "grep .*-p-3c.wav"
 				}
 
@@ -2108,6 +2223,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 486.0, 1087.0, 105.0, 23.0 ],
+					"style" : "",
 					"text" : "grep .*-p-2c.wav"
 				}
 
@@ -2119,6 +2235,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 369.0, 1057.5, 335.0, 21.0 ],
+					"style" : "",
 					"text" : "...or there's a string specification involved"
 				}
 
@@ -2131,6 +2248,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 346.0, 983.5, 335.0, 36.0 ],
+					"style" : "",
 					"text" : "The safest choice in this scenario is to notice that either pp is the last portion of the filename..."
 				}
 
@@ -2143,6 +2261,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 330.5, 949.5, 69.0, 23.0 ],
+					"style" : "",
 					"text" : "grep .*-p.*"
 				}
 
@@ -2155,6 +2274,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 369.0, 1087.0, 105.0, 23.0 ],
+					"style" : "",
 					"text" : "grep .*-p-1c.wav"
 				}
 
@@ -2167,6 +2287,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 330.5, 823.5, 556.0, 79.0 ],
+					"style" : "",
 					"text" : "One would imagine that this would retrieve all files with dynamics \"piano\", however since some of the files in TinySOL have lower case p's without having dynamics piano, we are bound to have more matches than we desire. For instance the file \"/Brass/TpC/TpC-ord-D#5-ff.wav\" matches this pattern, since there is a p in the instrument name.\nAlso, this will match all the \"pp\" and \"ppp\" as well "
 				}
 
@@ -2179,6 +2300,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 405.0, 943.5, 475.0, 36.0 ],
+					"style" : "",
 					"text" : "...but this would not work if we had, for instance, a playing style starting with little p, such as \"pizz\". Also, this will still give us false positives on \"pp\" and \"ppp\"."
 				}
 
@@ -2194,6 +2316,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 447.0, 1021.5, 243.0, 40.0 ],
+					"style" : "",
 					"text" : "This actually does retrieve only the samples with dynamics piano..."
 				}
 
@@ -2206,6 +2329,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 349.5, 1030.0, 87.0, 23.0 ],
+					"style" : "",
 					"text" : "grep .*-p.wav"
 				}
 
@@ -2218,6 +2342,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 330.5, 904.5, 541.0, 36.0 ],
+					"style" : "",
 					"text" : "To overcome this issue, one may want to be more careful, for instance by adding the dash right before the dynamics inside the pattern to be matched..."
 				}
 
@@ -2230,6 +2355,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 315.5, 744.5, 528.0, 50.0 ],
+					"style" : "",
 					"text" : "There are some intricacies, though. For one thing, this pattern would also match \"ppp\" or \"pppp\" dynamics – but we don't have any.\nMore importantly this is not very handy:"
 				}
 
@@ -2244,6 +2370,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 386.0, 798.5, 243.0, 25.0 ],
+					"style" : "",
 					"text" : "Does NOT retrieve only files in piano."
 				}
 
@@ -2256,6 +2383,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 315.5, 798.5, 65.0, 23.0 ],
+					"style" : "",
 					"text" : "grep .*p.*"
 				}
 
@@ -2270,6 +2398,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 374.0, 712.5, 279.0, 25.0 ],
+					"style" : "",
 					"text" : "Retrieve all files with dynamics \"pianissimo\""
 				}
 
@@ -2284,6 +2413,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 468.0, 1227.0, 141.0, 25.0 ],
+					"style" : "",
 					"text" : "Number of matches"
 				}
 
@@ -2296,7 +2426,8 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 413.5, 1227.0, 50.0, 23.0 ]
+					"patching_rect" : [ 413.5, 1227.0, 50.0, 23.0 ],
+					"style" : ""
 				}
 
 			}
@@ -2308,6 +2439,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 413.5, 1196.0, 81.0, 23.0 ],
+					"style" : "",
 					"text" : "zl 32766 len"
 				}
 
@@ -2320,6 +2452,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 298.0, 712.5, 72.0, 23.0 ],
+					"style" : "",
 					"text" : "grep .*pp.*"
 				}
 
@@ -2334,6 +2467,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 362.0, 678.5, 168.0, 25.0 ],
+					"style" : "",
 					"text" : "Retrieve all Clarinet files"
 				}
 
@@ -2346,6 +2480,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 274.0, 678.5, 86.0, 23.0 ],
+					"style" : "",
 					"text" : "grep .*ClBb.*"
 				}
 
@@ -2358,6 +2493,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 268.0, 618.5, 521.0, 36.0 ],
+					"style" : "",
 					"text" : "literally this means: find all samples whose filenames are made by (possibly) some sequence of characters, then \"Fl\", and then possibly some other sequence of characters"
 				}
 
@@ -2369,6 +2505,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 251.0, 1196.0, 152.0, 23.0 ],
+					"style" : "",
 					"text" : "print samples @popup 1"
 				}
 
@@ -2381,6 +2518,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 7.0, 588.5, 236.5, 137.0 ],
+					"style" : "",
 					"text" : "The basic tool is .*, i.e. a dot followed by an asterisk. This pattern identifies any sequence of characters: the dot means 'any character' while the asterisk means 'showing up at least zero times'.\nUsed in combination with other names will allow us to retrieve all files in a specific category"
 				}
 
@@ -2395,6 +2533,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 325.5, 593.5, 152.0, 25.0 ],
+					"style" : "",
 					"text" : "Retrieve all Flute files"
 				}
 
@@ -2406,7 +2545,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 7.0, 515.235473999999954, 850.0, 65.0 ],
+					"patching_rect" : [ 7.0, 515.235474, 850.0, 65.0 ],
+					"style" : "",
 					"text" : "We can perform more complex operations. Suppose we would like to search all flutes.\nSince filenames in the dataset have a standard syntax (see the help file of orchidea.db.gen), we can use the \"grep\" message to take advantage of regular expressions in order to retrieve specific subset of samples. Regular expressions can be a quagmire of confusion – on the other hand, if you only need to perform some basic operations, just follow us and we promise that won't be too hard!"
 				}
 
@@ -2420,7 +2560,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 265.5, 377.0, 147.0, 25.0 ],
+					"patching_rect" : [ 280.5, 377.0, 147.0, 25.0 ],
+					"style" : "",
 					"text" : "...or all the dynamics"
 				}
 
@@ -2432,8 +2573,9 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 162.0, 377.0, 100.0, 23.0 ],
-					"text" : "items dynamics"
+					"patching_rect" : [ 162.0, 377.0, 118.0, 23.0 ],
+					"style" : "",
+					"text" : "getitems dynamics"
 				}
 
 			}
@@ -2444,8 +2586,9 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 134.0, 335.0, 78.0, 23.0 ],
-					"text" : "items styles"
+					"patching_rect" : [ 135.0, 335.0, 96.0, 23.0 ],
+					"style" : "",
+					"text" : "getitems styles"
 				}
 
 			}
@@ -2459,7 +2602,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 253.5, 326.5, 167.0, 54.0 ],
+					"patching_rect" : [ 268.5, 326.5, 167.0, 54.0 ],
+					"style" : "",
 					"text" : "...or all the playing styles (we'll just have \"ord\" in TinySOL)"
 				}
 
@@ -2472,6 +2616,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 251.0, 593.5, 68.0, 23.0 ],
+					"style" : "",
 					"text" : "grep .*Fl.*"
 				}
 
@@ -2484,6 +2629,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 251.0, 1163.0, 316.0, 23.0 ],
+					"style" : "",
 					"text" : "orchidea.db.query"
 				}
 
@@ -2495,6 +2641,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 146.0, 485.0, 135.0, 23.0 ],
+					"style" : "",
 					"text" : "print result @popup 1"
 				}
 
@@ -2506,8 +2653,9 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 61.0, 295.0, 112.0, 23.0 ],
-					"text" : "items instruments"
+					"patching_rect" : [ 61.0, 295.0, 130.0, 23.0 ],
+					"style" : "",
+					"text" : "getitems instruments"
 				}
 
 			}
@@ -2521,7 +2669,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 180.5, 286.5, 167.0, 40.0 ],
+					"patching_rect" : [ 195.5, 286.5, 167.0, 40.0 ],
+					"style" : "",
 					"text" : "Then we can retrieve all the instruments in it"
 				}
 
@@ -2537,6 +2686,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 471.5, 265.0, 189.0, 40.0 ],
+					"style" : "",
 					"text" : "First we set the database through the right inlet"
 				}
 
@@ -2548,8 +2698,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"parameter_enable" : 0,
-					"patching_rect" : [ 443.0, 273.0, 24.0, 24.0 ]
+					"patching_rect" : [ 443.0, 273.0, 24.0, 24.0 ],
+					"style" : ""
 				}
 
 			}
@@ -2561,6 +2711,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 443.0, 312.0, 126.0, 23.0 ],
+					"style" : "",
 					"text" : "orchidea.db.tinySOL"
 				}
 
@@ -2573,6 +2724,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 146.0, 438.0, 316.0, 23.0 ],
+					"style" : "",
 					"text" : "orchidea.db.query"
 				}
 
@@ -2583,7 +2735,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 7.0, 227.235489000000001, 887.0, 21.0 ],
+					"patching_rect" : [ 7.0, 227.235489, 887.0, 21.0 ],
+					"style" : "",
 					"text" : "The object that will help us in this search is orchidea.db.query, essentially filtering all the dataset "
 				}
 
@@ -2595,7 +2748,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 7.0, 90.235489000000001, 884.0, 137.0 ],
+					"patching_rect" : [ 7.0, 90.235489, 884.0, 137.0 ],
+					"style" : "",
 					"text" : "An orchidea database is essentially a file containing analysis information on a given source folder (containing a set of audio files, possibly organized in subfolders). You can analyze the database according to a feature, say \"spectrum\": in this case, the database file should be placed at the same level of the original folder and named exactly as the folder, with the additional suffix \".spectrum.db\".\n\nTo build a database, you should use the module orchidea.db.gen: if one feed it a folder, say, /path/to/myfolder, a file \"myfolder.spectrum.db\" is created in the directory /path/to. Once one has built a database, one can use it to orchestrate, by sending it in orchidea.solve third inlet.\n\nThis tutorial is about browsing the database, i.e. having an organized look of what it contains. As the previous tutorial, we will make use of the dada library, and you should probably follow that tutorial first."
 				}
 
@@ -2609,8 +2763,9 @@
 					"mode" : 0,
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 7.0, 62.0, 131.0, 35.235489000000001 ],
-					"proportion" : 0.39
+					"patching_rect" : [ 7.0, 62.0, 131.0, 35.235489 ],
+					"proportion" : 0.39,
+					"style" : ""
 				}
 
 			}
@@ -2623,7 +2778,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 224.5, 18.442018999999998, 468.0, 57.0 ],
+					"patching_rect" : [ 224.5, 18.442019, 468.0, 57.0 ],
+					"style" : "",
 					"text" : "Browsing the database",
 					"textjustification" : 1
 				}
@@ -2637,7 +2793,7 @@
 					"maxclass" : "live.line",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 7.0, 59.0, 903.0, 16.442018999999998 ]
+					"patching_rect" : [ 7.0, 59.0, 903.0, 16.442019 ]
 				}
 
 			}
@@ -2645,14 +2801,15 @@
 				"box" : 				{
 					"bgcolor" : [ 0.878431, 0.878431, 0.843137, 1.0 ],
 					"fontname" : "Arial",
-					"fontsize" : 79.949177000000006,
+					"fontsize" : 79.949177,
 					"id" : "obj-19",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 7.0, 1.235489, 77.0, 96.0 ],
+					"style" : "",
 					"text" : "4",
-					"textcolor" : [ 0.011765000410378, 0.396077990531921, 0.752941012382507, 1.0 ],
+					"textcolor" : [ 0.011765, 0.396078, 0.752941, 1.0 ],
 					"textjustification" : 1
 				}
 
@@ -2673,6 +2830,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 670.5, 275.0, 20.0, 20.0 ],
 					"rounded" : 60.0,
+					"style" : "",
 					"text" : "1",
 					"textcolor" : [ 0.34902, 0.34902, 0.34902, 1.0 ]
 				}
@@ -2692,8 +2850,9 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "int" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 356.0, 286.5, 20.0, 20.0 ],
+					"patching_rect" : [ 371.0, 286.5, 20.0, 20.0 ],
 					"rounded" : 60.0,
+					"style" : "",
 					"text" : "2",
 					"textcolor" : [ 0.34902, 0.34902, 0.34902, 1.0 ]
 				}
@@ -3366,11 +3525,7 @@
  ],
 		"parameters" : 		{
 			"obj-139" : [ "live.gain~[1]", "live.gain~", 0 ],
-			"obj-168" : [ "live.gain~[2]", "live.gain~", 0 ],
-			"parameterbanks" : 			{
-
-			}
-
+			"obj-168" : [ "live.gain~[2]", "live.gain~", 0 ]
 		}
 ,
 		"dependency_cache" : [ 			{
