@@ -71,7 +71,7 @@ int main (int argc, char* argv[]) {
 		SoundTarget<float, FluxSegmentation> target (argv[1], &source, &params);
 		cout << "done (" << target.segments.size () << " segments)" << endl;
 
-		GeneticOrchestra<float, AdditiveForecast> ga (&params);
+		GeneticOrchestra<float, AdditiveForecast, ClosestSolutions> ga (&params);
 		Session<float, ClosestSolutions> session (&source, &params, &ga);
 		vector<OrchestrationModel<float> > orchestrations;	
 		cout << "searching............... "; cout.flush ();

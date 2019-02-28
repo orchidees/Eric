@@ -36,7 +36,7 @@ extern "C" {
 			source = new Source<Real> (&params);
 			target = new SoundTarget<float, FluxSegmentation> (source, &params);
 			session = new Session<Real, ClosestSolutions> (source, &params,
-				new GeneticOrchestra<Real, AdditiveForecast> (&params));
+				new GeneticOrchestra<Real, AdditiveForecast, ClosestSolutions> (&params));
 			source_loaded = false;
 		}
 		OrchideaHandle (const char* segmentation, const char* connection) {
@@ -52,10 +52,10 @@ extern "C" {
 
 			if (strcmp (connection, "closest") == 0) {
 				session = new Session<Real, ClosestSolutions> (source, &params,
-					new GeneticOrchestra<Real, AdditiveForecast> (&params));
+					new GeneticOrchestra<Real, AdditiveForecast, ClosestSolutions> (&params));
 			} else if (strcmp (connection, "best") == 0) {
 				session = new Session<Real, BestSolutions> (source, &params,
-					new GeneticOrchestra<Real, AdditiveForecast> (&params));
+					new GeneticOrchestra<Real, AdditiveForecast, ClosestSolutions> (&params));
 			} else {
 				throw std::runtime_error ("invalid connection algorithm");
 			}
@@ -140,7 +140,7 @@ extern "C" {
 		std::string alg = algorithm;
 		if (algorithm == (std::string) "genetic") {
 			delete h->session->optim; // created in constructor
-			h->session->optim = new GeneticOrchestra<Real, AdditiveForecast>(&h->params);
+			h->session->optim = new GeneticOrchestra<Real, AdditiveForecast, ClosestSolutions>(&h->params);
 			return ORCHIDEA_NO_ERROR;
 		} else {
 			return ORCHIDEA_INVALID_SEARCH_ALGORITHM;

@@ -21,11 +21,11 @@
 
 // -----------------------------------------------------------------------------
 
-template <typename T, template <typename X> class ForecastPolicy>
+template <typename T, template <typename X> class ForecastPolicy, template <typename X> class ConnectionPolicy>
 struct GeneticOrchestra : public OptimizerI<T> {
 	GeneticOrchestra (Parameters<T>* p) : OptimizerI<T>(p) {}
 	
-	T search (OrchestrationModel<T>& model) {
+	T search (OrchestrationModel<T>& model, std::vector<OrchestrationModel<T> >& history) {
 		std::vector<Solution<T> > population (OptimizerI<T>::parameters->pop_size);
 		gen_init_population (model, population, model.segment->features, 
 			OptimizerI<T>::parameters->pursuit);	

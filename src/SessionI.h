@@ -38,7 +38,7 @@ struct SessionI {
 		for (unsigned i = 0; i < target.segments.size (); ++i) {
 			OrchestrationModel<T> model(SessionI<T>::parameters);
 			make_model (target.segments[i], model);
- 			SessionI<T>::optim->search(model);
+ 			SessionI<T>::optim->search(model, orchestrations);
 
 			std::sort (model.solutions.begin (), model.solutions.end ());
 			std::reverse(model.solutions.begin (), model.solutions.end());

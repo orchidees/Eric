@@ -44,7 +44,7 @@ int main (int argc, char* argv[]) {
 		Parameters<float> params (argv[2]);
 		Source<float> source (&params);
 		SoundTarget<float, FluxSegmentation> target (argv[1], &source, &params);
-		GeneticOrchestra<float, AdditiveForecast> ga (&params);
+		GeneticOrchestra<float, AdditiveForecast, ClosestSolutions> ga (&params);
 		Session<float, ClosestSolutions> session (&source, &params, &ga);
 		ConnectionModel<float> connection;
 
