@@ -4,12 +4,12 @@
 		"appversion" : 		{
 			"major" : 7,
 			"minor" : 3,
-			"revision" : 1,
+			"revision" : 4,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 66.0, 79.0, 923.0, 937.0 ],
+		"rect" : [ 211.0, 79.0, 923.0, 724.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 13.0,
@@ -64,7 +64,7 @@
 						"appversion" : 						{
 							"major" : 7,
 							"minor" : 3,
-							"revision" : 1,
+							"revision" : 4,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -872,7 +872,7 @@
 						"appversion" : 						{
 							"major" : 7,
 							"minor" : 3,
-							"revision" : 1,
+							"revision" : 4,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -1718,7 +1718,7 @@
 			}
 , 			{
 				"box" : 				{
-					"center" : [ -4264.946484, 7.961514 ],
+					"center" : [ -3220.02528, -3593.920306 ],
 					"contentfield" : [ "filename" ],
 					"convexcombmax" : [ 1.0 ],
 					"convexcombmin" : [ 0.0 ],
@@ -1735,10 +1735,10 @@
 					"query" : "SELECT * FROM samples",
 					"table" : "samples",
 					"versionnumber" : 10000,
-					"vzoom" : 1.713353,
+					"vzoom" : 1.558959,
 					"xfield" : "centroid",
 					"yfield" : "spread",
-					"zoom" : 1.0732
+					"zoom" : 1.222514
 				}
 
 			}
@@ -1881,7 +1881,7 @@
 						"appversion" : 						{
 							"major" : 7,
 							"minor" : 3,
-							"revision" : 1,
+							"revision" : 4,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -2636,7 +2636,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 274.0, 382.5, 147.0, 25.0 ],
+					"patching_rect" : [ 280.5, 377.0, 147.0, 25.0 ],
 					"style" : "",
 					"text" : "...or all the dynamics"
 				}
@@ -2649,7 +2649,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 154.0, 382.5, 118.0, 23.0 ],
+					"patching_rect" : [ 162.0, 377.0, 118.0, 23.0 ],
 					"style" : "",
 					"text" : "getitems dynamics"
 				}
@@ -2662,7 +2662,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 123.0, 342.0, 96.0, 23.0 ],
+					"patching_rect" : [ 135.0, 335.0, 96.0, 23.0 ],
 					"style" : "",
 					"text" : "getitems styles"
 				}
@@ -2678,7 +2678,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 253.5, 326.5, 167.0, 54.0 ],
+					"patching_rect" : [ 268.5, 326.5, 167.0, 54.0 ],
 					"style" : "",
 					"text" : "...or all the playing styles (we'll just have \"ord\" in TinySOL)"
 				}
@@ -2745,7 +2745,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 180.5, 286.5, 167.0, 40.0 ],
+					"patching_rect" : [ 195.5, 286.5, 167.0, 40.0 ],
 					"style" : "",
 					"text" : "Then we can retrieve all the instruments in it"
 				}
@@ -2824,7 +2824,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 7.0, 88.235489, 884.0, 137.0 ],
+					"patching_rect" : [ 7.0, 90.235489, 884.0, 137.0 ],
 					"style" : "",
 					"text" : "An orchidea database is essentially a file containing analysis information on a given source folder (containing a set of audio files, possibly organized in subfolders). You can analyze the database according to a feature, say \"spectrum\": in this case, the database file should be placed at the same level of the original folder and named exactly as the folder, with the additional suffix \".spectrum.db\".\n\nTo build a database, you should use the module orchidea.db.gen: if one feed it a folder, say, /path/to/myfolder, a file \"myfolder.spectrum.db\" is created in the directory /path/to. Once one has built a database, one can use it to orchestrate, by sending it in orchidea.solve third inlet.\n\nThis tutorial is about browsing the database, i.e. having an organized look of what it contains. As the previous tutorial, we will make use of the dada library, and you should probably follow that tutorial first."
 				}
@@ -2926,7 +2926,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "int" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 356.0, 286.5, 20.0, 20.0 ],
+					"patching_rect" : [ 371.0, 286.5, 20.0, 20.0 ],
 					"rounded" : 60.0,
 					"style" : "",
 					"text" : "2",
@@ -3765,8 +3765,8 @@
 			}
  ],
 		"parameters" : 		{
-			"obj-168" : [ "live.gain~[2]", "live.gain~", 0 ],
-			"obj-139" : [ "live.gain~[1]", "live.gain~", 0 ]
+			"obj-139" : [ "live.gain~[1]", "live.gain~", 0 ],
+			"obj-168" : [ "live.gain~[2]", "live.gain~", 0 ]
 		}
 ,
 		"dependency_cache" : [ 			{
