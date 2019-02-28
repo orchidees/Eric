@@ -24,15 +24,12 @@
 ; If your files are not named as specified, they will be tagged with 'N' for
 ; each specific field. The structure of the folder is not important.
 
-db_files 			/Users/Carmine/Elementi/Datasets/CSOL_ordinario.spectrum.db
-sound_paths			/Users/Carmine/Elementi/Datasets/CSOL_ordinario
+db_files 			/Users/Carmine/Projects/Media/Datasets/CSOL_ordinario.spectrum.db
+sound_paths			/Users/Carmine/Projects/Media/Datasets/CSOL_ordinario
 
 ;db_files 			CSOL_tam_tam_spectrum.txt CSOL_multiphonics_spectrum.txt CSOL_ordinario_spectrum.txt
 ;sound_paths			/Users/Carmine/Elementi/Datasets/CSOL_tam_tam /Users/Carmine/Elementi/Datasets/CSOL_multiphonics /Users/Carmine/Elementi/Datasets/CSOL_ordinario
 	
-;db_files 			/Users/Carmine/Desktop/Datasets/OrchDB_check_spectrum.txt
-;sound_paths			/Users/Carmine/Desktop/Datasets/OrchDB_flat
-
 ; This list specifies the instruments of the orchestra to be used; the names depend 
 ; on the database used. The character '|' in between two or more instruments means
 ; that the instruments are played by a single player and are consider as doubles;
@@ -126,7 +123,7 @@ negative_penalization 10
 ; than pitch, and something between 0.1 < x < 0.3 if pitches are also important.
 
 partials_window		32768
-partials_filtering	0.2
+partials_filtering	0.1
 
 ; If, after the target analysis, there are still some pitches that are missing
 ; you can add them here in standard notation (ex. A4, B#3, ...)
@@ -162,7 +159,7 @@ onsets_timegate		.1
 ; T60 specifies the reverberation time and you can control the dry/wet ratio with
 ; respective parameters.
 
-export_solutions	0
+export_solutions	1
 t60					2.8
 dry_wet				.8 .4
 

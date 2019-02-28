@@ -86,7 +86,12 @@ int main (int argc, char* argv[]) {
 		// export -----------------------------------------------------------
 		cout << "exporting solutions..... "; cout.flush ();
 		session.export_solutions ("", orchestrations, connection);
-		cout << "done" << endl;		
+		cout << "done" << endl << endl;		
+
+		ofstream numsegm ("segments.txt");
+		numsegm << orchestrations.size ();
+		numsegm.close ();
+
     } catch (exception& e) {
         cout << "Error: " << e.what () << endl;
     } catch (...) {
