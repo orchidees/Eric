@@ -68,8 +68,8 @@ styles 				ord
 ; for dynamic targets probably using 100 for both (or 100 and 300 respectively) 
 ; can be more appropriate.
 
-pop_size			1000
-max_epochs			1000
+pop_size			500
+max_epochs			500
 
 ; To determine the initial population for the optimization, Anarkid uses a method
 ; called 'relaxed pursuit'. Generally speaking, the method tries to generate right
@@ -126,7 +126,7 @@ negative_penalization 10
 ; than pitch, and something between 0.1 < x < 0.3 if pitches are also important.
 
 partials_window		32768
-partials_filtering	0.1
+partials_filtering	0.2
 
 ; If, after the target analysis, there are still some pitches that are missing
 ; you can add them here in standard notation (ex. A4, B#3, ...)
