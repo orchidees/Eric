@@ -12,7 +12,7 @@ Command line tools (anarkid and makedb) with dedicated scripts.
 First version deployed of the Max packaged toolbox deployed. 
 Fixed bugs, renamed tools, added more targets. Added several command line tools.
 
-0.5 - March, 10, 2019
+0.5 - March, 12, 2019
 
-First public release of the library.
-Fixed bugs, improved stability, added evalution scripts.
+First public release of the library and the toolbox.
+Fixed bugs, improved stability, added evalution scripts, fixed typos on tutorials.
