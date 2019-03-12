@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<root>
+<refpage name='orchidea.features.maxref.xml'/>
+<refpage name='orchidea.solve.maxref.xml'/>
+<refpage name='orchidea.db.query.maxref.xml'/>
+<refpage name='orchidea.db.gen.maxref.xml'/>
+<refpage name='orchidea.db.tinySOL.maxref.xml'/>
+<refpage name='orchidea.solution.tobuffer.maxref.xml'/>
+<refpage name='orchidea.solution.totext.maxref.xml'/>
+<refpage name='orchidea.solution.toroll.maxref.xml'/>
+<refpage name='orchidea.solution.tofile.maxref.xml'/>
+</root>

@@ -10,6 +10,7 @@
 #include "Hz2Note.h"
 #include "MFCC.h"
 #include "constants.h"
+#include "Callback.h"
 
 #include <string>
 #include <sstream>
@@ -43,13 +44,14 @@ void compute_features (const T* buffer, int samples, std::vector<T>& features,
 		T nrg = 0;
 		int rsize = i + bsize > samples ? samples - i : bsize;
 		for (unsigned j = 0; j < rsize; ++j) {
-			cdata[2 * j] = buffer[i + j] * win[j]; // windowing
-			T v = fabs (buffer[j]);
+ 			cdata[2 * j] = buffer[i + j] * win[j]; // windowing
+			T v = fabs (buffer[i + j]);
 			nrg += v*v;
 		}
+
 		nrg = (nrg / rsize); // frame energy
 		tot_nrg += nrg;
-
+	
 		fft->forward(cdata);
 		for (unsigned j = 0; j < bsize; ++j) {
 			spectrum[j] = sqrt (cdata[j * 2] * cdata[j * 2] + 
@@ -112,9 +114,13 @@ void compute_features (const T* buffer, int samples, std::vector<T>& features,
 		for (unsigned j = 0; j < bsize; ++j) {
 			spectrum[j] = avg_coeffs[2 * j];
 		}				
-		T* freq = new T[bsize / 2];
-		ampFreqQuad(&spectrum[0], freq, bsize / 2, DEFAULT_SR);
-
+		T* freq = new T[bsize];
+		T freqPerBin = (DEFAULT_SR) / (T) bsize;
+	
+		for (int i = 0; i < bsize; ++i) {
+			freq[i] = (T) i * freqPerBin;
+		}
+		
 		features[0] = speccentr(spectrum, freq, bsize / 2);
 		features[1] = specspread(spectrum, freq, bsize / 2, features[0]);
 		features[2] = specskew(spectrum, freq, bsize / 2, features[0], features[1]);
@@ -176,19 +182,18 @@ void compute_features (const char* name, std::vector<T>& features,
 
 template <typename T>
 void make_db (const char* path, const std::vector<std::string>& files,  
-	std::ostream& out, std::ostream& console, int bsize, int hopsize, int ncoeff, 
-	const std::string& type, orchidea_notifier notifier) {
-	std::ofstream errs ("errors.txt");
+	std::ostream& out, int bsize, int hopsize, int ncoeff, 
+	const std::string& type, std::vector<std::string>& errs,
+	Callback* c) {
+
 	out << type << " " << bsize << " " << hopsize << " " << ncoeff
 		<< std::endl;
 	for (unsigned i = 0; i < files.size (); ++i) {    		
 		if (files[i].find (".wav") != std::string::npos) {
 			std::stringstream tmp;
-			tmp << "(" << i << "/" << files.size () << ") analysing " << files[i] << "...";
-			console << tmp.str ();
-			console.flush();
-	        if (notifier != nullptr) {
-	        	notifier (tmp.str ().c_str (), 100.);
+			tmp << "(" << i << "/" << files.size () << ") analysing " << files[i];
+	        if (c != nullptr) {
+	        	c->notifier (tmp.str ().c_str (), c->user_data);
 	        }
 			try {
 				std::vector<T> features;
@@ -204,10 +209,14 @@ void make_db (const char* path, const std::vector<std::string>& files,
 				out << std::endl;
 				out.flush ();
 			} catch (std::exception& e) {
-				errs << files[i] << std::endl;
-				console << "error: " << e.what () << std::endl;
+				if (strcmp (e.what (), "invalid feature type requested")  == 0) {
+					throw std::runtime_error (e.what ());
+				}
+				errs.push_back (files[i]);
+		        if (c != nullptr) {
+		        	c->notifier (e.what (), c->user_data);
+		        }				
 			}
-			console << "done" << std::endl;
 		}
 	}
 }

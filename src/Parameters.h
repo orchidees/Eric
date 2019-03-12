@@ -6,6 +6,7 @@
 #define PARAMETERS_H 
 
 #include "utilities.h"
+#include "Callback.h"
 
 #include <vector>
 #include <string>
@@ -23,11 +24,11 @@ struct Parameters {
 		setup ();
 		read (config_file);
 	}
-	void setup () {
-		pop_size = 100;
-		max_epochs = 100;
+	void setup () { // default parameters
+		pop_size = 300;
+		max_epochs = 300;
 		pursuit = 0;
-		xover_rate = .7;
+		xover_rate = .8;
 		mutation_rate = .01;
 		sparsity = 0.001;
 		positive_penalization = 1.;
@@ -42,6 +43,8 @@ struct Parameters {
 
 		dry_wet[0] = .7;
 		dry_wet[1] = .3;	
+
+		callback = nullptr;
 	}
 	void read (const char* config_file) {
 		std::ifstream config (config_file);
@@ -83,26 +86,32 @@ struct Parameters {
 
 	void set_parameter (std::deque<std::string>& tokens) {
         if (tokens[0] == "db_files") {
+            db_files.clear();
         	for (unsigned i = 1; i < tokens.size (); ++i) {
         		db_files.push_back (tokens[i]);
         	}        	
         } else if (tokens[0] == "sound_paths") {
+            sound_paths.clear();
         	for (unsigned i = 1; i < tokens.size (); ++i) {
         		sound_paths.push_back (tokens[i]);
         	}
         } else if (tokens[0] == "orchestra") {
+            orchestra.clear();
         	for (unsigned i = 1; i < tokens.size (); ++i) {
         		orchestra.push_back (tokens[i]);
         	}
         } else if (tokens[0] == "styles") {
+            styles.clear();
         	for (unsigned i = 1; i < tokens.size (); ++i) {
         		styles.push_back (tokens[i]);
         	}
         } else if (tokens[0] == "dynamics") {
+            dynamics.clear();
         	for (unsigned i = 1; i < tokens.size (); ++i) {
         		dynamics.push_back (tokens[i]);
         	}
         } else if (tokens[0] == "others") {
+            others.clear();
         	for (unsigned i = 1; i < tokens.size (); ++i) {
         		others.push_back (tokens[i]);
         	}
@@ -131,6 +140,7 @@ struct Parameters {
         } else if (tokens[0] == "partials_filtering") {
         	partials_filtering = atof (tokens[1].c_str ());
         } else if (tokens[0] == "extra_pitches") {
+            extra_pitches.clear();
         	for (unsigned i = 1; i < tokens.size (); ++i) {
         	 	extra_pitches.push_back (tokens[i]);
         	}
@@ -219,7 +229,7 @@ struct Parameters {
 	std::vector<T> dry_wet;
 
 	// internal
-	orchidea_notifier notifier;
+	Callback* callback;
 };
 
 

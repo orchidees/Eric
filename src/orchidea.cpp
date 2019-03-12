@@ -36,7 +36,7 @@ extern "C" {
 			source = new Source<Real> (&params);
 			target = new SoundTarget<float, FluxSegmentation> (source, &params);
 			session = new Session<Real, ClosestSolutions> (source, &params,
-				new GeneticOrchestra<Real, AdditiveForecast> (&params));
+				new GeneticOrchestra<Real, AdditiveForecast, ClosestSolutions> (&params));
 			source_loaded = false;
 		}
 		OrchideaHandle (const char* segmentation, const char* connection) {
@@ -52,10 +52,10 @@ extern "C" {
 
 			if (strcmp (connection, "closest") == 0) {
 				session = new Session<Real, ClosestSolutions> (source, &params,
-					new GeneticOrchestra<Real, AdditiveForecast> (&params));
+					new GeneticOrchestra<Real, AdditiveForecast, ClosestSolutions> (&params));
 			} else if (strcmp (connection, "best") == 0) {
 				session = new Session<Real, BestSolutions> (source, &params,
-					new GeneticOrchestra<Real, AdditiveForecast> (&params));
+					new GeneticOrchestra<Real, AdditiveForecast, ClosestSolutions> (&params));
 			} else {
 				throw std::runtime_error ("invalid connection algorithm");
 			}
@@ -95,8 +95,8 @@ extern "C" {
 	void orchidea_destroy (OrchideaHandle* h) {
 		delete h;
 	}
-	void orchidea_set_notifier (OrchideaHandle* h, orchidea_notifier notifier) {
-		h->params.notifier = notifier;
+	void orchidea_set_callback (OrchideaHandle* h, Callback* c) {
+		h->params.callback = c;
 	}
 	int orchidea_set_source (OrchideaHandle* h, const char* db_paths[],
 		int size) {
@@ -118,7 +118,10 @@ extern "C" {
 	}
 	const char* orchidea_dump_source (OrchideaHandle* h) {
 		return h->db_status.c_str ();
-	}	
+	}
+	const char* orchidea_query_source (OrchideaHandle* h, const char* query) {
+		return "";
+	}
 	int orchidea_set_target (OrchideaHandle* h, 
 		const char* filename) {
 		try {
@@ -137,7 +140,7 @@ extern "C" {
 		std::string alg = algorithm;
 		if (algorithm == (std::string) "genetic") {
 			delete h->session->optim; // created in constructor
-			h->session->optim = new GeneticOrchestra<Real, AdditiveForecast>(&h->params);
+			h->session->optim = new GeneticOrchestra<Real, AdditiveForecast, ClosestSolutions>(&h->params);
 			return ORCHIDEA_NO_ERROR;
 		} else {
 			return ORCHIDEA_INVALID_SEARCH_ALGORITHM;
@@ -165,6 +168,8 @@ extern "C" {
     	h->params.styles.clear ();
     	h->params.others.clear ();
 	}
+
+    
 	int orchidea_orchestrate (OrchideaHandle* h) {
 		if (h->target->segments.size () == 0) {
 			h->error_details = "";
@@ -190,7 +195,7 @@ extern "C" {
  		return ORCHIDEA_NO_ERROR;
 	}
 	void orchidea_num_segments (OrchideaHandle* h, int* segments) {
-		*segments = h->orchestrations.size ();
+        *segments = h->target->segments.size(); // h->orchestrations.size ();
 	}
 	int orchidea_solutions_per_segment (OrchideaHandle* h, int segment_number, 
 		int* solutions) {
@@ -224,8 +229,8 @@ extern "C" {
 
 		try {
 	    	std::vector<std::string> files;
-	        if (h->params.notifier != nullptr) {
-	        	h->params.notifier ("listing files", 100.);
+	        if (h->params.callback != nullptr) {
+	        	h->params.callback->notifier ("listing files", h->params.callback->user_data);
 	        }
 	    	listdir (sound_folder, sound_folder, files); 
 
@@ -233,8 +238,20 @@ extern "C" {
 	    	if (!out.good ()) {
 	    		throw std::runtime_error ("cannot create database");
 	    	}
-	        make_db<Real>(sound_folder, files, out, std::cout, 
-	        	bsize, hopsize, ncoeff, feature, h->params.notifier);
+	    	std::vector<std::string> err_files;
+	        make_db<Real>(sound_folder, files, out, 
+	        	bsize, hopsize, ncoeff, feature, err_files, h->params.callback);
+
+	        if (err_files.size ()) {
+	        	std::stringstream errors;
+	        	errors << "invalid file(s) ";
+	        	for (unsigned i = 0; i < err_files.size (); ++i) {
+	        		errors << err_files[i] << " ";
+	        	}
+
+	        	h->error_details = errors.str ();
+	        	return ORCHIDEA_ANALYSIS_ERROR;
+	        }
 		} catch (std::exception& e) {
 			h->error_details = e.what ();
 			return ORCHIDEA_ANALYSIS_ERROR;

@@ -1,2 +1,35 @@
+# Build folder    #
+###################
 build 
+
+# tinysol folder  #
+###################
+max/tinysol 
+
+# Compiled sources #
+####################
+*.mxo
+*.a
+
+
+# OS generated files #
+######################
 .DS_Store
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+
+# XCode User Data #
+###################
+max/src/orchidea_Max/orchidea_Max.xcodeproj/project.xcworkspace
+max/src/orchidea_Max/orchidea_Max.xcodeproj/xcuserdata
+max/src/orchidea_Max/orchidea_Max.xcodeproj/*.pbxuser
+max/src/orchidea_Max/orchidea_Max.xcodeproj/*.mode*
+
+
+# Emacs temp files for .gitignore and .gitattributes #
+#########
+.g*~

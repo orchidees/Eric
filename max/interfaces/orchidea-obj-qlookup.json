@@ -1,0 +1,186 @@
+{
+  "orchidea.features": {
+    "digest": "Extract average descriptors from audio files",
+    "module": "orchidea",
+    "category": [
+      "orchidea utilities"
+    ],
+    "keywords": [
+      "orchestration",
+      "instrumentation",
+      "analyze",
+      "moments",
+      "centroid",
+      "spread",
+      "skewness",
+      "kurtosis",
+      "descriptors",
+      "features"
+    ],
+    "seealso": [
+      "orchidea.db.gen",
+      "orchidea.solve"
+    ]
+  },
+  "orchidea.solve": {
+    "digest": "Orchestrate an audio sample",
+    "module": "orchidea",
+    "category": [
+      "orchidea orchestration"
+    ],
+    "keywords": [
+      "orchestration",
+      "instrumentation",
+      "approximation",
+      "solve",
+      "search",
+      "approximate"
+    ],
+    "seealso": [
+      "orchidea.db.gen",
+      "orchidea.solution.toroll",
+      "orchidea.solution.totext",
+      "orchidea.solution.tobuffer",
+      "orchidea.solution.tofile"
+    ]
+  },
+  "orchidea.db.query": {
+    "digest": "Browse an orchidea database",
+    "module": "orchidea",
+    "category": [
+      "orchidea database"
+    ],
+    "keywords": [
+      "orchestration",
+      "instrumentation",
+      "database",
+      "orchidea",
+      "browse",
+      "filter",
+      "find"
+    ],
+    "seealso": [
+      "orchidea.db.gen"
+    ]
+  },
+  "orchidea.db.gen": {
+    "digest": "Generate database from a source folder",
+    "module": "orchidea",
+    "category": [
+      "orchidea database"
+    ],
+    "keywords": [
+      "orchestration",
+      "instrumentation",
+      "dataset",
+      "sample",
+      "generate",
+      "database"
+    ],
+    "seealso": [
+      "orchidea.db.gen",
+      "orchidea.db.browse",
+      "orchidea.solve"
+    ]
+  },
+  "orchidea.db.tinySOL": {
+    "digest": "Locate the tinySOL database",
+    "module": "orchidea",
+    "category": [
+      "orchidea solutions"
+    ],
+    "keywords": [
+      "database",
+      "db",
+      "tiny",
+      "SOL",
+      "tinySOL",
+      "file"
+    ],
+    "seealso": [
+      "orchidea.db.gen"
+    ]
+  },
+  "orchidea.solution.tobuffer": {
+    "digest": "Import orchidea solution into a buffer",
+    "module": "orchidea",
+    "category": [
+      "orchidea solutions"
+    ],
+    "keywords": [
+      "solution",
+      "buffer",
+      "convert",
+      "import",
+      "read"
+    ],
+    "seealso": [
+      "orchidea.solve",
+      "orchidea.solution.totext",
+      "orchidea.solution.toroll",
+      "orchidea.solution.tofile"
+    ]
+  },
+  "orchidea.solution.totext": {
+    "digest": "Import orchidea solution into a text object",
+    "module": "orchidea",
+    "category": [
+      "orchidea solutions"
+    ],
+    "keywords": [
+      "solution",
+      "text",
+      "convert",
+      "import",
+      "read"
+    ],
+    "seealso": [
+      "orchidea.solve",
+      "orchidea.solution.tobuffer",
+      "orchidea.solution.toroll",
+      "orchidea.solution.tofile"
+    ]
+  },
+  "orchidea.solution.toroll": {
+    "digest": "Import orchidea solutions into a <o>bach.roll</o>",
+    "module": "orchidea",
+    "category": [
+      "orchidea solutions"
+    ],
+    "keywords": [
+      "solution",
+      "roll",
+      "score",
+      "import",
+      "symbolic",
+      "read"
+    ],
+    "seealso": [
+      "orchidea.solve",
+      "orchidea.solution.totext",
+      "orchidea.solution.tobuffer",
+      "orchidea.solution.tofile"
+    ]
+  },
+  "orchidea.solution.tofile": {
+    "digest": "Get filenames for a specific orchidea solution",
+    "module": "orchidea",
+    "category": [
+      "orchidea solutions"
+    ],
+    "keywords": [
+      "solution",
+      "text",
+      "file",
+      "obtain",
+      "filename",
+      "audiofile"
+    ],
+    "seealso": [
+      "orchidea.solve",
+      "orchidea.solution.totext",
+      "orchidea.solution.toroll",
+      "orchidea.solution.tobuffer"
+    ]
+  }
+}

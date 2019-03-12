@@ -18,7 +18,7 @@ struct OptimizerI {
 	}
 	virtual ~OptimizerI () {}
 
-	virtual T search (OrchestrationModel<T>& model) = 0;
+	virtual T search (OrchestrationModel<T>& model, std::vector<OrchestrationModel<T> >& history) = 0;
 
 	Source<T>* source;
 	Parameters<T>* parameters;

@@ -66,17 +66,12 @@ int main (int argc, char* argv[]) {
 		Source<float> source  (&params);
 		cout << "done (" << source.database.size () << " entries)" << endl;
 		
-		// symbols -------------------------------------------------------------
-		ofstream dd ("source_dump.txt");
-		source.dump (dd);
-		dd.close ();
-
 		// target --------------------------------------------------------------
 		cout << "analysing target........ ";  cout.flush ();
 		SoundTarget<float, FluxSegmentation> target (argv[1], &source, &params);
 		cout << "done (" << target.segments.size () << " segments)" << endl;
 
-		GeneticOrchestra<float, AdditiveForecast> ga (&params);
+		GeneticOrchestra<float, AdditiveForecast, ClosestSolutions> ga (&params);
 		Session<float, ClosestSolutions> session (&source, &params, &ga);
 		vector<OrchestrationModel<float> > orchestrations;	
 		cout << "searching............... "; cout.flush ();
@@ -91,7 +86,12 @@ int main (int argc, char* argv[]) {
 		// export -----------------------------------------------------------
 		cout << "exporting solutions..... "; cout.flush ();
 		session.export_solutions ("", orchestrations, connection);
-		cout << "done" << endl;		
+		cout << "done" << endl << endl;		
+
+		ofstream numsegm ("segments.txt");
+		numsegm << orchestrations.size ();
+		numsegm.close ();
+
     } catch (exception& e) {
         cout << "Error: " << e.what () << endl;
     } catch (...) {

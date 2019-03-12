@@ -1,0 +1,36 @@
+/*! \mainpage Intelligent assisted orchestration
+
+Assisted orchestration can be thought as the process of searching for the best combinations of orchestral sounds to match a target sound under specified metric and constraints. Although a solution to this problem has been a long-standing request from many composers, it remains relatively unexplored because of its high complexity, requiring knowledge and understanding of both mathematical formalization and musical writing.
+
+The <B>Orchidea</B> template library is a collection of C++ components to 
+compute static and dynamic assisted orchestration.
+
+Orchidea is an evolution of the Orch* tools; it performs mono-objective optimization on multi-dimensional features and requires a little number of parameters for orchestration.
+
+<br>
+
+<br>
+<B>Related pages</B>
+
+<UL>
+<LI><A HREF="http://www.carminecella.com/orchidea"> Main page of the Orchidea project</A></LI>
+<BR>
+
+
+<LI><A HREF="http://www.ircam.fr"> Ircam web page</A></LI>
+<BR>
+
+<LI><A HREF="https://www.hesge.ch/hem/"> HEM web page</A></LI>
+<BR>
+
+</UL>
+<br>
+<B>Copyright</B>
+
+Orchidea is copyright (c) 2018 by IRCAM/HEM<br>
+Designed and written by: Carmine-Emanuele Cella
+
+*/
+
+
+

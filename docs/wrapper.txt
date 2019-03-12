@@ -1,0 +1,7 @@
+/*! \page wrapper A basic example for the C wrapper interface
+
+The following code shows an example usage of the C wrapper.
+
+\include c_driver.c
+
+*/

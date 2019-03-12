@@ -1,0 +1,879 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		1ED89F26219B4544008B9C9D /* orchidea_all */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 1ED89F27219B4544008B9C9D /* Build configuration list for PBXAggregateTarget "orchidea_all" */;
+			buildPhases = (
+			);
+			dependencies = (
+				DBEAD45821A21A1500F4DF6B /* PBXTargetDependency */,
+				1ED89F2B219B4551008B9C9D /* PBXTargetDependency */,
+				1ED89F2D219B4551008B9C9D /* PBXTargetDependency */,
+				1ED89F2F219B4551008B9C9D /* PBXTargetDependency */,
+			);
+			name = orchidea_all;
+			productName = orchidea_all;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		1E8E974D21A1BE7F0048C48E /* orchidea.maxcommons.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EA3D1E221A1BAEA005FB3DA /* orchidea.maxcommons.h */; };
+		1E8E974E21A1BE7F0048C48E /* orchidea.maxcommons.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EA3D1E221A1BAEA005FB3DA /* orchidea.maxcommons.h */; };
+		1E8E974F21A1BE830048C48E /* orchidea.maxcommons.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EA3D1E221A1BAEA005FB3DA /* orchidea.maxcommons.h */; };
+		1EA3D1E321A1BAEA005FB3DA /* orchidea.maxcommons.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EA3D1E221A1BAEA005FB3DA /* orchidea.maxcommons.h */; };
+		1ED2A59621A06A740049A495 /* utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED89EF7219B1835008B9C9D /* utilities.h */; };
+		1ED2A59721A06A740049A495 /* tokenizer.h in Headers */ = {isa = PBXBuildFile; fileRef = DB419179203B974E00237F10 /* tokenizer.h */; };
+		1ED2A59821A06A740049A495 /* orchidea.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BE44D9820349C37006E42EC /* orchidea.h */; };
+		1ED2A59D21A06A740049A495 /* liborchidea_shared.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DB526AB420582CF0006BE8BC /* liborchidea_shared.dylib */; };
+		1ED2A5A621A06AF10049A495 /* orchidea.db.query.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ED2A5A521A06AF10049A495 /* orchidea.db.query.cpp */; };
+		1ED89EF8219B1835008B9C9D /* utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED89EF7219B1835008B9C9D /* utilities.h */; };
+		1ED89EFD219B43BD008B9C9D /* utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED89EF7219B1835008B9C9D /* utilities.h */; };
+		1ED89EFE219B43BD008B9C9D /* tokenizer.h in Headers */ = {isa = PBXBuildFile; fileRef = DB419179203B974E00237F10 /* tokenizer.h */; };
+		1ED89EFF219B43BD008B9C9D /* orchidea.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BE44D9820349C37006E42EC /* orchidea.h */; };
+		1ED89F04219B43BD008B9C9D /* liborchidea_shared.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DB526AB420582CF0006BE8BC /* liborchidea_shared.dylib */; };
+		1ED89F10219B4445008B9C9D /* orchidea.db.gen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ED89F0F219B4445008B9C9D /* orchidea.db.gen.cpp */; };
+		1ED89F13219B445B008B9C9D /* utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ED89EF7219B1835008B9C9D /* utilities.h */; };
+		1ED89F14219B445B008B9C9D /* tokenizer.h in Headers */ = {isa = PBXBuildFile; fileRef = DB419179203B974E00237F10 /* tokenizer.h */; };
+		1ED89F15219B445B008B9C9D /* orchidea.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BE44D9820349C37006E42EC /* orchidea.h */; };
+		1ED89F1A219B445B008B9C9D /* liborchidea_shared.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DB526AB420582CF0006BE8BC /* liborchidea_shared.dylib */; };
+		1ED89F25219B4478008B9C9D /* orchidea.features.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ED89F24219B4478008B9C9D /* orchidea.features.cpp */; };
+		22CF122B0EE9AAAD0054F513 /* orchidea.solve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22CF122A0EE9AAAD0054F513 /* orchidea.solve.cpp */; };
+		2BE44D9920349C37006E42EC /* orchidea.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BE44D9820349C37006E42EC /* orchidea.h */; };
+		DB41917A203B974E00237F10 /* tokenizer.h in Headers */ = {isa = PBXBuildFile; fileRef = DB419179203B974E00237F10 /* tokenizer.h */; };
+		DB58EE2C219E3A1D00EA36C3 /* analysis.h in Headers */ = {isa = PBXBuildFile; fileRef = DB58EE2B219E3A1C00EA36C3 /* analysis.h */; };
+		DBCD368D2078113300210916 /* liborchidea_shared.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DB526AB420582CF0006BE8BC /* liborchidea_shared.dylib */; };
+		DBEAD45B21A2278E00F4DF6B /* Parameters.h in Headers */ = {isa = PBXBuildFile; fileRef = DBEAD45921A2278D00F4DF6B /* Parameters.h */; };
+		DBEAD45C21A2278E00F4DF6B /* Source.h in Headers */ = {isa = PBXBuildFile; fileRef = DBEAD45A21A2278D00F4DF6B /* Source.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1ED89F2A219B4551008B9C9D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FBBEAD608F335360078DB84;
+			remoteInfo = orchidea.solve;
+		};
+		1ED89F2C219B4551008B9C9D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1ED89EFB219B43BD008B9C9D;
+			remoteInfo = orchidea.db.gen;
+		};
+		1ED89F2E219B4551008B9C9D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1ED89F11219B445B008B9C9D;
+			remoteInfo = "orchidea.features~";
+		};
+		DBEAD45721A21A1500F4DF6B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1ED2A59421A06A740049A495;
+			remoteInfo = orchidea.db.query;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1EA3D1E221A1BAEA005FB3DA /* orchidea.maxcommons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = orchidea.maxcommons.h; path = commons/orchidea.maxcommons.h; sourceTree = "<group>"; };
+		1ED2A5A321A06A740049A495 /* orchidea.db.query.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = orchidea.db.query.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
+		1ED2A5A521A06AF10049A495 /* orchidea.db.query.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = orchidea.db.query.cpp; sourceTree = "<group>"; };
+		1ED89EF7219B1835008B9C9D /* utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = utilities.h; path = ../../../src/utilities.h; sourceTree = "<group>"; };
+		1ED89F0C219B43BD008B9C9D /* orchidea.db.gen.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = orchidea.db.gen.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
+		1ED89F0F219B4445008B9C9D /* orchidea.db.gen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = orchidea.db.gen.cpp; sourceTree = "<group>"; };
+		1ED89F22219B445B008B9C9D /* orchidea.features.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = orchidea.features.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
+		1ED89F24219B4478008B9C9D /* orchidea.features.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = orchidea.features.cpp; sourceTree = "<group>"; };
+		22CF10220EE984600054F513 /* maxmspsdk.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = maxmspsdk.xcconfig; path = ../../maxmspsdk.xcconfig; sourceTree = SOURCE_ROOT; };
+		22CF122A0EE9AAAD0054F513 /* orchidea.solve.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = orchidea.solve.cpp; sourceTree = "<group>"; };
+		2BE44D9820349C37006E42EC /* orchidea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = orchidea.h; path = ../../../src/orchidea.h; sourceTree = "<group>"; };
+		2FBBEAE508F335360078DB84 /* orchidea.solve.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = orchidea.solve.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB419179203B974E00237F10 /* tokenizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tokenizer.h; sourceTree = "<group>"; };
+		DB526AB420582CF0006BE8BC /* liborchidea_shared.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liborchidea_shared.dylib; path = ../../../build/bin/liborchidea_shared.dylib; sourceTree = "<group>"; };
+		DB58EE2B219E3A1C00EA36C3 /* analysis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = analysis.h; path = ../../../src/analysis.h; sourceTree = "<group>"; };
+		DBEAD45921A2278D00F4DF6B /* Parameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Parameters.h; path = ../../../src/Parameters.h; sourceTree = "<group>"; };
+		DBEAD45A21A2278D00F4DF6B /* Source.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Source.h; path = ../../../src/Source.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1ED2A59C21A06A740049A495 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1ED2A59D21A06A740049A495 /* liborchidea_shared.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1ED89F03219B43BD008B9C9D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1ED89F04219B43BD008B9C9D /* liborchidea_shared.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1ED89F19219B445B008B9C9D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1ED89F1A219B445B008B9C9D /* liborchidea_shared.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2FBBEADC08F335360078DB84 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DBCD368D2078113300210916 /* liborchidea_shared.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* iterator */ = {
+			isa = PBXGroup;
+			children = (
+				1ED89F0E219B4415008B9C9D /* main */,
+				2BE44D9820349C37006E42EC /* orchidea.h */,
+				1EA3D1E221A1BAEA005FB3DA /* orchidea.maxcommons.h */,
+				DBEAD45921A2278D00F4DF6B /* Parameters.h */,
+				DBEAD45A21A2278D00F4DF6B /* Source.h */,
+				1ED89EF7219B1835008B9C9D /* utilities.h */,
+				DB58EE2B219E3A1C00EA36C3 /* analysis.h */,
+				22CF10220EE984600054F513 /* maxmspsdk.xcconfig */,
+				DB419179203B974E00237F10 /* tokenizer.h */,
+				19C28FB4FE9D528D11CA2CBB /* Products */,
+				2BE44D9320349A02006E42EC /* Frameworks */,
+			);
+			name = iterator;
+			sourceTree = "<group>";
+		};
+		19C28FB4FE9D528D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2FBBEAE508F335360078DB84 /* orchidea.solve.mxo */,
+				1ED89F0C219B43BD008B9C9D /* orchidea.db.gen.mxo */,
+				1ED89F22219B445B008B9C9D /* orchidea.features.mxo */,
+				1ED2A5A321A06A740049A495 /* orchidea.db.query.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1ED89F0E219B4415008B9C9D /* main */ = {
+			isa = PBXGroup;
+			children = (
+				1ED89F24219B4478008B9C9D /* orchidea.features.cpp */,
+				1ED2A5A521A06AF10049A495 /* orchidea.db.query.cpp */,
+				1ED89F0F219B4445008B9C9D /* orchidea.db.gen.cpp */,
+				22CF122A0EE9AAAD0054F513 /* orchidea.solve.cpp */,
+			);
+			path = main;
+			sourceTree = "<group>";
+		};
+		2BE44D9320349A02006E42EC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DB526AB420582CF0006BE8BC /* liborchidea_shared.dylib */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		1ED2A59521A06A740049A495 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DBEAD45B21A2278E00F4DF6B /* Parameters.h in Headers */,
+				1ED2A59621A06A740049A495 /* utilities.h in Headers */,
+				1ED2A59721A06A740049A495 /* tokenizer.h in Headers */,
+				1E8E974D21A1BE7F0048C48E /* orchidea.maxcommons.h in Headers */,
+				1ED2A59821A06A740049A495 /* orchidea.h in Headers */,
+				DBEAD45C21A2278E00F4DF6B /* Source.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1ED89EFC219B43BD008B9C9D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1ED89EFD219B43BD008B9C9D /* utilities.h in Headers */,
+				1ED89EFE219B43BD008B9C9D /* tokenizer.h in Headers */,
+				1E8E974E21A1BE7F0048C48E /* orchidea.maxcommons.h in Headers */,
+				1ED89EFF219B43BD008B9C9D /* orchidea.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1ED89F12219B445B008B9C9D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E8E974F21A1BE830048C48E /* orchidea.maxcommons.h in Headers */,
+				DB58EE2C219E3A1D00EA36C3 /* analysis.h in Headers */,
+				1ED89F13219B445B008B9C9D /* utilities.h in Headers */,
+				1ED89F14219B445B008B9C9D /* tokenizer.h in Headers */,
+				1ED89F15219B445B008B9C9D /* orchidea.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2FBBEAD708F335360078DB84 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1ED89EF8219B1835008B9C9D /* utilities.h in Headers */,
+				DB41917A203B974E00237F10 /* tokenizer.h in Headers */,
+				1EA3D1E321A1BAEA005FB3DA /* orchidea.maxcommons.h in Headers */,
+				2BE44D9920349C37006E42EC /* orchidea.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		1ED2A59421A06A740049A495 /* orchidea.db.query */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1ED2A5A021A06A740049A495 /* Build configuration list for PBXNativeTarget "orchidea.db.query" */;
+			buildPhases = (
+				1ED2A59521A06A740049A495 /* Headers */,
+				1ED2A59921A06A740049A495 /* Resources */,
+				1ED2A59A21A06A740049A495 /* Sources */,
+				1ED2A59C21A06A740049A495 /* Frameworks */,
+				1ED2A59E21A06A740049A495 /* Rez */,
+				1ED2A59F21A06A740049A495 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = orchidea.db.query;
+			productName = iterator;
+			productReference = 1ED2A5A321A06A740049A495 /* orchidea.db.query.mxo */;
+			productType = "com.apple.product-type.bundle";
+		};
+		1ED89EFB219B43BD008B9C9D /* orchidea.db.gen */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1ED89F09219B43BD008B9C9D /* Build configuration list for PBXNativeTarget "orchidea.db.gen" */;
+			buildPhases = (
+				1ED89EFC219B43BD008B9C9D /* Headers */,
+				1ED89F00219B43BD008B9C9D /* Resources */,
+				1ED89F01219B43BD008B9C9D /* Sources */,
+				1ED89F03219B43BD008B9C9D /* Frameworks */,
+				1ED89F05219B43BD008B9C9D /* Rez */,
+				1ED89F06219B43BD008B9C9D /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = orchidea.db.gen;
+			productName = iterator;
+			productReference = 1ED89F0C219B43BD008B9C9D /* orchidea.db.gen.mxo */;
+			productType = "com.apple.product-type.bundle";
+		};
+		1ED89F11219B445B008B9C9D /* orchidea.features */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1ED89F1F219B445B008B9C9D /* Build configuration list for PBXNativeTarget "orchidea.features" */;
+			buildPhases = (
+				1ED89F12219B445B008B9C9D /* Headers */,
+				1ED89F16219B445B008B9C9D /* Resources */,
+				1ED89F17219B445B008B9C9D /* Sources */,
+				1ED89F19219B445B008B9C9D /* Frameworks */,
+				1ED89F1B219B445B008B9C9D /* Rez */,
+				1ED89F1C219B445B008B9C9D /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = orchidea.features;
+			productName = iterator;
+			productReference = 1ED89F22219B445B008B9C9D /* orchidea.features.mxo */;
+			productType = "com.apple.product-type.bundle";
+		};
+		2FBBEAD608F335360078DB84 /* orchidea.solve */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2FBBEAE008F335360078DB84 /* Build configuration list for PBXNativeTarget "orchidea.solve" */;
+			buildPhases = (
+				2FBBEAD708F335360078DB84 /* Headers */,
+				2FBBEAD808F335360078DB84 /* Resources */,
+				2FBBEADA08F335360078DB84 /* Sources */,
+				2FBBEADC08F335360078DB84 /* Frameworks */,
+				2FBBEADF08F335360078DB84 /* Rez */,
+				2BE44D9E2034B0D6006E42EC /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = orchidea.solve;
+			productName = iterator;
+			productReference = 2FBBEAE508F335360078DB84 /* orchidea.solve.mxo */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				KnownAssetTags = (
+					New,
+				);
+				LastUpgradeCheck = 0920;
+				TargetAttributes = {
+					1ED89F26219B4544008B9C9D = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "orchidea_Max" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 089C166AFE841209C02AAC07 /* iterator */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1ED89F26219B4544008B9C9D /* orchidea_all */,
+				2FBBEAD608F335360078DB84 /* orchidea.solve */,
+				1ED2A59421A06A740049A495 /* orchidea.db.query */,
+				1ED89EFB219B43BD008B9C9D /* orchidea.db.gen */,
+				1ED89F11219B445B008B9C9D /* orchidea.features */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1ED2A59921A06A740049A495 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1ED89F00219B43BD008B9C9D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1ED89F16219B445B008B9C9D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2FBBEAD808F335360078DB84 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		1ED2A59E21A06A740049A495 /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1ED89F05219B43BD008B9C9D /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1ED89F1B219B445B008B9C9D /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2FBBEADF08F335360078DB84 /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1ED2A59F21A06A740049A495 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# hack the reference to the orchidea shared library:\ninstall_name_tool -change @rpath/liborchidea_shared.dylib @loader_path/../Frameworks/liborchidea_shared.dylib ../../externals/orchidea.db.query.mxo/Contents/MacOS/orchidea.db.query\nmkdir -p ../../externals/orchidea.db.query.mxo/Contents/Frameworks\ncp ../../../build/bin/*.dylib  ../../externals/orchidea.db.query.mxo/Contents/Frameworks\ncp -R ../../externals/orchidea.db.query.mxo/ ../../../build/bin/orchidea.db.query.mxo";
+			showEnvVarsInLog = 0;
+		};
+		1ED89F06219B43BD008B9C9D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# hack the reference to the orchidea shared library:\ninstall_name_tool -change @rpath/liborchidea_shared.dylib @loader_path/../Frameworks/liborchidea_shared.dylib ../../externals/orchidea.db.gen.mxo/Contents/MacOS/orchidea.db.gen\nmkdir -p ../../externals/orchidea.db.gen.mxo/Contents/Frameworks\ncp ../../../build/bin/*.dylib  ../../externals/orchidea.db.gen.mxo/Contents/Frameworks\ncp -R ../../externals/orchidea.db.gen.mxo/ ../../../build/bin/orchidea.db.gen.mxo";
+			showEnvVarsInLog = 0;
+		};
+		1ED89F1C219B445B008B9C9D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# hack the reference to the orchidea shared library:\ninstall_name_tool -change @rpath/liborchidea_shared.dylib @loader_path/../Frameworks/liborchidea_shared.dylib ../../externals/orchidea.features.mxo/Contents/MacOS/orchidea.features\nmkdir -p ../../externals/orchidea.features.mxo/Contents/Frameworks\ncp ../../../build/bin/*.dylib  ../../externals/orchidea.features.mxo/Contents/Frameworks\ncp -R ../../externals/orchidea.features.mxo/ ../../../build/bin/orchidea.features.mxo";
+			showEnvVarsInLog = 0;
+		};
+		2BE44D9E2034B0D6006E42EC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# hack the reference to the orchidea shared library:\ninstall_name_tool -change @rpath/liborchidea_shared.dylib @loader_path/../Frameworks/liborchidea_shared.dylib ../../externals/orchidea.solve.mxo/Contents/MacOS/orchidea.solve\nmkdir -p ../../externals/orchidea.solve.mxo/Contents/Frameworks\ncp ../../../build/bin/*.dylib  ../../externals/orchidea.solve.mxo/Contents/Frameworks\ncp -R ../../externals/orchidea.solve.mxo/ ../../../build/bin/orchidea.solve.mxo";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1ED2A59A21A06A740049A495 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1ED2A5A621A06AF10049A495 /* orchidea.db.query.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1ED89F01219B43BD008B9C9D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1ED89F10219B4445008B9C9D /* orchidea.db.gen.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1ED89F17219B445B008B9C9D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1ED89F25219B4478008B9C9D /* orchidea.features.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2FBBEADA08F335360078DB84 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22CF122B0EE9AAAD0054F513 /* orchidea.solve.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1ED89F2B219B4551008B9C9D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2FBBEAD608F335360078DB84 /* orchidea.solve */;
+			targetProxy = 1ED89F2A219B4551008B9C9D /* PBXContainerItemProxy */;
+		};
+		1ED89F2D219B4551008B9C9D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1ED89EFB219B43BD008B9C9D /* orchidea.db.gen */;
+			targetProxy = 1ED89F2C219B4551008B9C9D /* PBXContainerItemProxy */;
+		};
+		1ED89F2F219B4551008B9C9D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1ED89F11219B445B008B9C9D /* orchidea.features */;
+			targetProxy = 1ED89F2E219B4551008B9C9D /* PBXContainerItemProxy */;
+		};
+		DBEAD45821A21A1500F4DF6B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1ED2A59421A06A740049A495 /* orchidea.db.query */;
+			targetProxy = DBEAD45721A21A1500F4DF6B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1ED2A5A121A06A740049A495 /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22CF10220EE984600054F513 /* maxmspsdk.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = "$(SRCROOT)/../../";
+				GCC_OPTIMIZATION_LEVEL = 0;
+				HEADER_SEARCH_PATHS = (
+					"\"$(C74SUPPORT)/max-includes\"",
+					"\"$(C74SUPPORT)/msp-includes\"",
+					"\"$(C74SUPPORT)/jit-includes\"",
+					../../../build/src/,
+					../../src,
+					"\"$(SRCROOT)/commons\"",
+				);
+				INSTALL_PATH = /externals;
+				OTHER_LDFLAGS = "$(C74_SYM_LINKER_FLAGS)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Development;
+		};
+		1ED2A5A221A06A740049A495 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22CF10220EE984600054F513 /* maxmspsdk.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = "$(SRCROOT)/../../";
+				HEADER_SEARCH_PATHS = (
+					"\"$(C74SUPPORT)/max-includes\"",
+					"\"$(C74SUPPORT)/msp-includes\"",
+					"\"$(C74SUPPORT)/jit-includes\"",
+					../../../build/src/,
+					../../src,
+					"\"$(SRCROOT)/commons\"",
+				);
+				INSTALL_PATH = /externals;
+				OTHER_LDFLAGS = "$(C74_SYM_LINKER_FLAGS)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Deployment;
+		};
+		1ED89F0A219B43BD008B9C9D /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22CF10220EE984600054F513 /* maxmspsdk.xcconfig */;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = "$(SRCROOT)/../../";
+				GCC_OPTIMIZATION_LEVEL = 0;
+				HEADER_SEARCH_PATHS = (
+					"\"$(C74SUPPORT)/max-includes\"",
+					"\"$(C74SUPPORT)/msp-includes\"",
+					"\"$(C74SUPPORT)/jit-includes\"",
+					../../../build/src/,
+					../../src,
+					"\"$(SRCROOT)/commons\"",
+				);
+				INSTALL_PATH = /externals;
+				OTHER_LDFLAGS = "$(C74_SYM_LINKER_FLAGS)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Development;
+		};
+		1ED89F0B219B43BD008B9C9D /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22CF10220EE984600054F513 /* maxmspsdk.xcconfig */;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = "$(SRCROOT)/../../";
+				HEADER_SEARCH_PATHS = (
+					"\"$(C74SUPPORT)/max-includes\"",
+					"\"$(C74SUPPORT)/msp-includes\"",
+					"\"$(C74SUPPORT)/jit-includes\"",
+					../../../build/src/,
+					../../src,
+					"\"$(SRCROOT)/commons\"",
+				);
+				INSTALL_PATH = /externals;
+				OTHER_LDFLAGS = "$(C74_SYM_LINKER_FLAGS)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Deployment;
+		};
+		1ED89F20219B445B008B9C9D /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22CF10220EE984600054F513 /* maxmspsdk.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = "$(SRCROOT)/../../";
+				GCC_OPTIMIZATION_LEVEL = 0;
+				HEADER_SEARCH_PATHS = (
+					"\"$(C74SUPPORT)/max-includes\"",
+					"\"$(C74SUPPORT)/msp-includes\"",
+					"\"$(C74SUPPORT)/jit-includes\"",
+					../../../build/src/,
+					../../src,
+					"\"$(SRCROOT)/commons\"",
+				);
+				INSTALL_PATH = /externals;
+				OTHER_LDFLAGS = "$(C74_SYM_LINKER_FLAGS)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Development;
+		};
+		1ED89F21219B445B008B9C9D /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22CF10220EE984600054F513 /* maxmspsdk.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = "$(SRCROOT)/../../";
+				HEADER_SEARCH_PATHS = (
+					"\"$(C74SUPPORT)/max-includes\"",
+					"\"$(C74SUPPORT)/msp-includes\"",
+					"\"$(C74SUPPORT)/jit-includes\"",
+					../../../build/src/,
+					../../src,
+					"\"$(SRCROOT)/commons\"",
+				);
+				INSTALL_PATH = /externals;
+				OTHER_LDFLAGS = "$(C74_SYM_LINKER_FLAGS)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Deployment;
+		};
+		1ED89F28219B4544008B9C9D /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Development;
+		};
+		1ED89F29219B4544008B9C9D /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Deployment;
+		};
+		2FBBEAD008F335010078DB84 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				"LIBRARY_SEARCH_PATHS[arch=*]" = (
+					../../../build/bin,
+					"../../../dependencies/orchsdif/SDIF-3.11.4-src/sdif/.libs",
+					"../../../dependencies/orchdb/db-6.2.32/build_unix/.libs",
+					"../../../dependencies/orchboost/boost_1_64_0/bin.v2/libs/system/build/darwin-4.2.1/release/link-static/threading-multi",
+					"../../../dependencies/orchboost/boost_1_64_0/bin.v2/libs/filesystem/build/darwin-4.2.1/release/link-static/threading-multi",
+					"../../../dependencies/orchboost/boost_1_64_0/bin.v2/libs/regex/build/darwin-4.2.1/release/link-static/threading-multi",
+					"../../../dependencies/orchboost/boost_1_64_0/bin.v2/libs/serialization/build/darwin-4.2.1/release/link-static/threading-multi",
+					../../../dependencies/orchalg/alglib_3_12_0/src,
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "";
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-lorchidea",
+					"-lsdif",
+				);
+				PRODUCT_NAME = $TARGET_NAME;
+			};
+			name = Development;
+		};
+		2FBBEAD108F335010078DB84 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				"LIBRARY_SEARCH_PATHS[arch=*]" = (
+					../../../build/bin,
+					"../../../dependencies/orchsdif/SDIF-3.11.4-src/sdif/.libs",
+					"../../../dependencies/orchdb/db-6.2.32/build_unix/.libs",
+					"../../../dependencies/orchboost/boost_1_64_0/bin.v2/libs/system/build/darwin-4.2.1/release/link-static/threading-multi",
+					"../../../dependencies/orchboost/boost_1_64_0/bin.v2/libs/filesystem/build/darwin-4.2.1/release/link-static/threading-multi",
+					"../../../dependencies/orchboost/boost_1_64_0/bin.v2/libs/regex/build/darwin-4.2.1/release/link-static/threading-multi",
+					"../../../dependencies/orchboost/boost_1_64_0/bin.v2/libs/serialization/build/darwin-4.2.1/release/link-static/threading-multi",
+					../../../dependencies/orchalg/alglib_3_12_0/src,
+				);
+				OTHER_CFLAGS = "";
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-lorchidea",
+					"-lsdif",
+				);
+				PRODUCT_NAME = $TARGET_NAME;
+			};
+			name = Deployment;
+		};
+		2FBBEAE108F335360078DB84 /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22CF10220EE984600054F513 /* maxmspsdk.xcconfig */;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = "$(SRCROOT)/../../";
+				GCC_OPTIMIZATION_LEVEL = 0;
+				HEADER_SEARCH_PATHS = (
+					"\"$(C74SUPPORT)/max-includes\"",
+					"\"$(C74SUPPORT)/msp-includes\"",
+					"\"$(C74SUPPORT)/jit-includes\"",
+					../../../build/src/,
+					../../src,
+					"\"$(SRCROOT)/commons\"",
+				);
+				INSTALL_PATH = /externals;
+				OTHER_LDFLAGS = "$(C74_SYM_LINKER_FLAGS)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Development;
+		};
+		2FBBEAE208F335360078DB84 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22CF10220EE984600054F513 /* maxmspsdk.xcconfig */;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = "$(SRCROOT)/../../";
+				HEADER_SEARCH_PATHS = (
+					"\"$(C74SUPPORT)/max-includes\"",
+					"\"$(C74SUPPORT)/msp-includes\"",
+					"\"$(C74SUPPORT)/jit-includes\"",
+					../../../build/src/,
+					../../src,
+					"\"$(SRCROOT)/commons\"",
+				);
+				INSTALL_PATH = /externals;
+				OTHER_LDFLAGS = "$(C74_SYM_LINKER_FLAGS)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Deployment;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1ED2A5A021A06A740049A495 /* Build configuration list for PBXNativeTarget "orchidea.db.query" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1ED2A5A121A06A740049A495 /* Development */,
+				1ED2A5A221A06A740049A495 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		1ED89F09219B43BD008B9C9D /* Build configuration list for PBXNativeTarget "orchidea.db.gen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1ED89F0A219B43BD008B9C9D /* Development */,
+				1ED89F0B219B43BD008B9C9D /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		1ED89F1F219B445B008B9C9D /* Build configuration list for PBXNativeTarget "orchidea.features" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1ED89F20219B445B008B9C9D /* Development */,
+				1ED89F21219B445B008B9C9D /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		1ED89F27219B4544008B9C9D /* Build configuration list for PBXAggregateTarget "orchidea_all" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1ED89F28219B4544008B9C9D /* Development */,
+				1ED89F29219B4544008B9C9D /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "orchidea_Max" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2FBBEAD008F335010078DB84 /* Development */,
+				2FBBEAD108F335010078DB84 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		2FBBEAE008F335360078DB84 /* Build configuration list for PBXNativeTarget "orchidea.solve" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2FBBEAE108F335360078DB84 /* Development */,
+				2FBBEAE208F335360078DB84 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}

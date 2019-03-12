@@ -8,10 +8,6 @@
 
 #define TEST_ITER 1
 
-void notif (const char* action, float status) {
-	printf ("%s: %g\n", action, status);
-}
-
 int main (int argc, char* argv[]) {
 		printf ("[orchidea, ver. %d.%d]\n\n", ORCHIDEA_VERSION_MAJOR, 
 			ORCHIDEA_VERSION_MINOR);
@@ -26,7 +22,6 @@ int main (int argc, char* argv[]) {
 	OrchideaHandle* h = orchidea_create ("flux", "closest");
 	int err = ORCHIDEA_NO_ERROR;
 
-	// orchidea_set_notifier (h, notif);
 	orchidea_reset_filters(h);
 
 	const char* paths[] = {

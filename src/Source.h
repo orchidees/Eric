@@ -84,6 +84,78 @@ struct Source {
 		parameters = params;
 		load ();
 	}
+	void item_to_vector (std::map<std::string, std::vector<int> > item,
+		std::vector<std::string>& results) {
+		for (std::map<std::string, std::vector<int> >::iterator it = item.begin ();
+			it != item.end (); ++it) {
+			results.push_back(it->first);
+		}		
+	}
+	void query (const std::string& query, std::vector<std::string>& results) {
+		std::stringstream tmp;
+		tmp << query;
+		std::vector<std::string> tokens;
+		while (!tmp.eof ()) {
+			std::string tok;
+			tmp >> tok;
+			tokens.push_back(tok);
+		}
+
+		if (tokens.size () < 2) {
+			throw std::runtime_error ("invalid syntax in query");
+		}
+
+		if (tokens[0] == "grep") {
+			const char* regexp = tokens[1].c_str ();
+			for (unsigned j = 0; j <  database.size (); ++j) {
+				if (match ((char*) regexp, (char*) database[j].file.c_str ())) {
+					results.push_back (database[j].file);
+				}
+			}
+		} else if (tokens[0] == "getitems") {
+			for (unsigned i = 1; i < tokens.size (); ++i) {
+				if (tokens[i].size () == 0) continue;
+				if (tokens[i] == "instruments") {
+					item_to_vector(tot_instruments, results);
+				} else if (tokens[i] == "styles") {
+					item_to_vector(styles, results);
+				} else if (tokens[i] == "pitches") {
+					item_to_vector(pitches, results);
+				} else if (tokens[i] == "dynamics") {
+					item_to_vector(dynamics, results);
+				} else if (tokens[i] == "others") {
+					item_to_vector(others, results);
+				} else {
+					std::stringstream err;
+					err << "invalid item requested [" << tokens[i] << "]";
+					throw std::runtime_error (err.str ().c_str ());
+				}
+			}					
+		} else if (tokens[0] == "getinfo") {
+			for (unsigned j = 0; j <  database.size (); ++j) {
+				if (database[j].file.find (tokens[1]) != std::string::npos) {
+					for (unsigned z = 0; z < database[j].symbols.size (); ++z) {
+						results.push_back (database[j].symbols[z]);
+					}	
+				}
+			}
+		} else if (tokens[0] == "getfeatures") {
+			for (unsigned j = 0; j <  database.size (); ++j) {
+				if (database[j].file.find (tokens[1]) != std::string::npos) {
+					for (unsigned z = 0; z < database[j].features.size (); ++z) {
+						std::stringstream tmp;
+						tmp << database[j].features[z];
+						results.push_back (tmp.str ());
+					}	
+				}
+			}
+		} else {
+			std::stringstream err;
+			err << "invalid query requested [" << tokens[0] << "]";
+			throw std::runtime_error (err.str ().c_str ());
+		}
+	}
+
 	void load () {
 		if (parameters->db_files.size () == 0) return;
 
@@ -109,15 +181,16 @@ struct Source {
 					throw std::runtime_error ("incompatible feature size among databases");
 				}
 			}
+			if (db.fail ()) throw std::runtime_error ("cannot process db file");
 
 			int lineno = 1;
-			while (!db.eof ()) {
+			while (!db.eof () ) {
 				std::string line;
-				std::getline(db, line);
+				std::getline(db, line, '\n');
 				line = trim (line);
-				
+				++lineno;
 				if (line.size () == 0) continue;
-
+				
 				std::stringstream linestream;
 				linestream << line;
 				
@@ -144,7 +217,6 @@ struct Source {
 				}
 
 				database.push_back(e);
-				++lineno;
 			}
 		}
 

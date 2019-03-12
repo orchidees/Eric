@@ -15,16 +15,17 @@
 #include <string>
 #include <vector>
 #include <deque>
+#include <sstream>
 
 #define MAX_EQUAL_EPOCHS 150
 
 // -----------------------------------------------------------------------------
 
-template <typename T, template <typename X> class ForecastPolicy>
+template <typename T, template <typename X> class ForecastPolicy, template <typename X> class ConnectionPolicy>
 struct GeneticOrchestra : public OptimizerI<T> {
 	GeneticOrchestra (Parameters<T>* p) : OptimizerI<T>(p) {}
 	
-	T search (OrchestrationModel<T>& model) {
+	T search (OrchestrationModel<T>& model, std::vector<OrchestrationModel<T> >& history) {
 		std::vector<Solution<T> > population (OptimizerI<T>::parameters->pop_size);
 		gen_init_population (model, population, model.segment->features, 
 			OptimizerI<T>::parameters->pursuit);	
@@ -39,9 +40,11 @@ struct GeneticOrchestra : public OptimizerI<T> {
 
 		std::vector<Solution<T> > best_pop;
 		for (unsigned i = 0; i < OptimizerI<T>::parameters->max_epochs; ++i) {
-	        if (OptimizerI<T>::parameters->notifier != nullptr) {
-	        	OptimizerI<T>::parameters->notifier ("genetic search", (((float)i + 1) 
-	        		/ (float)OptimizerI<T>::parameters->max_epochs) * 100.);
+	        if (OptimizerI<T>::parameters->callback != nullptr) {
+	        	std::stringstream msg;
+	        	msg << "genetic search epoch " << i + 1;
+	        	OptimizerI<T>::parameters->callback->notifier (msg.str ().c_str (),
+	        		OptimizerI<T>::parameters->callback->user_data);
 	        }
 			total_fitness = evaluate_population(population, model.segment->features, 
 				model.database);	
