@@ -148,7 +148,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 190.0, 143.0, 700.0, 396.0 ],
+						"rect" : [ 212.0, 156.0, 700.0, 396.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -420,7 +420,7 @@
 					"patching_rect" : [ 541.0, 43.0, 29.0, 21.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 241.0, 15.0, 39.0, 21.0 ],
-					"text" : "0.4",
+					"text" : "0.5",
 					"textcolor" : [ 0.25, 0.25, 0.25, 1.0 ]
 				}
 
@@ -880,14 +880,7 @@
 
 			}
  ],
-		"dependency_cache" : [ 			{
-				"name" : "eric.jpg",
-				"bootpath" : "~/Projects/Research/UCB/Research/orchidea/max/images",
-				"patcherrelativepath" : "../../../../../Projects/Research/UCB/Research/orchidea/max/images",
-				"type" : "JPEG",
-				"implicit" : 1
-			}
- ],
+		"dependency_cache" : [  ],
 		"autosave" : 0,
 		"bgcolor" : [ 0.941176, 0.941176, 0.941176, 1.0 ]
 	}
