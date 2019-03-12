@@ -1,0 +1,35 @@
+/Users/Carmine/Projects/Research/UCB/Research/orchidea/max/src/orchidea_Max/main
+/Users/Carmine/Projects/Research/UCB/Research/orchidea/max/src/orchidea_Max/abstractions
+
+
+
+
+/Users/Carmine/Projects/Research/UCB/Research/orchidea/max/docs/refpages/orchidea_ref
+/Users/Carmine/Projects/Research/UCB/Research/orchidea/max/init
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+orchidea
+1
+1
+1
+0
+0
+
+/Users/Carmine/Projects/Research/UCB/Research/orchidea/max/interfaces
+1
+orchidea math
+0
+/Users/danieleghisi/Documents/Max 7/Packages/orchidea/help
+0
+orchidea.help
+/Users/danieleghisi/Documents/Max 7/Packages/orchidea/help/orchidea.help.json
+orchidea.help.home.maxpat, orchidea.help.search.maxpat, orchidea.help.searchtag.maxpat
+

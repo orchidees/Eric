@@ -36,7 +36,8 @@ cp build/tools/dbquery/dbquery $1.bin
 cp build/tools/features/features $1.bin
 cp build/tools/c_driver/c_driver $1.bin
 cp build/tools/cpp_driver/cpp_driver $1.bin
-cp scripts/default_orchestration.txt $1.bin
+cp scripts/static_orchestration.txt $1.bin
+cp scripts/dynamic_orchestration.txt $1.bin
 cp scripts/COPYRIGHT $1.bin
 cp scripts/changes.txt $1.bin
 cp targets/A_minor.wav $1.bin
