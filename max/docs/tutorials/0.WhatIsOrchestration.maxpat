@@ -2,13 +2,14 @@
 	"patcher" : 	{
 		"fileversion" : 1,
 		"appversion" : 		{
-			"major" : 7,
-			"minor" : 3,
-			"revision" : 1,
+			"major" : 8,
+			"minor" : 0,
+			"revision" : 3,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
+		"classnamespace" : "box",
 		"rect" : [ 69.0, 79.0, 935.0, 655.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
@@ -42,8 +43,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 18.666668, 2189.0, 890.333313, 21.0 ],
-					"style" : "",
+					"patching_rect" : [ 18.666668000000001, 2189.0, 890.333312999999976, 21.0 ],
 					"text" : " "
 				}
 
@@ -57,7 +57,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 676.5, 2162.0, 205.0, 23.0 ],
-					"style" : "",
 					"text" : "load 1.StaticOrchestration.maxpat"
 				}
 
@@ -71,7 +70,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 676.5, 2189.0, 57.0, 23.0 ],
-					"style" : "",
 					"text" : "pcontrol"
 				}
 
@@ -84,8 +82,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "int" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 676.5, 2136.615234, 232.5, 19.999907 ],
-					"style" : "",
+					"patching_rect" : [ 676.5, 2136.615233999999873, 232.5, 19.999907 ],
 					"text" : "Static orchestration"
 				}
 
@@ -101,8 +98,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 676.5, 2077.615234, 232.5, 55.0 ],
-					"style" : "",
+					"patching_rect" : [ 676.5, 2077.615233999999873, 232.5, 55.0 ],
 					"text" : "Tip: follow the next tutorial to learn more about static orchestrations!"
 				}
 
@@ -118,7 +114,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "jit_matrix" ],
-					"patching_rect" : [ 18.666668, 1836.797974, 538.999939, 319.817168 ],
+					"patching_rect" : [ 18.666668000000001, 1836.797974000000067, 538.99993900000004, 319.817168106549389 ],
 					"pic" : "model.png"
 				}
 
@@ -130,8 +126,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 18.666668, 1763.733398, 890.333313, 50.0 ],
-					"style" : "",
+					"patching_rect" : [ 18.666668000000001, 1763.733398000000079, 890.333312999999976, 50.0 ],
 					"text" : "An important aspect of the current algorithm is the possibility of orchestrate sounds that evolve in time, to produce dynamic orchestrations. Before each orchestration, a segmentation step divides the original dynamic target into a set of static targets to optimize. Finally, a specific model tries to connect the generated solution into a single score."
 				}
 
@@ -143,8 +138,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 15.666667, 1701.733398, 893.333313, 50.0 ],
-					"style" : "",
+					"patching_rect" : [ 15.666667, 1701.733398000000079, 893.333312999999976, 50.0 ],
 					"text" : "The current solution to this problem, as implemented in this toolbox, is based on a mono-objective optimization algorithm that is able to integrate soft symbolic constraints as cost parameters. The starting situation for the optimization is computed by means of a relaxed matching pursuit algorithm that finds the candidate orchestrations to further optimize."
 				}
 
@@ -160,7 +154,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "jit_matrix" ],
-					"patching_rect" : [ 742.733337, 1584.799927, 166.266663, 92.370368 ],
+					"patching_rect" : [ 742.733337000000006, 1584.799927000000025, 166.266662999999994, 92.370368333333332 ],
 					"pic" : "multidim.png"
 				}
 
@@ -172,8 +166,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 15.666667, 1584.799927, 707.0, 94.0 ],
-					"style" : "",
+					"patching_rect" : [ 15.666667, 1584.799927000000025, 707.0, 94.0 ],
 					"text" : "How an orchestra can be used to reproduce a target timbre within a compositional context? How can we find a combination of instruments that, at the same time best matches a given target sound and fits writing constraints specified by the composer?  More formally, the target-based assisted orchestration problem can be split into two joint problems:\n\n1. a combinatorial optimization problem defined on a multidimensional timbre description;\n2. a constraint solving problem on the variables of musical writing."
 				}
 
@@ -186,8 +179,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 631.0, 1434.533325, 95.0, 23.0 ],
-					"style" : "",
+					"patching_rect" : [ 631.0, 1434.533325000000104, 95.0, 23.0 ],
 					"text" : "loadmess start"
 				}
 
@@ -198,8 +190,7 @@
 					"maxclass" : "ezdac~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 626.666626, 1485.690674, 45.0, 45.0 ],
-					"style" : ""
+					"patching_rect" : [ 626.666625999999951, 1485.690673999999944, 45.0, 45.0 ]
 				}
 
 			}
@@ -214,8 +205,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 626.666626, 1353.533447, 282.333344, 69.0 ],
-					"style" : "",
+					"patching_rect" : [ 626.666625999999951, 1353.533447000000024, 282.333344000000011, 69.0 ],
 					"text" : "Tip: try to play the following bell sound and then listen to a possible version for orchestra of it"
 				}
 
@@ -224,25 +214,26 @@
 				"box" : 				{
 					"data" : 					{
 						"clips" : [ 							{
+								"absolutepath" : "archeos_solution_0.wav",
 								"filename" : "archeos_solution_0.wav",
 								"filekind" : "audiofile",
 								"loop" : 0,
 								"content_state" : 								{
-									"pitchshift" : [ 1.0 ],
-									"pitchcorrection" : [ 0 ],
-									"quality" : [ "basic" ],
-									"formantcorrection" : [ 0 ],
-									"slurtime" : [ 0.0 ],
+									"originallengthms" : [ 0.0 ],
+									"basictuning" : [ 440 ],
 									"mode" : [ "basic" ],
+									"pitchcorrection" : [ 0 ],
+									"formant" : [ 1.0 ],
 									"followglobaltempo" : [ 0 ],
 									"play" : [ 0 ],
 									"timestretch" : [ 0 ],
-									"originallengthms" : [ 0.0 ],
-									"basictuning" : [ 440 ],
+									"formantcorrection" : [ 0 ],
+									"quality" : [ "basic" ],
+									"pitchshift" : [ 1.0 ],
 									"originallength" : [ 0.0, "ticks" ],
+									"slurtime" : [ 0.0 ],
 									"speed" : [ 1.0 ],
-									"originaltempo" : [ 120.0 ],
-									"formant" : [ 1.0 ]
+									"originaltempo" : [ 120.0 ]
 								}
 
 							}
@@ -254,8 +245,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 5,
 					"outlettype" : [ "signal", "signal", "signal", "", "dictionary" ],
-					"patching_rect" : [ 809.666626, 1427.533325, 99.333344, 30.0 ],
-					"style" : ""
+					"patching_rect" : [ 809.666625999999951, 1427.533325000000104, 99.333343999999997, 30.0 ]
 				}
 
 			}
@@ -263,25 +253,26 @@
 				"box" : 				{
 					"data" : 					{
 						"clips" : [ 							{
+								"absolutepath" : "archeos-bell.wav",
 								"filename" : "archeos-bell.wav",
 								"filekind" : "audiofile",
 								"loop" : 0,
 								"content_state" : 								{
-									"pitchshift" : [ 1.0 ],
-									"pitchcorrection" : [ 0 ],
-									"quality" : [ "basic" ],
-									"formantcorrection" : [ 0 ],
-									"slurtime" : [ 0.0 ],
+									"originallengthms" : [ 0.0 ],
+									"basictuning" : [ 440 ],
 									"mode" : [ "basic" ],
+									"pitchcorrection" : [ 0 ],
+									"formant" : [ 1.0 ],
 									"followglobaltempo" : [ 0 ],
 									"play" : [ 0 ],
 									"timestretch" : [ 0 ],
-									"originallengthms" : [ 0.0 ],
-									"basictuning" : [ 440 ],
+									"formantcorrection" : [ 0 ],
+									"quality" : [ "basic" ],
+									"pitchshift" : [ 1.0 ],
 									"originallength" : [ 0.0, "ticks" ],
+									"slurtime" : [ 0.0 ],
 									"speed" : [ 1.0 ],
-									"originaltempo" : [ 120.0 ],
-									"formant" : [ 1.0 ]
+									"originaltempo" : [ 120.0 ]
 								}
 
 							}
@@ -293,8 +284,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 5,
 					"outlettype" : [ "signal", "signal", "signal", "", "dictionary" ],
-					"patching_rect" : [ 626.666626, 1427.533325, 99.333344, 30.0 ],
-					"style" : ""
+					"patching_rect" : [ 626.666625999999951, 1427.533325000000104, 99.333343999999997, 30.0 ]
 				}
 
 			}
@@ -308,8 +298,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 604.900024, 1146.190918, 304.099945, 69.0 ],
-					"style" : "",
+					"patching_rect" : [ 604.90002400000003, 1146.190918000000011, 304.099944999999991, 69.0 ],
 					"text" : "Note: this is not equivalent to transcription; the original sound indeed could be just a recording of a natural sound and not the recording of a score"
 				}
 
@@ -325,7 +314,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "jit_matrix" ],
-					"patching_rect" : [ 15.666667, 1146.190918, 585.666687, 384.49981 ],
+					"patching_rect" : [ 15.666667, 1146.190918000000011, 585.666687000000024, 384.499810344701586 ],
 					"pic" : "induction.png"
 				}
 
@@ -339,7 +328,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 12.5, 525.5, 95.0, 23.0 ],
-					"style" : "",
 					"text" : "loadmess start"
 				}
 
@@ -355,8 +343,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 439.333344, 974.083679, 472.0, 55.0 ],
-					"style" : "",
+					"patching_rect" : [ 439.333344000000011, 974.083678999999961, 472.0, 55.0 ],
 					"text" : "Orchids is the first version where there has been an attempt orchestrate sounds evolving in time"
 				}
 
@@ -371,9 +358,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 274.5, 774.0, 141.666656, 127.0 ],
-					"style" : "",
-					"text" : "With Orchis/Orchidée, Johnatan Harvey composed his masterpiece 'Spekings' for large orchestra and live electronics"
+					"patching_rect" : [ 274.5, 774.0, 141.666656494140625, 127.0 ],
+					"text" : "With Orchis/Orchidée, Jonathan Harvey composed his masterpiece 'Spekings' for large orchestra and live electronics"
 				}
 
 			}
@@ -388,7 +374,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "jit_matrix" ],
-					"patching_rect" : [ 9.0, 774.0, 260.666687, 255.675197 ],
+					"patching_rect" : [ 9.0, 774.0, 260.666687000000024, 255.6751972489362 ],
 					"pic" : "Orchis.png"
 				}
 
@@ -404,7 +390,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "jit_matrix" ],
-					"patching_rect" : [ 439.333344, 774.0, 469.666656, 192.522681 ],
+					"patching_rect" : [ 439.333344000000011, 774.0, 469.666655999999989, 192.522681177025959 ],
 					"pic" : "Orchids.png"
 				}
 
@@ -416,8 +402,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 15.666667, 1058.466675, 128.0, 21.0 ],
-					"style" : "",
+					"patching_rect" : [ 15.666667, 1058.466674999999896, 128.0, 21.0 ],
 					"text" : "Problem statement"
 				}
 
@@ -429,8 +414,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 9.0, 429.666626, 102.0, 21.0 ],
-					"style" : "",
+					"patching_rect" : [ 9.0, 429.666626000000008, 102.0, 21.0 ],
 					"text" : "A bit of history"
 				}
 
@@ -443,7 +427,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 9.0, 119.0, 87.0, 21.0 ],
-					"style" : "",
 					"text" : "Introduction"
 				}
 
@@ -455,8 +438,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 15.666667, 1099.06665, 893.333313, 36.0 ],
-					"style" : "",
+					"patching_rect" : [ 15.666667, 1099.066649999999981, 893.333312999999976, 36.0 ],
 					"text" : "By playing a score, you can convert (project) a representation existing in the symbolic space into a representation in the signal space. Is it possible to perform the inverse operation? Should we call this 'induction'?"
 				}
 
@@ -468,8 +450,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 9.0, 707.333313, 900.0, 50.0 ],
-					"style" : "",
+					"patching_rect" : [ 9.0, 707.333312999999976, 900.0, 50.0 ],
 					"text" : "Since then, the problem has been researched at Ircam for more than 15 years and several outcomes have been produced: different tools (Matlab frameworks, Max/MSP interfaces, C++ standalone command line tools, etc.), several PhD thesis including G. Carpentier, D. Tardieu and P. Esling and several journal papers."
 				}
 
@@ -482,8 +463,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 9.0, 657.999939, 900.0, 36.0 ],
-					"style" : "",
+					"patching_rect" : [ 9.0, 657.99993900000004, 900.0, 36.0 ],
 					"text" : "In 2003, I presented to Ircam a proposal for a long-term research project on the subject of computer-assisted orchestration. The results of this research project lead to the prototype softwares, ‘Orchidee’."
 				}
 
@@ -496,8 +476,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 338.666656, 559.0, 570.333374, 50.0 ],
-					"style" : "",
+					"patching_rect" : [ 338.666655999999989, 559.0, 570.333374000000049, 65.0 ],
 					"text" : "Mortuos Plango, Vivos Voco is notable both within and without Harvey's career: \"it showed that IRCAM institute's apparently esoteric research programme could yield music capable of appealing to a wider audience”\n"
 				}
 
@@ -508,8 +487,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 338.666656, 522.0, 341.0, 21.0 ],
-					"style" : "",
+					"patching_rect" : [ 338.666655999999989, 522.0, 341.0, 21.0 ],
 					"text" : "About this research, Curtis Roads commented as follows:"
 				}
 
@@ -520,8 +498,7 @@
 					"maxclass" : "ezdac~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 9.0, 564.0, 45.0, 45.0 ],
-					"style" : ""
+					"patching_rect" : [ 9.0, 564.0, 45.0, 45.0 ]
 				}
 
 			}
@@ -535,8 +512,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 163.166672, 522.0, 167.0, 40.0 ],
-					"style" : "",
+					"patching_rect" : [ 163.166672000000005, 522.0, 167.0, 40.0 ],
 					"text" : "Tip: listen to the original sound used by Harvey"
 				}
 
@@ -545,25 +521,26 @@
 				"box" : 				{
 					"data" : 					{
 						"clips" : [ 							{
+								"absolutepath" : "WinchesterBell.wav",
 								"filename" : "WinchesterBell.wav",
 								"filekind" : "audiofile",
 								"loop" : 0,
 								"content_state" : 								{
-									"pitchshift" : [ 1.0 ],
-									"pitchcorrection" : [ 0 ],
-									"quality" : [ "basic" ],
-									"formantcorrection" : [ 0 ],
-									"slurtime" : [ 0.0 ],
+									"originallengthms" : [ 0.0 ],
+									"basictuning" : [ 440 ],
 									"mode" : [ "basic" ],
+									"pitchcorrection" : [ 0 ],
+									"formant" : [ 1.0 ],
 									"followglobaltempo" : [ 0 ],
 									"play" : [ 0 ],
 									"timestretch" : [ 0 ],
-									"originallengthms" : [ 0.0 ],
-									"basictuning" : [ 440 ],
+									"formantcorrection" : [ 0 ],
+									"quality" : [ "basic" ],
+									"pitchshift" : [ 1.0 ],
 									"originallength" : [ 0.0, "ticks" ],
+									"slurtime" : [ 0.0 ],
 									"speed" : [ 1.0 ],
-									"originaltempo" : [ 120.0 ],
-									"formant" : [ 1.0 ]
+									"originaltempo" : [ 120.0 ]
 								}
 
 							}
@@ -575,8 +552,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 5,
 					"outlettype" : [ "signal", "signal", "signal", "", "dictionary" ],
-					"patching_rect" : [ 9.0, 522.0, 150.0, 30.0 ],
-					"style" : ""
+					"patching_rect" : [ 9.0, 522.0, 150.0, 30.0 ]
 				}
 
 			}
@@ -587,9 +563,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 9.0, 461.333313, 900.0, 50.0 ],
-					"style" : "",
-					"text" : "The first ante-litteram version of this problem has been investigated by the English composer Johnatan Harvey, in his work \"Mortuos plango, vivos voco\" (1981), where he tried to simulate the sound of a bell by a specific model of sound synthesis. It is not by chance that this problem found fertile terrain at Ircam, in Paris, where the influences of the spectralist music were very strong around that period."
+					"patching_rect" : [ 9.0, 461.33331298828125, 900.0, 50.0 ],
+					"text" : "The first ante-litteram version of this problem has been investigated by the English composer Jonathan Harvey, in his work \"Mortuos plango, vivos voco\" (1981), where he tried to simulate the sound of a bell by a specific model of sound synthesis. It is not by chance that this problem found fertile terrain at Ircam, in Paris, where the influences of the spectralist music were very strong around that period."
 				}
 
 			}
@@ -601,7 +576,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 9.0, 148.0, 894.0, 79.0 ],
-					"style" : "",
 					"text" : "The relation between signals and symbols is a central problem for acoustic signal processing. Among different kind of signals, musical signals are specific examples in which there is some information regarding the underlying symbolic structure. While an impressive amount of research has been done in this domain in the past thirty years, the symbolic processing of acoustic and musical signals is still only partially possible.\n\nWhich connections can we make between the symbolic space and the signal space?"
 				}
 
@@ -617,7 +591,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "jit_matrix" ],
-					"patching_rect" : [ 226.833328, 239.0, 465.333344, 97.647671 ],
+					"patching_rect" : [ 226.833327999999995, 239.0, 465.333344000000011, 97.64767063212436 ],
 					"pic" : "symbols_signals.png"
 				}
 
@@ -629,8 +603,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 9.0, 619.999939, 900.0, 36.0 ],
-					"style" : "",
+					"patching_rect" : [ 9.0, 619.99993900000004, 900.0, 51.0 ],
 					"text" : "A  systematic approach developed in 2003, when the French composer Yan Maresz proposed a more formalized statement of the problem:\n\n"
 				}
 
@@ -642,8 +615,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 9.0, 349.000031, 900.0, 65.0 ],
-					"style" : "",
+					"patching_rect" : [ 9.0, 349.000030999999979, 900.0, 65.0 ],
 					"text" : "Assisted orchestration finds its root in this context and can be considered as a possible answer to the previous question. Generally speaking, target-based assisted orchestration can be thought as the process of searching for the best combinations of orchestral sounds to match a target sound under specified metric and constraints. Although a solution to this problem has been a long-standing request from many composers, it remains relatively unexplored because of its high complexity, requiring knowledge and understanding of both mathematical formalization and musical writing."
 				}
 
@@ -657,9 +629,8 @@
 					"mode" : 0,
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 9.0, 62.0, 131.0, 35.235489 ],
-					"proportion" : 0.39,
-					"style" : ""
+					"patching_rect" : [ 9.0, 62.0, 131.0, 35.235489000000001 ],
+					"proportion" : 0.39
 				}
 
 			}
@@ -672,8 +643,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 142.0, 20.735489, 636.0, 57.0 ],
-					"style" : "",
+					"patching_rect" : [ 142.0, 20.735489000000001, 636.0, 57.0 ],
 					"text" : "What is assisted orchestration?",
 					"textjustification" : 1
 				}
@@ -687,7 +657,7 @@
 					"maxclass" : "live.line",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 9.0, 59.0, 894.0, 16.442019 ]
+					"patching_rect" : [ 9.0, 59.0, 894.0, 16.442018999999998 ]
 				}
 
 			}
@@ -695,15 +665,14 @@
 				"box" : 				{
 					"bgcolor" : [ 0.878431, 0.878431, 0.843137, 1.0 ],
 					"fontname" : "Arial",
-					"fontsize" : 79.949177,
+					"fontsize" : 79.949177000000006,
 					"id" : "obj-19",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 9.0, 1.235489, 77.0, 96.0 ],
-					"style" : "",
 					"text" : "0",
-					"textcolor" : [ 0.011765, 0.396078, 0.752941, 1.0 ],
+					"textcolor" : [ 0.011765000410378, 0.396077990531921, 0.752941012382507, 1.0 ],
 					"textjustification" : 1
 				}
 
@@ -712,8 +681,6 @@
 		"lines" : [ 			{
 				"patchline" : 				{
 					"destination" : [ "obj-22", 1 ],
-					"disabled" : 0,
-					"hidden" : 0,
 					"source" : [ "obj-11", 1 ]
 				}
 
@@ -721,8 +688,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-22", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
 					"source" : [ "obj-11", 0 ]
 				}
 
@@ -730,7 +695,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-26", 0 ],
-					"disabled" : 0,
 					"hidden" : 1,
 					"source" : [ "obj-13", 0 ]
 				}
@@ -739,8 +703,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-17", 1 ],
-					"disabled" : 0,
-					"hidden" : 0,
 					"source" : [ "obj-14", 1 ]
 				}
 
@@ -748,8 +710,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-17", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
 					"source" : [ "obj-14", 0 ]
 				}
 
@@ -757,8 +717,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-22", 1 ],
-					"disabled" : 0,
-					"hidden" : 0,
 					"source" : [ "obj-16", 1 ]
 				}
 
@@ -766,8 +724,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-22", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
 					"source" : [ "obj-16", 0 ]
 				}
 
@@ -775,8 +731,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-22", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
 					"source" : [ "obj-24", 0 ]
 				}
 
@@ -784,7 +738,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-39", 0 ],
-					"disabled" : 0,
 					"hidden" : 1,
 					"source" : [ "obj-26", 0 ]
 				}
@@ -793,65 +746,30 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-17", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
 					"source" : [ "obj-43", 0 ]
 				}
 
 			}
  ],
 		"dependency_cache" : [ 			{
-				"name" : "symbols_signals.png",
-				"bootpath" : "~/Documents/Max 7/Packages/orchidea/media",
-				"type" : "PNG ",
-				"implicit" : 1
-			}
-, 			{
 				"name" : "WinchesterBell.wav",
-				"bootpath" : "~/Documents/Max 7/Packages/orchidea/media",
+				"bootpath" : "~/Documents/Max 8/Packages/orchidea/media",
+				"patcherrelativepath" : "../../media",
 				"type" : "WAVE",
 				"implicit" : 1
 			}
 , 			{
-				"name" : "Orchids.png",
-				"bootpath" : "~/Documents/Max 7/Packages/orchidea/media",
-				"type" : "PNG ",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "Orchis.png",
-				"bootpath" : "~/Documents/Max 7/Packages/orchidea/media",
-				"type" : "PNG ",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "induction.png",
-				"bootpath" : "~/Documents/Max 7/Packages/orchidea/media",
-				"type" : "PNG ",
-				"implicit" : 1
-			}
-, 			{
 				"name" : "archeos-bell.wav",
-				"bootpath" : "~/Documents/Max 7/Packages/orchidea/media",
+				"bootpath" : "~/Documents/Max 8/Packages/orchidea/media",
+				"patcherrelativepath" : "../../media",
 				"type" : "WAVE",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "archeos_solution_0.wav",
-				"bootpath" : "~/Documents/Max 7/Packages/orchidea/media",
+				"bootpath" : "~/Documents/Max 8/Packages/orchidea/media",
+				"patcherrelativepath" : "../../media",
 				"type" : "WAVE",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "multidim.png",
-				"bootpath" : "~/Documents/Max 7/Packages/orchidea/media",
-				"type" : "PNG ",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "model.png",
-				"bootpath" : "~/Documents/Max 7/Packages/orchidea/media",
-				"type" : "PNG ",
 				"implicit" : 1
 			}
  ],
