@@ -37,6 +37,7 @@ struct Parameters {
 		onsets_timegate = .1;
 		partials_window = 32768;
 		partials_filtering = .2;
+		regularization = 0;
 		export_solutions = 10;
 		t60 = 2.6;
 		dry_wet.resize (2);
@@ -135,6 +136,8 @@ struct Parameters {
         	positive_penalization = atof (tokens[1].c_str ());
         } else if (tokens[0] == "negative_penalization") {
         	negative_penalization = atof (tokens[1].c_str ());
+        } else if (tokens[0] == "regularization") {
+        	regularization = atof (tokens[1].c_str ());
         } else if (tokens[0] == "partials_window") {
         	partials_window = atol (tokens[1].c_str ());
         } else if (tokens[0] == "partials_filtering") {
@@ -146,7 +149,7 @@ struct Parameters {
         	}
         } else if (tokens[0] == "export_solutions") {
         	export_solutions = atol (tokens[1].c_str ());
-        } else if (tokens[0] == "t60") {
+        }  else if (tokens[0] == "t60") {
         	t60 = atof (tokens[1].c_str ());
         }  else if (tokens[0] == "dry_wet") {
 	        if (tokens.size () < 3) {
@@ -219,6 +222,7 @@ struct Parameters {
 	T sparsity;
 	T positive_penalization;
 	T negative_penalization;
+	T regularization;
 	T onsets_threshold;
 	T onsets_timegate;	
 	int partials_window;

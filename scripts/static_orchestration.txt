@@ -68,8 +68,8 @@ styles 				ord
 ; for dynamic targets probably using 100 for both (or 100 and 300 respectively) 
 ; can be more appropriate.
 
-pop_size			500
-max_epochs			500
+pop_size			300
+max_epochs			300
 
 ; To determine the initial population for the optimization, Anarkid uses a method
 ; called 'relaxed pursuit'. Generally speaking, the method tries to generate right
@@ -98,9 +98,9 @@ mutation_rate		0.01
 ; Suggestion: use 0.01 for general targets, 0.001 for symphonic targets, 0.1 for
 ; single notes of instruments used as targets.
 
-sparsity			0.01
+sparsity			0.001
 
-; The way Anarkid determins if a solution is close or not to the target is given 
+; The way Orchidea determins if a solution is close or not to the target is given 
 ; by an asymmetric function that considers differently cases in which a solution
 ; found partials that are present in the target or partials that are not present.
 ; In the latter case, usually, the penalization should be stronger since we don't
@@ -111,6 +111,12 @@ sparsity			0.01
 
 positive_penalization .5
 negative_penalization 10
+
+; The regularization (L1-like) sponors sparse solutions.
+; Suggestion: use 0 if you don't know about L1-regularization, or something >10
+; if you want to apply it (NB: the effect depends on the real amplitude of the features)
+
+regularization 0
 
 ; TARGET -----------------------------------------------------------------------
 
@@ -126,7 +132,7 @@ negative_penalization 10
 ; than pitch, and something between 0.1 < x < 0.3 if pitches are also important.
 
 partials_window		32768
-partials_filtering	0.2
+partials_filtering	0
 
 ; If, after the target analysis, there are still some pitches that are missing
 ; you can add them here in standard notation (ex. A4, B#3, ...)

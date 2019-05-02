@@ -256,15 +256,15 @@ void partials_to_notes (const T* buffer, int samples, std::map<std::string, int>
 		}
 	}
 
-	// WavOutFile out("target.wav", DEFAULT_SR, 16, 1);
-	// unsigned samples = (unsigned) (2. * DEFAULT_SR);
-	// T* buff = new T[samples];
-	// memset(buff, 0, sizeof (T) * samples);
+	// WavOutFile out("estimated_target.wav", DEFAULT_SR, 16, 1);
+	// unsigned samplesN = (unsigned) (2. * DEFAULT_SR);
+	// T* buff = new T[samplesN];
+	// memset(buff, 0, sizeof (T) * samplesN);
 
-	// T* win = new T[samples];
-	// makeWindow<T>(win, samples, .5, .5, 0.);
+	// T* win = new T[samplesN];
+	// makeWindow<T>(win, samplesN, .5, .5, 0.);
 
-	// for (unsigned i = 0; i < samples; ++i) {
+	// for (unsigned i = 0; i < samplesN; ++i) {
 	// 	for (unsigned j = 0; j < peaks.size (); ++j) {
 	// 		buff[i] += spectrum[peaks[j]] * sin (2. * M_PI * freq[peaks[j]] 
 	// 			* ((T) i / DEFAULT_SR));
@@ -272,7 +272,7 @@ void partials_to_notes (const T* buffer, int samples, std::map<std::string, int>
 	// 	buff[i] *= .125 * win[i];
 	// }
 
-	// out.write(buff, samples);	
+	// out.write(buff, samplesN);	
 
 	// delete [] buff;
 	// delete [] win;

@@ -211,7 +211,13 @@ private:
 			if (diff >= 0) s += OptimizerI<T>::parameters->positive_penalization *  diff;
  			else s +=  OptimizerI<T>::parameters->negative_penalization * fabs (diff);
 		}
-		return s;
+
+		long sum = 0;
+		for (unsigned i = 0; i < id.indices.size (); ++i) {
+			if (id.indices.at (i) != -1) ++sum;
+		}
+		T reg = OptimizerI<T>::parameters->regularization * sum;
+		return s + reg;
 
 		// return edistance<T>(&values[0], &target[0], target.size ());
 	}
