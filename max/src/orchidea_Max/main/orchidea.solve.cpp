@@ -879,101 +879,124 @@ void dbpath_to_soundpath(char *dbpath, char *soundpath) {
     snprintf(soundpath, MAX_PATH_CHARS, "%s", out.c_str());
 }
 
-void orchmax_solve_anything_do(t_solver *x, t_symbol *s, long ac, t_atom *av) {
-    if (s == gensym("resetfilters")) {
-        if (x->verbose) object_post((t_object*) x, "resetting all filters");
 
-        orchidea_reset_filters(x->orc_hand);
-        
+void orchidea_reset_filters_defer(t_solver *x, t_symbol *s, long ac, t_atom *av) {
+    if (x->verbose) object_post((t_object*) x, "resetting all filters");
+    orchidea_reset_filters(x->orc_hand);
+}
+
+void orchidea_setdb_defer(t_solver *x, t_symbol *s, long ac, t_atom *av) {
+    // heavy actions are executed in a separated thread (or pool)
+    thread_data *d = (thread_data *)sysmem_newptr(sizeof(thread_data)); // delete after thread call - I think it works since thare are no modif during thread
+    d->x = (t_object *)x;
+    
+    if (x->running_threads >= ORCHIDEA_SOLVE_MAX_THREADS) {
+        object_warn((t_object*) x, "pending actions; please retry later...");
+        return;
+    }
+    
+    // set database
+    long j = 0;
+    d->s = gensym("dbfiles");
+    d->ac = (s && s != gensym("list") ? ac + 1 : ac);
+    d->av = (t_atom *)sysmem_newptr(d->ac * sizeof(t_atom));
+    if (s && s != gensym("list")) {
+        atom_setsym(d->av, s);
+        j++;
+    }
+    for (long i = 0; i < ac; i++)
+        d->av[j++] = av[i];
+    
+    // setting sound paths properly, if soundpaths is default
+    char** sl  = (char**)sysmem_newptr((d->ac + 1) * sizeof (char*));
+    sl[0] = (char*) "sound_paths";
+    for (long i = 1; i < d->ac + 1; i++) {
+        sl[i] = (char *)sysmem_newptr(MAX_PATH_CHARS * sizeof(char));
+    }
+    for (long i = 0; i < d->ac; i++) { // cycle on each of the db file names
+        if (i >= x->soundpaths_size || x->soundpaths[i] == gensym("default")) { // if the soundpath attribute is "default"
+            t_symbol *this_path = orchidea_ezlocate_file(atom_getsym(d->av+i)); // take the current db filename
+            if (this_path) {
+                dbpath_to_soundpath(this_path->s_name, sl[i+1]); // if it exists (should ALWAYS be the case), strip it
+            } else {
+                snprintf_zero(sl[i+1], MAX_PATH_CHARS, "%s", x->soundpaths[i]->s_name);
+            }
+        } else {
+            snprintf_zero(sl[i+1], MAX_PATH_CHARS, "%s", x->soundpaths[i]->s_name);
+        }
+    }
+    orchidea_set_param(x->orc_hand, (const char**) sl, (int) d->ac + 1);
+    if (x->verbose) object_post((t_object *)x, "sounds have been set correctly");
+    for (long i = 1; i < d->ac + 1; i++) {
+        sysmem_freeptr(sl[i]);
+    }
+    sysmem_freeptr(sl);
+    
+    if (x->parallel) {
+        pthread_create(&x->thread_pool[x->running_threads], NULL, orchidea_solve_dispatcher, (void*) d);
     } else {
-        long inlet = proxy_getinlet((t_object *) x);
+        orchidea_solve_dispatcher(d);
+    }
+}
 
-        thread_data *d = (thread_data *)sysmem_newptr(sizeof(thread_data)); // delete after thread call - I think it works since thare are no modif during thread
-        d->x = (t_object *)x;
-        
-        if (inlet == 0) {
-            // heavy actions are executed in a separated thread (or pool)
-            if (x->running_threads >= ORCHIDEA_SOLVE_MAX_THREADS) {
-                object_warn((t_object*) x, "pending actions; please retry later...");
-                return;
-            }
-            
-            // set target and orchestrate
-            d->s = gensym("target");
-            d->ac = 1;
-            d->av = (t_atom *)sysmem_newptr(sizeof(t_atom));
-            atom_setsym(d->av, s ? s : (ac ? atom_getsym(av) : gensym("none") /*should never happen*/));
-            
-        } else if (inlet == 1) {
-            // set orchestra
-            long j = 0;
-            d->s = gensym("orchestra");
-            d->ac = (s && s != gensym("list") ? ac + 1 : ac);
-            d->av = (t_atom *)sysmem_newptr(d->ac * sizeof(t_atom));
-            if (s && s != gensym("list")) {
-                atom_setsym(d->av, s);
-                j++;
-            }
-            for (long i = 0; i < ac; i++)
-                d->av[j++] = av[i];
-            
-            object_attr_setvalueof((t_object *)x, gensym("orchestra"), d->ac, d->av);
-            sysmem_freeptr(d->av);
-            return;
-        } else {
-            // heavy actions are executed in a separated thread (or pool)
-            if (x->running_threads >= ORCHIDEA_SOLVE_MAX_THREADS) {
-                object_warn((t_object*) x, "pending actions; please retry later...");
-                return;
-            }
-            
-            // set database
-            long j = 0;
-            d->s = gensym("dbfiles");
-            d->ac = (s && s != gensym("list") ? ac + 1 : ac);
-            d->av = (t_atom *)sysmem_newptr(d->ac * sizeof(t_atom));
-            if (s && s != gensym("list")) {
-                atom_setsym(d->av, s);
-                j++;
-            }
-            for (long i = 0; i < ac; i++)
-                d->av[j++] = av[i];
-            
-            // setting sound paths properly, if soundpaths is default
-            char** sl  = (char**)sysmem_newptr((d->ac + 1) * sizeof (char*));
-            sl[0] = (char*) "sound_paths";
-            for (long i = 1; i < d->ac + 1; i++) {
-                sl[i] = (char *)sysmem_newptr(MAX_PATH_CHARS * sizeof(char));
-            }
-            for (long i = 0; i < d->ac; i++) { // cycle on each of the db file names
-                if (i >= x->soundpaths_size || x->soundpaths[i] == gensym("default")) { // if the soundpath attribute is "default"
-                    t_symbol *this_path = orchidea_ezlocate_file(atom_getsym(d->av+i)); // take the current db filename
-                    if (this_path) {
-                        dbpath_to_soundpath(this_path->s_name, sl[i+1]); // if it exists (should ALWAYS be the case), strip it
-                    } else {
-                        snprintf_zero(sl[i+1], MAX_PATH_CHARS, "%s", x->soundpaths[i]->s_name);
-                    }
-                } else {
-                    snprintf_zero(sl[i+1], MAX_PATH_CHARS, "%s", x->soundpaths[i]->s_name);
-                }
-            }
-            orchidea_set_param(x->orc_hand, (const char**) sl, (int) d->ac + 1);
-            if (x->verbose) object_post((t_object *)x, "sounds have been set correctly");
-            for (long i = 1; i < d->ac + 1; i++) {
-                sysmem_freeptr(sl[i]);
-            }
-            sysmem_freeptr(sl);
-        }
-        if (x->parallel) {
-            pthread_create(&x->thread_pool[x->running_threads], NULL, orchidea_solve_dispatcher, (void*) d);
-        } else {
-            orchidea_solve_dispatcher(d);
-        }
+void orchidea_setorchestra_defer(t_solver *x, t_symbol *s, long ac, t_atom *av) {
+    // set orchestra
+    long j = 0;
+    t_symbol *d_s = gensym("orchestra");
+    long d_ac = (s && s != gensym("list") ? ac + 1 : ac);
+    t_atom *d_av = (t_atom *)sysmem_newptr(d_ac * sizeof(t_atom));
+    if (s && s != gensym("list")) {
+        atom_setsym(d_av, s);
+        j++;
+    }
+    for (long i = 0; i < ac; i++)
+        d_av[j++] = av[i];
+    
+    object_attr_setvalueof((t_object *)x, gensym("orchestra"), d_ac, d_av);
+    sysmem_freeptr(d_av);
+}
+
+void orchidea_settarget_defer(t_solver *x, t_symbol *s, long ac, t_atom *av) {
+    // heavy actions are executed in a separated thread (or pool)
+    thread_data *d = (thread_data *)sysmem_newptr(sizeof(thread_data)); // delete after thread call - I think it works since thare are no modif during thread
+    d->x = (t_object *)x;
+    
+    if (x->running_threads >= ORCHIDEA_SOLVE_MAX_THREADS) {
+        object_warn((t_object*) x, "pending actions; please retry later...");
+        return;
+    }
+    
+    // set target and orchestrate
+    d->s = gensym("target");
+    d->ac = 1;
+    d->av = (t_atom *)sysmem_newptr(sizeof(t_atom));
+    atom_setsym(d->av, s ? s : (ac ? atom_getsym(av) : gensym("none") /*should never happen*/));
+
+    if (x->parallel) {
+        pthread_create(&x->thread_pool[x->running_threads], NULL, orchidea_solve_dispatcher, (void*) d);
+    } else {
+        orchidea_solve_dispatcher(d);
     }
 }
 
 void orchmax_solve_anything(t_solver *x, t_symbol *s, long ac, t_atom *av) {
-    defer(x, (method)orchmax_solve_anything_do, s, ac, av);
+
+    if (s == gensym("resetfilters")) {
+        defer(x, (method)orchidea_reset_filters_defer, s, ac, av);
+    } else {
+        long inlet = proxy_getinlet((t_object *) x);
+        
+        thread_data *d = (thread_data *)sysmem_newptr(sizeof(thread_data)); // delete after thread call - I think it works since thare are no modif during thread
+        d->x = (t_object *)x;
+        
+        if (inlet == 0) {
+            defer((t_object *)x, (method)orchidea_settarget_defer, s, ac, av);
+        } else if (inlet == 1) {
+            defer((t_object *)x, (method)orchidea_setorchestra_defer, s, ac, av);
+        } else {
+            defer((t_object *)x, (method)orchidea_setdb_defer, s, ac, av);
+        }
+    }
 }
 
 void notifier (const char* action, void* user_data) {
